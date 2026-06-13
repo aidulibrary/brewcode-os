@@ -1,0 +1,115 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "深烘危地马拉 · 危地马拉 安提瓜 水洗 深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "深烘危地马拉的醇厚方案。降低水温至 85°C，减少苦味萃取，同时保留可可和烟熏的深沉特质。V60 02 三段注水，快速完成避免过度萃取。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "危地马拉", "深烘", "水洗", "低温"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "危地马拉 安提瓜 水洗 深烘",
+    "origin": { "country": "危地马拉", "region": "安提瓜" },
+    "variety": "Bourbon",
+    "process": "水洗",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑巧克力", "烟熏", "焦糖", "雪松"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "树脂",
+    "brewerSize": "02",
+    "filter": "V60 漂白",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 18, "unit": "g" },
+    "waterAmount": { "value": 252, "unit": "ml" },
+    "ratio": "1:14",
+    "grindSize": { "value": 24, "unit": "C40 click", "description": "中粗研磨，深烘豆需要更粗研磨避免苦味" },
+    "waterTemperature": { "value": 85, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 150, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 30, "unit": "s" }
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "润湿滤纸，预热 V60 02 滤杯和分享壶。倒掉预热用水。" },
+    { "order": 2, "action": "dose", "description": "将 18g 深烘咖啡粉倒入滤杯，轻拍平整。深烘豆粉床较蓬松。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 36ml 水，85°C，从中心向外快速绕圈。深烘豆闷蒸 30 秒足够，避免苦味过度释放。",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 36, "unit": "ml" },
+      "cumulativeWater": { "value": 36, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 120ml，中水流。深烘豆流速快，控制注水节奏。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 84, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "targetWeight": { "value": 120, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。深烘豆流速快，等待时间短。",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 190ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 70, "unit": "ml" },
+      "cumulativeWater": { "value": 190, "unit": "ml" },
+      "targetWeight": { "value": 190, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 15, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 252ml。粉末比 1:14 比常规更浓，匹配深烘豆的醇厚风格。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 62, "unit": "ml" },
+      "cumulativeWater": { "value": 252, "unit": "ml" },
+      "targetWeight": { "value": 252, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 2 分 30 秒。深烘豆萃取窗口短，需要快速完成。",
+      "duration": { "value": 40, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑巧克力般醇厚浓郁、轻微烟熏感、焦糖甜感、雪松般木质调性的收尾。低温萃取有效控制了深烘的苦味。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 148, "unit": "s" },
+    "finalYield": { "value": 220, "unit": "g" },
+    "measuredTDS": 1.48,
+    "extractionYield": 21.5,
+    "rating": 7.8
+  }
+}

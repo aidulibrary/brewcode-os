@@ -1,0 +1,123 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "深烘巴西 · 巴西 喜拉多 日晒 深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "深烘巴西日晒豆的 Kalita Wave 185 方案。低温粗研磨，配合平底滤杯的均匀萃取，展现深烘豆的坚果、焦糖和黑巧克力风味，避免苦味过度。",
+    "license": "CC-BY-4.0",
+    "tags": ["Kalita Wave", "巴西", "深烘", "日晒", "低温"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "巴西 喜拉多 日晒 深烘",
+    "origin": { "country": "巴西", "region": "喜拉多" },
+    "variety": "Bourbon",
+    "process": "日晒",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑巧克力", "坚果", "焦糖", "烤面包"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "185",
+    "filter": "Kalita 波浪 185",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 280, "unit": "ml" },
+    "ratio": "1:14",
+    "grindSize": { "value": 28, "unit": "C40 click", "description": "粗研磨，深烘豆专用" },
+    "waterTemperature": { "value": 85, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 30, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "折叠 Kalita 185 波浪滤纸，用热水充分润湿并预热滤杯。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 20g 深烘咖啡粉倒入滤杯，轻拍平整。粗研磨使粉床空隙更大，流速更快。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 40ml 水，85°C，从中心向外快速绕圈。深烘豆闷蒸 30 秒。",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 40, "unit": "ml" },
+      "cumulativeWater": { "value": 40, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 140ml，中水流。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 140, "unit": "ml" },
+      "targetWeight": { "value": 140, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 210ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 70, "unit": "ml" },
+      "cumulativeWater": { "value": 210, "unit": "ml" },
+      "targetWeight": { "value": 210, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 280ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 70, "unit": "ml" },
+      "cumulativeWater": { "value": 280, "unit": "ml" },
+      "targetWeight": { "value": 280, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分钟。",
+      "duration": { "value": 55, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑巧克力般醇厚、坚果香气、焦糖甜感、烤面包般的温暖收尾。Kalita 平底设计的均匀萃取使深烘豆的苦味控制得当。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 182, "unit": "s" },
+    "finalYield": { "value": 245, "unit": "g" },
+    "measuredTDS": 1.5,
+    "extractionYield": 22.0,
+    "rating": 7.8
+  }
+}

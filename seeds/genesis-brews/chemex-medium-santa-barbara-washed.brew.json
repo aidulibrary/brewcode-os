@@ -1,0 +1,119 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "Chemex 中美洲 · 洪都拉斯 圣巴巴拉 水洗",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "洪都拉斯的焦糖甜感和牛奶巧克力风味在 Chemex 厚滤纸中变得极为干净柔和。大份量方案，适合 3-4 人分享。",
+    "license": "CC-BY-4.0",
+    "tags": ["Chemex", "洪都拉斯", "中烘", "水洗", "大份量"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "洪都拉斯 圣巴巴拉 水洗",
+    "origin": { "country": "洪都拉斯", "region": "圣巴巴拉" },
+    "variety": "Catuai",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["焦糖", "牛奶巧克力", "麦芽", "柑橘"]
+  },
+  "equipment": {
+    "brewer": "Chemex",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "8杯",
+    "filter": "Chemex 专用滤纸",
+    "grinder": "EK43",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 40, "unit": "g" },
+    "waterAmount": { "value": 600, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 15, "unit": "EK43 刻度", "description": "中粗研磨" },
+    "waterTemperature": { "value": 91, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 300, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 60, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 Chemex 专用滤纸折叠（三层朝壶嘴侧），用热水充分润湿并预热 Chemex。倒掉预热用水。"
+    },
+    { "order": 2, "action": "dose", "description": "将 40g 咖啡粉倒入滤纸，轻轻拍平。大粉量需要均匀分布。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 120ml 水，91°C，从中心向外慢速绕圈，确保所有咖啡粉被浸润。大粉量充分闷蒸 60 秒。",
+      "duration": { "value": 60, "unit": "s" },
+      "waterAmount": { "value": 120, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 300ml，中水流。",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 180, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "targetWeight": { "value": 300, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 40, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 450ml。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 150, "unit": "ml" },
+      "cumulativeWater": { "value": 450, "unit": "ml" },
+      "targetWeight": { "value": 450, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 35, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 600ml。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 150, "unit": "ml" },
+      "cumulativeWater": { "value": 600, "unit": "ml" },
+      "targetWeight": { "value": 600, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 5 分钟。",
+      "duration": { "value": 90, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：焦糖甜感干净柔和、牛奶巧克力般丝滑口感、麦芽香气、柑橘般清爽收尾。Chemex 的厚滤纸使整体口感极为干净。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 305, "unit": "s" },
+    "finalYield": { "value": 520, "unit": "g" },
+    "measuredTDS": 1.3,
+    "extractionYield": 19.8,
+    "rating": 8.0
+  }
+}
