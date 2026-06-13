@@ -1,0 +1,145 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "曼特宁低温慢萃 · 印尼 苏门答腊 湿刨 深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "深烘曼特宁在 Kalita 155 平底滤杯中的低温慢萃方案。82°C 极低水温、粗研磨、四段等量注水，配合 Kalita 三孔缓慢流速，充分提取曼特宁的香料和黑巧克力风味，同时将苦味控制在舒适的范围内。",
+    "license": "CC-BY-4.0",
+    "tags": ["Kalita Wave", "曼特宁", "深烘", "湿刨", "印尼", "低温慢萃"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "印尼 苏门答腊 曼特宁 湿刨 深烘",
+    "origin": { "country": "印尼", "region": "苏门答腊" },
+    "variety": "Typica",
+    "process": "湿刨",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑巧克力", "香料", "雪松", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪 155",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 210, "unit": "ml" },
+    "ratio": "1:14",
+    "grindSize": { "value": 30, "unit": "C40 click", "description": "粗研磨，深烘豆专用，减少细粉" },
+    "waterTemperature": { "value": 82, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 210, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 35, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "折叠 Kalita 波浪滤纸，放入 155 陶瓷滤杯。用热水充分润湿并预热。Kalita 陶瓷保温性优于不锈钢，适合长时间低温萃取。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15g 深烘曼特宁咖啡粉倒入滤杯，轻拍平整。粗研磨减少细粉，降低苦味风险。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 30ml 水，82°C，从中心向外慢速绕圈。极低温度减少深烘豆的苦味释放。闷蒸 35 秒。",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 75ml，细水流。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 75, "unit": "ml" },
+      "targetWeight": { "value": 75, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。Kalita 三孔流速慢，等待时间较长。",
+      "duration": { "value": 25, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 120ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "targetWeight": { "value": 120, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 25, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：绕圈注水至 165ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 165, "unit": "ml" },
+      "targetWeight": { "value": 165, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    { "order": 9, "action": "wait", "description": "等待水面下降。", "duration": { "value": 25, "unit": "s" } },
+    {
+      "order": 10,
+      "action": "pour",
+      "description": "第四段注水：中心定点注水至 210ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 210, "unit": "ml" },
+      "targetWeight": { "value": 210, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 11,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分 30 秒。",
+      "duration": { "value": 55, "unit": "s" }
+    },
+    {
+      "order": 12,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑巧克力般浓郁醇厚、香料般的温暖感、雪松木质调性、焦糖甜感。82°C 极低温萃取使深烘曼特宁的苦味得到极好控制，展现出少见的干净度。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 215, "unit": "s" },
+    "finalYield": { "value": 185, "unit": "g" },
+    "measuredTDS": 1.52,
+    "extractionYield": 21.5,
+    "rating": 7.8,
+    "flavorProfile": {
+      "acidity": 2.0,
+      "sweetness": 6.5,
+      "bitterness": 4.5,
+      "body": 8.5,
+      "cleanCup": 7.0,
+      "aftertaste": 7.0,
+      "balance": 7.0,
+      "aroma": 8.0
+    }
+  }
+}
