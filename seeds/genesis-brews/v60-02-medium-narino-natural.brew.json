@@ -1,0 +1,127 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "五段慢注 · 哥伦比亚 娜玲珑 日晒",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "五段小水量注水方案，每段等量 54ml，配合中烘哥伦比亚日晒豆。多次注水提高萃取均匀度，同时每次小水量避免过度萃取，展现焦糖甜感和热带水果风味。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "五段注水", "中烘", "日晒", "哥伦比亚"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "哥伦比亚 娜玲珑 日晒",
+    "origin": { "country": "哥伦比亚", "region": "娜玲珑" },
+    "variety": "Castillo",
+    "process": "日晒",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["焦糖", "芒果", "红苹果", "可可"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "02",
+    "filter": "V60 漂白",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 18, "unit": "g" },
+    "waterAmount": { "value": 270, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 21, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 91, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 45, "unit": "s" }
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "润湿漂白滤纸，预热 V60 02 滤杯和分享壶。倒掉预热用水。" },
+    { "order": 2, "action": "dose", "description": "将 18g 咖啡粉倒入滤杯，轻拍平整。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 54ml 水，91°C，从中心向外慢速绕圈。闷蒸 45 秒。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 54, "unit": "ml" },
+      "cumulativeWater": { "value": 54, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水 54ml 至 108ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 54, "unit": "ml" },
+      "cumulativeWater": { "value": 108, "unit": "ml" },
+      "targetWeight": { "value": 108, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水 54ml 至 162ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 54, "unit": "ml" },
+      "cumulativeWater": { "value": 162, "unit": "ml" },
+      "targetWeight": { "value": 162, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 15, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：绕圈注水 54ml 至 216ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 54, "unit": "ml" },
+      "cumulativeWater": { "value": 216, "unit": "ml" },
+      "targetWeight": { "value": 216, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 9, "action": "wait", "description": "等待水面下降。", "duration": { "value": 15, "unit": "s" } },
+    {
+      "order": 10,
+      "action": "pour",
+      "description": "第四段注水：中心定点注水 54ml 至 270ml。最后一段用定点注水，减少对粉床的扰动。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 54, "unit": "ml" },
+      "cumulativeWater": { "value": 270, "unit": "ml" },
+      "targetWeight": { "value": 270, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 11,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分钟。",
+      "duration": { "value": 45, "unit": "s" }
+    },
+    {
+      "order": 12,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：焦糖甜感饱满、芒果般热带果香、红苹果酸质、可可般柔和的收尾。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 182, "unit": "s" },
+    "finalYield": { "value": 235, "unit": "g" },
+    "measuredTDS": 1.33,
+    "extractionYield": 20.0,
+    "rating": 8.0
+  }
+}

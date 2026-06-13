@@ -1,0 +1,90 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "法压壶 James Hoffmann 法 · 巴西 喜拉多 日晒",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "James Hoffmann 的法压壶终极方案——延长浸泡时间、破壳、撇浮沫、再静置。出品干净度远超传统法压，同时保留法压壶标志性的醇厚口感。",
+    "license": "CC-BY-4.0",
+    "tags": ["法压壶", "French Press", "深烘", "日晒", "巴西"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "巴西 喜拉多 日晒",
+    "origin": { "country": "巴西", "region": "喜拉多" },
+    "variety": "Bourbon",
+    "process": "日晒",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑巧克力", "烤坚果", "焦糖", "烟丝"]
+  },
+  "equipment": {
+    "brewer": "法压壶",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "350ml",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 300, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 30, "unit": "C40 click", "description": "粗研磨，法压壶专用" },
+    "waterTemperature": { "value": 92, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 540, "unit": "s" }
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "确认法压壶洁净无异味。用热水预热壶身，倒掉预热用水。" },
+    { "order": 2, "action": "dose", "description": "将 20g 咖啡粉倒入法压壶。粗研磨减少细粉，避免过度萃取。" },
+    {
+      "order": 3,
+      "action": "pour",
+      "description": "一次性注入 300ml 热水，92°C，确保所有咖啡粉被浸润。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 300, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "大水流"
+    },
+    {
+      "order": 4,
+      "action": "wait",
+      "description": "盖上壶盖但不压下滤网，浸泡 4 分钟。",
+      "duration": { "value": 240, "unit": "s" }
+    },
+    {
+      "order": 5,
+      "action": "stir",
+      "description": "用勺子轻轻打破表面浮壳，搅拌使咖啡粉沉降。",
+      "duration": { "value": 5, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "wait",
+      "description": "用勺子撇去表面浮沫和细粉。静置 5 分钟，让细粉沉降到底部。",
+      "duration": { "value": 300, "unit": "s" }
+    },
+    {
+      "order": 7,
+      "action": "prepare",
+      "description": "将滤网轻轻压至液面下方（不要压到底），缓慢倒出咖啡液。",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑巧克力般醇厚、烤坚果香气、焦糖甜感、烟丝般深沉的尾韵。法压壶的金属滤网保留了咖啡油脂，口感饱满。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 570, "unit": "s" },
+    "finalYield": { "value": 260, "unit": "g" },
+    "measuredTDS": 1.42,
+    "extractionYield": 21.2,
+    "rating": 8.0
+  }
+}

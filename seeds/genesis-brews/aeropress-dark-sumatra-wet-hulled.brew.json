@@ -1,0 +1,107 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "爱乐压 Tim Wendelboe 法 · 印尼 苏门答腊 湿刨",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "借鉴 Tim Wendelboe 的经典爱乐压方案，配合深烘印尼曼特宁。低温慢萃，压制出浓郁醇厚的口感，展现香料、黑巧克力和烟熏特质。",
+    "license": "CC-BY-4.0",
+    "tags": ["爱乐压", "Aeropress", "深烘", "湿刨", "印尼"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "印尼 苏门答腊 曼特宁 湿刨",
+    "origin": { "country": "印尼", "region": "苏门答腊" },
+    "variety": "Typica",
+    "process": "湿刨",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑巧克力", "香料", "烟熏", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "爱乐压",
+    "brewerMaterial": "塑料",
+    "filter": "爱乐压 原装滤纸",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 14, "unit": "g" },
+    "waterAmount": { "value": 200, "unit": "ml" },
+    "ratio": "1:14.3",
+    "grindSize": { "value": 16, "unit": "C40 click", "description": "中细研磨，比手冲略细" },
+    "waterTemperature": { "value": 85, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 120, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 20, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将爱乐压滤纸放入滤盖，用热水润湿。组装爱乐压（反压法），将活塞推至 4 号标记处。"
+    },
+    { "order": 2, "action": "dose", "description": "将 14g 咖啡粉倒入爱乐压筒身。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 30ml 水，85°C，确保所有咖啡粉被浸润。闷蒸 20 秒。",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "一次性注入剩余 170ml 水至 200ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 170, "unit": "ml" },
+      "cumulativeWater": { "value": 200, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "stir",
+      "description": "用搅拌棒轻轻搅拌 3 圈，确保咖啡粉均匀悬浮。",
+      "duration": { "value": 5, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "wait",
+      "description": "盖上滤盖，浸泡 60 秒。深烘豆低温慢萃，减少苦味。",
+      "duration": { "value": 60, "unit": "s" }
+    },
+    { "order": 7, "action": "prepare", "description": "将杯子倒扣在滤盖上，快速翻转爱乐压。" },
+    {
+      "order": 8,
+      "action": "wait",
+      "description": "等待 30 秒，让咖啡粉沉降。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 9,
+      "action": "pour",
+      "description": "缓慢均匀地按压活塞，约 30 秒完成。听到嘶嘶声时停止。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑巧克力般醇厚、香料般的温暖感、轻微烟熏、焦糖甜感。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 125, "unit": "s" },
+    "finalYield": { "value": 175, "unit": "g" },
+    "measuredTDS": 1.45,
+    "extractionYield": 21.0,
+    "rating": 8.0
+  }
+}

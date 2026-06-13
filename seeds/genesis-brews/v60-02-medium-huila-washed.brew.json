@@ -1,0 +1,120 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "经典三段式 · 哥伦比亚 蕙兰 水洗",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "经典三段式注水方案，适合中烘哥伦比亚豆。三段注水逐段递减，释放出焦糖甜感、坚果风味和柔和的巧克力尾韵。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "三段注水", "经典方案", "中烘", "水洗"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "哥伦比亚 蕙兰 水洗",
+    "origin": { "country": "哥伦比亚", "region": "蕙兰" },
+    "variety": "Caturra",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["焦糖", "坚果", "巧克力", "红苹果"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "树脂",
+    "brewerSize": "02",
+    "filter": "V60 漂白",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 18, "unit": "g" },
+    "waterAmount": { "value": 270, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 20, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 150, "unit": "s" },
+    "bloomRatio": "1:2.5",
+    "bloomTime": { "value": 35, "unit": "s" }
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "润湿滤纸，预热 V60 02 滤杯和分享壶。倒掉预热用水。" },
+    { "order": 2, "action": "dose", "description": "将 18g 咖啡粉倒入滤杯，轻拍使粉床平整均匀。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 45ml 水，92°C，从中心向外慢速绕圈，确保所有咖啡粉被浸润。闷蒸 35 秒。",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 150ml，中水流匀速。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 105, "unit": "ml" },
+      "cumulativeWater": { "value": 150, "unit": "ml" },
+      "targetWeight": { "value": 150, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 220ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 70, "unit": "ml" },
+      "cumulativeWater": { "value": 220, "unit": "ml" },
+      "targetWeight": { "value": 220, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 270ml，减少对粉床的扰动。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 50, "unit": "ml" },
+      "cumulativeWater": { "value": 270, "unit": "ml" },
+      "targetWeight": { "value": 270, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 2 分 30 秒。",
+      "duration": { "value": 40, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：焦糖甜感突出、坚果香气、巧克力尾韵、红苹果酸质柔和。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 148, "unit": "s" },
+    "finalYield": { "value": 235, "unit": "g" },
+    "measuredTDS": 1.35,
+    "extractionYield": 20.1,
+    "rating": 8.0
+  }
+}
