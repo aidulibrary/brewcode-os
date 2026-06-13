@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="description" content="BrewCode OS BrewPlayer - .brew 文件冲煮播放器" />
+    <title>BrewPlayer</title>
+    <link rel="stylesheet" href="player.css" />
+    <link rel="manifest" href="manifest.json" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="load-screen">
+        <div class="load-inner">
+          <h1 class="brand">BrewPlayer</h1>
+          <p class="sub">载入 .brew 文件，开始冲煮</p>
+          <div class="load-actions">
+            <button id="btn-paste" class="btn">粘贴 JSON</button>
+            <button id="btn-file" class="btn btn-ghost">打开文件</button>
+            <input type="file" id="file-input" accept=".brew,.json" hidden />
+          </div>
+          <div id="paste-area" class="paste-area hidden">
+            <textarea id="paste-text" placeholder="在此粘贴 .brew 文件内容..."></textarea>
+            <div class="paste-actions">
+              <button id="btn-load" class="btn">载入</button>
+              <button id="btn-cancel" class="btn btn-ghost">取消</button>
+            </div>
+          </div>
+          <p id="load-error" class="error hidden"></p>
+          <p class="url-hint">或在 URL 后添加 ?brew=文件URL 直接打开</p>
+        </div>
+      </div>
+
+      <div id="brew-screen" class="hidden">
+        <header id="brew-header">
+          <button id="btn-back" class="btn-icon" title="返回">←</button>
+          <div class="header-info">
+            <span id="header-name"></span>
+            <span id="header-step" class="header-step"></span>
+          </div>
+        </header>
+
+        <main id="brew-main">
+          <div id="overview" class="hidden">
+            <div class="card">
+              <h2 id="ov-name"></h2>
+              <p id="ov-author" class="meta"></p>
+              <p id="ov-desc" class="meta"></p>
+            </div>
+            <div class="card card-sm">
+              <h3>咖啡豆</h3>
+              <p id="ov-coffee"></p>
+            </div>
+            <div class="card card-sm">
+              <h3>器具</h3>
+              <p id="ov-equipment"></p>
+            </div>
+            <div class="card card-sm">
+              <h3>参数</h3>
+              <div id="ov-recipe" class="param-grid"></div>
+            </div>
+            <button id="btn-start" class="btn btn-primary btn-large">开始冲煮</button>
+          </div>
+
+          <div id="step-view" class="hidden">
+            <div class="step-progress">
+              <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+              </div>
+              <span id="progress-text"></span>
+            </div>
+
+            <div class="step-card">
+              <div class="step-badge" id="step-badge"></div>
+              <p class="step-action" id="step-action"></p>
+              <p class="step-desc" id="step-desc"></p>
+
+              <div id="step-water" class="step-water hidden">
+                <span class="water-label">注水</span>
+                <span class="water-value" id="water-value"></span>
+                <span class="water-target" id="water-target"></span>
+              </div>
+
+              <div id="step-pour-info" class="step-pour hidden">
+                <span id="pour-style"></span>
+                <span id="pour-intensity"></span>
+              </div>
+
+              <div id="timer-display" class="timer hidden">
+                <span id="timer-value">00:00</span>
+              </div>
+
+              <div class="step-controls">
+                <button id="btn-timer" class="btn btn-timer hidden">开始计时</button>
+                <button id="btn-next" class="btn btn-primary">下一步</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="done-view" class="hidden">
+            <div class="card done-card">
+              <h2>冲煮完成</h2>
+              <p id="done-msg"></p>
+              <div id="done-result" class="hidden">
+                <h3>结果记录</h3>
+                <div id="done-result-content"></div>
+              </div>
+              <div class="done-actions">
+                <button id="btn-restart" class="btn btn-ghost">重新开始</button>
+                <button id="btn-new" class="btn">载入新方案</button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="player.js"></script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+      }
+    </script>
+  </body>
+</html>

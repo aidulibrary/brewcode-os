@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "wrangler dev (gateway)",
+      "type": "shell",
+      "command": "wrangler dev",
+      "args": [],
+      "cwd": "${workspaceFolder}/packages/gateway",
+      "isBackground": true,
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "wrangler dev (ai-diagnose)",
+      "type": "shell",
+      "command": "wrangler dev",
+      "args": [],
+      "cwd": "${workspaceFolder}/workers/ai-diagnose",
+      "isBackground": true,
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    }
+  ]
+}
