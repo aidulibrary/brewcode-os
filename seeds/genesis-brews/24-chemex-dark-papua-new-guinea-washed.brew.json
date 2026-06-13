@@ -1,0 +1,133 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "Chemex 深烘大份 · 巴布亚新几内亚 水洗 深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "巴布亚新几内亚深烘豆在 Chemex 中的 6 人份大方案。85°C 低温、粗研磨、三段注水，配合 Chemex 厚滤纸的极强过滤能力，出品干净醇厚，适合多人分享。",
+    "license": "CC-BY-4.0",
+    "tags": ["Chemex", "巴布亚新几内亚", "深烘", "水洗", "大份量"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "巴布亚新几内亚 水洗 深烘",
+    "origin": { "country": "巴布亚新几内亚", "region": "东部高地" },
+    "variety": "Typica",
+    "process": "水洗",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑巧克力", "烤杏仁", "焦糖", "烟草"]
+  },
+  "equipment": {
+    "brewer": "Chemex",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "8杯",
+    "filter": "Chemex 专用滤纸",
+    "grinder": "EK43",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 42, "unit": "g" },
+    "waterAmount": { "value": 588, "unit": "ml" },
+    "ratio": "1:14",
+    "grindSize": { "value": 17, "unit": "EK43 刻度", "description": "中粗研磨，深烘豆需要更粗" },
+    "waterTemperature": { "value": 85, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 300, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 45, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 Chemex 专用滤纸折叠（三层朝壶嘴侧），用热水充分润湿并预热 8 杯 Chemex。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 42g 深烘咖啡粉倒入滤纸，轻轻拍平。大粉量需要均匀分布，避免通道效应。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 84ml 水，85°C，从中心向外慢速绕圈，确保所有咖啡粉被浸润。大粉量闷蒸 45 秒。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 84, "unit": "ml" },
+      "cumulativeWater": { "value": 84, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 280ml，中水流。深烘豆流速快，注意控制注水节奏。",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 196, "unit": "ml" },
+      "cumulativeWater": { "value": 280, "unit": "ml" },
+      "targetWeight": { "value": 280, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 35, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 430ml。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 150, "unit": "ml" },
+      "cumulativeWater": { "value": 430, "unit": "ml" },
+      "targetWeight": { "value": 430, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 35, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 588ml。1:14 粉水比使深烘豆出品浓郁。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 158, "unit": "ml" },
+      "cumulativeWater": { "value": 588, "unit": "ml" },
+      "targetWeight": { "value": 588, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 5 分钟。Chemex 厚滤纸流速慢，需要耐心等待。",
+      "duration": { "value": 90, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑巧克力般浓郁醇厚、烤杏仁般的坚果香气、焦糖甜感、烟草般深沉尾韵。Chemex 厚滤纸过滤掉油脂，使深烘豆的出品出人意料地干净。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 310, "unit": "s" },
+    "finalYield": { "value": 510, "unit": "g" },
+    "measuredTDS": 1.45,
+    "extractionYield": 21.0,
+    "rating": 7.8,
+    "flavorProfile": {
+      "acidity": 2.5,
+      "sweetness": 7.0,
+      "bitterness": 5.0,
+      "body": 8.0,
+      "cleanCup": 7.5,
+      "aftertaste": 7.0,
+      "balance": 7.0,
+      "aroma": 7.5
+    }
+  }
+}

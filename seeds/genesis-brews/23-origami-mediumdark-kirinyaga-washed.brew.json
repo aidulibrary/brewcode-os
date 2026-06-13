@@ -1,0 +1,155 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "粕谷哲 4:6 法 · 肯尼亚 基里尼亚加 水洗 中深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "Tetsu Kasuya",
+    "description": "2016 年世界冲煮冠军粕谷哲（Tetsu Kasuya）的 4:6 法在 Origami 折纸滤杯上的应用。肯尼亚基里尼亚加中深烘豆配合 4:6 法，前 40% 水量分两段决定酸甜平衡，后 60% 分两段调整浓度。展现黑加仑、红糖和柑橘的复合风味。",
+    "license": "CC-BY-4.0",
+    "tags": ["Origami", "4:6法", "粕谷哲", "Tetsu Kasuya", "冠军方案", "中深烘", "肯尼亚"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "肯尼亚 基里尼亚加 水洗 中深烘",
+    "origin": { "country": "肯尼亚", "region": "基里尼亚加" },
+    "variety": "SL28",
+    "process": "水洗",
+    "roastLevel": "中深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑加仑", "红糖", "柑橘", "可可"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 01 漂白",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 300, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 24, "unit": "C40 click", "description": "中粗研磨，4:6 法标准" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 210, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 45, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 V60 01 锥形滤纸放入 Origami 折纸滤杯，用热水充分润湿并预热。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 20g 咖啡粉倒入滤杯，轻拍平整。4:6 法要求粉床平整以保证均匀萃取。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 60ml 水，90°C，从中心向外慢速绕圈。中深烘肯尼亚豆需要充分闷蒸释放酸质。闷蒸 45 秒。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 60, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一次注水（4:6 法第一段）：注水至 120ml。前 40% 水量决定酸甜平衡，分两段注水使酸质更明亮。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "targetWeight": { "value": 120, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二次注水（4:6 法第二段）：注水至 180ml。前 40% 水量完成。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 180, "unit": "ml" },
+      "targetWeight": { "value": 180, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三次注水（4:6 法第三段）：注水至 240ml。进入后 60% 浓度调整阶段，分两段使浓度适中。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "targetWeight": { "value": 240, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "pour",
+      "description": "第四次注水（4:6 法第四段）：注水至 300ml。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "targetWeight": { "value": 300, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 11,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分 30 秒。",
+      "duration": { "value": 45, "unit": "s" }
+    },
+    {
+      "order": 12,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑加仑般明亮酸质、红糖般饱满甜感、柑橘般清爽、可可般柔和的收尾。Origami 的棱骨设计使 4:6 法的层次感更加分明。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 212, "unit": "s" },
+    "finalYield": { "value": 260, "unit": "g" },
+    "measuredTDS": 1.3,
+    "extractionYield": 19.5,
+    "rating": 8.8,
+    "flavorProfile": {
+      "acidity": 7.5,
+      "sweetness": 8.0,
+      "bitterness": 3.0,
+      "body": 7.0,
+      "cleanCup": 8.0,
+      "aftertaste": 8.0,
+      "balance": 8.5,
+      "aroma": 8.0
+    }
+  }
+}

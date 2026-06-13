@@ -1,0 +1,133 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "蜜处理折纸 · 危地马拉 安提瓜 蜜处理 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "危地马拉安提瓜的蜜处理豆在 Origami 折纸滤杯上展现出极佳的平衡感。蜜处理法保留了部分果胶层，甜感和口感介于水洗和日晒之间。折纸滤杯的 20 条棱骨提供均匀的萃取环境，使焦糖、葡萄干和柑橘风味和谐共存。",
+    "license": "CC-BY-4.0",
+    "tags": ["Origami", "蜜处理", "危地马拉", "中烘", "折纸滤杯"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "危地马拉 安提瓜 蜜处理 中烘",
+    "origin": { "country": "危地马拉", "region": "安提瓜" },
+    "variety": "Bourbon",
+    "process": "蜜处理",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["焦糖", "葡萄干", "柑橘", "杏仁"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "Kalita 波浪 155",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 22, "unit": "C40 click", "description": "中粗研磨" },
+    "waterTemperature": { "value": 91, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 165, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 40, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 Kalita 155 波浪滤纸放入 Origami 折纸滤杯，用热水充分润湿并预热。Kalita 平底滤纸配合 Origami 棱骨，兼具均匀萃取和良好气流。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15g 蜜处理咖啡粉倒入滤杯，轻拍平整。蜜处理豆的粉床介于水洗和日晒之间。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 45ml 水，91°C，从中心向外慢速绕圈。蜜处理豆闷蒸 40 秒，释放焦糖般的甜香。",
+      "duration": { "value": 40, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 120ml，中水流。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "targetWeight": { "value": 120, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 180ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 180, "unit": "ml" },
+      "targetWeight": { "value": 180, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 240ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "targetWeight": { "value": 240, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 2 分 45 秒。",
+      "duration": { "value": 45, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：焦糖甜感饱满、葡萄干般浓缩的甜感、柑橘般清亮酸质、杏仁般温和的坚果尾韵。蜜处理豆在 Origami 中展现出的平衡感，介于水洗的干净和日晒的饱满之间。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 162, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.5,
+    "rating": 8.2,
+    "flavorProfile": {
+      "acidity": 6.5,
+      "sweetness": 8.0,
+      "bitterness": 2.5,
+      "body": 7.0,
+      "cleanCup": 7.5,
+      "aftertaste": 7.5,
+      "balance": 8.5,
+      "aroma": 7.5
+    }
+  }
+}
