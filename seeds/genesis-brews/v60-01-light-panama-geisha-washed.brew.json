@@ -1,0 +1,125 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "瑰夏专属 · 巴拿马 翡翠庄园 水洗瑰夏",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "为瑰夏豆量身定制的精细方案。采用高温、细水流、分段注水，最大化展现瑰夏标志性的茉莉花香和柑橘调性。每一段注水都精确控制，避免过度萃取破坏瑰夏的细腻层次。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "瑰夏", "Geisha", "浅烘", "水洗", "巴拿马"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "巴拿马 翡翠庄园 水洗瑰夏",
+    "origin": { "country": "巴拿马", "region": "波奎特" },
+    "variety": "Geisha",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["茉莉花", "柑橘", "佛手柑", "蜂蜜"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "01",
+    "filter": "V60 漂白",
+    "grinder": "EK43",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 10, "unit": "EK43 刻度", "description": "中细研磨，比常规手冲略细" },
+    "waterTemperature": { "value": 94, "unit": "°C" },
+    "waterType": "调配水",
+    "brewTime": { "value": 150, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 45, "unit": "s" },
+    "targetTDS": 1.25,
+    "targetExtraction": 19.5
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "润湿漂白滤纸，用 94°C 热水充分预热 V60 陶瓷滤杯和分享壶。陶瓷滤杯保温性好，适合瑰夏需要的高温萃取。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15g 瑰夏咖啡粉倒入滤杯，轻轻拍平。瑰夏豆密度较低，粉床自然平整。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 45ml 水，94°C，从中心极慢速向外绕圈。瑰夏需要充分闷蒸释放花香。闷蒸 45 秒。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 100ml，细水流，保持水流高度稳定。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 55, "unit": "ml" },
+      "cumulativeWater": { "value": 100, "unit": "ml" },
+      "targetWeight": { "value": 100, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 160ml，保持细水流稳定。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 160, "unit": "ml" },
+      "targetWeight": { "value": 160, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 15, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 240ml。最后一段中心注水，不扰动粉床，避免尾段苦味。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 80, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "targetWeight": { "value": 240, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 2 分 30 秒。瑰夏萃取的黄金窗口。",
+      "duration": { "value": 35, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：茉莉花香扑鼻、柑橘般明亮的酸质、佛手柑的优雅、蜂蜜般绵长的甜感。瑰夏的层次感在高温、中温、低温各有不同表现，建议分阶段品鉴。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 148, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.24,
+    "extractionYield": 19.6,
+    "rating": 9.2
+  }
+}

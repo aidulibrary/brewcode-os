@@ -1,0 +1,100 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "爱乐压西达摩 · 埃塞俄比亚 西达摩 日晒",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "爱乐压正压法配合日晒西达摩，短时间浸泡快速萃取，展现莓果甜感和花香。适合 1 人份，总时间控制在 2 分钟以内。",
+    "license": "CC-BY-4.0",
+    "tags": ["爱乐压", "Aeropress", "浅烘", "日晒", "埃塞俄比亚"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 西达摩 日晒",
+    "origin": { "country": "埃塞俄比亚", "region": "西达摩" },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["草莓", "蓝莓", "花香", "蜂蜜"]
+  },
+  "equipment": {
+    "brewer": "爱乐压",
+    "brewerMaterial": "塑料",
+    "filter": "爱乐压 原装滤纸",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 225, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 18, "unit": "C40 click", "description": "中细研磨，比手冲略细" },
+    "waterTemperature": { "value": 92, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 120, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 20, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将爱乐压滤纸放入滤盖，用热水润湿。组装爱乐压（正压法），将活塞插入筒身底部。"
+    },
+    { "order": 2, "action": "dose", "description": "将 15g 咖啡粉倒入爱乐压筒身。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 30ml 水，92°C。闷蒸 20 秒。",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "一次性注入剩余 195ml 水至 225ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 195, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "stir",
+      "description": "用搅拌棒轻轻搅拌 3 圈，确保咖啡粉均匀悬浮。",
+      "duration": { "value": 5, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "wait",
+      "description": "盖上滤盖，浸泡 30 秒。浅烘日晒豆短时间浸泡即可。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 7,
+      "action": "pour",
+      "description": "缓慢均匀地按压活塞，约 30 秒完成。听到嘶嘶声时停止。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：草莓和蓝莓的浆果甜感、花香扑鼻、蜂蜜般柔和的甜度。爱乐压的浸泡萃取使日晒西达摩的甜感更加突出。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 118, "unit": "s" },
+    "finalYield": { "value": 195, "unit": "g" },
+    "measuredTDS": 1.25,
+    "extractionYield": 19.0,
+    "rating": 8.2
+  }
+}

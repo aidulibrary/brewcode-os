@@ -1,0 +1,119 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "哥斯达黎加蜜处理 · 哥斯达黎加 塔拉珠 蜜处理",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "蜜处理豆的甜感出众，配合 Kalita Wave 185 的平底均匀萃取，中等水温三段注水，展现焦糖、葡萄干和杏仁的复合甜感。适合 1-2 人份。",
+    "license": "CC-BY-4.0",
+    "tags": ["Kalita Wave", "哥斯达黎加", "中烘", "蜜处理"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "哥斯达黎加 塔拉珠 蜜处理",
+    "origin": { "country": "哥斯达黎加", "region": "塔拉珠" },
+    "variety": "Caturra",
+    "process": "蜜处理",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["焦糖", "葡萄干", "杏仁", "柑橘"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "185",
+    "filter": "Kalita 波浪 185",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 300, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 20, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 195, "unit": "s" },
+    "bloomRatio": "1:2.5",
+    "bloomTime": { "value": 35, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "折叠 Kalita 185 波浪滤纸，用热水充分润湿并预热滤杯和分享壶。倒掉预热用水。"
+    },
+    { "order": 2, "action": "dose", "description": "将 20g 咖啡粉倒入滤杯，轻拍平整。蜜处理豆粉床较密实。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 50ml 水，90°C，从中心向外绕圈。闷蒸 35 秒。",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 50, "unit": "ml" },
+      "cumulativeWater": { "value": 50, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 150ml，中水流。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 150, "unit": "ml" },
+      "targetWeight": { "value": 150, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 25, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 225ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "targetWeight": { "value": 225, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 25, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 300ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "targetWeight": { "value": 300, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分 15 秒。",
+      "duration": { "value": 55, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：焦糖甜感饱满、葡萄干般的浓缩甜感、杏仁般的坚果香气、柑橘般清爽收尾。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 198, "unit": "s" },
+    "finalYield": { "value": 260, "unit": "g" },
+    "measuredTDS": 1.35,
+    "extractionYield": 20.2,
+    "rating": 8.0
+  }
+}
