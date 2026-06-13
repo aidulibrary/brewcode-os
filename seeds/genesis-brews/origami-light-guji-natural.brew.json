@@ -1,0 +1,123 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "折纸慢萃 · 埃塞俄比亚 古吉 日晒",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "Origami 折纸滤杯配合锥形滤纸，兼具 V60 的层次感和 Kalita 的均匀度。埃塞日晒古吉的莓果风味在 Origami 中展现得极为饱满。",
+    "license": "CC-BY-4.0",
+    "tags": ["Origami", "折纸滤杯", "浅烘", "日晒", "埃塞俄比亚"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 古吉 日晒",
+    "origin": { "country": "埃塞俄比亚", "region": "古吉" },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["草莓", "蓝莓", "百香果", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 01 漂白",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 25, "unit": "C40 click", "description": "中粗研磨" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 45, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 V60 01 锥形滤纸放入 Origami 滤杯，用热水充分润湿并预热。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15g 咖啡粉倒入滤杯，轻拍使粉床平整。Origami 的 20 条棱骨提供充足的气流通道。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 45ml 水，93°C，从中心向外慢速绕圈。闷蒸 45 秒，观察粉床膨胀。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 120ml，中水流。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "targetWeight": { "value": 120, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 25, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 180ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 180, "unit": "ml" },
+      "targetWeight": { "value": 180, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 25, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 240ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "targetWeight": { "value": 240, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分钟。",
+      "duration": { "value": 50, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：草莓和蓝莓的浆果调性、百香果般热带果酸、焦糖甜感包裹舌尖。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 178, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.25,
+    "extractionYield": 19.8,
+    "rating": 8.8
+  }
+}

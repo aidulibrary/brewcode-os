@@ -1,0 +1,119 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "平底大份 · 巴西 喜拉多 日晒",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "Kalita Wave 185 适合两人份冲煮。巴西日晒豆的坚果巧克力基调配合 Wave 的均匀萃取，出品稳定、甜感饱满，适合日常饮用。",
+    "license": "CC-BY-4.0",
+    "tags": ["Kalita Wave", "平底滤杯", "中烘", "日晒", "巴西"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "巴西 喜拉多 日晒",
+    "origin": { "country": "巴西", "region": "喜拉多" },
+    "variety": "Bourbon",
+    "process": "日晒",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["坚果", "巧克力", "焦糖", "花生"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "185",
+    "filter": "Kalita 波浪 185",
+    "grinder": "EK43",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 24, "unit": "g" },
+    "waterAmount": { "value": 360, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 12, "unit": "EK43 刻度", "description": "中细研磨" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 210, "unit": "s" },
+    "bloomRatio": "1:2.5",
+    "bloomTime": { "value": 40, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "折叠 Kalita 185 波浪滤纸，用热水充分润湿并预热滤杯和分享壶。倒掉预热用水。"
+    },
+    { "order": 2, "action": "dose", "description": "将 24g 咖啡粉倒入滤杯，轻轻拍平。平底设计使大粉量也能均匀分布。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 60ml 水，90°C，从中心向外慢速绕圈。闷蒸 40 秒。",
+      "duration": { "value": 40, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 60, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 180ml，中水流。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 120, "unit": "ml" },
+      "cumulativeWater": { "value": 180, "unit": "ml" },
+      "targetWeight": { "value": 180, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 270ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 90, "unit": "ml" },
+      "cumulativeWater": { "value": 270, "unit": "ml" },
+      "targetWeight": { "value": 270, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 25, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 360ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 90, "unit": "ml" },
+      "cumulativeWater": { "value": 360, "unit": "ml" },
+      "targetWeight": { "value": 360, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分 30 秒。",
+      "duration": { "value": 60, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：坚果香气、巧克力般醇厚口感、焦糖甜感、花生般温和收尾。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 215, "unit": "s" },
+    "finalYield": { "value": 315, "unit": "g" },
+    "measuredTDS": 1.38,
+    "extractionYield": 20.8,
+    "rating": 7.8
+  }
+}
