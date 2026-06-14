@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="description" content="BrewCode OS BrewRepo - .brew 冲煮方案公共仓库" />
+    <title>BrewRepo</title>
+    <link rel="stylesheet" href="repo.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header id="top-bar">
+        <a href="../player/" class="brand">BrewRepo</a>
+        <span class="brand-sub">冲煮方案公共仓库</span>
+      </header>
+
+      <div id="stats-bar">
+        <span id="stats-text">加载中…</span>
+      </div>
+
+      <div id="filter-bar">
+        <div class="filter-section">
+          <span class="filter-label">器具</span>
+          <div id="filter-brewer" class="filter-pills"></div>
+        </div>
+        <div class="filter-section">
+          <span class="filter-label">烘焙度</span>
+          <div id="filter-roast" class="filter-pills"></div>
+        </div>
+        <div class="filter-section">
+          <span class="filter-label">产区</span>
+          <div id="filter-country" class="filter-pills"></div>
+        </div>
+        <div class="filter-section">
+          <span class="filter-label">搜索</span>
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="搜索方案名、产区、作者…"
+          />
+          <button id="btn-clear-search" class="btn-clear hidden">✕</button>
+        </div>
+        <button id="btn-reset" class="btn-reset">清除筛选</button>
+      </div>
+
+      <div id="results-summary">
+        <span id="results-count"></span>
+      </div>
+
+      <main id="card-grid"></main>
+
+      <div id="empty-state" class="hidden">
+        <p class="empty-msg">没有匹配的方案</p>
+        <p class="empty-hint">试试调整筛选条件或搜索关键词</p>
+      </div>
+
+      <div id="detail-overlay" class="hidden">
+        <div class="detail-backdrop"></div>
+        <div class="detail-card">
+          <button id="btn-detail-close" class="btn-close">✕</button>
+          <h2 id="detail-name"></h2>
+          <p id="detail-author" class="detail-meta"></p>
+          <div class="detail-section">
+            <h3>咖啡豆</h3>
+            <div id="detail-coffee" class="detail-grid"></div>
+          </div>
+          <div class="detail-section">
+            <h3>冲煮参数</h3>
+            <div id="detail-recipe" class="detail-grid"></div>
+          </div>
+          <div class="detail-section">
+            <h3>风味笔记</h3>
+            <div id="detail-flavors" class="flavor-chips"></div>
+          </div>
+          <div class="detail-actions">
+            <button id="btn-open-player" class="btn btn-primary">在 Player 中打开</button>
+            <button id="btn-copy-json" class="btn btn-ghost">复制 .brew 内容</button>
+          </div>
+        </div>
+      </div>
+
+      <footer id="footer">
+        <span>BrewCode OS · CC0</span>
+        <a href="https://github.com/aidulibrary/brewcode-os" target="_blank" rel="noopener"
+          >GitHub</a
+        >
+      </footer>
+    </div>
+
+    <script src="repo.js"></script>
+  </body>
+</html>
