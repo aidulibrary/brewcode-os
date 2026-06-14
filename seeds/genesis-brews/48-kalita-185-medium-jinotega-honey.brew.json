@@ -1,0 +1,150 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "希诺特加蜜处理 · 尼加拉瓜 希诺特加 蜜处理 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "尼加拉瓜希诺特加产区位于中美洲中部高地，海拔 1100-1700m，以蜜处理咖啡闻名。蜜处理法——保留部分果胶层进行干燥——赋予了咖啡独特的焦糖甜感和丝滑口感。中烘蜜处理豆在 Kalita Wave 185 平底滤杯上采用五段注水，充分展现焦糖、葡萄干和杏仁的温暖甜感。尼加拉瓜咖啡以甜度见长，这支蜜处理将这种特质发挥到了极致。",
+    "license": "CC-BY-4.0",
+    "tags": ["Kalita Wave", "尼加拉瓜", "希诺特加", "中烘", "蜜处理", "中美洲"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "尼加拉瓜 希诺特加 蜜处理 中烘",
+    "origin": {
+      "country": "尼加拉瓜",
+      "region": "希诺特加",
+      "farm": "希诺特加合作社",
+      "altitude": { "value": 1400, "unit": "m" }
+    },
+    "variety": "Caturra",
+    "process": "蜜处理",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["焦糖", "葡萄干", "杏仁", "牛奶巧克力"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "185",
+    "filter": "Kalita 波浪 185",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 300, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 21, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 210, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 40, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "折叠 Kalita 185 波浪滤纸，用热水充分润湿并预热滤杯和分享壶。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 20g 希诺特加蜜处理咖啡粉倒入滤杯，轻拍平整。蜜处理豆粉床略粘，需注意均匀分布。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 60ml 水，90°C，从中心向外慢速绕圈。蜜处理豆闷蒸时释放出浓郁的焦糖香气。闷蒸 40 秒。",
+      "duration": { "value": 40, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 60, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 130ml，中水流。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 70, "unit": "ml" },
+      "cumulativeWater": { "value": 130, "unit": "ml" },
+      "targetWeight": { "value": 130, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 25, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 190ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 190, "unit": "ml" },
+      "targetWeight": { "value": 190, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 25, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：绕圈注水至 245ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 55, "unit": "ml" },
+      "cumulativeWater": { "value": 245, "unit": "ml" },
+      "targetWeight": { "value": 245, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 9, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 10,
+      "action": "pour",
+      "description": "第四段注水：中心定点注水至 300ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 55, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "targetWeight": { "value": 300, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 11,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分 30 秒。",
+      "duration": { "value": 55, "unit": "s" }
+    },
+    {
+      "order": 12,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：焦糖甜感饱满浓郁、葡萄干般温暖的果甜、杏仁般细腻的坚果味、牛奶巧克力的丝滑口感。蜜处理赋予了这支尼加拉瓜咖啡超高的甜度——它是 50 个种子中甜感最突出的方案之一。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 208, "unit": "s" },
+    "finalYield": { "value": 262, "unit": "g" },
+    "measuredTDS": 1.35,
+    "extractionYield": 20.2,
+    "rating": 8.2,
+    "flavorProfile": {
+      "acidity": 5.5,
+      "sweetness": 9.0,
+      "bitterness": 2.0,
+      "body": 7.5,
+      "cleanCup": 7.5,
+      "aftertaste": 8.0,
+      "balance": 8.0,
+      "aroma": 8.0
+    }
+  }
+}

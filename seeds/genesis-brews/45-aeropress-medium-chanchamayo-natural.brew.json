@@ -1,0 +1,105 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "钱查马约中烘 · 秘鲁 钱查马约 日晒 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "秘鲁钱查马约产区位于安第斯山脉东麓的中央高地，海拔 1200-1800m，以有机种植和合作社模式闻名。中烘日晒豆在爱乐压上采用经典正压法快速萃取，展现焦糖甜感和柔和的坚果与巧克力风味。秘鲁咖啡以其温和均衡著称，是日常饮用咖啡的完美选择——没有锋芒但绝不乏味。",
+    "license": "CC-BY-4.0",
+    "tags": ["爱乐压", "Aeropress", "秘鲁", "钱查马约", "中烘", "日晒"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "秘鲁 钱查马约 日晒 中烘",
+    "origin": {
+      "country": "秘鲁",
+      "region": "钱查马约",
+      "farm": "钱查马约合作社",
+      "altitude": { "value": 1500, "unit": "m" }
+    },
+    "variety": "Typica",
+    "process": "日晒",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["焦糖", "坚果", "牛奶巧克力", "柑橘"]
+  },
+  "equipment": {
+    "brewer": "爱乐压",
+    "brewerMaterial": "塑料",
+    "filter": "爱乐压 原装滤纸",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 16, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 16, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 110, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 25, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将爱乐压滤纸放入滤盖，用热水润湿。组装爱乐压（正压法），活塞插入筒身底部。"
+    },
+    { "order": 2, "action": "dose", "description": "将 16g 钱查马约咖啡粉倒入爱乐压筒身。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 32ml 水，90°C。中烘豆不需要太高水温。闷蒸 25 秒。",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 32, "unit": "ml" },
+      "cumulativeWater": { "value": 32, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "一次性注入剩余 208ml 水至 240ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 208, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 5, "action": "stir", "description": "用搅拌棒轻轻搅拌 3 圈。", "duration": { "value": 5, "unit": "s" } },
+    { "order": 6, "action": "wait", "description": "盖上滤盖，浸泡 30 秒。", "duration": { "value": 30, "unit": "s" } },
+    {
+      "order": 7,
+      "action": "pour",
+      "description": "缓慢均匀地按压活塞，约 30 秒完成。听到嘶嘶声时停止。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：焦糖甜感柔和温润、坚果般醇和的口感、牛奶巧克力的丝滑、柑橘般轻快的尾韵。秘鲁咖啡的魅力在于它不张扬——这是一杯你可以每天喝、永远不会厌倦的咖啡。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 108, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.3,
+    "extractionYield": 19.8,
+    "rating": 7.8,
+    "flavorProfile": {
+      "acidity": 5.5,
+      "sweetness": 7.5,
+      "bitterness": 2.5,
+      "body": 7.0,
+      "cleanCup": 7.5,
+      "aftertaste": 7.0,
+      "balance": 7.5,
+      "aroma": 7.0
+    }
+  }
+}

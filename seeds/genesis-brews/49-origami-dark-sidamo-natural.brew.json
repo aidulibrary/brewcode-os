@@ -1,0 +1,138 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "西达摩深烘 · 埃塞俄比亚 西达摩 日晒 深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "把一支优质埃塞俄比亚西达摩日晒豆做深烘，这是一个大胆的实验。大多数精品咖啡爱好者认为埃塞豆只适合浅烘，但深烘西达摩展现出截然不同的魅力——黑巧克力、熟透的莓果、焦糖和香料般的复杂层次。在 Origami 折纸滤杯上采用 1:13 低粉水比和四段注水，92°C 高温释放深烘豆的甜感。这是一支值得所有爱好者尝试的颠覆性方案。",
+    "license": "CC-BY-4.0",
+    "tags": ["Origami", "深烘", "西达摩", "埃塞俄比亚", "日晒", "实验方案", "颠覆性"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 西达摩 日晒 深烘",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "西达摩",
+      "farm": "西达摩合作社",
+      "altitude": { "value": 1900, "unit": "m" }
+    },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑巧克力", "莓果", "焦糖", "香料"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 01 漂白",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 18, "unit": "g" },
+    "waterAmount": { "value": 234, "unit": "ml" },
+    "ratio": "1:13",
+    "grindSize": { "value": 24, "unit": "C40 click", "description": "中粗研磨，深烘豆宜粗不宜细" },
+    "waterTemperature": { "value": 92, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 30, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 V60 锥形滤纸放入 Origami 折纸滤杯，用热水充分润湿并预热。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 18g 西达摩日晒深烘咖啡粉倒入滤杯，轻拍平整。深烘豆体积膨胀，粉床较蓬松。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 54ml 水，92°C，从中心向外慢速绕圈。深烘豆闷蒸时间不宜过长，避免苦味过度释放。闷蒸 30 秒。",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 54, "unit": "ml" },
+      "cumulativeWater": { "value": 54, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 120ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 66, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "targetWeight": { "value": 120, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 180ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 180, "unit": "ml" },
+      "targetWeight": { "value": 180, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 234ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 54, "unit": "ml" },
+      "cumulativeWater": { "value": 234, "unit": "ml" },
+      "targetWeight": { "value": 234, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，1:13 低粉水比流速略快。目标总时间约 3 分钟。",
+      "duration": { "value": 65, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑巧克力般醇厚饱满、莓果般深沉的熟果甜、焦糖般温暖的甜感、香料般复杂的层次。深烘西达摩是对精品咖啡教条的挑战——谁说埃塞俄比亚只能浅烘？这支豆子证明了好豆子在任何烘焙度下都能发光。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 178, "unit": "s" },
+    "finalYield": { "value": 200, "unit": "g" },
+    "measuredTDS": 1.48,
+    "extractionYield": 20.5,
+    "rating": 8.2,
+    "flavorProfile": {
+      "acidity": 4.0,
+      "sweetness": 8.0,
+      "bitterness": 4.0,
+      "body": 8.5,
+      "cleanCup": 6.0,
+      "aftertaste": 8.0,
+      "balance": 7.0,
+      "aroma": 8.5
+    }
+  }
+}

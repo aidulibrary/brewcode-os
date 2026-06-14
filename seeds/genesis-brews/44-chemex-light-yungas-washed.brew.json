@@ -1,0 +1,134 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "永加斯云端 · 玻利维亚 永加斯 水洗 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "玻利维亚永加斯（Yungas）产区位于安第斯山脉东麓，海拔 1500-2500m，是世界上最具挑战性的咖啡产区之一。这里道路险峻，被称为 '死亡之路'，但出产的咖啡以极净的酸质和花香闻名。浅烘永加斯水洗豆在 Chemex 上以 1:16 粉水比冲煮，Chemex 厚滤纸强化了其干净度和花香特质。",
+    "license": "CC-BY-4.0",
+    "tags": ["Chemex", "玻利维亚", "永加斯", "浅烘", "水洗", "南美高海拔"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "玻利维亚 永加斯 水洗 浅烘",
+    "origin": {
+      "country": "玻利维亚",
+      "region": "永加斯",
+      "farm": "永加斯小农合作社",
+      "altitude": { "value": 2100, "unit": "m" }
+    },
+    "variety": "Caturra",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["花香", "白桃", "蜂蜜", "绿茶"]
+  },
+  "equipment": {
+    "brewer": "Chemex",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "6 Cup",
+    "filter": "Chemex 半格漂白",
+    "grinder": "EK43",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 25, "unit": "g" },
+    "waterAmount": { "value": 400, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 20, "unit": "EK43 刻度", "description": "中粗研磨" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "调配水",
+    "brewTime": { "value": 240, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 45, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 Chemex 半格漂白滤纸放入滤杯，折叠面朝向倒水口。用热水充分润湿并预热整个 Chemex。倒掉预热用水。"
+    },
+    { "order": 2, "action": "dose", "description": "将 25g 永加斯水洗咖啡粉倒入滤杯，轻拍平整。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 75ml 水，93°C，从中心向外绕圈注水，确保所有咖啡粉被浸润。永加斯豆闷蒸时释放出清新的白桃和花香。闷蒸 45 秒。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 75, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 200ml，中水流。",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 125, "unit": "ml" },
+      "cumulativeWater": { "value": 200, "unit": "ml" },
+      "targetWeight": { "value": 200, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 300ml。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "targetWeight": { "value": 300, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 30, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：绕圈注水至 400ml。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 400, "unit": "ml" },
+      "targetWeight": { "value": 400, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待所有水通过，目标总时间约 4 分钟。",
+      "duration": { "value": 70, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：花香飘逸如白桃、蜂蜜甜感纯净、绿茶般干净清爽的口感。Chemex 厚滤纸过滤掉大量油脂后，永加斯豆的高海拔干净度被放大——这杯咖啡的干净程度接近茶，但又有咖啡特有的甜感和酸质。玻利维亚，被低估的南美精品咖啡之巅。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 238, "unit": "s" },
+    "finalYield": { "value": 348, "unit": "g" },
+    "measuredTDS": 1.18,
+    "extractionYield": 19.2,
+    "rating": 8.3,
+    "flavorProfile": {
+      "acidity": 7.5,
+      "sweetness": 8.0,
+      "bitterness": 1.5,
+      "body": 5.5,
+      "cleanCup": 9.0,
+      "aftertaste": 7.5,
+      "balance": 8.0,
+      "aroma": 8.5
+    }
+  }
+}

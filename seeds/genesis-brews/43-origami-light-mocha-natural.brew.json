@@ -1,0 +1,150 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "也门摩卡古典 · 也门 摩卡 日晒 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "也门是世界咖啡的发源地之一，摩卡港（Mocha）曾是全球咖啡贸易的中心。也门咖啡至今仍采用传统的日晒干燥法，在高山的梯田上由小农种植，风味独特——深邃的香料感、黑巧克力和葡萄酒般的复杂发酵风味。这支也门摩卡日晒浅烘豆在 Origami 折纸滤杯上采用五段慢注，让每一个风味层次都得到充分展开。这是 50 个种子文件中文化深度最高的方案之一。",
+    "license": "CC-BY-4.0",
+    "tags": ["Origami", "也门", "摩卡", "浅烘", "日晒", "古老产区", "文化深度"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "也门 摩卡 日晒 浅烘",
+    "origin": {
+      "country": "也门",
+      "region": "摩卡",
+      "farm": "摩卡传统小农",
+      "altitude": { "value": 2000, "unit": "m" }
+    },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["香料", "黑巧克力", "葡萄干", "木质香"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 01 漂白",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 225, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 23, "unit": "C40 click", "description": "中粗研磨" },
+    "waterTemperature": { "value": 94, "unit": "°C" },
+    "waterType": "调配水",
+    "brewTime": { "value": 210, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 45, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 V60 锥形滤纸放入 Origami 折纸滤杯，用热水充分润湿并预热。也门豆风味浓烈，确保器具洁净无异味。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15g 也门摩卡咖啡粉倒入滤杯，轻拍平整。也门豆密度较低，粉床自然蓬松。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 45ml 水，94°C，从中心向外慢速绕圈。也门日晒豆闷蒸时释放出独特的香料和葡萄酒香气。闷蒸 45 秒。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 90ml。也门豆用较小段注水，让每一层风味充分释放。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 90, "unit": "ml" },
+      "targetWeight": { "value": 90, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 130ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 40, "unit": "ml" },
+      "cumulativeWater": { "value": 130, "unit": "ml" },
+      "targetWeight": { "value": 130, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：绕圈注水至 170ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 40, "unit": "ml" },
+      "cumulativeWater": { "value": 170, "unit": "ml" },
+      "targetWeight": { "value": 170, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 9, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 10,
+      "action": "pour",
+      "description": "第四段注水：中心定点注水至 225ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 55, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "targetWeight": { "value": 225, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 11,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分 30 秒。",
+      "duration": { "value": 55, "unit": "s" }
+    },
+    {
+      "order": 12,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：香料般的复杂深邃、黑巧克力般醇厚的苦甜平衡、葡萄干般浓郁的果甜、木质香的沧桑。也门摩卡是咖啡历史的活化石——喝这杯咖啡，你在品尝的是 500 年咖啡贸易史的风味。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 208, "unit": "s" },
+    "finalYield": { "value": 195, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.5,
+    "rating": 8.5,
+    "flavorProfile": {
+      "acidity": 6.0,
+      "sweetness": 7.5,
+      "bitterness": 3.5,
+      "body": 8.0,
+      "cleanCup": 6.5,
+      "aftertaste": 8.0,
+      "balance": 7.5,
+      "aroma": 9.0
+    }
+  }
+}

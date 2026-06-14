@@ -1,0 +1,134 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "尼亚马谢凯慢萃 · 卢旺达 尼亚马谢凯 水洗 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "卢旺达尼亚马谢凯产区位于基伍湖西岸，海拔 1500-2000m，以波旁变种咖啡闻名。卢旺达精品咖啡产业在 1994 年后经历了惊人的复兴，如今已成为非洲不可忽视的精品产区。尼亚马谢凯水洗豆以红茶感和焦糖甜度为特色，在 Kalita 155 平底慢萃下展现出细腻的层次和绵长的尾韵。",
+    "license": "CC-BY-4.0",
+    "tags": ["Kalita Wave", "卢旺达", "尼亚马谢凯", "浅烘", "水洗", "非洲小众"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "卢旺达 尼亚马谢凯 水洗 浅烘",
+    "origin": {
+      "country": "卢旺达",
+      "region": "尼亚马谢凯",
+      "farm": "尼亚马谢凯合作社",
+      "altitude": { "value": 1750, "unit": "m" }
+    },
+    "variety": "Bourbon",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["红茶", "焦糖", "柠檬", "梅子"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪 155",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 22, "unit": "C40 click", "description": "中粗研磨" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 40, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "折叠 Kalita 155 波浪滤纸，用热水充分润湿并预热玻璃滤杯和分享壶。倒掉预热用水。"
+    },
+    { "order": 2, "action": "dose", "description": "将 15g 尼亚马谢凯水洗咖啡粉倒入滤杯，轻拍平整。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 45ml 水，93°C，从中心向外慢速绕圈。闷蒸 40 秒。",
+      "duration": { "value": 40, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 120ml，中水流。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "targetWeight": { "value": 120, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 25, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 180ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 180, "unit": "ml" },
+      "targetWeight": { "value": 180, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 25, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 240ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "targetWeight": { "value": 240, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分钟。",
+      "duration": { "value": 50, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：红茶般温暖醇厚的底韵、焦糖甜感柔和绵长、柠檬般清雅的酸质、梅子般微妙的果香。卢旺达水洗豆的独特之处在于它不仅有非洲豆的酸质，还有红茶般的沉稳——是咖啡爱好者探索非洲产区多样性的绝佳入门。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 182, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.25,
+    "extractionYield": 19.5,
+    "rating": 8.0,
+    "flavorProfile": {
+      "acidity": 6.5,
+      "sweetness": 7.0,
+      "bitterness": 2.0,
+      "body": 7.0,
+      "cleanCup": 7.5,
+      "aftertaste": 7.5,
+      "balance": 7.5,
+      "aroma": 7.0
+    }
+  }
+}
