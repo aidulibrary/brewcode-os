@@ -1,0 +1,105 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "恩戈齐中烘 · 布隆迪 恩戈齐 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "布隆迪位于东非大裂谷地带，与卢旺达相邻，海拔 1700-2000m 的高山咖啡产区。恩戈齐是布隆迪最著名的精品咖啡产区之一，以波旁变种为主。中烘水洗豆在法压壶中浸泡 6 分钟——法压壶的金属滤网保留全部油脂，放大了布隆迪豆的花香和蜂蜜甜感。这是一个被严重低估的非洲产区，它的品质可以媲美肯尼亚和卢旺达。",
+    "license": "CC-BY-4.0",
+    "tags": ["法压壶", "French Press", "布隆迪", "恩戈齐", "中烘", "水洗", "非洲小农"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "布隆迪 恩戈齐 水洗 中烘",
+    "origin": {
+      "country": "布隆迪",
+      "region": "恩戈齐",
+      "farm": "恩戈齐小农合作社",
+      "altitude": { "value": 1850, "unit": "m" }
+    },
+    "variety": "Bourbon",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["花香", "蜂蜜", "柠檬", "红茶"]
+  },
+  "equipment": {
+    "brewer": "法压壶",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "350ml",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 300, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 26, "unit": "C40 click", "description": "中粗研磨" },
+    "waterTemperature": { "value": 92, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 420, "unit": "s" }
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "确认法压壶洁净无异味。用热水预热壶身，倒掉预热用水。" },
+    { "order": 2, "action": "dose", "description": "将 20g 恩戈齐水洗咖啡粉倒入法压壶。" },
+    {
+      "order": 3,
+      "action": "pour",
+      "description": "一次性注入 300ml 热水，92°C，确保所有咖啡粉被浸润。中烘布隆迪豆释放出柔和的花香和蜂蜜气息。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 300, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "大水流"
+    },
+    {
+      "order": 4,
+      "action": "wait",
+      "description": "盖上壶盖但不压下滤网，浸泡 4 分钟。",
+      "duration": { "value": 240, "unit": "s" }
+    },
+    {
+      "order": 5,
+      "action": "stir",
+      "description": "用勺子轻轻打破表面浮壳，搅拌使咖啡粉沉降。",
+      "duration": { "value": 5, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "wait",
+      "description": "撇去表面浮沫和细粉，静置 2 分钟让残留细粉沉降。",
+      "duration": { "value": 120, "unit": "s" }
+    },
+    {
+      "order": 7,
+      "action": "prepare",
+      "description": "将滤网轻轻压至液面下方，缓慢倒出。不要让滤网触及底部。",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：花香飘逸清雅、蜂蜜甜感温润绵长、柠檬般明亮的酸质、红茶般醇和的底韵。布隆迪恩戈齐——非洲精品咖啡最被低估的产区之一，这杯咖啡证明了它值得更多关注。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 405, "unit": "s" },
+    "finalYield": { "value": 260, "unit": "g" },
+    "measuredTDS": 1.3,
+    "extractionYield": 19.5,
+    "rating": 8.0,
+    "flavorProfile": {
+      "acidity": 6.5,
+      "sweetness": 7.5,
+      "bitterness": 2.5,
+      "body": 7.0,
+      "cleanCup": 6.5,
+      "aftertaste": 7.5,
+      "balance": 7.5,
+      "aroma": 8.0
+    }
+  }
+}

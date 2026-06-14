@@ -1,0 +1,142 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "乞力马扎罗中烘 · 坦桑尼亚 乞力马扎罗 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "坦桑尼亚乞力马扎罗产区以非洲最高峰乞力马扎罗山命名，海拔 1400-2000m，火山土壤赋予咖啡独特的矿物质风味和明亮的酸质。中烘水洗豆在 V60 02 上采用四段注水，展现黑加仑、柑橘和焦糖的经典非洲风味。乞力马扎罗咖啡是非洲精品咖啡的代表之一，风味介于肯尼亚的明亮和埃塞俄比亚的花果之间。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "坦桑尼亚", "乞力马扎罗", "中烘", "水洗", "非洲经典"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "坦桑尼亚 乞力马扎罗 水洗 中烘",
+    "origin": {
+      "country": "坦桑尼亚",
+      "region": "乞力马扎罗",
+      "farm": "乞力马扎罗合作社",
+      "altitude": { "value": 1700, "unit": "m" }
+    },
+    "variety": "Bourbon",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑加仑", "柑橘", "焦糖", "可可"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "树脂",
+    "brewerSize": "02",
+    "filter": "V60 漂白",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 18, "unit": "g" },
+    "waterAmount": { "value": 270, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 20, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 92, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 200, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 40, "unit": "s" }
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "润湿漂白滤纸，预热 V60 02 滤杯和分享壶。倒掉预热用水。" },
+    { "order": 2, "action": "dose", "description": "将 18g 乞力马扎罗咖啡粉倒入滤杯，轻拍平整。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 54ml 水，92°C，从中心向外绕圈两圈。闷蒸 40 秒。",
+      "duration": { "value": 40, "unit": "s" },
+      "waterAmount": { "value": 54, "unit": "ml" },
+      "cumulativeWater": { "value": 54, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 110ml，中水流。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 56, "unit": "ml" },
+      "cumulativeWater": { "value": 110, "unit": "ml" },
+      "targetWeight": { "value": 110, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 165ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 55, "unit": "ml" },
+      "cumulativeWater": { "value": 165, "unit": "ml" },
+      "targetWeight": { "value": 165, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：绕圈注水至 220ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 55, "unit": "ml" },
+      "cumulativeWater": { "value": 220, "unit": "ml" },
+      "targetWeight": { "value": 220, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 9, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 10,
+      "action": "pour",
+      "description": "第四段注水：中心定点注水至 270ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 50, "unit": "ml" },
+      "cumulativeWater": { "value": 270, "unit": "ml" },
+      "targetWeight": { "value": 270, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 11,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分 20 秒。",
+      "duration": { "value": 50, "unit": "s" }
+    },
+    {
+      "order": 12,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑加仑般明亮的浆果酸质、柑橘般清爽的果味、焦糖甜感绵长、可可般温暖的苦甜收尾。乞力马扎罗咖啡就像这座非洲最高峰——下有温暖的火山土壤，上有明亮的天空。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 198, "unit": "s" },
+    "finalYield": { "value": 235, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.2,
+    "rating": 8.0,
+    "flavorProfile": {
+      "acidity": 7.0,
+      "sweetness": 7.5,
+      "bitterness": 3.0,
+      "body": 7.0,
+      "cleanCup": 7.5,
+      "aftertaste": 7.5,
+      "balance": 7.5,
+      "aroma": 7.5
+    }
+  }
+}
