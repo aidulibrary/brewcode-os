@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta
+      name="description"
+      content="BrewCode OS 礼字号 — 咖啡冲煮的通用语言。开源 .brew 标准，数据主权，社区驱动。"
+    />
+    <title>BrewCode OS · 礼字号</title>
+    <link rel="stylesheet" href="portal.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <h1 class="hero-brand">BrewCode OS</h1>
+      <p class="hero-name">礼字号</p>
+      <p class="hero-tagline">咖啡冲煮的通用语言</p>
+      <blockquote class="hero-quote">
+        我们不是在做一个 App。<br />我们在为咖啡冲煮领域定义一门通用语言。
+      </blockquote>
+    </header>
+
+    <section class="concepts">
+      <div class="concept-card">
+        <span class="concept-icon" aria-hidden="true">{ }</span>
+        <h3>开源标准</h3>
+        <p>.brew 是一种开放的 JSON 文件格式。任何人都可以阅读、创建、分享。零专利，零围墙。</p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon" aria-hidden="true">◈</span>
+        <h3>数据主权</h3>
+        <p>你的冲煮记录、味觉偏好、设备参数属于你。我们不拥有你的数据，不售卖，不做广告。</p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon" aria-hidden="true">⑂</span>
+        <h3>社区驱动</h3>
+        <p>改进从 Fork 开始，共识通过 Pull Request 达成。没有人独自拥有这个标准。</p>
+      </div>
+    </section>
+
+    <section class="cta">
+      <a href="https://player.礼字号.中国" class="btn-start">开始冲煮</a>
+      <p class="cta-hint">打开 BrewPlayer，载入 .brew 文件，跟着步骤冲一杯好咖啡。</p>
+    </section>
+
+    <section class="seeds">
+      <h2 class="section-title">种子方案库</h2>
+      <p class="section-desc">
+        精选冲煮方案，覆盖主流器具、产区、烘焙度。每个方案都是一个 .brew 文件。
+      </p>
+      <div class="seed-grid" id="seed-grid"></div>
+    </section>
+
+    <section class="community">
+      <h2 class="section-title">加入我们</h2>
+      <p class="section-desc">
+        BrewCode OS 是一个开放项目。标准、工具、方案——全部开源，全部在 GitHub 上协作。
+      </p>
+      <a
+        href="https://github.com/aidulibrary/brewcode-os"
+        class="btn-fork"
+        target="_blank"
+        rel="noopener"
+        >Fork it →</a
+      >
+    </section>
+
+    <footer class="footer">
+      <p class="footer-brand">BrewCode OS · 礼字号</p>
+      <p>创始人：李泊言 Bowen Lee</p>
+      <p>
+        许可证：<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>（公共领域）
+      </p>
+      <p>2026</p>
+    </footer>
+
+    <script>
+      (function () {
+        var seeds = [
+          {
+            name: '深烘瑰夏实验',
+            brewer: 'V60',
+            author: 'brewcode-os/genesis',
+            coffee: '巴拿马 瑰夏 日晒 深烘',
+            flavors: '黑樱桃、焦糖布丁、朗姆酒',
+            rating: 8,
+          },
+          {
+            name: '粕谷哲 4:6 法',
+            brewer: 'Origami',
+            author: 'Tetsu Kasuya',
+            coffee: '肯尼亚 基里尼亚加 水洗 中深烘',
+            flavors: '黑加仑、红糖、柑橘',
+            rating: 8.8,
+          },
+          {
+            name: '曼特宁低温慢萃',
+            brewer: 'Kalita Wave',
+            author: 'brewcode-os/genesis',
+            coffee: '印尼 苏门答腊 湿刨 深烘',
+            flavors: '黑巧克力、香料、雪松',
+            rating: 7.8,
+          },
+          {
+            name: '云南孟连日晒',
+            brewer: '爱乐压',
+            author: 'brewcode-os/genesis',
+            coffee: '中国 云南 孟连 日晒 中深烘',
+            flavors: '红糖、普洱茶、梅子',
+            rating: 8,
+          },
+          {
+            name: 'Chemex 深烘大份',
+            brewer: 'Chemex',
+            author: 'brewcode-os/genesis',
+            coffee: '巴布亚新几内亚 水洗 深烘',
+            flavors: '黑巧克力、烤杏仁、焦糖',
+            rating: 7.8,
+          },
+          {
+            name: '浅烘法压实验',
+            brewer: '法压壶',
+            author: 'brewcode-os/genesis',
+            coffee: '埃塞俄比亚 古吉 日晒 浅烘',
+            flavors: '草莓、蓝莓、百香果',
+            rating: 8.5,
+          },
+        ];
+
+        var grid = document.getElementById('seed-grid');
+
+        seeds.forEach(function (s) {
+          var card = document.createElement('div');
+          card.className = 'seed-card';
+
+          var stars = '';
+          for (var i = 0; i < 5; i++) {
+            stars += i < Math.round(s.rating / 2) ? '★' : '☆';
+          }
+
+          card.innerHTML =
+            '<div class="seed-top">' +
+            '<span class="seed-brewer">' +
+            s.brewer +
+            '</span>' +
+            '<span class="seed-rating">' +
+            stars +
+            '</span>' +
+            '</div>' +
+            '<h3 class="seed-name">' +
+            s.name +
+            '</h3>' +
+            '<p class="seed-coffee">' +
+            s.coffee +
+            '</p>' +
+            '<p class="seed-flavors">' +
+            s.flavors +
+            '</p>' +
+            '<p class="seed-author">' +
+            s.author +
+            '</p>';
+
+          grid.appendChild(card);
+        });
+      })();
+    </script>
+  </body>
+</html>
