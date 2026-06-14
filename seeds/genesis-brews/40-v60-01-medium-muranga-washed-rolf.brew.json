@@ -1,0 +1,126 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "April 风格 · 肯尼亚 穆拉雅 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "Patrik Rolf",
+    "description": "Patrik Rolf 是 April Coffee Roasters（哥本哈根）的创始人，2019 年世界咖啡冲煮大赛亚军。April 风格以极简著称：粗研磨、高温快萃、低粉量高水比。这个方案使用 13g 粉，240ml 水（1:18.5 超高粉水比），C40 32 刻度的粗研磨，两次快速注水法——追求极致的干净度和甜感，是典型的北欧极简美学。穆拉雅是肯尼亚中部的重要产区，这支中烘水洗豆在 April 风格下展现出温和明亮的酸质。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "Patrik Rolf", "April Coffee", "冠军方案", "中烘", "水洗", "肯尼亚"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "肯尼亚 穆拉雅 水洗 中烘",
+    "origin": {
+      "country": "肯尼亚",
+      "region": "穆拉雅",
+      "farm": "穆拉雅合作社",
+      "altitude": { "value": 1650, "unit": "m" }
+    },
+    "variety": "SL34",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑加仑", "焦糖", "葡萄柚", "花香"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "01",
+    "filter": "V60 漂白",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 13, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:18.5",
+    "grindSize": { "value": 32, "unit": "C40 click", "description": "粗研磨，April 标志性极粗" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "调配水",
+    "brewTime": { "value": 120, "unit": "s" },
+    "bloomRatio": "1:4",
+    "bloomTime": { "value": 30, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "润湿漂白滤纸，预热陶瓷 V60 01 滤杯和分享壶。Patrik Rolf 偏好陶瓷 V60，保温性优于树脂。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 13g 穆拉雅咖啡粉倒入滤杯，轻拍平整。低粉量 + 粗研磨，粉床非常薄，这是 April 风格的核心——让水快速通过，避免过度萃取。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 52ml 水，93°C，中心定点注水。April 风格不绕圈——减少扰动，提高均匀性。闷蒸 30 秒。",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 52, "unit": "ml" },
+      "cumulativeWater": { "value": 52, "unit": "ml" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一次注水：中心定点注水至 130ml。持续而不间断的单点注水是 April 的标志。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 78, "unit": "ml" },
+      "cumulativeWater": { "value": 130, "unit": "ml" },
+      "targetWeight": { "value": 130, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。粉床薄，下降快。",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二次注水：中心定点注水至 240ml。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 110, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "targetWeight": { "value": 240, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "wait",
+      "description": "等待滴滤完成。April 风格的特点——越少等待越好，粗研磨使水流下降极快。",
+      "duration": { "value": 40, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑加仑般温和明亮的酸质、焦糖甜感干净柔和、葡萄柚般清雅的微苦、花香飘逸。1:18.5 的超高粉水比搭配粗研磨——这是北欧极简美学的极致表达：不追求高萃取率，而是追求清晰、干净、可重复的美味。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 118, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.05,
+    "extractionYield": 18.5,
+    "rating": 8.5,
+    "flavorProfile": {
+      "acidity": 7.5,
+      "sweetness": 8.0,
+      "bitterness": 2.0,
+      "body": 5.0,
+      "cleanCup": 9.0,
+      "aftertaste": 7.5,
+      "balance": 8.0,
+      "aroma": 7.5
+    }
+  }
+}
