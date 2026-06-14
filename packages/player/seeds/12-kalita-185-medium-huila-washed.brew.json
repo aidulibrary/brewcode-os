@@ -1,0 +1,114 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "平底大份 · 哥伦比亚 蕙兰 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Kalita Wave 185 大份冲煮方案，平底三孔配合分段注水，适合 2 人分享。中烘蕙兰水洗，焦糖坚果调性。",
+    "license": "CC0",
+    "tags": ["Kalita Wave", "185", "大份量", "中烘", "水洗", "哥伦比亚", "蕙兰", "分享"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "哥伦比亚 蕙兰 水洗 中烘",
+    "producer": "蕙兰生产者协会",
+    "origin": { "country": "哥伦比亚", "region": "蕙兰", "farm": "Finca El Progreso", "altitude": "1500-1800m" },
+    "variety": "Caturra",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["焦糖", "坚果", "巧克力", "红苹果"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "185",
+    "filter": "Kalita 波浪 185 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Kalita 玻璃分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 24, "unit": "g" },
+    "waterAmount": { "value": 360, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 26, "unit": "C40 click", "description": "中研磨，大粉量需略粗以防堵塞" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 210, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 40, "unit": "s" },
+    "targetTDS": 1.28,
+    "targetExtraction": 19.2
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 Kalita 185 波浪滤纸，热水充分冲洗，预热滤杯和分享壶" },
+    { "order": 2, "action": "grind", "description": "称取 24g 咖啡豆，C40 研磨 26 格，倒入滤杯，轻拍使粉层均匀" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "90°C 热水注入 48ml，绕圈浸润。大粉量需要更多闷蒸水，闷蒸 40 秒",
+      "duration": { "value": 40, "unit": "s" },
+      "waterAmount": { "value": 48, "unit": "ml" },
+      "cumulativeWater": { "value": 48, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 150ml（累计 198ml），慢速绕圈，覆盖整个粉面",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 150, "unit": "ml" },
+      "cumulativeWater": { "value": 198, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 1.5cm",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 240ml（累计 360ml），中心与边缘交替",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 162, "unit": "ml" },
+      "cumulativeWater": { "value": 360, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。Kalita 185 大粉量流速慢，目标总时间 3:00-3:30",
+      "duration": { "value": 100, "unit": "s" }
+    },
+    { "order": 8, "action": "taste", "description": "倒入两杯中。焦糖甜香，坚果巧克力风味，红苹果微酸，均衡舒适" }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 215, "unit": "s" },
+    "finalYield": { "value": 340, "unit": "g" },
+    "measuredTDS": 1.26,
+    "extractionYield": 18.9,
+    "rating": 8.0,
+    "aroma": { "rating": 8.0, "notes": "焦糖与坚果香气，温暖舒适" },
+    "flavor": { "rating": 8.0, "notes": "焦糖和坚果风味突出，巧克力微苦，红苹果微酸" },
+    "aftertaste": { "rating": 7.5, "notes": "余韵中等，坚果可可尾调" },
+    "acidity": { "rating": 7.5, "notes": "红苹果酸感温和" },
+    "body": { "rating": 8.5, "notes": "中高醇厚度，平底滤杯的圆润口感" },
+    "balance": { "rating": 8.0, "notes": "甜苦均衡，经典中烘风格" },
+    "sweetness": { "rating": 8.0, "notes": "焦糖甜感舒适" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好，水洗处理特点" },
+    "overall": { "rating": 8.0, "notes": "Kalita 185 大份方案，适合两人分享，稳定可靠" },
+    "tastingNotes": ["焦糖", "坚果", "巧克力", "红苹果"],
+    "improvements": "若想提升甜感，可尝试水温提高至 92°C"
+  }
+}

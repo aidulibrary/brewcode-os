@@ -1,0 +1,119 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "西达摩大份 · 埃塞俄比亚 西达摩 水洗 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "V60 02 大份冲煮埃塞俄比亚西达摩水洗浅烘。西达摩以柠檬和茉莉花香著称，大份量适合两人共享。",
+    "license": "CC0",
+    "tags": ["V60", "02", "大份量", "浅烘", "水洗", "埃塞俄比亚", "西达摩", "分享"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 西达摩 水洗 浅烘",
+    "producer": "西达摩合作社",
+    "origin": { "country": "埃塞俄比亚", "region": "西达摩", "farm": "Bensa 处理站", "altitude": "1800-2000m" },
+    "variety": "Heirloom",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["柠檬", "茉莉花", "蜂蜜", "绿茶"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "02",
+    "filter": "V60 漂白 02",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Hario 02 分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 320, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 23, "unit": "C40 click", "description": "中细研磨，大粉量需略粗" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 195, "unit": "s" },
+    "bloomRatio": "1:2.5",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.35,
+    "targetExtraction": 20.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 V60 02 滤纸，热水充分冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 20g 咖啡豆，C40 研磨 23 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 50ml，绕圈快速浸润。浅烘西达摩排气丰富，闷蒸 30 秒",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 50, "unit": "ml" },
+      "cumulativeWater": { "value": 50, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 140ml（累计 190ml），慢速绕圈",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 140, "unit": "ml" },
+      "cumulativeWater": { "value": 190, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 220ml（累计 320ml），中心与边缘交替",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 130, "unit": "ml" },
+      "cumulativeWater": { "value": 320, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "swirl", "description": "轻旋滤杯两圈，帮助粉层均匀沉降" },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 3:00-3:15",
+      "duration": { "value": 100, "unit": "s" }
+    },
+    {
+      "order": 9,
+      "action": "taste",
+      "description": "倒入两杯。柠檬酸质明亮，茉莉花香，蜂蜜甜感，绿茶尾韵。西达摩的经典优雅"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 200, "unit": "s" },
+    "finalYield": { "value": 305, "unit": "g" },
+    "measuredTDS": 1.33,
+    "extractionYield": 20.2,
+    "rating": 8.3,
+    "aroma": { "rating": 8.5, "notes": "茉莉花香与柠檬清香，水洗西达摩干净香气" },
+    "flavor": { "rating": 8.5, "notes": "柠檬酸质明亮，茉莉花香，蜂蜜甜感，绿茶尾韵" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵悠长，绿茶回甘" },
+    "acidity": { "rating": 9.0, "notes": "柠檬酸质明亮活泼，西达摩标志性高酸" },
+    "body": { "rating": 7.5, "notes": "中等醇厚度，V60 的干净口感" },
+    "balance": { "rating": 8.5, "notes": "花香与酸质平衡出色" },
+    "sweetness": { "rating": 8.5, "notes": "蜂蜜甜感丰富" },
+    "cleanCup": { "rating": 8.5, "notes": "干净度高，水洗处理特点" },
+    "overall": { "rating": 8.3, "notes": "V60 02 西达摩大份方案，两人分享柠檬茉莉花香，清爽优雅" },
+    "tastingNotes": ["柠檬", "茉莉花", "蜂蜜", "绿茶"],
+    "improvements": "可尝试研磨再细一格（22格），提升酸质亮度"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "云南折纸 · 中国 云南 日晒 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Origami 折纸滤杯搭配锥形滤纸，冲煮中国云南日晒咖啡。国产咖啡豆的中烘方案，展现云南咖啡的坚果和焦糖风味。",
+    "license": "CC0",
+    "tags": ["Origami", "云南", "中国", "中烘", "日晒", "国产咖啡", "焦糖"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "中国 云南 日晒 中烘",
+    "producer": "云南咖啡合作社",
+    "origin": { "country": "中国", "region": "云南", "farm": "普洱产区", "altitude": "1200-1500m" },
+    "variety": "Catimor",
+    "process": "日晒",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["焦糖", "坚果", "黑巧克力", "烤面包"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 锥形 01 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Origami 木托分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 225, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 23, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.3,
+    "targetExtraction": 19.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "将 V60 锥形滤纸放入 Origami S 滤杯。热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 23 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "90°C 热水注入 30ml，绕圈浸润。闷蒸 30 秒",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 100ml（累计 130ml），慢速绕圈",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 130, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 160ml（累计 225ml），中心与边缘交替",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 95, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "swirl", "description": "轻旋滤杯两圈，帮助粉层均匀沉降" },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 2:45-3:00",
+      "duration": { "value": 90, "unit": "s" }
+    },
+    {
+      "order": 9,
+      "action": "taste",
+      "description": "倒入杯中。焦糖甜香，坚果风味，黑巧克力微苦，烤面包尾韵。云南咖啡的温暖日常"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 190, "unit": "s" },
+    "finalYield": { "value": 212, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.2,
+    "rating": 7.8,
+    "aroma": { "rating": 8.0, "notes": "焦糖与烤面包的温暖香气，坚果气息" },
+    "flavor": { "rating": 7.5, "notes": "焦糖甜感，坚果风味，黑巧克力微苦" },
+    "aftertaste": { "rating": 7.5, "notes": "余韵中等，烤面包温暖尾调" },
+    "acidity": { "rating": 7.5, "notes": "低酸温和，云南咖啡的柔和风格" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，Origami 的干净圆润" },
+    "balance": { "rating": 8.0, "notes": "焦糖甜感与坚果风味平衡" },
+    "sweetness": { "rating": 8.0, "notes": "焦糖甜感突出，云南咖啡特色" },
+    "cleanCup": { "rating": 7.5, "notes": "干净度好，日晒处理微有果香" },
+    "overall": { "rating": 7.8, "notes": "云南咖啡 Origami 方案，支持国产咖啡，温暖日常风味" },
+    "tastingNotes": ["焦糖", "坚果", "黑巧克力", "烤面包"],
+    "improvements": "可尝试水温提高至 92°C，释放更多焦糖甜感"
+  }
+}

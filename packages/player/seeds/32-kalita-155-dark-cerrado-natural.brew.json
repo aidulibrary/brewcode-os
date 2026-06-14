@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "深烘平底 · 巴西 喜拉多 日晒 深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Kalita Wave 155 冲煮深烘巴西喜拉多。平底三孔慢萃，低温细水流控制深烘萃取，保留焦糖甜感避免苦味。",
+    "license": "CC0",
+    "tags": ["Kalita Wave", "155", "深烘", "日晒", "巴西", "喜拉多", "焦糖"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "巴西 喜拉多 日晒 深烘",
+    "producer": "喜拉多产区合作社",
+    "origin": { "country": "巴西", "region": "喜拉多", "farm": "Fazenda Chapadao", "altitude": "900-1100m" },
+    "variety": "Mundo Novo",
+    "process": "日晒",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["焦糖", "黑巧克力", "烤面包", "坚果"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪 155 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Kalita 玻璃分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 210, "unit": "ml" },
+    "ratio": "1:14",
+    "grindSize": { "value": 26, "unit": "C40 click", "description": "中研磨，深烘需要稍粗避免过萃" },
+    "waterTemperature": { "value": 85, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 35, "unit": "s" },
+    "targetTDS": 1.28,
+    "targetExtraction": 19.0
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 Kalita 波浪 155 滤纸，热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 26 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "85°C 热水注入 30ml，绕圈快速浸润。深烘排气丰富，闷蒸 35 秒",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 80ml（累计 110ml），慢速细水流",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 80, "unit": "ml" },
+      "cumulativeWater": { "value": 110, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 12, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 140ml（累计 210ml），中心与边缘交替",
+      "duration": { "value": 18, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 210, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。Kalita 三孔配合深烘，流速约 3 分钟",
+      "duration": { "value": 90, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。焦糖甜香浓郁，黑巧克力微苦，烤面包香气，坚果尾韵。深烘巴西的温暖厚重"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 190, "unit": "s" },
+    "finalYield": { "value": 198, "unit": "g" },
+    "measuredTDS": 1.26,
+    "extractionYield": 18.8,
+    "rating": 7.8,
+    "aroma": { "rating": 8.0, "notes": "焦糖与烤面包的浓郁香气，深烘温暖气息" },
+    "flavor": { "rating": 7.5, "notes": "焦糖甜感浓郁，黑巧克力微苦，烤面包香气" },
+    "aftertaste": { "rating": 7.5, "notes": "余韵中等，焦糖回甘" },
+    "acidity": { "rating": 6.0, "notes": "极低酸，深烘巴西典型特征" },
+    "body": { "rating": 8.5, "notes": "中高醇厚度，平底滤杯带来的圆润厚实" },
+    "balance": { "rating": 7.5, "notes": "苦甜平衡，深烘浓醇风格" },
+    "sweetness": { "rating": 8.0, "notes": "焦糖甜感，深烘中的良好表现" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好，无杂味" },
+    "overall": { "rating": 7.8, "notes": "Kalita 155 深烘巴西方案，平底慢萃让深烘更圆润" },
+    "tastingNotes": ["焦糖", "黑巧克力", "烤面包", "坚果"],
+    "improvements": "可尝试粉水比提高至 1:15，降低浓度"
+  }
+}

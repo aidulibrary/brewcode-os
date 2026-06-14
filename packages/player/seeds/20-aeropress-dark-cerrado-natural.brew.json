@@ -1,0 +1,108 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "爱乐压深烘 · 巴西 喜拉多 日晒 深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "爱乐压正压法，专为深烘巴西喜拉多设计。低温短时萃取，避免深烘苦味，保留焦糖甜感和坚果风味。",
+    "license": "CC0",
+    "tags": ["爱乐压", "Aeropress", "深烘", "日晒", "巴西", "喜拉多", "低温"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "巴西 喜拉多 日晒 深烘",
+    "producer": "喜拉多产区合作社",
+    "origin": { "country": "巴西", "region": "喜拉多", "farm": "Fazenda Cerrado", "altitude": "900-1100m" },
+    "variety": "Bourbon",
+    "process": "日晒",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["黑巧克力", "坚果", "焦糖", "烤面包"]
+  },
+  "equipment": {
+    "brewer": "爱乐压",
+    "brewerMaterial": "塑料",
+    "brewerSize": "标准",
+    "filter": "爱乐压 原装纸滤",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "玻璃杯"
+  },
+  "recipe": {
+    "dose": { "value": 16, "unit": "g" },
+    "waterAmount": { "value": 220, "unit": "ml" },
+    "ratio": "1:13.75",
+    "grindSize": { "value": 22, "unit": "C40 click", "description": "中细研磨，深烘需要中细研磨增加萃取效率" },
+    "waterTemperature": { "value": 85, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 110, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 15, "unit": "s" },
+    "targetTDS": 1.28,
+    "targetExtraction": 19.0
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "将滤纸放入滤盖，热水冲洗。爱乐压倒置（反压法），放在电子秤上" },
+    { "order": 2, "action": "grind", "description": "称取 16g 咖啡豆，C40 研磨 22 格，倒入爱乐压筒身" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 32ml 85°C 热水，轻轻搅拌使所有粉湿润。等待 15 秒",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 32, "unit": "ml" },
+      "cumulativeWater": { "value": 32, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "注入剩余 188ml 热水至 220ml，搅拌 5 圈",
+      "waterAmount": { "value": 188, "unit": "ml" },
+      "cumulativeWater": { "value": 220, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "盖上滤盖，浸泡 45 秒。深烘浸泡时间不宜过长",
+      "duration": { "value": 45, "unit": "s" }
+    },
+    { "order": 6, "action": "stir", "description": "取下滤盖，轻轻搅拌 3 圈使粉层沉降" },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "盖上滤盖，将杯子倒扣在滤盖上，快速翻转。缓慢匀速下压约 30 秒。听到嘶嘶声即停止",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "黑巧克力风味浓郁，坚果香气，焦糖甜感，烤面包尾韵。深烘巴西的经典厚重"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 115, "unit": "s" },
+    "finalYield": { "value": 205, "unit": "g" },
+    "measuredTDS": 1.26,
+    "extractionYield": 18.8,
+    "rating": 7.8,
+    "aroma": { "rating": 8.0, "notes": "黑巧克力与烤面包的浓郁香气，深烘特有" },
+    "flavor": { "rating": 8.0, "notes": "黑巧克力风味浓郁，坚果香气，焦糖甜感，烤面包尾韵" },
+    "aftertaste": { "rating": 7.5, "notes": "余韵中等，黑巧克力和焦糖的温暖尾调" },
+    "acidity": { "rating": 6.0, "notes": "极低酸，深烘巴西豆的典型特征" },
+    "body": { "rating": 8.5, "notes": "中高醇厚度，爱乐压纸滤带来干净但不失厚重的口感" },
+    "balance": { "rating": 7.5, "notes": "苦甜平衡，深烘风格" },
+    "sweetness": { "rating": 7.5, "notes": "焦糖甜感，在深烘中表现良好" },
+    "cleanCup": { "rating": 8.0, "notes": "纸滤带来的干净口感，无细粉" },
+    "overall": { "rating": 7.8, "notes": "爱乐压深烘方案，低温短时避免苦味，适合喜欢深烘口感的朋友" },
+    "tastingNotes": ["黑巧克力", "坚果", "焦糖", "烤面包"],
+    "improvements": "可尝试水温降至 82°C，进一步减少苦味"
+  }
+}

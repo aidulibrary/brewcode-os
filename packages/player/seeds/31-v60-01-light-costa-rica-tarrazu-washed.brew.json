@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "塔拉珠V60 · 哥斯达黎加 塔拉珠 水洗 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "V60 01 冲煮浅烘哥斯达黎加塔拉珠水洗。高水温细研磨充分释放蜂蜜甜感和柑橘酸质，水洗塔拉珠的干净优雅。",
+    "license": "CC0",
+    "tags": ["V60", "浅烘", "水洗", "哥斯达黎加", "塔拉珠", "蜂蜜", "柑橘"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "哥斯达黎加 塔拉珠 水洗 浅烘",
+    "producer": "塔拉珠合作社",
+    "origin": { "country": "哥斯达黎加", "region": "塔拉珠", "farm": "Finca La Pastora", "altitude": "1500-1800m" },
+    "variety": "Catuai",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["蜂蜜", "柑橘", "花香", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "树脂",
+    "brewerSize": "01",
+    "filter": "V60 漂白 01",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Hario 01 分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 21, "unit": "C40 click", "description": "中细研磨，细砂糖粗细" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 165, "unit": "s" },
+    "bloomRatio": "1:2.5",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.35,
+    "targetExtraction": 20.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 V60 01 滤纸，热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 21 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 38ml，绕圈浸润。闷蒸 30 秒",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 38, "unit": "ml" },
+      "cumulativeWater": { "value": 38, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 105ml（累计 143ml），慢速细水流",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 105, "unit": "ml" },
+      "cumulativeWater": { "value": 143, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 12, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：中心定点注水至 240ml",
+      "duration": { "value": 18, "unit": "s" },
+      "waterAmount": { "value": 97, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 2:30-2:45",
+      "duration": { "value": 85, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。蜂蜜甜香，柑橘酸质，花香层次，焦糖回甘。塔拉珠的干净甜蜜"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 170, "unit": "s" },
+    "finalYield": { "value": 228, "unit": "g" },
+    "measuredTDS": 1.33,
+    "extractionYield": 20.2,
+    "rating": 8.5,
+    "aroma": { "rating": 8.5, "notes": "蜂蜜甜香与柑橘清香，花香优雅" },
+    "flavor": { "rating": 8.5, "notes": "蜂蜜甜感丰富，柑橘酸质明亮，花香层次，焦糖回甘" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵悠长，蜂蜜回甘持久" },
+    "acidity": { "rating": 9.0, "notes": "柑橘酸质明亮活泼，浅烘塔拉珠招牌" },
+    "body": { "rating": 7.5, "notes": "中等醇厚度，V60 的干净清爽" },
+    "balance": { "rating": 8.5, "notes": "蜂蜜甜感与柑橘酸质完美平衡" },
+    "sweetness": { "rating": 9.0, "notes": "蜂蜜甜感丰富，塔拉珠招牌风味" },
+    "cleanCup": { "rating": 8.5, "notes": "干净度极高" },
+    "overall": { "rating": 8.5, "notes": "V60 浅烘塔拉珠，蜂蜜柑橘的干净演绎" },
+    "tastingNotes": ["蜂蜜", "柑橘", "花香", "焦糖"],
+    "improvements": "可尝试研磨再细一格（20格），进一步提升蜂蜜甜感"
+  }
+}

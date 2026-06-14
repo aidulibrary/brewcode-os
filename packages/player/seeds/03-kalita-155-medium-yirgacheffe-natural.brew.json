@@ -1,0 +1,127 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "平底慢萃 · 埃塞俄比亚 耶加雪菲 日晒 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Kalita Wave 155 平底滤杯，三孔设计配合慢速注水，获得均衡萃取。中烘耶加雪菲日晒，保留果香同时增加甜感。",
+    "license": "CC0",
+    "tags": ["Kalita Wave", "平底滤杯", "慢萃", "中烘", "日晒", "埃塞俄比亚", "耶加雪菲"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 耶加雪菲 日晒 中烘",
+    "producer": "耶加雪菲合作社",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "耶加雪菲",
+      "farm": "Konga 处理站",
+      "altitude": "1800-2000m"
+    },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["焦糖", "杏桃", "花香", "柑橘"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪 155 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Kalita 玻璃分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 26, "unit": "C40 click", "description": "中研磨，比 V60 略粗，砂糖粗细" },
+    "waterTemperature": { "value": 91, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2.5",
+    "bloomTime": { "value": 35, "unit": "s" },
+    "targetTDS": 1.3,
+    "targetExtraction": 19.5
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "放入 Kalita 波浪滤纸，热水冲洗，预热滤杯和分享壶。Kalita 三孔底，滤纸贴合度检查"
+    },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 26 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "91°C 热水，注入 38ml，绕圈浸润。闷蒸 35 秒，让粉层充分膨胀",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 38, "unit": "ml" },
+      "cumulativeWater": { "value": 38, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：慢速绕圈至 100ml（累计 138ml），保持水流稳定，不要冲到滤纸边",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 138, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 170ml（累计 240ml），水流稍大，中心与边缘交替",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 102, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。Kalita 三孔流速较慢，目标总时间 2:45-3:00",
+      "duration": { "value": 90, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。焦糖甜香，杏桃果味，柑橘酸质，花香收尾。Kalita 带来的均衡口感"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 185, "unit": "s" },
+    "finalYield": { "value": 228, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.2,
+    "rating": 8.2,
+    "aroma": { "rating": 8.5, "notes": "焦糖甜香混合杏桃果香，花香层次丰富" },
+    "flavor": { "rating": 8.0, "notes": "杏桃和焦糖风味突出，柑橘酸质温和，花香缀尾" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，杏桃甜感持久" },
+    "acidity": { "rating": 8.0, "notes": "柑橘酸质柔和，不尖锐" },
+    "body": { "rating": 8.5, "notes": "中高醇厚度，平底滤杯带来的圆润口感" },
+    "balance": { "rating": 8.5, "notes": "均衡出色，甜感与酸质和谐" },
+    "sweetness": { "rating": 8.5, "notes": "焦糖甜感突出，中烘带来的甜感提升明显" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好，无杂味" },
+    "overall": { "rating": 8.2, "notes": "Kalita 平底滤杯慢萃方案，适合追求均衡口感的冲煮者" },
+    "tastingNotes": ["焦糖", "杏桃", "柑橘", "花香"],
+    "improvements": "若想提升果香，可将水温提高至 93°C，研磨略细至 25 格"
+  }
+}

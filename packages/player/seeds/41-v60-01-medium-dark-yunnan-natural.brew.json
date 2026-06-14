@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "云南中深烘V60 · 中国 云南 日晒 中深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "V60 01 冲煮中深烘云南日晒。中深烘云南咖啡展现更浓郁的焦糖和黑巧克力风味，适合喜欢厚重口感的朋友。",
+    "license": "CC0",
+    "tags": ["V60", "中深烘", "日晒", "中国", "云南", "国产咖啡", "浓郁"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "中国 云南 日晒 中深烘",
+    "producer": "云南咖啡合作社",
+    "origin": { "country": "中国", "region": "云南", "farm": "保山产区", "altitude": "1200-1500m" },
+    "variety": "Catimor",
+    "process": "日晒",
+    "roastLevel": "中深烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["焦糖", "黑巧克力", "烤面包", "坚果"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "树脂",
+    "brewerSize": "01",
+    "filter": "V60 漂白 01",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Hario 01 分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 210, "unit": "ml" },
+    "ratio": "1:14",
+    "grindSize": { "value": 24, "unit": "C40 click", "description": "中研磨" },
+    "waterTemperature": { "value": 87, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 35, "unit": "s" },
+    "targetTDS": 1.3,
+    "targetExtraction": 19.2
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 V60 01 滤纸，热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 24 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "87°C 热水注入 30ml，绕圈快速浸润。中深烘排气丰富，闷蒸 35 秒",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 80ml（累计 110ml），慢速细水流",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 80, "unit": "ml" },
+      "cumulativeWater": { "value": 110, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 12, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：中心定点注水至 210ml",
+      "duration": { "value": 18, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 210, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 2:45-3:00",
+      "duration": { "value": 90, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。焦糖甜香浓郁，黑巧克力苦甜，烤面包香气，坚果尾韵。中深烘云南的浓郁满足"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 190, "unit": "s" },
+    "finalYield": { "value": 198, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.0,
+    "rating": 7.8,
+    "aroma": { "rating": 8.0, "notes": "焦糖与烤面包的浓郁香气，中深烘温暖气息" },
+    "flavor": { "rating": 7.5, "notes": "焦糖甜感浓郁，黑巧克力苦甜，烤面包香气" },
+    "aftertaste": { "rating": 7.5, "notes": "余韵中等，烤面包温暖尾调" },
+    "acidity": { "rating": 6.5, "notes": "低酸柔和" },
+    "body": { "rating": 8.5, "notes": "中高醇厚度，中深烘的厚重口感" },
+    "balance": { "rating": 7.5, "notes": "苦甜均衡，浓郁风格" },
+    "sweetness": { "rating": 8.0, "notes": "焦糖甜感突出" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好" },
+    "overall": { "rating": 7.8, "notes": "V60 中深烘云南方案，浓郁焦糖风格的国产咖啡" },
+    "tastingNotes": ["焦糖", "黑巧克力", "烤面包", "坚果"],
+    "improvements": "可尝试粉水比提高至 1:15，降低浓度"
+  }
+}

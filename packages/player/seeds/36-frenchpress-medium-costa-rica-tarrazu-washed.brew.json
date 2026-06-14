@@ -1,0 +1,114 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "法压壶塔拉珠 · 哥斯达黎加 塔拉珠 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "法压壶冲煮中烘哥斯达黎加塔拉珠水洗。金属滤网保留油脂，让塔拉珠的蜂蜜甜感和柑橘酸质更加圆润饱满。",
+    "license": "CC0",
+    "tags": ["法压壶", "French Press", "中烘", "水洗", "哥斯达黎加", "塔拉珠", "蜂蜜"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "哥斯达黎加 塔拉珠 水洗 中烘",
+    "producer": "塔拉珠合作社",
+    "origin": { "country": "哥斯达黎加", "region": "塔拉珠", "farm": "Finca La Pastora", "altitude": "1500-1800m" },
+    "variety": "Catuai",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["蜂蜜", "柑橘", "巧克力", "烤杏仁"]
+  },
+  "equipment": {
+    "brewer": "法压壶",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "350ml",
+    "filter": "金属滤网",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "法压壶自带"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 300, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 30, "unit": "C40 click", "description": "粗研磨，海盐粗细" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 540, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.32,
+    "targetExtraction": 19.8
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "热水预热法压壶，倒掉预热用水" },
+    { "order": 2, "action": "grind", "description": "称取 20g 咖啡豆，C40 研磨 30 格，粗研磨倒入法压壶" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 40ml 90°C 热水，轻轻搅拌。闷蒸 30 秒",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 40, "unit": "ml" },
+      "cumulativeWater": { "value": 40, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "注入剩余 260ml 热水至 300ml，搅拌 5 圈",
+      "waterAmount": { "value": 260, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "盖上盖子但不压下滤网。浸泡 3 分钟",
+      "duration": { "value": 180, "unit": "s" }
+    },
+    { "order": 6, "action": "stir", "description": "打开盖子，用勺子轻轻搅拌打破表面咖啡粉壳" },
+    {
+      "order": 7,
+      "action": "wait",
+      "description": "等待 5 分钟，让悬浮咖啡粉自然沉降",
+      "duration": { "value": 300, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "缓慢压下滤网，约 30 秒压到底",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 9,
+      "action": "taste",
+      "description": "倒入杯中。蜂蜜甜香丰富，柑橘酸质圆润，巧克力微苦，烤杏仁尾韵。法压壶塔拉珠的圆润饱满"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 550, "unit": "s" },
+    "finalYield": { "value": 275, "unit": "g" },
+    "measuredTDS": 1.3,
+    "extractionYield": 19.5,
+    "rating": 8.0,
+    "aroma": { "rating": 8.5, "notes": "蜂蜜甜香与烤杏仁香气，法压壶保留的丰富气息" },
+    "flavor": { "rating": 8.0, "notes": "蜂蜜甜感，柑橘酸质圆润，巧克力微苦，烤杏仁尾韵" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，蜂蜜回甘" },
+    "acidity": { "rating": 8.0, "notes": "柑橘酸质圆润，法压壶带来的柔和" },
+    "body": { "rating": 8.5, "notes": "中高醇厚度，金属滤网保留油脂的圆润饱满" },
+    "balance": { "rating": 8.0, "notes": "蜂蜜甜感与柑橘酸质平衡" },
+    "sweetness": { "rating": 8.5, "notes": "蜂蜜甜感丰富" },
+    "cleanCup": { "rating": 7.0, "notes": "有细粉沉淀，法压壶特点" },
+    "overall": { "rating": 8.0, "notes": "法压壶塔拉珠方案，金属滤网让蜂蜜柑橘更圆润" },
+    "tastingNotes": ["蜂蜜", "柑橘", "巧克力", "烤杏仁"],
+    "improvements": "可尝试浸泡时间缩短至 7 分钟，减少细粉影响"
+  }
+}
