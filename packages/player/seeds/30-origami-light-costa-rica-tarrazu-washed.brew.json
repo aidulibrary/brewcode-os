@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "塔拉珠折纸 · 哥斯达黎加 塔拉珠 水洗 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Origami 折纸滤杯搭配锥形滤纸，冲煮浅烘哥斯达黎加塔拉珠水洗。浅烘完美展现塔拉珠的蜂蜜甜感和柑橘酸质。",
+    "license": "CC0",
+    "tags": ["Origami", "浅烘", "水洗", "哥斯达黎加", "塔拉珠", "蜂蜜", "柑橘"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "哥斯达黎加 塔拉珠 水洗 浅烘",
+    "producer": "塔拉珠合作社",
+    "origin": { "country": "哥斯达黎加", "region": "塔拉珠", "farm": "La Minita", "altitude": "1400-1700m" },
+    "variety": "Caturra",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["蜂蜜", "柑橘", "花香", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 锥形 01 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Origami 木托分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 22, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2.5",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.35,
+    "targetExtraction": 20.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "将 V60 锥形滤纸放入 Origami S 滤杯。热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 22 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 38ml，绕圈浸润。闷蒸 30 秒",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 38, "unit": "ml" },
+      "cumulativeWater": { "value": 38, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 100ml（累计 138ml），慢速绕圈",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 138, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 170ml（累计 240ml），中心与边缘交替",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 102, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 2:45-3:00",
+      "duration": { "value": 95, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。蜂蜜甜香，柑橘酸质明亮，花香优雅，焦糖回甘。塔拉珠浅烘的蜂蜜优雅"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 190, "unit": "s" },
+    "finalYield": { "value": 228, "unit": "g" },
+    "measuredTDS": 1.33,
+    "extractionYield": 20.2,
+    "rating": 8.5,
+    "aroma": { "rating": 8.5, "notes": "蜂蜜甜香与柑橘清香，花香层次" },
+    "flavor": { "rating": 8.5, "notes": "蜂蜜甜感突出，柑橘酸质明亮，花香优雅，焦糖回甘" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵悠长，蜂蜜回甘" },
+    "acidity": { "rating": 9.0, "notes": "柑橘酸质明亮活泼，浅烘塔拉珠招牌高酸" },
+    "body": { "rating": 7.5, "notes": "中等醇厚度，Origami 带来的干净清爽" },
+    "balance": { "rating": 8.5, "notes": "蜂蜜甜感与柑橘酸质完美平衡" },
+    "sweetness": { "rating": 9.0, "notes": "蜂蜜甜感丰富，塔拉珠招牌" },
+    "cleanCup": { "rating": 8.5, "notes": "干净度高，水洗处理与 Origami 的完美配合" },
+    "overall": { "rating": 8.5, "notes": "Origami 浅烘塔拉珠方案，蜂蜜柑橘的优雅演绎，舌尖上的哥斯达黎加" },
+    "tastingNotes": ["蜂蜜", "柑橘", "花香", "焦糖"],
+    "improvements": "可尝试研磨再细一格（21格），提升蜂蜜甜感"
+  }
+}

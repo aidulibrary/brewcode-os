@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "巴西大份V60 · 巴西 喜拉多 日晒 中深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "V60 02 大份冲煮中深烘巴西喜拉多。低水温粗研磨，保留焦糖甜感避免苦味，适合 2 人分享。",
+    "license": "CC0",
+    "tags": ["V60", "02", "大份量", "中深烘", "日晒", "巴西", "喜拉多", "分享"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "巴西 喜拉多 日晒 中深烘",
+    "producer": "喜拉多产区合作社",
+    "origin": { "country": "巴西", "region": "喜拉多", "farm": "Fazenda Cerrado", "altitude": "900-1100m" },
+    "variety": "Mundo Novo",
+    "process": "日晒",
+    "roastLevel": "中深烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["焦糖", "坚果", "黑巧克力", "烤面包"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "02",
+    "filter": "V60 漂白 02",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Hario 02 分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 280, "unit": "ml" },
+    "ratio": "1:14",
+    "grindSize": { "value": 25, "unit": "C40 click", "description": "中研磨" },
+    "waterTemperature": { "value": 86, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 195, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 35, "unit": "s" },
+    "targetTDS": 1.3,
+    "targetExtraction": 19.2
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 V60 02 滤纸，热水充分冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 20g 咖啡豆，C40 研磨 25 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "86°C 热水注入 40ml，绕圈快速浸润。闷蒸 35 秒",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 40, "unit": "ml" },
+      "cumulativeWater": { "value": 40, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 120ml（累计 160ml），慢速细水流",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 120, "unit": "ml" },
+      "cumulativeWater": { "value": 160, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 200ml（累计 280ml），中心与边缘交替",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 120, "unit": "ml" },
+      "cumulativeWater": { "value": 280, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 3:00-3:15",
+      "duration": { "value": 100, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入两杯。焦糖甜香，坚果风味，黑巧克力微苦，烤面包尾韵。大份巴西的温暖分享"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 200, "unit": "s" },
+    "finalYield": { "value": 265, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.0,
+    "rating": 7.8,
+    "aroma": { "rating": 8.0, "notes": "焦糖与烤面包的浓郁香气，坚果气息" },
+    "flavor": { "rating": 7.5, "notes": "焦糖甜感，坚果风味，黑巧克力微苦" },
+    "aftertaste": { "rating": 7.5, "notes": "余韵中等，焦糖回甘" },
+    "acidity": { "rating": 6.5, "notes": "低酸柔和" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度" },
+    "balance": { "rating": 7.5, "notes": "苦甜均衡" },
+    "sweetness": { "rating": 8.0, "notes": "焦糖甜感突出" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好" },
+    "overall": { "rating": 7.8, "notes": "V60 02 中深烘巴西大份方案，两人分享焦糖坚果的温暖日常" },
+    "tastingNotes": ["焦糖", "坚果", "黑巧克力", "烤面包"],
+    "improvements": "可尝试粉水比提高至 1:15，降低浓度"
+  }
+}

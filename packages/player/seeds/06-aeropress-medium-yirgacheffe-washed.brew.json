@@ -1,0 +1,114 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "爱乐压经典 · 埃塞俄比亚 耶加雪菲 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "爱乐压标准法，中烘耶加雪菲水洗。短时浸泡 + 快速压滤，萃取均衡，适合办公室和旅行场景。",
+    "license": "CC0",
+    "tags": ["爱乐压", "Aeropress", "中烘", "水洗", "埃塞俄比亚", "耶加雪菲", "便携"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 耶加雪菲 水洗 中烘",
+    "producer": "耶加雪菲合作社",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "耶加雪菲",
+      "farm": "Idido 处理站",
+      "altitude": "1800-2000m"
+    },
+    "variety": "Heirloom",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["茉莉花", "柠檬", "蜂蜜", "绿茶"]
+  },
+  "equipment": {
+    "brewer": "爱乐压",
+    "brewerMaterial": "塑料",
+    "brewerSize": "标准",
+    "filter": "爱乐压 原装纸滤",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "玻璃杯"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 225, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 20, "unit": "C40 click", "description": "中细研磨，介于细砂糖和食盐之间" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 120, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 15, "unit": "s" },
+    "targetTDS": 1.28,
+    "targetExtraction": 19.0
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "将滤纸放入滤盖，热水冲洗滤纸，预热爱乐压筒身" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 20 格，倒入爱乐压筒身" },
+    { "order": 3, "action": "dose", "description": "将爱乐压倒置放在电子秤上，清零" },
+    {
+      "order": 4,
+      "action": "bloom",
+      "description": "注入 30ml 90°C 热水，轻轻搅拌使所有粉湿润。等待 15 秒",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "pour",
+      "description": "注入剩余 195ml 热水至 225ml，轻轻搅拌 3 圈",
+      "waterAmount": { "value": 195, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 6,
+      "action": "wait",
+      "description": "盖上滤盖，等待浸泡 60 秒",
+      "duration": { "value": 60, "unit": "s" }
+    },
+    { "order": 7, "action": "stir", "description": "取下滤盖，轻轻搅拌 3 圈，使悬浮粉层沉降" },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "盖上滤盖，将杯子倒扣在滤盖上，快速翻转。缓慢匀速下压，约 30 秒压完。听到嘶嘶声即停止",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 9,
+      "action": "taste",
+      "description": "茉莉花香扑鼻，柠檬酸质清爽，蜂蜜甜感，绿茶尾韵。爱乐压带来的干净圆润口感"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 125, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.25,
+    "extractionYield": 18.8,
+    "rating": 8.0,
+    "aroma": { "rating": 8.5, "notes": "茉莉花清香，柠檬甜香，水洗耶加标志性干净香气" },
+    "flavor": { "rating": 8.0, "notes": "茉莉花与柠檬风味突出，蜂蜜甜感，绿茶尾韵" },
+    "aftertaste": { "rating": 7.5, "notes": "余韵中等，绿茶清甜回甘" },
+    "acidity": { "rating": 8.0, "notes": "柠檬酸质明亮，清爽不刺激" },
+    "body": { "rating": 7.5, "notes": "中等醇厚度，爱乐压带来圆润顺滑口感" },
+    "balance": { "rating": 8.0, "notes": "酸甜平衡良好，整体和谐" },
+    "sweetness": { "rating": 8.0, "notes": "蜂蜜甜感柔和，回甘舒适" },
+    "cleanCup": { "rating": 8.5, "notes": "纸滤带来的干净口感，无细粉残留" },
+    "overall": { "rating": 8.0, "notes": "简单可靠的爱乐压方案，3 分钟出品，适合日常快速冲煮" },
+    "tastingNotes": ["茉莉花", "柠檬", "蜂蜜", "绿茶"],
+    "improvements": "可尝试将浸泡时间延长至 90 秒，提升萃取率和甜感"
+  }
+}

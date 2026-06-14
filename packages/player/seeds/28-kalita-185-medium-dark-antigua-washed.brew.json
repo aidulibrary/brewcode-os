@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "安提瓜大平底 · 危地马拉 安提瓜 水洗 中深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Kalita Wave 185 大份冲煮中深烘安提瓜水洗。火山土壤可可风味在中深烘下更浓郁，适合 2 人分享。",
+    "license": "CC0",
+    "tags": ["Kalita Wave", "185", "中深烘", "水洗", "危地马拉", "安提瓜", "大份量"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "危地马拉 安提瓜 水洗 中深烘",
+    "producer": "安提瓜生产者协会",
+    "origin": { "country": "危地马拉", "region": "安提瓜", "farm": "Finca Santa Clara", "altitude": "1500-1700m" },
+    "variety": "Bourbon",
+    "process": "水洗",
+    "roastLevel": "中深烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["黑巧克力", "可可", "花香", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "185",
+    "filter": "Kalita 波浪 185 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Kalita 玻璃分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 22, "unit": "g" },
+    "waterAmount": { "value": 330, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 26, "unit": "C40 click", "description": "中研磨" },
+    "waterTemperature": { "value": 88, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 200, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 35, "unit": "s" },
+    "targetTDS": 1.28,
+    "targetExtraction": 19.0
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 Kalita 185 波浪滤纸，热水充分冲洗，预热滤杯和分享壶" },
+    { "order": 2, "action": "grind", "description": "称取 22g 咖啡豆，C40 研磨 26 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "88°C 热水注入 44ml，绕圈浸润。中深烘排气剧烈，闷蒸 35 秒",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 44, "unit": "ml" },
+      "cumulativeWater": { "value": 44, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 130ml（累计 174ml），慢速绕圈",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 130, "unit": "ml" },
+      "cumulativeWater": { "value": 174, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 230ml（累计 330ml），中心与边缘交替",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 156, "unit": "ml" },
+      "cumulativeWater": { "value": 330, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 3:00-3:20",
+      "duration": { "value": 100, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入两杯。黑巧克力苦甜，可可风味浓郁，花香优雅，焦糖回甘。中深烘安提瓜的浓郁魅力"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 210, "unit": "s" },
+    "finalYield": { "value": 310, "unit": "g" },
+    "measuredTDS": 1.26,
+    "extractionYield": 18.9,
+    "rating": 8.0,
+    "aroma": { "rating": 8.0, "notes": "黑巧克力和可可的浓郁香气，花香点缀" },
+    "flavor": { "rating": 8.0, "notes": "黑巧克力苦甜，可可风味浓郁，花香优雅，焦糖回甘" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，可可回甘" },
+    "acidity": { "rating": 7.0, "notes": "酸质柔和，中深烘降低了安提瓜的柑橘酸" },
+    "body": { "rating": 8.5, "notes": "中高醇厚度，平底滤杯的厚实口感" },
+    "balance": { "rating": 8.0, "notes": "可可与花香的浓郁平衡" },
+    "sweetness": { "rating": 8.0, "notes": "焦糖甜感良好" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好" },
+    "overall": { "rating": 8.0, "notes": "Kalita 185 中深烘安提瓜，两人分享可可花香，浓郁温暖" },
+    "tastingNotes": ["黑巧克力", "可可", "花香", "焦糖"],
+    "improvements": "可尝试水温降至 86°C，减少深烘可能带来的焦味"
+  }
+}

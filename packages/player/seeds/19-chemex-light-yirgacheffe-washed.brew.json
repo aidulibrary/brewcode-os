@@ -1,0 +1,122 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "Chemex 耶加雪菲 · 埃塞俄比亚 耶加雪菲 水洗 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Chemex 冲煮浅烘水洗耶加雪菲。厚滤纸过滤带来极致干净，保留茉莉花和柠檬的清爽风味。适合 2-3 人分享。",
+    "license": "CC0",
+    "tags": ["Chemex", "浅烘", "水洗", "埃塞俄比亚", "耶加雪菲", "分享", "清爽"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 耶加雪菲 水洗 浅烘",
+    "producer": "耶加雪菲合作社",
+    "origin": { "country": "埃塞俄比亚", "region": "耶加雪菲", "farm": "Idido 处理站", "altitude": "1800-2000m" },
+    "variety": "Heirloom",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["茉莉花", "柠檬", "蜂蜜", "绿茶"]
+  },
+  "equipment": {
+    "brewer": "Chemex",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "6 Cup",
+    "filter": "Chemex 方形漂白滤纸",
+    "grinder": "Mahlkönig EK43",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Chemex 玻璃壶身"
+  },
+  "recipe": {
+    "dose": { "value": 30, "unit": "g" },
+    "waterAmount": { "value": 480, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 10, "unit": "EK43 刻度", "description": "中粗研磨，海盐粗细" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 270, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 45, "unit": "s" },
+    "targetTDS": 1.35,
+    "targetExtraction": 20.5
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "Chemex 滤纸三折，单层侧朝向壶嘴。热水充分冲洗滤纸，预热玻璃壶身"
+    },
+    { "order": 2, "action": "grind", "description": "称取 30g 咖啡豆，EK43 研磨 10 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 90ml，绕圈快速浸润。闷蒸 45 秒",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 90, "unit": "ml" },
+      "cumulativeWater": { "value": 90, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 200ml（累计 290ml），慢速绕圈",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 200, "unit": "ml" },
+      "cumulativeWater": { "value": 290, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 2cm",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 320ml（累计 480ml），中心与边缘交替",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 190, "unit": "ml" },
+      "cumulativeWater": { "value": 480, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待全部滴滤完成。目标总时间 4:00-4:30",
+      "duration": { "value": 140, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "轻晃壶身。倒入杯中，茉莉花清香，柠檬酸质，蜂蜜甜感，绿茶尾韵。Chemex 极致干净"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 275, "unit": "s" },
+    "finalYield": { "value": 455, "unit": "g" },
+    "measuredTDS": 1.33,
+    "extractionYield": 20.2,
+    "rating": 8.5,
+    "aroma": { "rating": 8.5, "notes": "茉莉花清香，柠檬甜香，水洗耶加标志性干净香气" },
+    "flavor": { "rating": 8.5, "notes": "茉莉花与柠檬风味突出，蜂蜜甜感，绿茶尾韵" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵悠长，绿茶回甘" },
+    "acidity": { "rating": 8.5, "notes": "柠檬酸质明亮清爽" },
+    "body": { "rating": 7.5, "notes": "中低醇厚度，Chemex 厚滤纸带来的丝绸般轻盈口感" },
+    "balance": { "rating": 8.5, "notes": "花香与酸质平衡出色" },
+    "sweetness": { "rating": 8.5, "notes": "蜂蜜甜感丰富，回甘舒适" },
+    "cleanCup": { "rating": 9.0, "notes": "极致干净，Chemex 标志性清澈口感" },
+    "overall": { "rating": 8.5, "notes": "Chemex 浅烘耶加雪菲方案，极致干净与花香，适合分享一杯优雅的咖啡" },
+    "tastingNotes": ["茉莉花", "柠檬", "蜂蜜", "绿茶"],
+    "improvements": "可尝试研磨再粗半格，进一步突出干净度"
+  }
+}

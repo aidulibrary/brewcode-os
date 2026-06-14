@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "Chemex 西达摩 · 埃塞俄比亚 西达摩 水洗 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Chemex 大份冲煮浅烘西达摩水洗。极致干净展现柠檬和茉莉花香，适合 3-4 人分享。",
+    "license": "CC0",
+    "tags": ["Chemex", "浅烘", "水洗", "埃塞俄比亚", "西达摩", "柠檬", "茉莉花"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 西达摩 水洗 浅烘",
+    "producer": "西达摩合作社",
+    "origin": { "country": "埃塞俄比亚", "region": "西达摩", "farm": "Bensa 处理站", "altitude": "1800-2000m" },
+    "variety": "Heirloom",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["柠檬", "茉莉花", "蜂蜜", "绿茶"]
+  },
+  "equipment": {
+    "brewer": "Chemex",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "8 Cup",
+    "filter": "Chemex 方形漂白滤纸",
+    "grinder": "Mahlkönig EK43",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Chemex 玻璃壶身"
+  },
+  "recipe": {
+    "dose": { "value": 40, "unit": "g" },
+    "waterAmount": { "value": 640, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 10, "unit": "EK43 刻度", "description": "中粗研磨" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 300, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 45, "unit": "s" },
+    "targetTDS": 1.35,
+    "targetExtraction": 20.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "Chemex 滤纸三折，单层侧朝向壶嘴。热水充分冲洗滤纸，预热壶身" },
+    { "order": 2, "action": "grind", "description": "称取 40g 咖啡豆，EK43 研磨 10 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 120ml，绕圈快速浸润。闷蒸 45 秒",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 120, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 280ml（累计 400ml），慢速绕圈",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 280, "unit": "ml" },
+      "cumulativeWater": { "value": 400, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 2cm",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 440ml（累计 640ml），中心与边缘交替",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 240, "unit": "ml" },
+      "cumulativeWater": { "value": 640, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待全部滴滤完成。目标总时间 4:30-5:00",
+      "duration": { "value": 160, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "轻晃壶身。倒入杯中，柠檬酸质明亮，茉莉花香，蜂蜜甜感，绿茶尾韵。Chemex 极致干净中绽放的西达摩"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 310, "unit": "s" },
+    "finalYield": { "value": 610, "unit": "g" },
+    "measuredTDS": 1.33,
+    "extractionYield": 20.2,
+    "rating": 8.5,
+    "aroma": { "rating": 8.5, "notes": "茉莉花香与柠檬清香，水洗西达摩干净香气" },
+    "flavor": { "rating": 8.5, "notes": "柠檬酸质明亮，茉莉花香，蜂蜜甜感，绿茶尾韵" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵悠长，绿茶回甘" },
+    "acidity": { "rating": 9.0, "notes": "柠檬酸质明亮活泼，西达摩标志性高酸" },
+    "body": { "rating": 7.0, "notes": "中低醇厚度，Chemex 丝绸般轻盈" },
+    "balance": { "rating": 8.5, "notes": "花香与酸质完美平衡" },
+    "sweetness": { "rating": 8.5, "notes": "蜂蜜甜感丰富" },
+    "cleanCup": { "rating": 9.0, "notes": "极致干净，Chemex 标志性清澈" },
+    "overall": { "rating": 8.5, "notes": "Chemex 浅烘西达摩，极致干净中绽放柠檬茉莉花香" },
+    "tastingNotes": ["柠檬", "茉莉花", "蜂蜜", "绿茶"],
+    "improvements": "可尝试研磨再粗半格，进一步突出干净度"
+  }
+}

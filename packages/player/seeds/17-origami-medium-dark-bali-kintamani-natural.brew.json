@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "巴厘岛异域 · 印尼 巴厘岛 金塔马尼 日晒 中深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Origami 折纸滤杯搭配锥形滤纸，冲煮印尼巴厘岛金塔马尼产区。火山土壤柑橘风味，中深烘带来焦糖甜感。",
+    "license": "CC0",
+    "tags": ["Origami", "印尼", "巴厘岛", "金塔马尼", "中深烘", "日晒", "小众产区", "火山咖啡"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "印尼 巴厘岛 金塔马尼 日晒 中深烘",
+    "producer": "金塔马尼合作社",
+    "origin": { "country": "印尼", "region": "巴厘岛金塔马尼", "farm": "Kintamani 高地", "altitude": "1200-1600m" },
+    "variety": "Typica",
+    "process": "日晒",
+    "roastLevel": "中深烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["柑橘", "焦糖", "香料", "可可"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 锥形 01 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Origami 木托分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 225, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 24, "unit": "C40 click", "description": "中研磨，中深烘需要稍粗研磨" },
+    "waterTemperature": { "value": 88, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 35, "unit": "s" },
+    "targetTDS": 1.32,
+    "targetExtraction": 19.8
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "将 V60 锥形滤纸放入 Origami S 滤杯。热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 24 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "88°C 热水注入 30ml，绕圈浸润。中深烘排气丰富，闷蒸 35 秒",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 110ml（累计 140ml），慢速稳定绕圈",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 110, "unit": "ml" },
+      "cumulativeWater": { "value": 140, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：中心定点注水至 225ml，减少扰动",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 85, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。Origami 流速快，目标总时间 2:45-3:00",
+      "duration": { "value": 85, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。柑橘酸质独特，焦糖甜感，香料层次，可可尾韵。巴厘岛火山咖啡的异域风情"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 185, "unit": "s" },
+    "finalYield": { "value": 212, "unit": "g" },
+    "measuredTDS": 1.3,
+    "extractionYield": 19.5,
+    "rating": 8.0,
+    "aroma": { "rating": 8.0, "notes": "柑橘与香料的异域香气，焦糖甜香" },
+    "flavor": { "rating": 8.0, "notes": "柑橘酸质独特，焦糖甜感，香料层次，可可微苦" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，香料与可可的温暖尾调" },
+    "acidity": { "rating": 8.0, "notes": "柑橘酸质明亮，巴厘岛火山土壤的独特风味" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，Origami 带来的干净口感" },
+    "balance": { "rating": 8.0, "notes": "酸甜苦平衡，中深烘的厚重风格" },
+    "sweetness": { "rating": 8.0, "notes": "焦糖甜感突出" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好，无杂味" },
+    "overall": { "rating": 8.0, "notes": "巴厘岛金塔马尼小众产区方案，Origami 折纸滤杯展现异域风情" },
+    "tastingNotes": ["柑橘", "焦糖", "香料", "可可"],
+    "improvements": "可尝试粉水比提高至 1:16，探索更轻盈的口感"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "Chemex 云南 · 中国 云南 日晒 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Chemex 大份冲煮中国云南日晒中烘。展现国产咖啡的焦糖和坚果风味，Chemex 厚滤纸让云南咖啡更干净。",
+    "license": "CC0",
+    "tags": ["Chemex", "云南", "中国", "中烘", "日晒", "国产咖啡", "国产云南"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "中国 云南 日晒 中烘",
+    "producer": "云南咖啡合作社",
+    "origin": { "country": "中国", "region": "云南", "farm": "保山产区", "altitude": "1200-1500m" },
+    "variety": "Catimor",
+    "process": "日晒",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["焦糖", "坚果", "黑巧克力", "烤面包"]
+  },
+  "equipment": {
+    "brewer": "Chemex",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "8 Cup",
+    "filter": "Chemex 方形漂白滤纸",
+    "grinder": "Mahlkönig EK43",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Chemex 玻璃壶身"
+  },
+  "recipe": {
+    "dose": { "value": 40, "unit": "g" },
+    "waterAmount": { "value": 600, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 10, "unit": "EK43 刻度", "description": "中粗研磨" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 300, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 45, "unit": "s" },
+    "targetTDS": 1.3,
+    "targetExtraction": 19.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "Chemex 滤纸三折，单层侧朝向壶嘴。热水充分冲洗滤纸，预热壶身" },
+    { "order": 2, "action": "grind", "description": "称取 40g 咖啡豆，EK43 研磨 10 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "90°C 热水注入 80ml，绕圈快速浸润。闷蒸 45 秒",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 80, "unit": "ml" },
+      "cumulativeWater": { "value": 80, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 240ml（累计 320ml），慢速绕圈",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 240, "unit": "ml" },
+      "cumulativeWater": { "value": 320, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 2cm",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 400ml（累计 600ml），中心与边缘交替",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 280, "unit": "ml" },
+      "cumulativeWater": { "value": 600, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待全部滴滤完成。目标总时间 4:30-5:00",
+      "duration": { "value": 160, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "轻晃壶身。倒入杯中，焦糖甜香，坚果风味，黑巧克力微苦，烤面包尾韵。云南咖啡的大份分享"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 310, "unit": "s" },
+    "finalYield": { "value": 570, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.2,
+    "rating": 7.8,
+    "aroma": { "rating": 8.0, "notes": "焦糖与烤面包的温暖香气，坚果气息" },
+    "flavor": { "rating": 7.5, "notes": "焦糖甜感，坚果风味，黑巧克力微苦" },
+    "aftertaste": { "rating": 7.5, "notes": "余韵中等，烤面包尾韵" },
+    "acidity": { "rating": 7.0, "notes": "低酸柔和" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，Chemex 带来干净厚重" },
+    "balance": { "rating": 8.0, "notes": "焦糖甜感与坚果风味平衡" },
+    "sweetness": { "rating": 8.0, "notes": "焦糖甜感突出" },
+    "cleanCup": { "rating": 8.0, "notes": "Chemex 厚滤纸带来的干净口感" },
+    "overall": { "rating": 7.8, "notes": "Chemex 云南方案，国产咖啡的大份分享，日常温暖之选" },
+    "tastingNotes": ["焦糖", "坚果", "黑巧克力", "烤面包"],
+    "improvements": "可尝试水温提高至 92°C，释放更多焦糖甜感"
+  }
+}

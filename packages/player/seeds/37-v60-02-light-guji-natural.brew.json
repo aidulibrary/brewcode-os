@@ -1,0 +1,115 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "古吉V60大份 · 埃塞俄比亚 古吉 日晒 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "V60 02 大份冲煮浅烘古吉日晒。草莓蓝莓果香丰富，大份量适合两人共享。",
+    "license": "CC0",
+    "tags": ["V60", "02", "大份量", "浅烘", "日晒", "埃塞俄比亚", "古吉", "草莓"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 古吉 日晒 浅烘",
+    "producer": "古吉产区合作社",
+    "origin": { "country": "埃塞俄比亚", "region": "古吉", "farm": "Hambela 处理站", "altitude": "2000-2200m" },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["草莓", "蓝莓", "百香果", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "02",
+    "filter": "V60 漂白 02",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Hario 02 分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 320, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 22, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 195, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.35,
+    "targetExtraction": 20.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 V60 02 滤纸，热水充分冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 20g 咖啡豆，C40 研磨 22 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 60ml，绕圈快速浸润。闷蒸 30 秒",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 60, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 140ml（累计 200ml），慢速绕圈",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 140, "unit": "ml" },
+      "cumulativeWater": { "value": 200, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 220ml（累计 320ml），中心与边缘交替",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 120, "unit": "ml" },
+      "cumulativeWater": { "value": 320, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "swirl", "description": "轻旋滤杯两圈，帮助粉层均匀沉降" },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 3:00-3:15",
+      "duration": { "value": 100, "unit": "s" }
+    },
+    { "order": 9, "action": "taste", "description": "倒入两杯。草莓蓝莓香气，百香果酸质，焦糖甜感。古吉日晒的丰富水果" }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 200, "unit": "s" },
+    "finalYield": { "value": 305, "unit": "g" },
+    "measuredTDS": 1.33,
+    "extractionYield": 20.2,
+    "rating": 8.5,
+    "aroma": { "rating": 9.0, "notes": "草莓蓝莓的强烈果香，百香果热带气息" },
+    "flavor": { "rating": 8.5, "notes": "草莓蓝莓风味丰富，百香果酸质，焦糖甜感" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，莓果回甘" },
+    "acidity": { "rating": 8.5, "notes": "百香果酸质活泼" },
+    "body": { "rating": 7.5, "notes": "中等醇厚度" },
+    "balance": { "rating": 8.5, "notes": "果香与甜感平衡出色" },
+    "sweetness": { "rating": 9.0, "notes": "草莓蓝莓天然甜感丰富" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好" },
+    "overall": { "rating": 8.5, "notes": "V60 02 古吉大份方案，两人共享草莓蓝莓热带水果盛宴" },
+    "tastingNotes": ["草莓", "蓝莓", "百香果", "焦糖"],
+    "improvements": "可尝试研磨再细一格（21格），提升果香浓度"
+  }
+}

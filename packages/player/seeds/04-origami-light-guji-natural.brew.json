@@ -1,0 +1,123 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "折纸慢萃 · 埃塞俄比亚 古吉 日晒 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Origami 折纸滤杯配合锥形滤纸，20 条导流槽设计带来比 V60 更快的流速。浅烘古吉日晒，高温快萃，保留热带水果风味。",
+    "license": "CC0",
+    "tags": ["Origami", "折纸滤杯", "浅烘", "日晒", "埃塞俄比亚", "古吉", "快萃"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 古吉 日晒 浅烘",
+    "producer": "古吉产区合作社",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "古吉",
+      "farm": "Hambela 处理站",
+      "altitude": "2000-2200m"
+    },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["草莓", "蓝莓", "百香果", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 锥形 01 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Origami 木托分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 23, "unit": "C40 click", "description": "中细研磨，细砂糖粗细" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.38,
+    "targetExtraction": 21.0
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 V60 锥形滤纸放入 Origami S 滤杯，20 条导流槽面朝外。热水冲洗滤纸，预热滤杯和分享壶"
+    },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 23 格，倒入滤杯，轻拍使粉层均匀" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 45ml，绕圈快速浸润。闷蒸 30 秒，观察浅烘日晒的丰富气泡",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 120ml（累计 165ml），中速绕圈，水流稳定",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 120, "unit": "ml" },
+      "cumulativeWater": { "value": 165, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：中心定点注水至 240ml（累计 240ml），减少扰动，突出甜感",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。Origami 流速快，目标总时间 2:45-3:00",
+      "duration": { "value": 90, "unit": "s" }
+    },
+    { "order": 8, "action": "taste", "description": "倒入杯中。草莓、蓝莓的热带水果香气，百香果酸质，焦糖甜感收尾" }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 175, "unit": "s" },
+    "finalYield": { "value": 228, "unit": "g" },
+    "measuredTDS": 1.35,
+    "extractionYield": 20.5,
+    "rating": 8.8,
+    "aroma": { "rating": 9.0, "notes": "草莓、百香果强烈香气，热带水果盛宴" },
+    "flavor": { "rating": 9.0, "notes": "草莓、蓝莓风味丰富，百香果酸质活泼，焦糖甜感平衡" },
+    "aftertaste": { "rating": 8.5, "notes": "余韵悠长，莓果甜感持续" },
+    "acidity": { "rating": 9.0, "notes": "百香果般明亮酸质，活泼但不刺激" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，Origami 折纸滤杯带来轻盈口感" },
+    "balance": { "rating": 8.5, "notes": "酸甜平衡极佳，风味层次清晰" },
+    "sweetness": { "rating": 9.0, "notes": "焦糖甜感丰富，与果酸形成完美对比" },
+    "cleanCup": { "rating": 8.5, "notes": "干净度高，风味清晰无杂味" },
+    "overall": { "rating": 8.8, "notes": "Origami 折纸滤杯的明星方案，充分展现浅烘古吉日晒的热带水果风味" },
+    "tastingNotes": ["草莓", "蓝莓", "百香果", "焦糖"],
+    "improvements": "可尝试将研磨度微调至 22 格，探索更高萃取率下的风味表现"
+  }
+}

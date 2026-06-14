@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "西达摩平底 · 埃塞俄比亚 西达摩 水洗 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Kalita Wave 155 冲煮浅烘西达摩水洗。平底三孔均衡萃取，充分展现西达摩的柠檬和茉莉花香。",
+    "license": "CC0",
+    "tags": ["Kalita Wave", "155", "浅烘", "水洗", "埃塞俄比亚", "西达摩", "柠檬"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 西达摩 水洗 浅烘",
+    "producer": "西达摩合作社",
+    "origin": { "country": "埃塞俄比亚", "region": "西达摩", "farm": "Bensa 处理站", "altitude": "1800-2000m" },
+    "variety": "Heirloom",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["柠檬", "茉莉花", "蜂蜜", "绿茶"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪 155 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Kalita 玻璃分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 24, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.35,
+    "targetExtraction": 20.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 Kalita 波浪 155 滤纸，热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 24 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 45ml，绕圈浸润。闷蒸 30 秒",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 100ml（累计 145ml），慢速绕圈",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 145, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 170ml（累计 240ml），中心与边缘交替",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 95, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 2:45-3:00",
+      "duration": { "value": 95, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。柠檬酸质明亮，茉莉花香，蜂蜜甜感，绿茶尾韵。平底西达摩的干净优雅"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 190, "unit": "s" },
+    "finalYield": { "value": 228, "unit": "g" },
+    "measuredTDS": 1.33,
+    "extractionYield": 20.2,
+    "rating": 8.5,
+    "aroma": { "rating": 8.5, "notes": "茉莉花香与柠檬清香，水洗西达摩干净香气" },
+    "flavor": { "rating": 8.5, "notes": "柠檬酸质明亮，茉莉花香，蜂蜜甜感，绿茶尾韵" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵悠长，绿茶回甘" },
+    "acidity": { "rating": 9.0, "notes": "柠檬酸质明亮活泼" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，平底滤杯的圆润口感" },
+    "balance": { "rating": 8.5, "notes": "花香与酸质平衡出色" },
+    "sweetness": { "rating": 8.5, "notes": "蜂蜜甜感丰富" },
+    "cleanCup": { "rating": 8.5, "notes": "干净度高" },
+    "overall": { "rating": 8.5, "notes": "Kalita 155 浅烘西达摩，平底慢萃让柠檬花香更圆润" },
+    "tastingNotes": ["柠檬", "茉莉花", "蜂蜜", "绿茶"],
+    "improvements": "可尝试研磨再细一格（23格），提升蜂蜜甜感"
+  }
+}

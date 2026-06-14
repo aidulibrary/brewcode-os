@@ -1,0 +1,115 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "安提瓜大份 · 危地马拉 安提瓜 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "V60 02 大份冲煮，中烘危地马拉安提瓜水洗。火山土壤赋予的可可花香，大份量适合两人分享。",
+    "license": "CC0",
+    "tags": ["V60", "02", "大份量", "中烘", "水洗", "危地马拉", "安提瓜", "分享"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "危地马拉 安提瓜 水洗 中烘",
+    "producer": "安提瓜生产者协会",
+    "origin": { "country": "危地马拉", "region": "安提瓜", "farm": "Finca Santa Clara", "altitude": "1500-1700m" },
+    "variety": "Bourbon",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["可可", "花香", "柑橘", "烤杏仁"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "02",
+    "filter": "V60 漂白 02",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Hario 02 分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 300, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 24, "unit": "C40 click", "description": "中研磨，大粉量需略粗" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 35, "unit": "s" },
+    "targetTDS": 1.3,
+    "targetExtraction": 19.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 V60 02 滤纸，热水充分冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 20g 咖啡豆，C40 研磨 24 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "90°C 热水注入 40ml，绕圈快速浸润。闷蒸 35 秒",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 40, "unit": "ml" },
+      "cumulativeWater": { "value": 40, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 130ml（累计 170ml），慢速绕圈",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 130, "unit": "ml" },
+      "cumulativeWater": { "value": 170, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 200ml（累计 300ml），中心与边缘交替",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 130, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "swirl", "description": "轻旋滤杯两圈，帮助粉层均匀沉降" },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 2:45-3:00",
+      "duration": { "value": 85, "unit": "s" }
+    },
+    { "order": 9, "action": "taste", "description": "倒入两杯。可可与花香，柑橘酸质，烤杏仁尾韵。安提瓜经典风味" }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 185, "unit": "s" },
+    "finalYield": { "value": 285, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.2,
+    "rating": 8.0,
+    "aroma": { "rating": 8.5, "notes": "可可与花香交织，烤杏仁的温暖气息" },
+    "flavor": { "rating": 8.0, "notes": "可可风味浓郁，花香优雅，柑橘酸质，烤杏仁尾韵" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，可可和烤杏仁的温暖尾调" },
+    "acidity": { "rating": 8.0, "notes": "柑橘酸质明亮，与可可风味对比有趣" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，圆润顺滑" },
+    "balance": { "rating": 8.5, "notes": "可可与花香平衡，危地马拉经典" },
+    "sweetness": { "rating": 8.0, "notes": "烤杏仁天然甜感，回甘良好" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好，水洗处理特点" },
+    "overall": { "rating": 8.0, "notes": "V60 02 大份方案，两人分享安提瓜可可花香，稳定可靠" },
+    "tastingNotes": ["可可", "花香", "柑橘", "烤杏仁"],
+    "improvements": "可尝试水温提高至 92°C，提升花香层次"
+  }
+}

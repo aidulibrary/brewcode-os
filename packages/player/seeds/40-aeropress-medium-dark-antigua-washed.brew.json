@@ -1,0 +1,108 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "爱乐压安提瓜 · 危地马拉 安提瓜 水洗 中深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "爱乐压反压法冲煮中深烘安提瓜水洗。低温短时萃取，保留安提瓜的可可花香，避免中深烘苦味。",
+    "license": "CC0",
+    "tags": ["爱乐压", "Aeropress", "中深烘", "水洗", "危地马拉", "安提瓜", "可可"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "危地马拉 安提瓜 水洗 中深烘",
+    "producer": "安提瓜生产者协会",
+    "origin": { "country": "危地马拉", "region": "安提瓜", "farm": "Finca Santa Clara", "altitude": "1500-1700m" },
+    "variety": "Bourbon",
+    "process": "水洗",
+    "roastLevel": "中深烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["可可", "黑巧克力", "花香", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "爱乐压",
+    "brewerMaterial": "塑料",
+    "brewerSize": "标准",
+    "filter": "爱乐压 原装纸滤",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "玻璃杯"
+  },
+  "recipe": {
+    "dose": { "value": 16, "unit": "g" },
+    "waterAmount": { "value": 220, "unit": "ml" },
+    "ratio": "1:13.75",
+    "grindSize": { "value": 22, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 86, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 110, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 15, "unit": "s" },
+    "targetTDS": 1.28,
+    "targetExtraction": 19.0
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "将滤纸放入滤盖，热水冲洗。爱乐压倒置（反压法），放在电子秤上" },
+    { "order": 2, "action": "grind", "description": "称取 16g 咖啡豆，C40 研磨 22 格，倒入爱乐压筒身" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 32ml 86°C 热水，轻轻搅拌。等待 15 秒",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 32, "unit": "ml" },
+      "cumulativeWater": { "value": 32, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "注入剩余 188ml 热水至 220ml，搅拌 5 圈",
+      "waterAmount": { "value": 188, "unit": "ml" },
+      "cumulativeWater": { "value": 220, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "盖上滤盖，浸泡 45 秒。中深烘浸泡不宜过长",
+      "duration": { "value": 45, "unit": "s" }
+    },
+    { "order": 6, "action": "stir", "description": "取下滤盖，轻轻搅拌 3 圈使粉层沉降" },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "盖上滤盖，将杯子倒扣，快速翻转。缓慢下压约 30 秒",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "可可风味浓郁，黑巧克力微苦，花香优雅，焦糖回甘。爱乐压中深烘安提瓜的浓郁优雅"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 120, "unit": "s" },
+    "finalYield": { "value": 205, "unit": "g" },
+    "measuredTDS": 1.26,
+    "extractionYield": 18.8,
+    "rating": 8.0,
+    "aroma": { "rating": 8.0, "notes": "可可与花香的浓郁香气，中深烘风格" },
+    "flavor": { "rating": 8.0, "notes": "可可风味浓郁，黑巧克力苦甜，花香优雅，焦糖回甘" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，可可回甘" },
+    "acidity": { "rating": 7.0, "notes": "酸质柔和" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，爱乐压的干净圆润" },
+    "balance": { "rating": 8.0, "notes": "可可与花香浓郁平衡" },
+    "sweetness": { "rating": 7.5, "notes": "焦糖甜感" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好" },
+    "overall": { "rating": 8.0, "notes": "爱乐压中深烘安提瓜，可可花香的浓郁便携方案" },
+    "tastingNotes": ["可可", "黑巧克力", "花香", "焦糖"],
+    "improvements": "可尝试水温降至 84°C，减少苦味"
+  }
+}
