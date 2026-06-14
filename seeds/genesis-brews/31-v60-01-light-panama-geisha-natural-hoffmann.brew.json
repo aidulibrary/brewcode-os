@@ -1,0 +1,115 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "Hoffmann 瑰夏极简法 · 巴拿马 瑰夏 日晒",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "James Hoffmann",
+    "description": "James Hoffmann 的极简手冲哲学——高粉水比 1:16.7，中粗研磨，单一注水法。不需要复杂的多段注水，让水流自然完成萃取。瑰夏日晒在这种极简手法下展现出惊人的干净度和层次感，茉莉花、柑橘和蜂蜜风味清晰可辨。Hoffmann 的方法强调「少即是多」——减少人为干预，让咖啡自己说话。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "James Hoffmann", "冠军方案", "瑰夏", "浅烘", "日晒"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "巴拿马 瑰夏 日晒",
+    "origin": {
+      "country": "巴拿马",
+      "region": "波奎特",
+      "farm": "翡翠庄园",
+      "altitude": { "value": 1650, "unit": "m" }
+    },
+    "variety": "Geisha",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["茉莉花", "柑橘", "蜂蜜", "佛手柑"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "树脂",
+    "brewerSize": "01",
+    "filter": "V60 漂白",
+    "grinder": "EK43",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 250, "unit": "ml" },
+    "ratio": "1:16.7",
+    "grindSize": { "value": 12, "unit": "EK43 刻度", "description": "中粗研磨，Hoffmann 偏好的研磨度" },
+    "waterTemperature": { "value": 95, "unit": "°C" },
+    "waterType": "调配水",
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2.5",
+    "bloomTime": { "value": 45, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "用热水充分润湿漂白滤纸，预热 V60 01 滤杯和分享壶。倒掉预热用水。Hoffmann 强调滤纸必须完全贴合杯壁。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15g 瑰夏咖啡粉倒入滤杯，轻轻拍平。不必刻意追求完美平整，自然均匀即可。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 38ml 水，95°C，从中心向外慢速绕圈两圈。Hoffmann 的方法强调闷蒸要充分但不冗长。闷蒸 45 秒。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 38, "unit": "ml" },
+      "cumulativeWater": { "value": 38, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "主注水阶段：一次性持续注水至 250ml，中水流绕圈。Hoffmann 的核心哲学——不要分段、不要间断，让水流持续上升。保持壶嘴高度稳定在粉床上方约 5cm。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 212, "unit": "ml" },
+      "cumulativeWater": { "value": 250, "unit": "ml" },
+      "targetWeight": { "value": 250, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "stir",
+      "description": "用勺子轻轻沿杯壁刮一圈，帮助附着在杯壁上的咖啡粉回归粉床。这是 Hoffmann 的标志性手法。",
+      "duration": { "value": 5, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "wait",
+      "description": "等待滴滤完成。不要搅拌、不要二次注水，让水流自然完成萃取。",
+      "duration": { "value": 90, "unit": "s" }
+    },
+    {
+      "order": 7,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：茉莉花香扑鼻、柑橘般明亮的酸质、蜂蜜般绵长的甜感、佛手柑的优雅。1:16.7 的高粉水比让瑰夏的细腻层次得到充分展开，每一口都有不同的风味感受。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 185, "unit": "s" },
+    "finalYield": { "value": 220, "unit": "g" },
+    "measuredTDS": 1.18,
+    "extractionYield": 20.0,
+    "rating": 9.2,
+    "flavorProfile": {
+      "acidity": 8.5,
+      "sweetness": 8.0,
+      "bitterness": 1.5,
+      "body": 5.5,
+      "cleanCup": 9.0,
+      "aftertaste": 8.5,
+      "balance": 8.5,
+      "aroma": 9.5
+    }
+  }
+}

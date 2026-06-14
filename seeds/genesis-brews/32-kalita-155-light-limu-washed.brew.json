@@ -1,0 +1,138 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "利姆慢萃 · 埃塞俄比亚 利姆 水洗",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "埃塞俄比亚利姆产区是精品咖啡世界中较少被提及的宝藏产区，位于奥罗米亚州西南部，海拔 1800-2200m。利姆水洗豆以其均衡的柑橘酸质和红茶底韵而闻名，不像耶加雪菲那样张扬，但更耐品。Kalita 155 平底慢萃方案充分展现利姆的细腻层次。",
+    "license": "CC-BY-4.0",
+    "tags": ["Kalita Wave", "利姆", "埃塞俄比亚", "浅烘", "水洗", "小众产区"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 利姆 水洗",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "利姆",
+      "farm": "利姆合作社",
+      "altitude": { "value": 1950, "unit": "m" }
+    },
+    "variety": "Heirloom",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["柑橘", "红茶", "焦糖", "橙花"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪 155",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 23, "unit": "C40 click", "description": "中粗研磨" },
+    "waterTemperature": { "value": 92, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 40, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "折叠 Kalita 波浪滤纸，放入 155 陶瓷滤杯。用热水充分润湿并预热。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15g 利姆咖啡粉倒入滤杯，轻拍平整。利姆豆密度适中，粉床自然均匀。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 45ml 水，92°C，从中心向外慢速绕圈。利姆豆闷蒸时释放出淡雅的柑橘花香。闷蒸 40 秒。",
+      "duration": { "value": 40, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 120ml，中水流。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "targetWeight": { "value": 120, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 25, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 180ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 180, "unit": "ml" },
+      "targetWeight": { "value": 180, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 25, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 240ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "targetWeight": { "value": 240, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分钟。",
+      "duration": { "value": 50, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：柑橘般清亮的酸质、红茶般醇厚的底韵、焦糖甜感、橙花清香。利姆的风味不像耶加雪菲那样跳跃，但层次细腻、耐人寻味，是埃塞俄比亚被低估的精品产区。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 182, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.22,
+    "extractionYield": 19.0,
+    "rating": 8.0,
+    "flavorProfile": {
+      "acidity": 7.0,
+      "sweetness": 7.5,
+      "bitterness": 2.0,
+      "body": 6.5,
+      "cleanCup": 8.0,
+      "aftertaste": 7.5,
+      "balance": 8.0,
+      "aroma": 7.5
+    }
+  }
+}
