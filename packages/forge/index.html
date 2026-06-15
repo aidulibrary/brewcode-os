@@ -367,7 +367,175 @@
             </label>
           </div>
         </section>
+
+        <!-- 冲煮步骤 -->
+        <section class="form-section" id="section-steps">
+          <h2 class="section-title">冲煮步骤</h2>
+          <div id="step-list" class="step-list">
+            <p class="step-empty">暂无步骤，点击下方按钮添加</p>
+          </div>
+          <button id="btn-add-step" class="btn btn-primary" type="button">+ 添加步骤</button>
+        </section>
       </main>
+
+      <!-- 步骤编辑模态框 -->
+      <div id="step-modal" class="modal-overlay hidden">
+        <div class="modal-panel">
+          <div class="modal-header">
+            <h3 id="modal-title">添加步骤</h3>
+            <button id="btn-close-modal" class="btn-icon" type="button" aria-label="关闭">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-grid">
+              <label class="field">
+                <span class="field-label">操作类型</span>
+                <select id="inp-step-action" class="input">
+                  <option value="prepare">准备 (prepare)</option>
+                  <option value="rinse">冲洗 (rinse)</option>
+                  <option value="grind">研磨 (grind)</option>
+                  <option value="dose">投粉 (dose)</option>
+                  <option value="bloom">闷蒸 (bloom)</option>
+                  <option value="pour">注水 (pour)</option>
+                  <option value="stir">搅拌 (stir)</option>
+                  <option value="swirl">摇晃 (swirl)</option>
+                  <option value="drawdown">滴滤 (drawdown)</option>
+                  <option value="wait">等待 (wait)</option>
+                  <option value="measure">测量 (measure)</option>
+                  <option value="taste">品鉴 (taste)</option>
+                  <option value="note">备注 (note)</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">耗时</span>
+                <input
+                  type="number"
+                  id="inp-step-duration-value"
+                  class="input"
+                  placeholder="45"
+                  step="1"
+                  min="0"
+                />
+              </label>
+              <label class="field">
+                <span class="field-label">&nbsp;</span>
+                <select id="inp-step-duration-unit" class="input">
+                  <option value="s">秒 (s)</option>
+                  <option value="min">分 (min)</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">注水量</span>
+                <input
+                  type="number"
+                  id="inp-step-water-value"
+                  class="input"
+                  placeholder="45"
+                  step="1"
+                  min="0"
+                />
+              </label>
+              <label class="field">
+                <span class="field-label">&nbsp;</span>
+                <select id="inp-step-water-unit" class="input">
+                  <option value="ml">毫升 (ml)</option>
+                  <option value="g">克 (g)</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">累计注水量</span>
+                <input
+                  type="number"
+                  id="inp-step-cumulative-value"
+                  class="input"
+                  placeholder="150"
+                  step="1"
+                  min="0"
+                />
+              </label>
+              <label class="field">
+                <span class="field-label">&nbsp;</span>
+                <select id="inp-step-cumulative-unit" class="input">
+                  <option value="ml">毫升 (ml)</option>
+                  <option value="g">克 (g)</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">目标重量</span>
+                <input
+                  type="number"
+                  id="inp-step-targetWeight-value"
+                  class="input"
+                  placeholder="150"
+                  step="1"
+                  min="0"
+                />
+              </label>
+              <label class="field">
+                <span class="field-label">目标重量单位</span>
+                <input
+                  type="text"
+                  id="inp-step-targetWeight-unit"
+                  class="input"
+                  value="g"
+                  readonly
+                />
+              </label>
+              <label class="field">
+                <span class="field-label">注水手法</span>
+                <select id="inp-step-pourStyle" class="input">
+                  <option value="">— 不设置 —</option>
+                  <option value="centerPour">中心注水</option>
+                  <option value="circlePour">绕圈注水</option>
+                  <option value="spotPour">定点注水</option>
+                  <option value="stirPour">搅拌注水</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">注水强度</span>
+                <select id="inp-step-pourIntensity" class="input">
+                  <option value="">— 不设置 —</option>
+                  <option value="gentleStream">细水流</option>
+                  <option value="mediumStream">中水流</option>
+                  <option value="heavyStream">大水流</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">本步水温 (°C)</span>
+                <input
+                  type="number"
+                  id="inp-step-temp-value"
+                  class="input"
+                  placeholder="93"
+                  step="0.5"
+                  min="0"
+                />
+              </label>
+              <label class="field">
+                <span class="field-label">&nbsp;</span>
+                <select id="inp-step-temp-unit" class="input">
+                  <option value="°C">°C</option>
+                  <option value="°F">°F</option>
+                </select>
+              </label>
+              <label class="field field-span-2">
+                <span class="field-label">步骤描述</span>
+                <textarea
+                  id="inp-step-description"
+                  class="input"
+                  rows="2"
+                  placeholder="描述这一步做什么…"
+                ></textarea>
+              </label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="btn-save-step" class="btn btn-primary" type="button">保存</button>
+            <button id="btn-cancel-step" class="btn btn-ghost" type="button">取消</button>
+          </div>
+        </div>
+      </div>
 
       <footer id="forge-footer">
         <span class="footer-hint">所有输入即时保存到状态中</span>
