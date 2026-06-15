@@ -5,9 +5,9 @@
 
   /* ── Player base URL ── */
   const isLocal = window.location.protocol === 'file:';
-  const PLAYER_BASE = isLocal ? '../player/index.html' : 'https://player.礼字号.中国';
+  const PLAYER_BASE = isLocal ? '../player/index.html' : 'https://brewcode-player.pages.dev';
   const SEEDS_DIR = 'seeds/';
-  const SEEDS_BASE = isLocal ? '../player/seeds/' : 'https://player.礼字号.中国/seeds/';
+  const SEEDS_BASE = isLocal ? '../player/seeds/' : 'https://brewcode-player.pages.dev/seeds/';
 
   /* ── State ── */
   let allRecipes = [];
