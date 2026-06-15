@@ -324,9 +324,125 @@ function bindFormEvents() {
   $('#forge-main').addEventListener('input', function () {
     collectFormToState();
     collectResultToState();
+    var errors = validateState();
+    updateValidationBar(errors);
   });
 }
+/* ================================================================
+ * 实时校验
+ * ================================================================ */
 
+function validateState() {
+  var errors = [];
+  var s = editorState;
+
+  if (!s.meta.name || !s.meta.name.trim()) {
+    errors.push({ field: 'meta.name', label: '方案名称', message: '必填，请输入方案名称' });
+  }
+  if (!s.coffee.name || !s.coffee.name.trim()) {
+    errors.push({ field: 'coffee.name', label: '咖啡豆名称', message: '必填，请输入咖啡豆名称' });
+  }
+  if (!s.equipment.brewer || !s.equipment.brewer.trim()) {
+    errors.push({
+      field: 'equipment.brewer',
+      label: '冲煮器具',
+      message: '必填，请选择或输入冲煮器具',
+    });
+  }
+
+  var dose = s.recipe.dose;
+  if (dose.value == null || dose.value === '' || isNaN(dose.value)) {
+    errors.push({ field: 'recipe.dose.value', label: '粉量', message: '必填，请输入粉量' });
+  } else {
+    var dv = Number(dose.value);
+    if (dv < 1 || dv > 100) {
+      errors.push({
+        field: 'recipe.dose.value',
+        label: '粉量',
+        message: '粉量范围 1-100g，当前值：' + dv,
+      });
+    }
+  }
+
+  var water = s.recipe.waterAmount;
+  if (water.value == null || water.value === '' || isNaN(water.value)) {
+    errors.push({ field: 'recipe.waterAmount.value', label: '水量', message: '必填，请输入水量' });
+  } else {
+    var wv = Number(water.value);
+    if (wv < 1 || wv > 2000) {
+      errors.push({
+        field: 'recipe.waterAmount.value',
+        label: '水量',
+        message: '水量范围 1-2000ml，当前值：' + wv,
+      });
+    }
+  }
+
+  var temp = s.recipe.waterTemperature;
+  if (temp.value == null || temp.value === '' || isNaN(temp.value)) {
+    errors.push({
+      field: 'recipe.waterTemperature.value',
+      label: '水温',
+      message: '必填，请输入水温',
+    });
+  } else {
+    var tv = Number(temp.value);
+    if (tv < 0 || tv > 100) {
+      errors.push({
+        field: 'recipe.waterTemperature.value',
+        label: '水温',
+        message: '水温范围 0-100°C，当前值：' + tv,
+      });
+    }
+  }
+
+  return errors;
+}
+
+function updateValidationBar(errors) {
+  var bar = $('#validation-bar');
+  if (!bar) return;
+
+  bar.classList.remove('valid', 'warning');
+
+  if (!errors || errors.length === 0) {
+    bar.classList.add('valid');
+    bar.classList.add('collapsed');
+    bar.querySelector('.val-icon').textContent = '✅';
+    bar.querySelector('.val-text').textContent = '校验通过';
+    bar.querySelector('.val-details').innerHTML = '';
+  } else {
+    bar.classList.add('warning');
+    bar.classList.remove('collapsed');
+    bar.querySelector('.val-icon').textContent = '⚠️';
+    bar.querySelector('.val-text').textContent = errors.length + ' 个必填项';
+
+    var html = '';
+    for (var i = 0; i < errors.length; i++) {
+      html +=
+        '<div class="val-error-item"><span class="val-error-field">' +
+        errors[i].label +
+        '</span><span class="val-error-msg">' +
+        errors[i].message +
+        '</span></div>';
+    }
+    bar.querySelector('.val-details').innerHTML = html;
+  }
+}
+
+function validateCodeJSON() {
+  var ta = document.getElementById('code-textarea');
+  var errBar = document.getElementById('code-error-bar');
+  if (!ta || !errBar) return;
+
+  try {
+    JSON.parse(ta.value);
+    errBar.classList.add('hidden');
+  } catch (e) {
+    errBar.textContent = 'JSON 语法错误：' + e.message;
+    errBar.classList.remove('hidden');
+  }
+}
 /* ================================================================
  * 步骤管理器 — 渲染 / 增删 / 排序 / 模态框
  * ================================================================ */
@@ -814,6 +930,175 @@ function exportBrewFile() {
 }
 
 /* ================================================================
+ * JSON → State 回填
+ * ================================================================ */
+
+function loadBrewJSON(jsonStr) {
+  var data = JSON.parse(jsonStr);
+
+  if (data.meta) {
+    editorState.meta.name = data.meta.name || '';
+    editorState.meta.version = data.meta.version || '1.0.0';
+    editorState.meta.brewCodeVersion = data.meta.brewCodeVersion || '0.1';
+    editorState.meta.author = data.meta.author || '';
+    editorState.meta.description = data.meta.description || '';
+    editorState.meta.license = data.meta.license || 'CC0';
+    editorState.meta.tags = Array.isArray(data.meta.tags) ? data.meta.tags : [];
+    editorState.meta.createdAt = data.meta.createdAt || new Date().toISOString();
+    editorState.meta.source = data.meta.source || '';
+  }
+
+  if (data.coffee) {
+    editorState.coffee.name = data.coffee.name || '';
+    editorState.coffee.producer = data.coffee.producer || '';
+    if (data.coffee.origin) {
+      editorState.coffee.origin.country = data.coffee.origin.country || '';
+      editorState.coffee.origin.region = data.coffee.origin.region || '';
+      editorState.coffee.origin.farm = data.coffee.origin.farm || '';
+      editorState.coffee.origin.altitude = data.coffee.origin.altitude || '';
+    }
+    editorState.coffee.variety = data.coffee.variety || '';
+    editorState.coffee.process = data.coffee.process || '';
+    editorState.coffee.roastLevel = data.coffee.roastLevel || '中烘';
+    editorState.coffee.roastDate = data.coffee.roastDate || '';
+    editorState.coffee.roaster = data.coffee.roaster || '';
+    editorState.coffee.flavorNotes = Array.isArray(data.coffee.flavorNotes)
+      ? data.coffee.flavorNotes
+      : [];
+  }
+
+  if (data.equipment) {
+    editorState.equipment.brewer = data.equipment.brewer || '';
+    editorState.equipment.brewerMaterial = data.equipment.brewerMaterial || '';
+    editorState.equipment.brewerSize = data.equipment.brewerSize || '';
+    editorState.equipment.filter = data.equipment.filter || '';
+    editorState.equipment.grinder = data.equipment.grinder || '';
+    editorState.equipment.kettle = data.equipment.kettle || '';
+    editorState.equipment.scale = data.equipment.scale || '';
+    editorState.equipment.server = data.equipment.server || '';
+  }
+
+  if (data.recipe) {
+    editorState.recipe.dose = data.recipe.dose || { value: 15, unit: 'g' };
+    editorState.recipe.waterAmount = data.recipe.waterAmount || { value: 225, unit: 'ml' };
+    editorState.recipe.ratio = data.recipe.ratio || '1:15';
+    editorState.recipe.grindSize = data.recipe.grindSize || {
+      value: 22,
+      unit: 'C40 click',
+      description: '',
+    };
+    editorState.recipe.waterTemperature = data.recipe.waterTemperature || {
+      value: 93,
+      unit: '°C',
+    };
+    editorState.recipe.waterType = data.recipe.waterType || '';
+    editorState.recipe.waterTDS = data.recipe.waterTDS != null ? data.recipe.waterTDS : null;
+    editorState.recipe.brewTime = data.recipe.brewTime || { value: 150, unit: 's' };
+    editorState.recipe.bloomRatio = data.recipe.bloomRatio || '1:3';
+    editorState.recipe.bloomTime = data.recipe.bloomTime || { value: 30, unit: 's' };
+    editorState.recipe.targetTDS = data.recipe.targetTDS != null ? data.recipe.targetTDS : null;
+    editorState.recipe.targetExtraction =
+      data.recipe.targetExtraction != null ? data.recipe.targetExtraction : null;
+  }
+
+  editorState.steps = Array.isArray(data.steps) ? data.steps : [];
+
+  if (data.result) {
+    var r = editorState.result;
+    r.actualBrewTime = data.result.actualBrewTime || null;
+    r.finalYield = data.result.finalYield || null;
+    r.measuredTDS = data.result.measuredTDS != null ? data.result.measuredTDS : null;
+    r.extractionYield = data.result.extractionYield != null ? data.result.extractionYield : null;
+    r.rating = data.result.rating != null ? data.result.rating : null;
+
+    var dims = [
+      'aroma',
+      'flavor',
+      'aftertaste',
+      'acidity',
+      'body',
+      'balance',
+      'sweetness',
+      'cleanCup',
+      'overall',
+    ];
+    for (var i = 0; i < dims.length; i++) {
+      var d = data.result[dims[i]];
+      r[dims[i]] = {
+        rating: d && d.rating != null ? d.rating : null,
+        notes: d && d.notes ? d.notes : '',
+      };
+    }
+
+    r.tastingNotes = Array.isArray(data.result.tastingNotes) ? data.result.tastingNotes : [];
+    r.improvements = data.result.improvements || '';
+  }
+}
+
+/* ================================================================
+ * 代码模式切换
+ * ================================================================ */
+
+var codeMode = false;
+
+function toggleCodeMode() {
+  if (!codeMode) {
+    collectFormToState();
+    collectResultToState();
+
+    var jsonStr = JSON.stringify(buildBrewJSON(), null, 2);
+
+    document.getElementById('forge-main').style.display = 'none';
+    document.getElementById('forge-footer').style.display = 'none';
+    document.getElementById('validation-bar').style.display = 'none';
+    var container = document.getElementById('code-editor-container');
+    container.classList.remove('hidden');
+    document.getElementById('code-error-bar').classList.add('hidden');
+
+    window.initCodeMirror(document.getElementById('code-editor'), jsonStr);
+
+    var ta = document.getElementById('code-textarea');
+    if (ta) {
+      ta.addEventListener('input', validateCodeJSON);
+    }
+
+    document.getElementById('btn-toggle-code').textContent = '📝 表单';
+    codeMode = true;
+  } else {
+    var content = window.getCodeMirrorContent();
+    try {
+      loadBrewJSON(content);
+    } catch (e) {
+      var errBar = document.getElementById('code-error-bar');
+      errBar.textContent = 'JSON 解析错误：' + e.message;
+      errBar.classList.remove('hidden');
+      return;
+    }
+
+    var ta = document.getElementById('code-textarea');
+    if (ta) {
+      ta.removeEventListener('input', validateCodeJSON);
+    }
+
+    window.destroyCodeMirror();
+    document.getElementById('code-editor-container').classList.add('hidden');
+    document.getElementById('forge-main').style.display = '';
+    document.getElementById('forge-footer').style.display = '';
+    document.getElementById('validation-bar').style.display = '';
+
+    syncFormFromState();
+    syncResultFromState();
+    renderStepList();
+
+    var errors = validateState();
+    updateValidationBar(errors);
+
+    document.getElementById('btn-toggle-code').textContent = '{} 代码';
+    codeMode = false;
+  }
+}
+
+/* ================================================================
  * 初始化
  * ================================================================ */
 
@@ -825,4 +1110,12 @@ document.addEventListener('DOMContentLoaded', function () {
   renderStepList();
 
   $('#btn-export').addEventListener('click', exportBrewFile);
+  $('#btn-toggle-code').addEventListener('click', toggleCodeMode);
+
+  $('#validation-bar').addEventListener('click', function () {
+    this.classList.toggle('collapsed');
+  });
+
+  var errors = validateState();
+  updateValidationBar(errors);
 });
