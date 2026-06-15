@@ -209,10 +209,315 @@ function bindFormEvents() {
 }
 
 /* ================================================================
+ * 步骤管理器 — 渲染 / 增删 / 排序 / 模态框
+ * ================================================================ */
+
+var stepEditIndex = -1;
+
+function renderStepList() {
+  var list = $('#step-list');
+  var steps = editorState.steps;
+
+  if (!steps.length) {
+    list.innerHTML = '<p class="step-empty">暂无步骤，点击下方按钮添加</p>';
+    return;
+  }
+
+  var showDelete = steps.length > 1;
+  var html = '';
+  for (var i = 0; i < steps.length; i++) {
+    var s = steps[i];
+    var metaParts = [];
+
+    if (s.duration && s.duration.value) {
+      metaParts.push(
+        '<span class="step-meta-tag">' + s.duration.value + s.duration.unit + '</span>'
+      );
+    }
+    if (s.waterAmount && s.waterAmount.value) {
+      metaParts.push(
+        '<span class="step-meta-tag">注水 ' + s.waterAmount.value + s.waterAmount.unit + '</span>'
+      );
+    }
+
+    html +=
+      '<div class="step-card">' +
+      '<div class="step-card-header">' +
+      '<span class="step-order">' +
+      s.order +
+      '</span>' +
+      '<span class="step-action-badge badge-' +
+      (s.action || 'note') +
+      '">' +
+      actionLabel(s.action) +
+      '</span>' +
+      '<div class="step-card-actions">' +
+      '<button class="btn-icon-sm" data-step="' +
+      i +
+      '" data-action="move-up" title="上移" aria-label="上移">&#9650;</button>' +
+      '<button class="btn-icon-sm" data-step="' +
+      i +
+      '" data-action="move-down" title="下移" aria-label="下移">&#9660;</button>' +
+      '<button class="btn-icon-sm" data-step="' +
+      i +
+      '" data-action="edit" title="编辑" aria-label="编辑">&#9998;</button>' +
+      (showDelete
+        ? '<button class="btn-icon-sm btn-icon-danger" data-step="' +
+          i +
+          '" data-action="delete" title="删除" aria-label="删除">&#10005;</button>'
+        : '') +
+      '</div>' +
+      '</div>' +
+      '<p class="step-desc">' +
+      escapeHTML(s.description || '') +
+      '</p>' +
+      (metaParts.length ? '<div class="step-meta">' + metaParts.join('') + '</div>' : '') +
+      '</div>';
+  }
+
+  list.innerHTML = html;
+}
+
+function actionLabel(action) {
+  var map = {
+    prepare: '准备',
+    rinse: '冲洗',
+    grind: '研磨',
+    dose: '投粉',
+    bloom: '闷蒸',
+    pour: '注水',
+    stir: '搅拌',
+    swirl: '摇晃',
+    drawdown: '滴滤',
+    wait: '等待',
+    measure: '测量',
+    taste: '品鉴',
+    note: '备注',
+  };
+  return map[action] || action || '';
+}
+
+function escapeHTML(str) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
+function openStepModal(index) {
+  stepEditIndex = index;
+  $('#step-modal').classList.remove('hidden');
+
+  if (index >= 0) {
+    $('#modal-title').textContent = '编辑步骤 #' + editorState.steps[index].order;
+    syncStepFormFromStep(editorState.steps[index]);
+  } else {
+    $('#modal-title').textContent = '添加步骤';
+    clearStepForm();
+  }
+}
+
+function closeStepModal() {
+  $('#step-modal').classList.add('hidden');
+  stepEditIndex = -1;
+}
+
+function clearStepForm() {
+  $('#inp-step-action').value = 'bloom';
+  $('#inp-step-description').value = '';
+  $('#inp-step-duration-value').value = '30';
+  $('#inp-step-duration-unit').value = 's';
+  $('#inp-step-water-value').value = '';
+  $('#inp-step-water-unit').value = 'ml';
+  $('#inp-step-cumulative-value').value = '';
+  $('#inp-step-cumulative-unit').value = 'ml';
+  $('#inp-step-targetWeight-value').value = '';
+  $('#inp-step-pourStyle').value = '';
+  $('#inp-step-pourIntensity').value = '';
+  $('#inp-step-temp-value').value = '';
+  $('#inp-step-temp-unit').value = '°C';
+}
+
+function syncStepFormFromStep(step) {
+  $('#inp-step-action').value = step.action || 'pour';
+  $('#inp-step-description').value = step.description || '';
+
+  if (step.duration) {
+    $('#inp-step-duration-value').value = step.duration.value || '';
+    $('#inp-step-duration-unit').value = step.duration.unit || 's';
+  } else {
+    $('#inp-step-duration-value').value = '';
+    $('#inp-step-duration-unit').value = 's';
+  }
+
+  if (step.waterAmount) {
+    $('#inp-step-water-value').value = step.waterAmount.value || '';
+    $('#inp-step-water-unit').value = step.waterAmount.unit || 'ml';
+  } else {
+    $('#inp-step-water-value').value = '';
+    $('#inp-step-water-unit').value = 'ml';
+  }
+
+  if (step.cumulativeWater) {
+    $('#inp-step-cumulative-value').value = step.cumulativeWater.value || '';
+    $('#inp-step-cumulative-unit').value = step.cumulativeWater.unit || 'ml';
+  } else {
+    $('#inp-step-cumulative-value').value = '';
+    $('#inp-step-cumulative-unit').value = 'ml';
+  }
+
+  if (step.targetWeight) {
+    $('#inp-step-targetWeight-value').value = step.targetWeight.value || '';
+  } else {
+    $('#inp-step-targetWeight-value').value = '';
+  }
+
+  $('#inp-step-pourStyle').value = step.pourStyle || '';
+  $('#inp-step-pourIntensity').value = step.pourIntensity || '';
+
+  if (step.temperature) {
+    $('#inp-step-temp-value').value = step.temperature.value || '';
+    $('#inp-step-temp-unit').value = step.temperature.unit || '°C';
+  } else {
+    $('#inp-step-temp-value').value = '';
+    $('#inp-step-temp-unit').value = '°C';
+  }
+}
+
+function collectStepFormToObject() {
+  var step = {};
+
+  step.action = $('#inp-step-action').value;
+  step.description = $('#inp-step-description').value.trim();
+
+  var durVal = parseFloat($('#inp-step-duration-value').value);
+  if (!isNaN(durVal) && durVal > 0) {
+    step.duration = { value: durVal, unit: $('#inp-step-duration-unit').value };
+  }
+
+  var watVal = parseFloat($('#inp-step-water-value').value);
+  if (!isNaN(watVal) && watVal > 0) {
+    step.waterAmount = { value: watVal, unit: $('#inp-step-water-unit').value };
+  }
+
+  var cumVal = parseFloat($('#inp-step-cumulative-value').value);
+  if (!isNaN(cumVal) && cumVal > 0) {
+    step.cumulativeWater = { value: cumVal, unit: $('#inp-step-cumulative-unit').value };
+  }
+
+  var twVal = parseFloat($('#inp-step-targetWeight-value').value);
+  if (!isNaN(twVal) && twVal > 0) {
+    step.targetWeight = { value: twVal, unit: 'g' };
+  }
+
+  step.pourStyle = $('#inp-step-pourStyle').value.trim();
+  step.pourIntensity = $('#inp-step-pourIntensity').value.trim();
+
+  var tmpVal = parseFloat($('#inp-step-temp-value').value);
+  if (!isNaN(tmpVal) && tmpVal > 0) {
+    step.temperature = { value: tmpVal, unit: $('#inp-step-temp-unit').value };
+  }
+
+  return step;
+}
+
+function saveStepFromModal() {
+  var step = collectStepFormToObject();
+  if (!step.description && !step.duration && !step.waterAmount && !step.cumulativeWater) {
+    return;
+  }
+
+  if (stepEditIndex >= 0) {
+    step.order = editorState.steps[stepEditIndex].order;
+    editorState.steps[stepEditIndex] = step;
+  } else {
+    step.order = editorState.steps.length + 1;
+    editorState.steps.push(step);
+  }
+
+  closeStepModal();
+  renderStepList();
+}
+
+function deleteStep(index) {
+  editorState.steps.splice(index, 1);
+  renumberSteps();
+  renderStepList();
+}
+
+function moveStep(index, direction) {
+  var steps = editorState.steps;
+  var target = index + direction;
+  if (target < 0 || target >= steps.length) return;
+
+  var tmp = steps[index];
+  steps[index] = steps[target];
+  steps[target] = tmp;
+  renumberSteps();
+  renderStepList();
+}
+
+function renumberSteps() {
+  for (var i = 0; i < editorState.steps.length; i++) {
+    editorState.steps[i].order = i + 1;
+  }
+}
+
+function handleStepListClick(e) {
+  var btn = e.target.closest('[data-action]');
+  if (!btn) return;
+
+  var index = parseInt(btn.getAttribute('data-step'), 10);
+  var action = btn.getAttribute('data-action');
+
+  switch (action) {
+    case 'edit':
+      openStepModal(index);
+      break;
+    case 'delete':
+      deleteStep(index);
+      break;
+    case 'move-up':
+      moveStep(index, -1);
+      break;
+    case 'move-down':
+      moveStep(index, 1);
+      break;
+  }
+}
+
+function bindStepEvents() {
+  $('#btn-add-step').addEventListener('click', function () {
+    openStepModal(-1);
+  });
+
+  $('#btn-save-step').addEventListener('click', function () {
+    saveStepFromModal();
+  });
+
+  $('#btn-cancel-step').addEventListener('click', function () {
+    closeStepModal();
+  });
+
+  $('#btn-close-modal').addEventListener('click', function () {
+    closeStepModal();
+  });
+
+  $('#step-modal').addEventListener('click', function (e) {
+    if (e.target === $('#step-modal')) {
+      closeStepModal();
+    }
+  });
+
+  $('#step-list').addEventListener('click', handleStepListClick);
+}
+
+/* ================================================================
  * 初始化
  * ================================================================ */
 
 document.addEventListener('DOMContentLoaded', function () {
   syncFormFromState();
   bindFormEvents();
+  bindStepEvents();
+  renderStepList();
 });
