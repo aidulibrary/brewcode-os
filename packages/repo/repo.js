@@ -4,8 +4,10 @@
   const $ = (s) => document.querySelector(s);
 
   /* ── Player base URL ── */
-  const PLAYER_BASE = '../player/index.html';
-  const SEEDS_DIR = '../player/seeds/';
+  const isLocal = window.location.protocol === 'file:';
+  const PLAYER_BASE = isLocal ? '../player/index.html' : 'https://player.礼字号.中国';
+  const SEEDS_DIR = 'seeds/';
+  const SEEDS_BASE = isLocal ? '../player/seeds/' : 'https://player.礼字号.中国/seeds/';
 
   /* ── State ── */
   let allRecipes = [];
@@ -1695,7 +1697,7 @@
 
     $('#btn-copy-json').onclick = async function () {
       try {
-        const resp = await fetch(SEEDS_DIR + recipe.file);
+        const resp = await fetch(SEEDS_BASE + recipe.file);
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         const text = await resp.text();
         await navigator.clipboard.writeText(text);
