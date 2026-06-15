@@ -1691,7 +1691,7 @@
 
     /* actions */
     $('#btn-open-player').onclick = function () {
-      const playerUrl = PLAYER_BASE + '?brew=' + encodeURIComponent(SEEDS_BASE + recipe.file);
+      const playerUrl = PLAYER_BASE + '?brew=' + encodeURIComponent(SEEDS_DIR + recipe.file);
       window.open(playerUrl, '_blank');
     };
 
