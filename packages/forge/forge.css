@@ -78,6 +78,18 @@ body {
  * Main 区域 — 桌面两栏 / 移动单栏
  * ================================================================ */
 
+#forge-toolbar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(26, 26, 46, 0.95);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
 #forge-main {
   flex: 1;
   padding: 24px;
@@ -235,6 +247,17 @@ input[type='number']::-webkit-outer-spin-button {
 .btn-ghost:hover {
   color: var(--text);
   border-color: var(--text-dim);
+}
+
+.btn-success {
+  background: var(--success);
+  color: #fff;
+  border-color: var(--success);
+}
+
+.btn-success:hover {
+  background: var(--success);
+  opacity: 0.9;
 }
 
 .btn-icon {
@@ -419,6 +442,72 @@ input[type='number']::-webkit-outer-spin-button {
   padding: 2px 8px;
   border-radius: 4px;
   font-family: var(--font-mono);
+}
+
+/* ================================================================
+ * 品鉴结果
+ * ================================================================ */
+
+.section-hint {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 18px;
+  font-style: italic;
+}
+
+.subsection-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 20px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.flavor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.flavor-dim {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.flavor-dim-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-label);
+}
+
+.flavor-dim-row {
+  display: flex;
+  gap: 8px;
+}
+
+.input-sm {
+  flex: 0 0 72px;
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .flavor-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flavor-dim-row {
+    flex-direction: column;
+  }
+
+  .input-sm {
+    flex: auto;
+  }
 }
 
 /* ================================================================

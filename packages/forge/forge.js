@@ -75,6 +75,24 @@ var editorState = {
     targetExtraction: null,
   },
   steps: [],
+  result: {
+    actualBrewTime: null,
+    finalYield: null,
+    measuredTDS: null,
+    extractionYield: null,
+    rating: null,
+    aroma: { rating: null, notes: '' },
+    flavor: { rating: null, notes: '' },
+    aftertaste: { rating: null, notes: '' },
+    acidity: { rating: null, notes: '' },
+    body: { rating: null, notes: '' },
+    balance: { rating: null, notes: '' },
+    sweetness: { rating: null, notes: '' },
+    cleanCup: { rating: null, notes: '' },
+    overall: { rating: null, notes: '' },
+    tastingNotes: [],
+    improvements: '',
+  },
 };
 
 /* ================================================================
@@ -133,6 +151,52 @@ function syncFormFromState() {
   $('#inp-recipe-targetTDS').value = s.recipe.targetTDS != null ? s.recipe.targetTDS : '';
   $('#inp-recipe-targetExtraction').value =
     s.recipe.targetExtraction != null ? s.recipe.targetExtraction : '';
+}
+
+function syncResultFromState() {
+  var r = editorState.result;
+
+  if (r.actualBrewTime) {
+    $('#inp-result-brewtime-value').value = r.actualBrewTime.value || '';
+    $('#inp-result-brewtime-unit').value = r.actualBrewTime.unit || 's';
+  } else {
+    $('#inp-result-brewtime-value').value = '';
+    $('#inp-result-brewtime-unit').value = 's';
+  }
+
+  if (r.finalYield) {
+    $('#inp-result-yield-value').value = r.finalYield.value || '';
+    $('#inp-result-yield-unit').value = r.finalYield.unit || 'g';
+  } else {
+    $('#inp-result-yield-value').value = '';
+    $('#inp-result-yield-unit').value = 'g';
+  }
+
+  $('#inp-result-tds').value = r.measuredTDS != null ? r.measuredTDS : '';
+  $('#inp-result-extraction').value = r.extractionYield != null ? r.extractionYield : '';
+  $('#inp-result-rating').value = r.rating != null ? r.rating : '';
+
+  var dims = [
+    'aroma',
+    'flavor',
+    'aftertaste',
+    'acidity',
+    'body',
+    'balance',
+    'sweetness',
+    'cleanCup',
+    'overall',
+  ];
+  for (var i = 0; i < dims.length; i++) {
+    var d = r[dims[i]];
+    var ratingEl = $('#inp-result-' + dims[i] + '-rating');
+    var notesEl = $('#inp-result-' + dims[i] + '-notes');
+    if (ratingEl) ratingEl.value = d && d.rating != null ? d.rating : '';
+    if (notesEl) notesEl.value = d && d.notes ? d.notes : '';
+  }
+
+  $('#inp-result-tastingNotes').value = r.tastingNotes.join(', ');
+  $('#inp-result-improvements').value = r.improvements;
 }
 
 /* ================================================================
@@ -198,6 +262,60 @@ function collectFormToState() {
   s.recipe.targetExtraction = parseFloat($('#inp-recipe-targetExtraction').value) || null;
 }
 
+function collectResultToState() {
+  var r = editorState.result;
+
+  var btVal = parseFloat($('#inp-result-brewtime-value').value);
+  if (!isNaN(btVal) && btVal > 0) {
+    r.actualBrewTime = { value: btVal, unit: $('#inp-result-brewtime-unit').value };
+  } else {
+    r.actualBrewTime = null;
+  }
+
+  var yVal = parseFloat($('#inp-result-yield-value').value);
+  if (!isNaN(yVal) && yVal > 0) {
+    r.finalYield = { value: yVal, unit: $('#inp-result-yield-unit').value };
+  } else {
+    r.finalYield = null;
+  }
+
+  r.measuredTDS = parseFloat($('#inp-result-tds').value) || null;
+  r.extractionYield = parseFloat($('#inp-result-extraction').value) || null;
+
+  var ratVal = parseFloat($('#inp-result-rating').value);
+  r.rating = !isNaN(ratVal) ? ratVal : null;
+
+  var dims = [
+    'aroma',
+    'flavor',
+    'aftertaste',
+    'acidity',
+    'body',
+    'balance',
+    'sweetness',
+    'cleanCup',
+    'overall',
+  ];
+  for (var i = 0; i < dims.length; i++) {
+    var ratingEl = $('#inp-result-' + dims[i] + '-rating');
+    var notesEl = $('#inp-result-' + dims[i] + '-notes');
+    var dimRating = ratingEl ? parseFloat(ratingEl.value) : NaN;
+    var dimNotes = notesEl ? notesEl.value.trim() : '';
+    r[dims[i]] = {
+      rating: !isNaN(dimRating) ? dimRating : null,
+      notes: dimNotes,
+    };
+  }
+
+  r.tastingNotes = $('#inp-result-tastingNotes')
+    .value.split(',')
+    .map(function (t) {
+      return t.trim();
+    })
+    .filter(Boolean);
+  r.improvements = $('#inp-result-improvements').value.trim();
+}
+
 /* ================================================================
  * 全局表单变更监听
  * ================================================================ */
@@ -205,6 +323,7 @@ function collectFormToState() {
 function bindFormEvents() {
   $('#forge-main').addEventListener('input', function () {
     collectFormToState();
+    collectResultToState();
   });
 }
 
@@ -512,12 +631,198 @@ function bindStepEvents() {
 }
 
 /* ================================================================
+ * .brew 文件导出
+ * ================================================================ */
+
+function buildBrewJSON() {
+  var out = {};
+
+  out.meta = {
+    name: editorState.meta.name,
+    version: editorState.meta.version,
+    brewCodeVersion: editorState.meta.brewCodeVersion,
+    author: editorState.meta.author || undefined,
+    description: editorState.meta.description || undefined,
+    license: editorState.meta.license,
+    tags: editorState.meta.tags.length ? editorState.meta.tags : undefined,
+    createdAt: editorState.meta.createdAt,
+    source: editorState.meta.source || undefined,
+  };
+
+  out.coffee = {
+    name: editorState.coffee.name,
+    producer: editorState.coffee.producer || undefined,
+    origin: {
+      country: editorState.coffee.origin.country || undefined,
+      region: editorState.coffee.origin.region || undefined,
+      farm: editorState.coffee.origin.farm || undefined,
+      altitude: editorState.coffee.origin.altitude || undefined,
+    },
+    variety: editorState.coffee.variety || undefined,
+    process: editorState.coffee.process || undefined,
+    roastLevel: editorState.coffee.roastLevel,
+    roastDate: editorState.coffee.roastDate || undefined,
+    roaster: editorState.coffee.roaster || undefined,
+    flavorNotes: editorState.coffee.flavorNotes.length ? editorState.coffee.flavorNotes : undefined,
+  };
+
+  var eq = editorState.equipment;
+  out.equipment = {};
+  if (eq.brewer) out.equipment.brewer = eq.brewer;
+  if (eq.brewerMaterial) out.equipment.brewerMaterial = eq.brewerMaterial;
+  if (eq.brewerSize) out.equipment.brewerSize = eq.brewerSize;
+  if (eq.filter) out.equipment.filter = eq.filter;
+  if (eq.grinder) out.equipment.grinder = eq.grinder;
+  if (eq.kettle) out.equipment.kettle = eq.kettle;
+  if (eq.scale) out.equipment.scale = eq.scale;
+  if (eq.server) out.equipment.server = eq.server;
+  if (!Object.keys(out.equipment).length) delete out.equipment;
+
+  out.recipe = {
+    dose: { value: editorState.recipe.dose.value, unit: 'g' },
+    waterAmount: { value: editorState.recipe.waterAmount.value, unit: 'ml' },
+    ratio: editorState.recipe.ratio,
+    grindSize: {
+      value: editorState.recipe.grindSize.value,
+      unit: editorState.recipe.grindSize.unit || undefined,
+      description: editorState.recipe.grindSize.description || undefined,
+    },
+    waterTemperature: {
+      value: editorState.recipe.waterTemperature.value,
+      unit: '°C',
+    },
+    waterType: editorState.recipe.waterType || undefined,
+    waterTDS: editorState.recipe.waterTDS,
+  };
+
+  if (editorState.recipe.brewTime.value) {
+    out.recipe.brewTime = { value: editorState.recipe.brewTime.value, unit: 's' };
+  }
+  if (editorState.recipe.bloomRatio) {
+    out.recipe.bloomRatio = editorState.recipe.bloomRatio;
+  }
+  if (editorState.recipe.bloomTime.value) {
+    out.recipe.bloomTime = { value: editorState.recipe.bloomTime.value, unit: 's' };
+  }
+  if (editorState.recipe.targetTDS != null) {
+    out.recipe.targetTDS = editorState.recipe.targetTDS;
+  }
+  if (editorState.recipe.targetExtraction != null) {
+    out.recipe.targetExtraction = editorState.recipe.targetExtraction;
+  }
+
+  out.steps = editorState.steps.map(function (s) {
+    var step = { order: s.order, action: s.action };
+    if (s.description) step.description = s.description;
+    if (s.duration && s.duration.value) step.duration = s.duration;
+    if (s.waterAmount && s.waterAmount.value) step.waterAmount = s.waterAmount;
+    if (s.cumulativeWater && s.cumulativeWater.value) step.cumulativeWater = s.cumulativeWater;
+    if (s.targetWeight && s.targetWeight.value) step.targetWeight = s.targetWeight;
+    if (s.pourStyle) step.pourStyle = s.pourStyle;
+    if (s.pourIntensity) step.pourIntensity = s.pourIntensity;
+    if (s.temperature && s.temperature.value) step.temperature = s.temperature;
+    return step;
+  });
+
+  var r = editorState.result;
+  var hasResult = false;
+  out.result = {};
+
+  if (r.actualBrewTime && r.actualBrewTime.value) {
+    out.result.actualBrewTime = r.actualBrewTime;
+    hasResult = true;
+  }
+  if (r.finalYield && r.finalYield.value) {
+    out.result.finalYield = r.finalYield;
+    hasResult = true;
+  }
+  if (r.measuredTDS != null) {
+    out.result.measuredTDS = r.measuredTDS;
+    hasResult = true;
+  }
+  if (r.extractionYield != null) {
+    out.result.extractionYield = r.extractionYield;
+    hasResult = true;
+  }
+  if (r.rating != null) {
+    out.result.rating = r.rating;
+    hasResult = true;
+  }
+
+  var dims = [
+    'aroma',
+    'flavor',
+    'aftertaste',
+    'acidity',
+    'body',
+    'balance',
+    'sweetness',
+    'cleanCup',
+    'overall',
+  ];
+  for (var i = 0; i < dims.length; i++) {
+    var d = r[dims[i]];
+    if (d && (d.rating != null || d.notes)) {
+      out.result[dims[i]] = {};
+      if (d.rating != null) out.result[dims[i]].rating = d.rating;
+      if (d.notes) out.result[dims[i]].notes = d.notes;
+      hasResult = true;
+    }
+  }
+
+  if (r.tastingNotes.length) {
+    out.result.tastingNotes = r.tastingNotes;
+    hasResult = true;
+  }
+  if (r.improvements) {
+    out.result.improvements = r.improvements;
+    hasResult = true;
+  }
+
+  if (!hasResult) delete out.result;
+
+  return JSON.parse(JSON.stringify(out));
+}
+
+function exportBrewFile() {
+  collectFormToState();
+  collectResultToState();
+
+  var brewJSON = buildBrewJSON();
+  var jsonStr = JSON.stringify(brewJSON, null, 2);
+  var name = editorState.meta.name || 'untitled';
+  var filename = name + '.brew.json';
+
+  var blob = new Blob([jsonStr], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  var btn = $('#btn-export');
+  var originalText = btn.textContent;
+  btn.textContent = '✓ 已下载';
+  btn.classList.add('btn-success');
+  setTimeout(function () {
+    btn.textContent = originalText;
+    btn.classList.remove('btn-success');
+  }, 2000);
+}
+
+/* ================================================================
  * 初始化
  * ================================================================ */
 
 document.addEventListener('DOMContentLoaded', function () {
   syncFormFromState();
+  syncResultFromState();
   bindFormEvents();
   bindStepEvents();
   renderStepList();
+
+  $('#btn-export').addEventListener('click', exportBrewFile);
 });
