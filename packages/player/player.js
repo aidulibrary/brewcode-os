@@ -423,15 +423,18 @@
     var params = new URLSearchParams(window.location.search);
     var brewUrl = params.get('brew');
     if (brewUrl) {
+      console.log('[BrewPlayer] loading from ?brew=' + brewUrl);
       fetch(brewUrl)
         .then(function (r) {
           if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.text();
         })
         .then(function (text) {
+          console.log('[BrewPlayer] recipe loaded, length=' + text.length);
           loadRecipe(text);
         })
         .catch(function (err) {
+          console.error('[BrewPlayer] fetch failed:', err);
           $('#load-error').textContent = '无法加载远程文件：' + err.message;
           $('#load-error').classList.remove('hidden');
         });
