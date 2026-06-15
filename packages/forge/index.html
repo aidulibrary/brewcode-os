@@ -7,6 +7,27 @@
     <meta name="description" content="BrewCode OS BrewForge - .brew 文件可视化编辑器" />
     <title>BrewForge</title>
     <link rel="stylesheet" href="forge.css" />
+    <script>
+      window.initCodeMirror = function (container, initialContent) {
+        if (!container.querySelector('textarea')) {
+          var ta = document.createElement('textarea');
+          ta.id = 'code-textarea';
+          ta.spellcheck = false;
+          container.appendChild(ta);
+        }
+        container.querySelector('textarea').value = initialContent;
+      };
+
+      window.getCodeMirrorContent = function () {
+        var ta = document.getElementById('code-textarea');
+        return ta ? ta.value : '';
+      };
+
+      window.destroyCodeMirror = function () {
+        var ta = document.getElementById('code-textarea');
+        if (ta) ta.remove();
+      };
+    </script>
   </head>
   <body>
     <div id="app">
@@ -14,18 +35,27 @@
         <h1 class="brand">BrewForge</h1>
         <p class="sub">可视化 .brew 方案编辑器</p>
       </header>
-
+      <div id="validation-bar" class="val-bar valid collapsed">
+        <span class="val-icon">✅</span>
+        <span class="val-text">校验通过</span>
+        <span class="val-toggle">▾</span>
+        <div class="val-details"></div>
+      </div>
       <div id="forge-toolbar">
         <button id="btn-export" class="btn btn-primary" type="button">⬇ 导出 .brew</button>
+        <button id="btn-toggle-code" class="btn btn-ghost" type="button">{} 代码</button>
       </div>
-
+      <div id="code-editor-container" class="hidden">
+        <div id="code-error-bar" class="code-error-bar hidden"></div>
+        <div id="code-editor"></div>
+      </div>
       <main id="forge-main">
         <!-- 方案信息 -->
         <section class="form-section">
           <h2 class="section-title">方案信息</h2>
           <div class="form-grid">
             <label class="field">
-              <span class="field-label">方案名称</span>
+              <span class="field-label">方案名称<span class="required-hint">（必填）</span></span>
               <input
                 type="text"
                 id="inp-meta-name"
@@ -79,7 +109,7 @@
           <h2 class="section-title">咖啡豆信息</h2>
           <div class="form-grid">
             <label class="field field-span-2">
-              <span class="field-label">咖啡豆名称</span>
+              <span class="field-label">咖啡豆名称<span class="required-hint">（必填）</span></span>
               <input
                 type="text"
                 id="inp-coffee-name"
@@ -167,7 +197,7 @@
           <h2 class="section-title">器具信息</h2>
           <div class="form-grid">
             <label class="field">
-              <span class="field-label">冲煮器具</span>
+              <span class="field-label">冲煮器具<span class="required-hint">（必填）</span></span>
               <input
                 type="text"
                 id="inp-equip-brewer"
@@ -241,7 +271,7 @@
           <h2 class="section-title">冲煮参数</h2>
           <div class="form-grid">
             <label class="field">
-              <span class="field-label">粉量 (g)</span>
+              <span class="field-label">粉量 (g)<span class="required-hint">（必填）</span></span>
               <input
                 type="number"
                 id="inp-recipe-dose"
@@ -252,7 +282,9 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">总注水量 (ml)</span>
+              <span class="field-label"
+                >总注水量 (ml)<span class="required-hint">（必填）</span></span
+              >
               <input
                 type="number"
                 id="inp-recipe-waterAmount"
@@ -267,7 +299,7 @@
               <input type="text" id="inp-recipe-ratio" class="input" placeholder="1:15" />
             </label>
             <label class="field">
-              <span class="field-label">水温 (°C)</span>
+              <span class="field-label">水温 (°C)<span class="required-hint">（必填）</span></span>
               <input
                 type="number"
                 id="inp-recipe-waterTemp"
