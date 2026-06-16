@@ -8,25 +8,54 @@
     <title>BrewForge</title>
     <link rel="stylesheet" href="forge.css" />
     <script>
-      window.initCodeMirror = function (container, initialContent) {
-        if (!container.querySelector('textarea')) {
-          var ta = document.createElement('textarea');
-          ta.id = 'code-textarea';
-          ta.spellcheck = false;
-          container.appendChild(ta);
+      /* 修复 AJV 8 的 json-schema.org 403 问题。
+         AJV 编译 draft/2020-12 Schema 时需要元 Schema，
+         但 json-schema.org 返回 403，导致 import 链路整体失败。
+         此拦截器将请求重定向到 jsdelivr CDN 上的元 Schema 副本。 */
+      (function () {
+        var _fetch = window.fetch;
+        var META = 'json-schema.org/draft/2020-12/schema';
+        var cached = null;
+        window.fetch = function (url, opts) {
+          var u = typeof url === 'string' ? url : url && url.url ? url.url : '';
+          if (u && u.indexOf(META) !== -1) {
+            if (cached)
+              return Promise.resolve(
+                new Response(cached, {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' },
+                })
+              );
+            return _fetch(
+              'https://cdn.jsdelivr.net/npm/ajv@8/dist/refs/json-schema-draft-2020-12.json'
+            )
+              .then(function (r) {
+                return r.text();
+              })
+              .then(function (t) {
+                cached = t;
+                return new Response(t, {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' },
+                });
+              })
+              .catch(function () {
+                return _fetch.apply(this, arguments);
+              });
+          }
+          return _fetch.apply(this, arguments);
+        };
+      })();
+    </script>
+    <script type="importmap">
+      {
+        "imports": {
+          "ajv": "https://esm.sh/ajv@8/dist/2020",
+          "codemirror": "https://esm.sh/codemirror@6",
+          "@codemirror/lang-json": "https://esm.sh/@codemirror/lang-json@6",
+          "@codemirror/lint": "https://esm.sh/@codemirror/lint@6"
         }
-        container.querySelector('textarea').value = initialContent;
-      };
-
-      window.getCodeMirrorContent = function () {
-        var ta = document.getElementById('code-textarea');
-        return ta ? ta.value : '';
-      };
-
-      window.destroyCodeMirror = function () {
-        var ta = document.getElementById('code-textarea');
-        if (ta) ta.remove();
-      };
+      }
     </script>
   </head>
   <body>

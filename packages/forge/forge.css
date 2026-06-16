@@ -114,20 +114,32 @@ body {
   overflow: hidden;
 }
 
-#code-textarea {
-  width: 100%;
+.cm-editor {
   height: calc(100vh - 160px);
   max-height: 700px;
-  padding: 16px;
+}
+
+.cm-editor .cm-scroller {
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1.6;
-  color: #e0d8c8;
-  background: #1a1a2e;
-  border: none;
-  outline: none;
-  resize: vertical;
-  tab-size: 2;
+}
+
+.cm-editor .cm-content {
+  padding: 8px 0;
+}
+
+.cm-editor .cm-line {
+  padding: 0 16px;
+}
+
+.cm-editor .cm-gutter {
+  padding: 0 4px;
+}
+
+.cm-lint-marker-error {
+  color: var(--danger);
+  font-size: 14px;
 }
 
 @media (max-width: 640px) {
@@ -135,7 +147,7 @@ body {
     padding: 0 12px;
   }
 
-  #code-textarea {
+  .cm-editor {
     height: calc(100vh - 200px);
   }
 }
