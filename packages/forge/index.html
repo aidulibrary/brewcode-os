@@ -7,46 +7,6 @@
     <meta name="description" content="BrewCode OS BrewForge - .brew 文件可视化编辑器" />
     <title>BrewForge</title>
     <link rel="stylesheet" href="forge.css" />
-    <script>
-      /* 修复 AJV 8 的 json-schema.org 403 问题。
-         AJV 编译 draft/2020-12 Schema 时需要元 Schema，
-         但 json-schema.org 返回 403，导致 import 链路整体失败。
-         此拦截器将请求重定向到 jsdelivr CDN 上的元 Schema 副本。 */
-      (function () {
-        var _fetch = window.fetch;
-        var META = 'json-schema.org/draft/2020-12/schema';
-        var cached = null;
-        window.fetch = function (url, opts) {
-          var u = typeof url === 'string' ? url : url && url.url ? url.url : '';
-          if (u && u.indexOf(META) !== -1) {
-            if (cached)
-              return Promise.resolve(
-                new Response(cached, {
-                  status: 200,
-                  headers: { 'Content-Type': 'application/json' },
-                })
-              );
-            return _fetch(
-              'https://cdn.jsdelivr.net/npm/ajv@8/dist/refs/json-schema-draft-2020-12.json'
-            )
-              .then(function (r) {
-                return r.text();
-              })
-              .then(function (t) {
-                cached = t;
-                return new Response(t, {
-                  status: 200,
-                  headers: { 'Content-Type': 'application/json' },
-                });
-              })
-              .catch(function () {
-                return _fetch.apply(this, arguments);
-              });
-          }
-          return _fetch.apply(this, arguments);
-        };
-      })();
-    </script>
     <script type="importmap">
       {
         "imports": {
@@ -56,6 +16,47 @@
           "@codemirror/lint": "https://esm.sh/@codemirror/lint@6"
         }
       }
+    </script>
+    <script>
+      /* 内联 draft/2020-12 元 Schema，拦截 json-schema.org 的 403。
+         必须在 importmap 之后、forge.js 之前加载，确保 AJV import
+         时所有 fetch 请求已被拦截，零外部网络依赖。
+
+         使用最简元 Schema——仅有 $vocabulary + $dynamicAnchor + type。
+         刻意不包含 allOf/$defs，避免 $ref 引用引发二次 fetch 绕过拦截器。 */
+      (function () {
+        var _fetch = window.fetch;
+        var META = 'json-schema.org/draft/2020-12';
+
+        var metaSchema = {
+          $schema: 'https://json-schema.org/draft/2020-12/schema',
+          $id: 'https://json-schema.org/draft/2020-12/schema',
+          $vocabulary: {
+            'https://json-schema.org/draft/2020-12/vocab/core': true,
+            'https://json-schema.org/draft/2020-12/vocab/applicator': true,
+            'https://json-schema.org/draft/2020-12/vocab/unevaluated': true,
+            'https://json-schema.org/draft/2020-12/vocab/validation': true,
+            'https://json-schema.org/draft/2020-12/vocab/meta-data': true,
+            'https://json-schema.org/draft/2020-12/vocab/format-annotation': true,
+            'https://json-schema.org/draft/2020-12/vocab/content': true,
+          },
+          $dynamicAnchor: 'meta',
+          type: ['object', 'boolean'],
+        };
+
+        window.fetch = function (url, opts) {
+          var u = typeof url === 'string' ? url : url && url.url ? url.url : '';
+          if (u && u.indexOf(META) !== -1) {
+            return Promise.resolve(
+              new Response(JSON.stringify(metaSchema), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+              })
+            );
+          }
+          return _fetch.apply(this, arguments);
+        };
+      })();
     </script>
   </head>
   <body>
