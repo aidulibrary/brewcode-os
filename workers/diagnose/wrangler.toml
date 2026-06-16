@@ -1,0 +1,7 @@
+name = "brewcode-diagnose"
+main = "index.js"
+compatibility_date = "2026-06-16"
+
+[vars]
+DEEPSEEK_API_KEY = "待填入"
+DEEPSEEK_API_BASE = "https://api.deepseek.com/v1"
