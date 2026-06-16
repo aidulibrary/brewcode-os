@@ -3,4 +3,4 @@ main = "index.js"
 compatibility_date = "2026-06-16"
 
 [vars]
-DEEPSEEK_API_KEY = "待填入"
+DEEPSEEK_API_KEY = "sk-7dd92cdba882468f88cf95d226d4a42c"
