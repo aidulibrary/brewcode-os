@@ -1,0 +1,145 @@
+const AUTH_HEADER = 'Authorization';
+const BEARER_PREFIX = 'Bearer bk_';
+
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Authorization, Content-Type',
+  'Access-Control-Max-Age': '86400',
+};
+
+const ROUTES = {
+  '/api/diagnose': 'diagnose',
+  '/api/generate': 'generate',
+  '/api/translate': 'translate',
+};
+
+function hashKey(apiKey) {
+  let hash = 0;
+  for (let i = 0; i < apiKey.length; i++) {
+    const ch = apiKey.charCodeAt(i);
+    hash = (hash << 5) - hash + ch;
+    hash |= 0;
+  }
+  return hash.toString(16);
+}
+
+async function authenticate(env, request) {
+  const authHeader = request.headers.get(AUTH_HEADER);
+  if (!authHeader || !authHeader.startsWith(BEARER_PREFIX)) {
+    return {
+      ok: false,
+      status: 401,
+      body: { error: 'Missing or invalid API key. Use Authorization: Bearer bk_xxx' },
+    };
+  }
+  const apiKey = authHeader.slice(BEARER_PREFIX.length);
+  if (apiKey.length < 16) {
+    return { ok: false, status: 401, body: { error: 'API key too short' } };
+  }
+
+  try {
+    const keyHash = hashKey(apiKey);
+    const result = await env.DB.prepare('SELECT plan, rate_limit FROM api_keys WHERE key_hash = ?')
+      .bind(keyHash)
+      .first();
+
+    if (!result) {
+      return { ok: false, status: 401, body: { error: 'Invalid API key' } };
+    }
+
+    await env.DB.prepare("UPDATE api_keys SET last_used_at = datetime('now') WHERE key_hash = ?")
+      .bind(keyHash)
+      .run();
+
+    return { ok: true, plan: result.plan, rateLimit: result.rate_limit };
+  } catch (e) {
+    return { ok: false, status: 500, body: { error: 'Auth check failed' } };
+  }
+}
+
+async function checkRateLimit(env, apiKey, limit) {
+  const key = `rl:${hashKey(apiKey)}`;
+  try {
+    const current = await env.RATE_LIMIT.get(key);
+    const count = current ? parseInt(current, 10) : 0;
+    if (count >= limit) {
+      return { ok: false, status: 429, body: { error: `Rate limit exceeded (${limit}/min)` } };
+    }
+    const ttl = await env.RATE_LIMIT.get(key + ':ttl');
+    if (!ttl) {
+      await env.RATE_LIMIT.put(key + ':ttl', '1', { expirationTtl: 60 });
+    }
+    await env.RATE_LIMIT.put(key, (count + 1).toString(), { expirationTtl: 60 });
+    return { ok: true };
+  } catch (e) {
+    return { ok: true };
+  }
+}
+
+function jsonResponse(data, status, extraHeaders) {
+  const headers = {
+    'Content-Type': 'application/json; charset=utf-8',
+    ...CORS_HEADERS,
+    ...extraHeaders,
+  };
+  return new Response(JSON.stringify(data, null, 2), { status, headers });
+}
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    const path = url.pathname;
+
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
+
+    const routeKey = ROUTES[path];
+    if (!routeKey) {
+      return jsonResponse(
+        { error: 'Not found. Available: /api/diagnose, /api/generate, /api/translate' },
+        404
+      );
+    }
+
+    const auth = await authenticate(env, request);
+    if (!auth.ok) {
+      return jsonResponse(auth.body, auth.status);
+    }
+
+    const rateCheck = await checkRateLimit(
+      env,
+      request.headers.get(AUTH_HEADER).slice(BEARER_PREFIX.length),
+      auth.rateLimit
+    );
+    if (!rateCheck.ok) {
+      return jsonResponse(rateCheck.body, rateCheck.status);
+    }
+
+    let targetUrl;
+    switch (routeKey) {
+      case 'diagnose':
+        targetUrl = `https://diagnose.brewcode.workers.dev${url.search}`;
+        break;
+      case 'generate':
+        targetUrl = `https://generate.brewcode.workers.dev${url.search}`;
+        break;
+      case 'translate':
+        targetUrl = `https://translate.brewcode.workers.dev${url.search}`;
+        break;
+    }
+
+    try {
+      const upstream = await fetch(targetUrl, {
+        method: request.method,
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: request.method === 'POST' ? await request.text() : undefined,
+      });
+      const data = await upstream.json();
+      return jsonResponse(data, upstream.status);
+    } catch (e) {
+      return jsonResponse({ error: 'Upstream service unavailable' }, 502);
+    }
+  },
+};
