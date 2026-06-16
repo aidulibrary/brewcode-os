@@ -12,7 +12,7 @@ binding = "RATE_LIMIT"
 id = "待填入"
 
 [vars]
-DEEPSEEK_API_KEY = "待填入"
+DEEPSEEK_API_KEY = "REDACTED"
 DEEPSEEK_API_BASE = "https://api.deepseek.com/v1"
 
 [env.production]
