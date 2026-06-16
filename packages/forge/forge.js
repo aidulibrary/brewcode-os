@@ -18,6 +18,10 @@ function $(sel) {
   return document.querySelector(sel);
 }
 
+/* Schema & CodeMirror 运行态 */
+var brewSchemaValidator = null;
+var cmView = null;
+
 /* ================================================================
  * 编辑器状态
  * ================================================================ */
@@ -430,18 +434,260 @@ function updateValidationBar(errors) {
   }
 }
 
-function validateCodeJSON() {
-  var ta = document.getElementById('code-textarea');
-  var errBar = document.getElementById('code-error-bar');
-  if (!ta || !errBar) return;
+/* ================================================================
+ * Schema 校验 — AJV 编译 + 辅助函数
+ * ================================================================ */
+
+function initSchemaValidator() {
+  import('ajv')
+    .then(function (mod) {
+      var Ajv = mod.default;
+      return fetch('../standards/brew.schema.json').then(function (res) {
+        return res.json().then(function (schema) {
+          var ajv = new Ajv({ allErrors: true, strict: false });
+          brewSchemaValidator = ajv.compile(schema);
+        });
+      });
+    })
+    .catch(function (e) {
+      console.warn('BrewForge: Schema 加载失败，代码模式仅做 JSON 语法检查', e);
+    });
+}
+
+function findErrorLine(text, err) {
+  var lines = text.split('\n');
+  var ip = err.instancePath || '';
+  var kw = err.keyword;
+  var parts = ip.split('/').filter(Boolean);
+
+  if (kw === 'required' && err.params && err.params.missingProperty) {
+    var missing = err.params.missingProperty;
+    if (parts.length === 1) {
+      var parentKey = parts[0];
+      for (var i = 0; i < lines.length; i++) {
+        if (lines[i].indexOf('"' + parentKey + '"') !== -1) return i + 1;
+      }
+    }
+    // 试图在父对象内找相邻字段定位
+    var re = new RegExp('"' + missing.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '"');
+    for (var j = 0; j < lines.length; j++) {
+      if (re.test(lines[j])) return j + 1;
+    }
+  }
+
+  if (parts.length > 0) {
+    var k = parts[parts.length - 1];
+    var re2 = new RegExp('"' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '"\\s*:');
+    for (var m = 0; m < lines.length; m++) {
+      if (re2.test(lines[m])) return m + 1;
+    }
+    if (parts.length > 1) {
+      k = parts[parts.length - 2];
+      re2 = new RegExp('"' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '"\\s*:');
+      for (var n = 0; n < lines.length; n++) {
+        if (re2.test(lines[n])) return n + 1;
+      }
+    }
+  }
+
+  return 1;
+}
+
+function formatAJVError(err) {
+  var path = err.instancePath || '(根)';
+  switch (err.keyword) {
+    case 'required':
+      return path + ' 缺少必填字段: ' + err.params.missingProperty;
+    case 'type':
+      return path + ' 类型应为 ' + err.params.type;
+    case 'enum':
+      return path + ' 不在允许值范围内';
+    case 'minLength':
+      return path + ' 最少 ' + err.params.limit + ' 个字符';
+    case 'maxLength':
+      return path + ' 最多 ' + err.params.limit + ' 个字符';
+    case 'minItems':
+      return path + ' 至少需要 ' + err.params.limit + ' 个元素';
+    case 'additionalProperties':
+      return path + ' 不允许的字段: ' + err.params.additionalProperty;
+    case 'pattern':
+      return path + ' 格式应为 ' + err.params.pattern;
+    case 'minimum':
+      return path + ' 最小值为 ' + err.params.limit;
+    case 'maximum':
+      return path + ' 最大值为 ' + err.params.limit;
+    default:
+      return path + ' ' + err.message;
+  }
+}
+
+/* ================================================================
+ * CodeMirror 6 + Lint 集成
+ * ================================================================ */
+
+function createCodeLintSource() {
+  return function (view) {
+    var diagnostics = [];
+    var text = view.state.doc.toString();
+
+    if (!text.trim()) {
+      diagnostics.push({
+        from: 0,
+        to: view.state.doc.length,
+        severity: 'error',
+        message: 'JSON 不能为空',
+      });
+      return diagnostics;
+    }
+
+    var data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      var pos = 0;
+      var match = e.message.match(/position\s+(\d+)/i);
+      if (match) pos = parseInt(match[1], 10);
+      if (pos < view.state.doc.length) {
+        diagnostics.push({
+          from: pos,
+          to: Math.min(pos + 1, view.state.doc.length),
+          severity: 'error',
+          message: 'JSON 语法错误: ' + e.message,
+        });
+      } else {
+        diagnostics.push({
+          from: 0,
+          to: view.state.doc.length,
+          severity: 'error',
+          message: 'JSON 语法错误: ' + e.message,
+        });
+      }
+      return diagnostics;
+    }
+
+    if (!brewSchemaValidator) return diagnostics;
+
+    brewSchemaValidator(data);
+    var errs = brewSchemaValidator.errors;
+    if (errs && errs.length) {
+      for (var i = 0; i < errs.length; i++) {
+        var errLine = findErrorLine(text, errs[i]);
+        var docLine = view.state.doc.line(errLine);
+        diagnostics.push({
+          from: docLine.from,
+          to: docLine.to,
+          severity: 'error',
+          message: formatAJVError(errs[i]),
+        });
+      }
+    }
+
+    return diagnostics;
+  };
+}
+
+function initCodeMirrorEditor(container, initialContent) {
+  if (cmView) {
+    cmView.destroy();
+    cmView = null;
+  }
+
+  return Promise.all([
+    import('codemirror'),
+    import('@codemirror/lang-json'),
+    import('@codemirror/lint'),
+  ]).then(function (mods) {
+    var cm = mods[0];
+    var jsonMod = mods[1];
+    var lintMod = mods[2];
+
+    cmView = new cm.EditorView({
+      doc: initialContent,
+      extensions: [
+        cm.basicSetup,
+        jsonMod.json(),
+        lintMod.lintGutter(),
+        lintMod.linter(createCodeLintSource(), { delay: 400 }),
+        cm.EditorView.theme({
+          '&': { backgroundColor: '#16162a', color: '#e0d8c8' },
+          '.cm-gutters': {
+            backgroundColor: '#1a1a2e',
+            color: '#8888aa',
+            border: 'none',
+          },
+          '.cm-activeLineGutter': { backgroundColor: '#222244' },
+          '.cm-activeLine': { backgroundColor: 'rgba(232,168,80,0.05)' },
+          '.cm-cursor': { borderLeftColor: '#e8a850' },
+          '.cm-selectionBackground': { backgroundColor: 'rgba(232,168,80,0.2)' },
+          '.cm-matchingBracket': {
+            backgroundColor: 'rgba(232,168,80,0.15)',
+            outline: '1px solid rgba(232,168,80,0.3)',
+          },
+          '.cm-lintRange-error': {
+            backgroundImage: 'none',
+            textDecoration: 'underline wavy #d04040',
+          },
+          '.cm-tooltip': {
+            backgroundColor: '#222244',
+            border: '1px solid #444466',
+            color: '#e0e0e8',
+          },
+          '.cm-tooltip-lint': { padding: '6px 10px' },
+        }),
+        cm.EditorView.updateListener.of(function (update) {
+          if (update.docChanged) {
+            updateValidationBarFromCode();
+          }
+        }),
+      ],
+      parent: container,
+    });
+
+    return cmView;
+  });
+}
+
+function getCodeMirrorContent() {
+  return cmView ? cmView.state.doc.toString() : '';
+}
+
+function destroyCodeMirror() {
+  if (cmView) {
+    cmView.destroy();
+    cmView = null;
+  }
+}
+
+function updateValidationBarFromCode() {
+  if (!codeMode) return;
+
+  var text = getCodeMirrorContent();
+  var errors = [];
 
   try {
-    JSON.parse(ta.value);
-    errBar.classList.add('hidden');
+    JSON.parse(text);
   } catch (e) {
-    errBar.textContent = 'JSON 语法错误：' + e.message;
-    errBar.classList.remove('hidden');
+    errors.push({ field: 'json-syntax', label: 'JSON 语法', message: e.message });
+    updateValidationBar(errors);
+    return;
   }
+
+  if (brewSchemaValidator) {
+    var data = JSON.parse(text);
+    brewSchemaValidator(data);
+    var errs = brewSchemaValidator.errors;
+    if (errs && errs.length) {
+      for (var i = 0; i < errs.length; i++) {
+        errors.push({
+          field: errs[i].instancePath || '/',
+          label: errs[i].instancePath || 'Schema',
+          message: formatAJVError(errs[i]),
+        });
+      }
+    }
+  }
+
+  updateValidationBar(errors);
 }
 /* ================================================================
  * 步骤管理器 — 渲染 / 增删 / 排序 / 模态框
@@ -1036,7 +1282,7 @@ function loadBrewJSON(jsonStr) {
 }
 
 /* ================================================================
- * 代码模式切换
+ * 代码模式切换 — CodeMirror 6 + Schema 校验
  * ================================================================ */
 
 var codeMode = false;
@@ -1050,41 +1296,60 @@ function toggleCodeMode() {
 
     document.getElementById('forge-main').style.display = 'none';
     document.getElementById('forge-footer').style.display = 'none';
-    document.getElementById('validation-bar').style.display = 'none';
+
+    var bar = document.getElementById('validation-bar');
+    bar.style.display = '';
+
     var container = document.getElementById('code-editor-container');
     container.classList.remove('hidden');
+
     document.getElementById('code-error-bar').classList.add('hidden');
 
-    window.initCodeMirror(document.getElementById('code-editor'), jsonStr);
-
-    var ta = document.getElementById('code-textarea');
-    if (ta) {
-      ta.addEventListener('input', validateCodeJSON);
-    }
+    initCodeMirrorEditor(document.getElementById('code-editor'), jsonStr).then(function () {
+      updateValidationBarFromCode();
+    });
 
     document.getElementById('btn-toggle-code').textContent = '📝 表单';
     codeMode = true;
   } else {
-    var content = window.getCodeMirrorContent();
+    var content = getCodeMirrorContent();
+
     try {
-      loadBrewJSON(content);
+      JSON.parse(content);
     } catch (e) {
       var errBar = document.getElementById('code-error-bar');
-      errBar.textContent = 'JSON 解析错误：' + e.message;
+      errBar.textContent = 'JSON 语法错误，请修正后再切换：' + e.message;
       errBar.classList.remove('hidden');
       return;
     }
 
-    var ta = document.getElementById('code-textarea');
-    if (ta) {
-      ta.removeEventListener('input', validateCodeJSON);
+    if (brewSchemaValidator) {
+      var data = JSON.parse(content);
+      var valid = brewSchemaValidator(data);
+      if (!valid && brewSchemaValidator.errors && brewSchemaValidator.errors.length) {
+        var errBar = document.getElementById('code-error-bar');
+        errBar.textContent =
+          'Schema 校验未通过，仍有 ' +
+          brewSchemaValidator.errors.length +
+          ' 个错误，请修正后再切换';
+        errBar.classList.remove('hidden');
+        return;
+      }
     }
 
-    window.destroyCodeMirror();
+    try {
+      loadBrewJSON(content);
+    } catch (e) {
+      var errBar2 = document.getElementById('code-error-bar');
+      errBar2.textContent = 'JSON 解析错误：' + e.message;
+      errBar2.classList.remove('hidden');
+      return;
+    }
+
+    destroyCodeMirror();
     document.getElementById('code-editor-container').classList.add('hidden');
     document.getElementById('forge-main').style.display = '';
     document.getElementById('forge-footer').style.display = '';
-    document.getElementById('validation-bar').style.display = '';
 
     syncFormFromState();
     syncResultFromState();
@@ -1103,6 +1368,8 @@ function toggleCodeMode() {
  * ================================================================ */
 
 document.addEventListener('DOMContentLoaded', function () {
+  initSchemaValidator();
+
   syncFormFromState();
   syncResultFromState();
   bindFormEvents();
