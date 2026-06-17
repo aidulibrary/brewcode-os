@@ -1,0 +1,54 @@
+{
+  "hero": {
+    "title": "咖啡冲煮的通用语言",
+    "title_en": "The Universal Language for Coffee Brewing",
+    "subtitle": "一粒种子，为咖啡世界建立数字秩序",
+    "subtitle_en": "A seed that brings digital order to the world of coffee",
+    "description": "BrewCode OS is an open-source project building a universal digital language for coffee brewing. Its core asset is an open JSON file format called .brew."
+  },
+  "buttons": {
+    "player": "Open Player",
+    "repo": "Browse Recipes",
+    "forge": "Create Recipe"
+  },
+  "story": {
+    "title": "Genesis",
+    "ending": "You are the world's gift. 欢迎来到 BrewCode OS."
+  },
+  "tools": {
+    "title": "Tool Matrix",
+    "player": {
+      "name": "BrewPlayer",
+      "desc": "Open .brew files, get step-by-step brewing guidance. Works offline. Phone on the scale, glance and go."
+    },
+    "repo": {
+      "name": "BrewRepo",
+      "desc": "Browse community-shared brew recipes. 50 seed recipes covering 20 origins and 6 brewers. Filter and search freely."
+    },
+    "forge": {
+      "name": "BrewForge",
+      "desc": "Visually create and edit .brew files. Form mode for beginners, code mode for geeks. Built-in Schema real-time validation."
+    }
+  },
+  "data": {
+    "title": "By the Numbers",
+    "recipes": "Seed Recipes",
+    "origins": "Origins Covered",
+    "brewers": "Brewing Devices",
+    "champions": "World Champion Signatures"
+  },
+  "community": {
+    "title": "Join Us",
+    "desc": "BrewCode OS is an open project. Standards, tools, recipes—all open source, all collaborating on GitHub.",
+    "github": "GitHub Repository",
+    "whitepaper": "Whitepaper",
+    "contact": "Contact",
+    "fork": "Fork it."
+  },
+  "footer": {
+    "license": "License: CC0 1.0 (Public Domain)",
+    "founder": "Founder: Bowen Lee 李泊言",
+    "year": "2026",
+    "brand": "BrewCode OS · 礼字号"
+  }
+}
