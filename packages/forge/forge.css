@@ -597,6 +597,10 @@ input[type='number']::-webkit-outer-spin-button {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
+.modal-panel-wide {
+  max-width: 600px;
+}
+
 .modal-header {
   display: flex;
   align-items: center;
@@ -728,4 +732,169 @@ input[type='number']::-webkit-outer-spin-button {
   color: #c06060;
   font-weight: 400;
   margin-left: 2px;
+}
+
+/* ================================================================
+ * AI 对话框 — 结果面板 / 加载 / 错误
+ * ================================================================ */
+
+.ai-result {
+  margin-top: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-input);
+  overflow: hidden;
+}
+
+.ai-result-header {
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  background: rgba(232, 168, 80, 0.06);
+}
+
+.ai-result-list {
+  padding: 8px;
+}
+
+.ai-suggestion {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.ai-suggestion:last-child {
+  border-bottom: none;
+}
+
+.ai-suggestion:hover {
+  background: rgba(232, 168, 80, 0.04);
+}
+
+.ai-suggestion-field {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.ai-suggestion-values {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.ai-suggestion-current {
+  color: var(--text-dim);
+}
+
+.ai-suggestion-current span {
+  color: var(--danger);
+  text-decoration: line-through;
+}
+
+.ai-suggestion-suggested {
+  color: var(--success);
+}
+
+.ai-suggestion-suggested span {
+  font-weight: 600;
+}
+
+.ai-suggestion-reason {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.ai-suggestion-apply {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 12px;
+  background: var(--accent);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+
+.ai-suggestion-apply:hover {
+  background: var(--accent-dim);
+}
+
+.ai-suggestion-apply.applied {
+  background: var(--success);
+  color: #fff;
+  cursor: default;
+}
+
+.ai-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  margin-top: 16px;
+  background: rgba(232, 168, 80, 0.06);
+  border: 1px solid rgba(232, 168, 80, 0.2);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: 13px;
+}
+
+.ai-loading-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(232, 168, 80, 0.2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: ai-spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes ai-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ai-error {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #2a1a1a;
+  border: 1px solid #4a3030;
+  border-radius: var(--radius-sm);
+  color: #d47878;
+  font-size: 13px;
+}
+
+.ai-success {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #1a2a1a;
+  border: 1px solid #2a4a2a;
+  border-radius: var(--radius-sm);
+  color: #8cc88c;
+  font-size: 13px;
+}
+
+.ai-raw-response {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: auto;
+  line-height: 1.5;
 }
