@@ -1,0 +1,54 @@
+{
+  "hero": {
+    "title": "咖啡冲煮的通用语言",
+    "title_en": "The Universal Language for Coffee Brewing",
+    "subtitle": "一粒种子，为咖啡世界建立数字秩序",
+    "subtitle_en": "A seed that brings digital order to the world of coffee",
+    "description": "BrewCode OS 是一个开源项目，为全球咖啡冲煮建立通用数字语言。核心资产是一个名为 .brew 的 JSON 标准文件格式。"
+  },
+  "buttons": {
+    "player": "打开 Player",
+    "repo": "浏览方案库",
+    "forge": "创建方案"
+  },
+  "story": {
+    "title": "诞生记",
+    "ending": "你是世界的礼物。Welcome to BrewCode OS."
+  },
+  "tools": {
+    "title": "工具矩阵",
+    "player": {
+      "name": "BrewPlayer",
+      "desc": "打开 .brew 文件，获得分步冲煮引导。离线可用，手机放秤旁，扫一眼就够。"
+    },
+    "repo": {
+      "name": "BrewRepo",
+      "desc": "浏览社区共享的冲煮方案。50个种子方案覆盖20个产区、6种器具，自由筛选检索。"
+    },
+    "forge": {
+      "name": "BrewForge",
+      "desc": "可视化创建和编辑 .brew 文件。表单模式适合新手，代码模式适合极客。内置 Schema 实时校验。"
+    }
+  },
+  "data": {
+    "title": "数据叙事",
+    "recipes": "种子方案",
+    "origins": "产区覆盖",
+    "brewers": "冲煮器具",
+    "champions": "世界冠军署名"
+  },
+  "community": {
+    "title": "加入我们",
+    "desc": "BrewCode OS 是一个开放项目。标准、工具、方案——全部开源，全部在 GitHub 上协作。",
+    "github": "GitHub 仓库",
+    "whitepaper": "白皮书",
+    "contact": "联系方式",
+    "fork": "Fork it."
+  },
+  "footer": {
+    "license": "许可证：CC0 1.0（公共领域）",
+    "founder": "创始人：李泊言 Bowen Lee",
+    "year": "2026",
+    "brand": "BrewCode OS · 礼字号"
+  }
+}
