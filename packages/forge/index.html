@@ -73,6 +73,8 @@
       </div>
       <div id="forge-toolbar">
         <button id="btn-export" class="btn btn-primary" type="button">⬇ 导出 .brew</button>
+        <button id="btn-ai-diagnose" class="btn btn-ghost" type="button">🔍 AI 诊断</button>
+        <button id="btn-ai-generate" class="btn btn-ghost" type="button">🤖 AI 生成</button>
         <button id="btn-toggle-code" class="btn btn-ghost" type="button">{} 代码</button>
       </div>
       <div id="code-editor-container" class="hidden">
@@ -853,6 +855,127 @@
           <div class="modal-footer">
             <button id="btn-save-step" class="btn btn-primary" type="button">保存</button>
             <button id="btn-cancel-step" class="btn btn-ghost" type="button">取消</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI 诊断对话框 -->
+      <div id="ai-diagnose-modal" class="modal-overlay hidden">
+        <div class="modal-panel modal-panel-wide">
+          <div class="modal-header">
+            <h3>🔍 AI 诊断</h3>
+            <button class="btn-icon btn-close-ai-diagnose" type="button" aria-label="关闭">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <label class="field">
+              <span class="field-label">描述你遇到的问题</span>
+              <textarea
+                id="inp-diagnose-issue"
+                class="input"
+                rows="3"
+                placeholder="例如：这杯偏苦、body 太薄、酸度不够…"
+              ></textarea>
+            </label>
+            <div id="diagnose-loading" class="ai-loading hidden">
+              <span class="ai-loading-spinner"></span>
+              <span>诊断中，AI 正在分析你的方案…</span>
+            </div>
+            <div id="diagnose-error" class="ai-error hidden"></div>
+            <div id="diagnose-result" class="ai-result hidden"></div>
+          </div>
+          <div class="modal-footer">
+            <button id="btn-submit-diagnose" class="btn btn-primary" type="button">提交诊断</button>
+            <button class="btn btn-ghost btn-close-ai-diagnose" type="button">取消</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI 生成对话框 -->
+      <div id="ai-generate-modal" class="modal-overlay hidden">
+        <div class="modal-panel modal-panel-wide">
+          <div class="modal-header">
+            <h3>🤖 AI 生成方案</h3>
+            <button class="btn-icon btn-close-ai-generate" type="button" aria-label="关闭">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-grid">
+              <label class="field">
+                <span class="field-label">产地<span class="required-hint">（必填）</span></span>
+                <input
+                  type="text"
+                  id="inp-gen-origin"
+                  class="input"
+                  placeholder="埃塞俄比亚 耶加雪菲"
+                />
+              </label>
+              <label class="field">
+                <span class="field-label">烘焙度<span class="required-hint">（必填）</span></span>
+                <select id="inp-gen-roast" class="input">
+                  <option value="">— 请选择 —</option>
+                  <option value="极浅烘">极浅烘</option>
+                  <option value="浅烘">浅烘</option>
+                  <option value="中浅烘">中浅烘</option>
+                  <option value="中烘" selected>中烘</option>
+                  <option value="中深烘">中深烘</option>
+                  <option value="深烘">深烘</option>
+                  <option value="极深烘">极深烘</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">处理法<span class="required-hint">（必填）</span></span>
+                <select id="inp-gen-process" class="input">
+                  <option value="">— 请选择 —</option>
+                  <option value="日晒">日晒</option>
+                  <option value="水洗">水洗</option>
+                  <option value="蜜处理">蜜处理</option>
+                  <option value="厌氧日晒">厌氧日晒</option>
+                  <option value="厌氧水洗">厌氧水洗</option>
+                  <option value="半水洗">半水洗</option>
+                  <option value="湿刨法">湿刨法</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">豆种</span>
+                <input
+                  type="text"
+                  id="inp-gen-variety"
+                  class="input"
+                  placeholder="Heirloom / Bourbon / Geisha"
+                />
+              </label>
+              <label class="field field-span-2">
+                <span class="field-label">设备</span>
+                <input
+                  type="text"
+                  id="inp-gen-equipment"
+                  class="input"
+                  placeholder="V60, Comandante C40, Fellow Stagg EKG（逗号分隔）"
+                />
+              </label>
+              <label class="field field-span-2">
+                <span class="field-label">口味偏好</span>
+                <textarea
+                  id="inp-gen-preference"
+                  class="input"
+                  rows="2"
+                  placeholder="明亮果酸，干净口感，花香突出…"
+                ></textarea>
+              </label>
+            </div>
+            <div id="generate-loading" class="ai-loading hidden">
+              <span class="ai-loading-spinner"></span>
+              <span>生成中，AI 正在为你设计冲煮方案…</span>
+            </div>
+            <div id="generate-error" class="ai-error hidden"></div>
+            <div id="generate-result" class="ai-result hidden"></div>
+          </div>
+          <div class="modal-footer">
+            <button id="btn-submit-generate" class="btn btn-primary" type="button">生成方案</button>
+            <button class="btn btn-ghost btn-close-ai-generate" type="button">取消</button>
           </div>
         </div>
       </div>

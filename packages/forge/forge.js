@@ -1364,6 +1364,410 @@ function toggleCodeMode() {
 }
 
 /* ================================================================
+ * AI 服务层 — 诊断 + 生成
+ * ================================================================ */
+
+var AI_API_BASE = 'https://api.礼字号.中国';
+var AI_API_KEY = 'bk_test1234567890abcdef';
+var AI_TIMEOUT_MS = 15000;
+
+function aiFetch(path, body) {
+  var controller = new AbortController();
+  var timer = setTimeout(function () {
+    controller.abort();
+  }, AI_TIMEOUT_MS);
+
+  return fetch(AI_API_BASE + path, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + AI_API_KEY,
+    },
+    body: JSON.stringify(body),
+    signal: controller.signal,
+  })
+    .then(function (res) {
+      clearTimeout(timer);
+      if (!res.ok) {
+        return res
+          .json()
+          .catch(function () {
+            throw new Error('API 返回错误，状态码：' + res.status);
+          })
+          .then(function (errBody) {
+            var msg = (errBody && errBody.error) || 'API 返回错误，状态码：' + res.status;
+            if (errBody && errBody.detail) {
+              msg += ' (详情: ' + JSON.stringify(errBody.detail) + ')';
+            }
+            throw new Error(msg);
+          });
+      }
+      return res.json();
+    })
+    .catch(function (e) {
+      clearTimeout(timer);
+      if (e.name === 'AbortError') {
+        throw new Error('请求超时（' + AI_TIMEOUT_MS / 1000 + ' 秒），请检查网络后重试');
+      }
+      throw e;
+    });
+}
+
+/* --- AI 诊断 --- */
+
+function openAIDiagnoseModal() {
+  $('#ai-diagnose-modal').classList.remove('hidden');
+  $('#inp-diagnose-issue').value = '';
+  $('#diagnose-result').classList.add('hidden');
+  $('#diagnose-result').innerHTML = '';
+  $('#diagnose-error').classList.add('hidden');
+  $('#diagnose-loading').classList.add('hidden');
+  $('#btn-submit-diagnose').disabled = false;
+  $('#btn-submit-diagnose').textContent = '提交诊断';
+}
+
+function closeAIDiagnoseModal() {
+  $('#ai-diagnose-modal').classList.add('hidden');
+}
+
+function submitDiagnose() {
+  var issue = $('#inp-diagnose-issue').value.trim();
+  if (!issue) {
+    showDiagnoseError('请输入你遇到的问题描述');
+    return;
+  }
+
+  collectFormToState();
+  collectResultToState();
+  var brewJSON = buildBrewJSON();
+
+  $('#diagnose-loading').classList.remove('hidden');
+  $('#diagnose-error').classList.add('hidden');
+  $('#diagnose-result').classList.add('hidden');
+  $('#btn-submit-diagnose').disabled = true;
+  $('#btn-submit-diagnose').textContent = '诊断中…';
+
+  aiFetch('/diagnose', { brew: brewJSON, issue: issue })
+    .then(function (data) {
+      $('#diagnose-loading').classList.add('hidden');
+      $('#btn-submit-diagnose').disabled = false;
+      $('#btn-submit-diagnose').textContent = '提交诊断';
+      renderDiagnoseResult(data);
+    })
+    .catch(function (e) {
+      $('#diagnose-loading').classList.add('hidden');
+      $('#btn-submit-diagnose').disabled = false;
+      $('#btn-submit-diagnose').textContent = '提交诊断';
+      showDiagnoseError(e.message || '诊断请求失败，请稍后重试');
+    });
+}
+
+function showDiagnoseError(msg) {
+  var el = $('#diagnose-error');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+}
+
+function renderDiagnoseResult(data) {
+  var suggestions = data.suggestions || [];
+  var raw = data.raw || '';
+
+  var html = '<div class="ai-result-header">诊断建议（' + suggestions.length + ' 条）</div>';
+
+  if (suggestions.length === 0) {
+    html +=
+      '<div class="ai-result-list"><p style="padding:16px;color:var(--text-dim);font-size:13px;">AI 未给出具体建议，请尝试更详细地描述问题</p></div>';
+  } else {
+    html += '<div class="ai-result-list">';
+    for (var i = 0; i < suggestions.length; i++) {
+      var s = suggestions[i];
+      html +=
+        '<div class="ai-suggestion" data-sug-index="' +
+        i +
+        '">' +
+        '<div class="ai-suggestion-field">' +
+        escapeHTML(s.field || '参数') +
+        '</div>' +
+        '<div class="ai-suggestion-values">' +
+        '<span class="ai-suggestion-current">当前：<span>' +
+        escapeHTML(s.current || '—') +
+        '</span></span>' +
+        '<span class="ai-suggestion-suggested">建议：<span>' +
+        escapeHTML(s.suggested || '—') +
+        '</span></span>' +
+        '</div>' +
+        '<div class="ai-suggestion-reason">' +
+        escapeHTML(s.reason || '') +
+        '</div>' +
+        '<button class="ai-suggestion-apply" data-sug-index="' +
+        i +
+        '">应用建议</button>' +
+        '</div>';
+    }
+    html += '</div>';
+  }
+
+  if (raw) {
+    html +=
+      '<details style="margin-top:8px;font-size:12px;color:var(--text-dim);">' +
+      '<summary style="cursor:pointer;padding:4px 8px;">查看 AI 原始分析</summary>' +
+      '<div class="ai-raw-response">' +
+      escapeHTML(raw) +
+      '</div>' +
+      '</details>';
+  }
+
+  var resultEl = $('#diagnose-result');
+  resultEl.innerHTML = html;
+  resultEl.classList.remove('hidden');
+}
+
+function applyDiagnoseSuggestion(index) {
+  var resultEl = $('#diagnose-result');
+  var suggestions = [];
+  var items = resultEl.querySelectorAll('.ai-suggestion');
+  /* 从 DOM 重建建议数据（轻量方案，避免额外状态管理） */
+  for (var i = 0; i < items.length; i++) {
+    var fieldEl = items[i].querySelector('.ai-suggestion-field');
+    var curEl = items[i].querySelector('.ai-suggestion-current span');
+    var sugEl = items[i].querySelector('.ai-suggestion-suggested span');
+    suggestions.push({
+      field: fieldEl ? fieldEl.textContent : '',
+      current: curEl ? curEl.textContent : '',
+      suggested: sugEl ? sugEl.textContent : '',
+    });
+  }
+
+  var s = suggestions[index];
+  if (!s) return;
+
+  applySuggestionToState(s);
+
+  /* 标记为已应用 */
+  var btn = resultEl.querySelector('.ai-suggestion-apply[data-sug-index="' + index + '"]');
+  if (btn) {
+    btn.textContent = '✓ 已应用';
+    btn.classList.add('applied');
+    btn.disabled = true;
+  }
+
+  syncFormFromState();
+  syncResultFromState();
+  renderStepList();
+
+  var errors = validateState();
+  updateValidationBar(errors);
+}
+
+function applySuggestionToState(sug) {
+  var field = sug.field;
+  var suggested = sug.suggested;
+
+  /* 尝试匹配常见字段名 */
+  if (/研磨/.test(field)) {
+    var gVal = parseFloat(suggested);
+    if (!isNaN(gVal)) {
+      editorState.recipe.grindSize.value = gVal;
+    }
+    var unitMatch = suggested.match(/[a-zA-Z\s]+格|[a-zA-Z\s]+click|μm/);
+    if (unitMatch) {
+      editorState.recipe.grindSize.unit = unitMatch[0].trim();
+    }
+  } else if (/水温|温度/.test(field)) {
+    var tVal = parseFloat(suggested);
+    if (!isNaN(tVal)) {
+      editorState.recipe.waterTemperature.value = tVal;
+    }
+  } else if (/粉量|粉重|dose/i.test(field)) {
+    var dVal = parseFloat(suggested);
+    if (!isNaN(dVal)) {
+      editorState.recipe.dose.value = dVal;
+    }
+  } else if (/水量|注水|water/i.test(field)) {
+    var wVal = parseFloat(suggested);
+    if (!isNaN(wVal)) {
+      editorState.recipe.waterAmount.value = wVal;
+    }
+  } else if (/粉水比|ratio/i.test(field)) {
+    editorState.recipe.ratio = suggested;
+  } else if (/闷蒸|bloom/i.test(field)) {
+    var bVal = parseFloat(suggested);
+    if (!isNaN(bVal)) {
+      editorState.recipe.bloomTime.value = bVal;
+    }
+  } else if (/冲煮时间|brewTime/i.test(field)) {
+    var btVal = parseFloat(suggested);
+    if (!isNaN(btVal)) {
+      editorState.recipe.brewTime.value = btVal;
+    }
+  } else if (/器具|滤杯|brewer/i.test(field)) {
+    editorState.equipment.brewer = suggested;
+  } else if (/磨豆机|grinder/i.test(field)) {
+    editorState.equipment.grinder = suggested;
+  }
+}
+
+/* 诊断结果面板点击委托 */
+function handleDiagnoseResultClick(e) {
+  var btn = e.target.closest('.ai-suggestion-apply');
+  if (!btn) return;
+  if (btn.classList.contains('applied')) return;
+
+  var index = parseInt(btn.getAttribute('data-sug-index'), 10);
+  if (!isNaN(index)) {
+    applyDiagnoseSuggestion(index);
+  }
+}
+
+/* --- AI 生成 --- */
+
+function openAIGenerateModal() {
+  $('#ai-generate-modal').classList.remove('hidden');
+  $('#inp-gen-origin').value = '';
+  $('#inp-gen-roast').value = '中烘';
+  $('#inp-gen-process').value = '';
+  $('#inp-gen-variety').value = '';
+  $('#inp-gen-equipment').value = '';
+  $('#inp-gen-preference').value = '';
+  $('#generate-result').classList.add('hidden');
+  $('#generate-result').innerHTML = '';
+  $('#generate-error').classList.add('hidden');
+  $('#generate-loading').classList.add('hidden');
+  $('#btn-submit-generate').disabled = false;
+  $('#btn-submit-generate').textContent = '生成方案';
+}
+
+function closeAIGenerateModal() {
+  $('#ai-generate-modal').classList.add('hidden');
+}
+
+function submitGenerate() {
+  var origin = $('#inp-gen-origin').value.trim();
+  var roast = $('#inp-gen-roast').value;
+  var process = $('#inp-gen-process').value;
+  var variety = $('#inp-gen-variety').value.trim();
+  var equipmentRaw = $('#inp-gen-equipment').value.trim();
+  var preference = $('#inp-gen-preference').value.trim();
+
+  if (!origin) {
+    showGenerateError('请填写产地');
+    return;
+  }
+  if (!roast) {
+    showGenerateError('请选择烘焙度');
+    return;
+  }
+  if (!process) {
+    showGenerateError('请选择处理法');
+    return;
+  }
+
+  var equipment = equipmentRaw
+    ? equipmentRaw.split(',').map(function (e) {
+        return e.trim();
+      })
+    : [];
+
+  $('#generate-loading').classList.remove('hidden');
+  $('#generate-error').classList.add('hidden');
+  $('#generate-result').classList.add('hidden');
+  $('#btn-submit-generate').disabled = true;
+  $('#btn-submit-generate').textContent = '生成中…';
+
+  var body = {
+    coffee: {
+      origin: origin,
+      roastLevel: roast,
+      process: process,
+    },
+    equipment: equipment,
+    preference: preference,
+  };
+  if (variety) {
+    body.coffee.variety = variety;
+  }
+
+  aiFetch('/generate', body)
+    .then(function (data) {
+      $('#generate-loading').classList.add('hidden');
+      $('#btn-submit-generate').disabled = false;
+      $('#btn-submit-generate').textContent = '生成方案';
+
+      if (!data.brew) {
+        showGenerateError('AI 返回数据异常，缺少 brew 字段');
+        return;
+      }
+
+      loadBrewJSON(JSON.stringify(data.brew));
+
+      if (codeMode) {
+        toggleCodeMode();
+      }
+
+      syncFormFromState();
+      syncResultFromState();
+      renderStepList();
+
+      var errors = validateState();
+      updateValidationBar(errors);
+
+      var resultEl = $('#generate-result');
+      resultEl.innerHTML =
+        '<div class="ai-success">✅ 方案已生成，所有字段已回填到编辑器中。可切换到表单模式查看详情。</div>';
+      resultEl.classList.remove('hidden');
+
+      closeAIGenerateModal();
+    })
+    .catch(function (e) {
+      $('#generate-loading').classList.add('hidden');
+      $('#btn-submit-generate').disabled = false;
+      $('#btn-submit-generate').textContent = '生成方案';
+      showGenerateError(e.message || '生成请求失败，请稍后重试');
+    });
+}
+
+function showGenerateError(msg) {
+  var el = $('#generate-error');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+}
+
+/* --- AI 对话框事件绑定 --- */
+
+function bindAIDialogEvents() {
+  /* 诊断 — 提交 */
+  $('#btn-submit-diagnose').addEventListener('click', submitDiagnose);
+
+  /* 诊断 — 关闭（多个关闭按钮） */
+  var diagCloseBtns = document.querySelectorAll('.btn-close-ai-diagnose');
+  for (var i = 0; i < diagCloseBtns.length; i++) {
+    diagCloseBtns[i].addEventListener('click', closeAIDiagnoseModal);
+  }
+
+  /* 诊断 — 点击遮罩关闭 */
+  $('#ai-diagnose-modal').addEventListener('click', function (e) {
+    if (e.target === this) closeAIDiagnoseModal();
+  });
+
+  /* 诊断 — 结果面板点击委托（应用建议） */
+  $('#diagnose-result').addEventListener('click', handleDiagnoseResultClick);
+
+  /* 生成 — 提交 */
+  $('#btn-submit-generate').addEventListener('click', submitGenerate);
+
+  /* 生成 — 关闭 */
+  var genCloseBtns = document.querySelectorAll('.btn-close-ai-generate');
+  for (var j = 0; j < genCloseBtns.length; j++) {
+    genCloseBtns[j].addEventListener('click', closeAIGenerateModal);
+  }
+
+  /* 生成 — 点击遮罩关闭 */
+  $('#ai-generate-modal').addEventListener('click', function (e) {
+    if (e.target === this) closeAIGenerateModal();
+  });
+}
+
+/* ================================================================
  * 初始化
  * ================================================================ */
 
@@ -1378,10 +1782,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   $('#btn-export').addEventListener('click', exportBrewFile);
   $('#btn-toggle-code').addEventListener('click', toggleCodeMode);
+  $('#btn-ai-diagnose').addEventListener('click', openAIDiagnoseModal);
+  $('#btn-ai-generate').addEventListener('click', openAIGenerateModal);
 
   $('#validation-bar').addEventListener('click', function () {
     this.classList.toggle('collapsed');
   });
+
+  bindAIDialogEvents();
 
   var errors = validateState();
   updateValidationBar(errors);
