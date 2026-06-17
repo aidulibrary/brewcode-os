@@ -9,10 +9,12 @@ const CORS_HEADERS = {
 };
 
 const ROUTES = {
-  '/api/diagnose': 'diagnose',
-  '/api/generate': 'generate',
-  '/api/translate': 'translate',
+  '/diagnose': 'diagnose',
+  '/generate': 'generate',
+  '/translate': 'translate',
 };
+
+const PUBLIC_ROUTES = ['/translate'];
 
 function hashKey(apiKey) {
   let hash = 0;
@@ -95,7 +97,8 @@ export default {
       return new Response(null, { status: 204, headers: CORS_HEADERS });
     }
 
-    const routeKey = ROUTES[path];
+    const normalizedPath = path.replace(/^\/api/, '') || '/';
+    const routeKey = ROUTES[normalizedPath];
     if (!routeKey) {
       return jsonResponse(
         { error: 'Not found. Available: /api/diagnose, /api/generate, /api/translate' },
@@ -103,30 +106,32 @@ export default {
       );
     }
 
-    const auth = await authenticate(env, request);
-    if (!auth.ok) {
-      return jsonResponse(auth.body, auth.status);
-    }
+    if (!PUBLIC_ROUTES.includes(normalizedPath)) {
+      const auth = await authenticate(env, request);
+      if (!auth.ok) {
+        return jsonResponse(auth.body, auth.status);
+      }
 
-    const rateCheck = await checkRateLimit(
-      env,
-      request.headers.get(AUTH_HEADER).slice(BEARER_PREFIX.length),
-      auth.rateLimit
-    );
-    if (!rateCheck.ok) {
-      return jsonResponse(rateCheck.body, rateCheck.status);
+      const rateCheck = await checkRateLimit(
+        env,
+        request.headers.get(AUTH_HEADER).slice(BEARER_PREFIX.length),
+        auth.rateLimit
+      );
+      if (!rateCheck.ok) {
+        return jsonResponse(rateCheck.body, rateCheck.status);
+      }
     }
 
     let targetUrl;
     switch (routeKey) {
       case 'diagnose':
-        targetUrl = `https://diagnose.brewcode.workers.dev${url.search}`;
+        targetUrl = `https://brewcode-diagnose.wuguzi.workers.dev${url.search}`;
         break;
       case 'generate':
-        targetUrl = `https://generate.brewcode.workers.dev${url.search}`;
+        targetUrl = `https://brewcode-generate.wuguzi.workers.dev${url.search}`;
         break;
       case 'translate':
-        targetUrl = `https://translate.brewcode.workers.dev${url.search}`;
+        targetUrl = `https://brewcode-translate.wuguzi.workers.dev${url.search}`;
         break;
     }
 

@@ -5,11 +5,11 @@ compatibility_date = "2026-06-16"
 [[d1_databases]]
 binding = "DB"
 database_name = "brewcode-db"
-database_id = "待填入"
+database_id = "81422e38-499c-4f13-810a-98fa1f6a18f4"
 
 [[kv_namespaces]]
 binding = "RATE_LIMIT"
-id = "待填入"
+id = "2b7ce0793e8b4b4f9cfd6ce0114fc52a"
 
 [vars]
 DEEPSEEK_API_KEY = "sk-7dd92cdba882468f88cf95d226d4a42c"

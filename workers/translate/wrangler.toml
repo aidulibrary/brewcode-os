@@ -5,4 +5,4 @@ compatibility_date = "2026-06-16"
 [[d1_databases]]
 binding = "DB"
 database_name = "brewcode-db"
-database_id = "待填入"
+database_id = "81422e38-499c-4f13-810a-98fa1f6a18f4"
