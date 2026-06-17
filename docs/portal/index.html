@@ -9,161 +9,319 @@
       content="BrewCode OS 礼字号 — 咖啡冲煮的通用语言。开源 .brew 标准，数据主权，社区驱动。"
     />
     <title>BrewCode OS · 礼字号</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="portal.css" />
   </head>
   <body>
+    <div id="toolbar">
+      <button id="btn-theme" aria-label="切换主题 (Toggle theme)">☀️ 浅色</button>
+      <button id="btn-lang" aria-label="切换语言 (Toggle language)">EN</button>
+    </div>
+
+    <!-- ============================================================
+    首屏 Hero — 中英双语并排展示
+    ============================================================ -->
+
     <header class="hero">
-      <h1 class="hero-brand">BrewCode OS</h1>
-      <p class="hero-name">礼字号</p>
-      <p class="hero-tagline">咖啡冲煮的通用语言</p>
-      <blockquote class="hero-quote">
-        我们不是在做一个 App。<br />我们在为咖啡冲煮领域定义一门通用语言。
-      </blockquote>
+      <div class="hero-logo">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 200 200"
+          fill="none"
+          aria-label="BrewCode OS Logo"
+        >
+          <defs>
+            <linearGradient id="beanGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#E8A850" />
+              <stop offset="100%" stop-color="#C08030" />
+            </linearGradient>
+          </defs>
+          <ellipse
+            cx="100"
+            cy="100"
+            rx="70"
+            ry="85"
+            fill="url(#beanGrad)"
+            stroke="#3E2723"
+            stroke-width="2.5"
+          />
+          <path
+            d="M100 18 Q85 100 100 182"
+            stroke="#3E2723"
+            stroke-width="2"
+            fill="none"
+            opacity="0.6"
+          />
+          <text
+            x="65"
+            y="118"
+            font-family="Georgia, serif"
+            font-size="42"
+            font-weight="bold"
+            fill="#3E2723"
+            text-anchor="middle"
+          >
+            {
+          </text>
+          <text
+            x="135"
+            y="118"
+            font-family="Georgia, serif"
+            font-size="42"
+            font-weight="bold"
+            fill="#3E2723"
+            text-anchor="middle"
+          >
+            }
+          </text>
+          <line
+            x1="48"
+            y1="75"
+            x2="58"
+            y2="75"
+            stroke="#3E2723"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+          <line
+            x1="48"
+            y1="145"
+            x2="58"
+            y2="145"
+            stroke="#3E2723"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+          <line
+            x1="142"
+            y1="75"
+            x2="152"
+            y2="75"
+            stroke="#3E2723"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+          <line
+            x1="142"
+            y1="145"
+            x2="152"
+            y2="145"
+            stroke="#3E2723"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+          <circle cx="93" cy="98" r="2.5" fill="#3E2723" />
+        </svg>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="hero-title-zh">咖啡冲煮的通用语言</span>
+        <span class="hero-title-en">The Universal Language for Coffee Brewing</span>
+      </h1>
+      <p class="hero-subtitle">
+        <span class="hero-subtitle-zh">一粒种子，为咖啡世界建立数字秩序</span>
+        <span class="hero-subtitle-en"
+          >A seed that brings digital order to the world of coffee</span
+        >
+      </p>
+      <p class="hero-desc" data-i18n="hero.description">
+        BrewCode OS 是一个开源项目，为全球咖啡冲煮建立通用数字语言。核心资产是一个名为 .brew 的 JSON
+        标准文件格式。
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://player.礼字号.中国" class="btn-primary" data-i18n="buttons.player"
+          >打开 Player</a
+        >
+        <a href="https://repo.礼字号.中国" class="btn-outline" data-i18n="buttons.repo"
+          >浏览方案库</a
+        >
+        <a href="https://forge.礼字号.中国" class="btn-outline" data-i18n="buttons.forge"
+          >创建方案</a
+        >
+      </div>
     </header>
 
-    <section class="concepts">
-      <div class="concept-card">
-        <span class="concept-icon" aria-hidden="true">{ }</span>
-        <h3>开源标准</h3>
-        <p>.brew 是一种开放的 JSON 文件格式。任何人都可以阅读、创建、分享。零专利，零围墙。</p>
+    <!-- ============================================================
+    第二屏：诞生记 — 中英双语交替排版，固定不切换
+    ============================================================ -->
+
+    <section class="section story">
+      <h2 class="section-title" data-i18n="story.title">诞生记</h2>
+
+      <div class="story-block">
+        <div class="story-paragraph">
+          <p class="story-zh">
+            一粒种子落下来了。2026年，一个自由人面对三台电脑，问了一个问题：咖啡的终极数字形态是什么？答案不是App，不是平台——是一个标准。一个让全世界的咖啡师、烘焙师、爱好者都能说同一门语言的标准。
+          </p>
+          <p class="story-en">
+            A seed has fallen. In 2026, a free individual sat before three computers and asked: what
+            is the ultimate digital form of coffee? The answer was not an app, not a platform—it was
+            a standard. A language that baristas, roasters, and enthusiasts across the world could
+            all speak.
+          </p>
+        </div>
+
+        <div class="story-paragraph">
+          <p class="story-zh">
+            咖啡是物理，不是玄学。任何可描述的风味差异，必然对应可测量的参数差异。研磨度、水温、粉水比——这些数字不是冰冷的，它们是风味的密码。当你学会了这门语言，一杯咖啡就从神秘变成了精确。
+          </p>
+          <p class="story-en">
+            Coffee is physics, not mysticism. Every describable flavor difference corresponds to a
+            measurable parameter difference. Grind size, water temperature, brew ratio—these numbers
+            are not cold. They are the cipher of flavor. Learn this language, and a cup of coffee
+            transforms from mystery into precision.
+          </p>
+        </div>
+
+        <div class="story-paragraph">
+          <p class="story-zh">
+            冲煮知识是公共财产。没有人应该因为不知道"正确的"参数而喝不到好咖啡。所以我们把 .brew
+            标准以 CC0 协议发布——永久免费，永久开源，属于全人类。这不是一个产品，这是一个运动。
+          </p>
+          <p class="story-en">
+            Brewing knowledge is a public good. No one should be denied a great cup of coffee
+            because they don't know the "right" parameters. That is why we release the .brew
+            standard under CC0—permanently free, permanently open, belonging to all of humanity.
+            This is not a product. This is a movement.
+          </p>
+        </div>
       </div>
-      <div class="concept-card">
-        <span class="concept-icon" aria-hidden="true">◈</span>
-        <h3>数据主权</h3>
-        <p>你的冲煮记录、味觉偏好、设备参数属于你。我们不拥有你的数据，不售卖，不做广告。</p>
-      </div>
-      <div class="concept-card">
-        <span class="concept-icon" aria-hidden="true">⑂</span>
-        <h3>社区驱动</h3>
-        <p>改进从 Fork 开始，共识通过 Pull Request 达成。没有人独自拥有这个标准。</p>
+
+      <div class="story-ending">
+        <p class="story-zh">你是世界的礼物。Welcome to BrewCode OS.</p>
+        <p class="story-en">You are the world's gift. 欢迎来到 BrewCode OS.</p>
       </div>
     </section>
 
-    <section class="cta">
-      <a href="https://player.礼字号.中国" class="btn-start">开始冲煮</a>
-      <p class="cta-hint">打开 BrewPlayer，载入 .brew 文件，跟着步骤冲一杯好咖啡。</p>
+    <!-- ============================================================
+    第三屏：工具矩阵 — i18n 切换
+    ============================================================ -->
+
+    <section class="section tools">
+      <h2 class="section-title" data-i18n="tools.title">工具矩阵</h2>
+
+      <div class="tools-grid">
+        <div class="tool-card">
+          <span class="tool-icon" aria-hidden="true">▶</span>
+          <h3 class="tool-name" data-i18n="tools.player.name">BrewPlayer</h3>
+          <p class="tool-desc" data-i18n="tools.player.desc">
+            打开 .brew 文件，获得分步冲煮引导。离线可用，手机放秤旁，扫一眼就够。
+          </p>
+          <a href="https://player.礼字号.中国" class="tool-link">
+            <span data-i18n="buttons.player">打开 Player</span> →
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <span class="tool-icon" aria-hidden="true">☰</span>
+          <h3 class="tool-name" data-i18n="tools.repo.name">BrewRepo</h3>
+          <p class="tool-desc" data-i18n="tools.repo.desc">
+            浏览社区共享的冲煮方案。50个种子方案覆盖20个产区、6种器具，自由筛选检索。
+          </p>
+          <a href="https://repo.礼字号.中国" class="tool-link">
+            <span data-i18n="buttons.repo">浏览方案库</span> →
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <span class="tool-icon" aria-hidden="true">{ }</span>
+          <h3 class="tool-name" data-i18n="tools.forge.name">BrewForge</h3>
+          <p class="tool-desc" data-i18n="tools.forge.desc">
+            可视化创建和编辑 .brew 文件。表单模式适合新手，代码模式适合极客。内置 Schema 实时校验。
+          </p>
+          <a href="https://forge.礼字号.中国" class="tool-link">
+            <span data-i18n="buttons.forge">创建方案</span> →
+          </a>
+        </div>
+      </div>
     </section>
 
-    <section class="seeds">
-      <h2 class="section-title">种子方案库</h2>
-      <p class="section-desc">
-        精选冲煮方案，覆盖主流器具、产区、烘焙度。每个方案都是一个 .brew 文件。
-      </p>
-      <div class="seed-grid" id="seed-grid"></div>
+    <!-- ============================================================
+    第四屏：数据叙事 — i18n 切换
+    ============================================================ -->
+
+    <section class="section data-narrative">
+      <h2 class="section-title" data-i18n="data.title">数据叙事</h2>
+
+      <div class="data-grid">
+        <div class="data-stat">
+          <div class="data-number">50</div>
+          <div class="data-label" data-i18n="data.recipes">种子方案</div>
+        </div>
+        <div class="data-stat">
+          <div class="data-number">20</div>
+          <div class="data-label" data-i18n="data.origins">产区覆盖</div>
+        </div>
+        <div class="data-stat">
+          <div class="data-number">6</div>
+          <div class="data-label" data-i18n="data.brewers">冲煮器具</div>
+        </div>
+        <div class="data-stat">
+          <div class="data-number">4</div>
+          <div class="data-label" data-i18n="data.champions">世界冠军署名</div>
+        </div>
+      </div>
     </section>
 
-    <section class="community">
-      <h2 class="section-title">加入我们</h2>
-      <p class="section-desc">
+    <!-- ============================================================
+    第五屏：社区入口 — i18n 切换
+    ============================================================ -->
+
+    <section class="section community">
+      <h2 class="section-title" data-i18n="community.title">加入我们</h2>
+      <p class="section-subtitle" data-i18n="community.desc">
         BrewCode OS 是一个开放项目。标准、工具、方案——全部开源，全部在 GitHub 上协作。
       </p>
-      <a
-        href="https://github.com/aidulibrary/brewcode-os"
-        class="btn-fork"
-        target="_blank"
-        rel="noopener"
-        >Fork it →</a
-      >
+
+      <div class="community-links">
+        <a
+          href="https://github.com/aidulibrary/brewcode-os"
+          class="community-link"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="community-link-icon">⌥</span>
+          <span data-i18n="community.github">GitHub 仓库</span>
+        </a>
+        <a
+          href="https://github.com/aidulibrary/brewcode-os/blob/main/docs/BrewCode%20OS%20%E7%99%BD%E7%9A%AE%E4%B9%A6%20%C2%B7%20%E5%BA%8F%E7%AB%A0.md"
+          class="community-link"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="community-link-icon">¶</span>
+          <span data-i18n="community.whitepaper">白皮书</span>
+        </a>
+        <a href="mailto:brewcode-os@proton.me" class="community-link">
+          <span class="community-link-icon">✉</span>
+          <span data-i18n="community.contact">联系方式</span>
+        </a>
+      </div>
+
+      <div class="community-fork">
+        <p class="community-fork-text" data-i18n="community.fork">Fork it.</p>
+      </div>
     </section>
 
+    <!-- ============================================================
+    页脚
+    ============================================================ -->
+
     <footer class="footer">
-      <p class="footer-brand">BrewCode OS · 礼字号</p>
-      <p>创始人：李泊言 Bowen Lee</p>
-      <p>
-        许可证：<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>（公共领域）
-      </p>
-      <p>2026</p>
+      <p class="footer-brand" data-i18n="footer.brand">BrewCode OS · 礼字号</p>
+      <p><span data-i18n="footer.license">许可证：CC0 1.0（公共领域）</span></p>
+      <p data-i18n="footer.founder">创始人：李泊言 Bowen Lee</p>
+      <p data-i18n="footer.year">2026</p>
     </footer>
 
-    <script>
-      (function () {
-        var seeds = [
-          {
-            name: '深烘瑰夏实验',
-            brewer: 'V60',
-            author: 'brewcode-os/genesis',
-            coffee: '巴拿马 瑰夏 日晒 深烘',
-            flavors: '黑樱桃、焦糖布丁、朗姆酒',
-            rating: 8,
-          },
-          {
-            name: '粕谷哲 4:6 法',
-            brewer: 'Origami',
-            author: 'Tetsu Kasuya',
-            coffee: '肯尼亚 基里尼亚加 水洗 中深烘',
-            flavors: '黑加仑、红糖、柑橘',
-            rating: 8.8,
-          },
-          {
-            name: '曼特宁低温慢萃',
-            brewer: 'Kalita Wave',
-            author: 'brewcode-os/genesis',
-            coffee: '印尼 苏门答腊 湿刨 深烘',
-            flavors: '黑巧克力、香料、雪松',
-            rating: 7.8,
-          },
-          {
-            name: '云南孟连日晒',
-            brewer: '爱乐压',
-            author: 'brewcode-os/genesis',
-            coffee: '中国 云南 孟连 日晒 中深烘',
-            flavors: '红糖、普洱茶、梅子',
-            rating: 8,
-          },
-          {
-            name: 'Chemex 深烘大份',
-            brewer: 'Chemex',
-            author: 'brewcode-os/genesis',
-            coffee: '巴布亚新几内亚 水洗 深烘',
-            flavors: '黑巧克力、烤杏仁、焦糖',
-            rating: 7.8,
-          },
-          {
-            name: '浅烘法压实验',
-            brewer: '法压壶',
-            author: 'brewcode-os/genesis',
-            coffee: '埃塞俄比亚 古吉 日晒 浅烘',
-            flavors: '草莓、蓝莓、百香果',
-            rating: 8.5,
-          },
-        ];
-
-        var grid = document.getElementById('seed-grid');
-
-        seeds.forEach(function (s) {
-          var card = document.createElement('div');
-          card.className = 'seed-card';
-
-          var stars = '';
-          for (var i = 0; i < 5; i++) {
-            stars += i < Math.round(s.rating / 2) ? '★' : '☆';
-          }
-
-          card.innerHTML =
-            '<div class="seed-top">' +
-            '<span class="seed-brewer">' +
-            s.brewer +
-            '</span>' +
-            '<span class="seed-rating">' +
-            stars +
-            '</span>' +
-            '</div>' +
-            '<h3 class="seed-name">' +
-            s.name +
-            '</h3>' +
-            '<p class="seed-coffee">' +
-            s.coffee +
-            '</p>' +
-            '<p class="seed-flavors">' +
-            s.flavors +
-            '</p>' +
-            '<p class="seed-author">' +
-            s.author +
-            '</p>';
-
-          grid.appendChild(card);
-        });
-      })();
-    </script>
+    <script src="portal.js"></script>
   </body>
 </html>
