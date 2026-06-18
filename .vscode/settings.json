@@ -7,5 +7,8 @@
       "url": "./packages/standards/brew.schema.json"
     }
   ],
-  "livePreview.defaultPreviewPath": "/packages/forge/index.html"
+  "livePreview.defaultPreviewPath": "/packages/forge/index.html",
+  "explorer.autoRevealExclude": {
+    "": true
+  }
 }
