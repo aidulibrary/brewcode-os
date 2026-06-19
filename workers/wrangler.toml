@@ -12,7 +12,6 @@ binding = "RATE_LIMIT"
 id = "2b7ce0793e8b4b4f9cfd6ce0114fc52a"
 
 [vars]
-DEEPSEEK_API_KEY = "REDACTED"
 DEEPSEEK_API_BASE = "https://api.deepseek.com/v1"
 
 [env.production]
