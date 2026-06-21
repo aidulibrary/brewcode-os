@@ -193,7 +193,7 @@
               "type": "number",
               "description": "数值。",
               "minimum": 0,
-              "exclusiveMinimum": true
+              "exclusiveMinimum": 0
             },
             "unit": {
               "type": "string",
@@ -211,7 +211,7 @@
             "value": {
               "type": "number",
               "minimum": 0,
-              "exclusiveMinimum": true
+              "exclusiveMinimum": 0
             },
             "unit": {
               "type": "string",
@@ -256,7 +256,7 @@
             "value": {
               "type": "number",
               "minimum": 0,
-              "exclusiveMinimum": true
+              "exclusiveMinimum": 0
             },
             "unit": {
               "type": "string",

@@ -418,28 +418,29 @@
     setState(STATE.IDLE);
   });
 
-  /* ── URL param: ?brew=URL ── */
+  /* ── URL param: ?brew=JSON ── */
   (function () {
     var params = new URLSearchParams(window.location.search);
-    var brewUrl = params.get('brew');
-    if (brewUrl) {
-      console.log('[BrewPlayer] loading from ?brew=' + brewUrl);
-      fetch(brewUrl)
-        .then(function (r) {
-          if (!r.ok) throw new Error('HTTP ' + r.status);
-          return r.text();
-        })
-        .then(function (text) {
-          console.log('[BrewPlayer] recipe loaded, length=' + text.length);
-          loadRecipe(text);
-        })
-        .catch(function (err) {
-          console.error('[BrewPlayer] fetch failed:', err);
-          $('#load-error').textContent = '无法加载远程文件：' + err.message;
-          $('#load-error').classList.remove('hidden');
-        });
+    var brewParam = params.get('brew');
+    if (brewParam) {
+      try {
+        var json = decodeURIComponent(brewParam);
+        JSON.parse(json); /* validate */
+        console.log('[BrewPlayer] loading inline JSON, length=' + json.length);
+        loadRecipe(json);
+      } catch (e) {
+        console.error('[BrewPlayer] inline JSON parse failed:', e);
+        $('#load-error').textContent = '无法解析方案数据：' + e.message;
+        $('#load-error').classList.remove('hidden');
+      }
     }
   })();
+
+  /* Back to Forge */
+  $('#btn-back-to-forge').addEventListener('click', function () {
+    if (!recipe) return;
+    window.open('https://forge.礼字号.中国/#brew=' + encodeURIComponent(JSON.stringify(recipe)), '_blank');
+  });
 
   /* initial render */
   render();
