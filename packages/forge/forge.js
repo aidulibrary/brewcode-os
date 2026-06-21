@@ -1377,6 +1377,11 @@ document.addEventListener('DOMContentLoaded', function () {
   renderStepList();
 
   $('#btn-export').addEventListener('click', exportBrewFile);
+  $('#btn-open-in-player').addEventListener('click', function () {
+    collectFormToState();
+    var json = encodeURIComponent(JSON.stringify(buildBrewJSON()));
+    window.open('http://localhost:8789?brew=' + json, '_blank');
+  });
   $('#btn-toggle-code').addEventListener('click', toggleCodeMode);
 
   $('#validation-bar').addEventListener('click', function () {
@@ -1385,4 +1390,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var errors = validateState();
   updateValidationBar(errors);
+
+  if (window.location.hash && window.location.hash.indexOf('#brew=') === 0) {
+    try {
+      var encoded = window.location.hash.slice(6);
+      var json = JSON.parse(decodeURIComponent(encoded));
+      loadBrewJSON(json);
+    } catch (e) {
+      console.warn('Forge: 无法解析 URL hash 中的方案数据', e);
+    }
+  }
 });
