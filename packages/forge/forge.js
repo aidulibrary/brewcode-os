@@ -1380,7 +1380,7 @@ document.addEventListener('DOMContentLoaded', function () {
   $('#btn-open-in-player').addEventListener('click', function () {
     collectFormToState();
     var json = encodeURIComponent(JSON.stringify(buildBrewJSON()));
-    window.open('http://localhost:8789?brew=' + json, '_blank');
+    window.open('https://player.礼字号.中国?brew=' + json, '_blank');
   });
   $('#btn-toggle-code').addEventListener('click', toggleCodeMode);
 
