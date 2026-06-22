@@ -1374,18 +1374,10 @@ document.addEventListener('DOMContentLoaded', function () {
   syncResultFromState();
   bindFormEvents();
   bindStepEvents();
+  bindAIDialogEvents();
   renderStepList();
 
   $('#btn-export').addEventListener('click', exportBrewFile);
-  // 防御性补全：线上 index.html 可能因缓存未部署此按钮，JS 动态创建
-  if (!$('#btn-open-in-player')) {
-    var btnPlayer = document.createElement('button');
-    btnPlayer.id = 'btn-open-in-player';
-    btnPlayer.className = 'btn btn-ghost';
-    btnPlayer.type = 'button';
-    btnPlayer.textContent = '\u25b6 在 Player 中打开';
-    $('#forge-toolbar').appendChild(btnPlayer);
-  }
   $('#btn-open-in-player').addEventListener('click', function () {
     collectFormToState();
     var json = encodeURIComponent(JSON.stringify(buildBrewJSON()));
