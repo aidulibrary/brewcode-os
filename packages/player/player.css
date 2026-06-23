@@ -457,3 +457,77 @@ body {
     font-size: 1.4rem;
   }
 }
+
+/* ==========================================================================
+   浅色主题适配（v0.9 — 统一导航栏试点）
+   ========================================================================== */
+
+[data-theme='light'] .bc-navbar {
+  background: #f5f0eb;
+  color: #1a1a2e;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .bc-navbar .bc-links a {
+  color: #666680;
+}
+
+[data-theme='light'] .bc-navbar .bc-links a.active {
+  color: #b87333;
+}
+
+[data-theme='light'] .bc-navbar .bc-links a:hover {
+  color: #1a1a2e;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .bc-navbar .bc-actions button {
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #666680;
+}
+
+[data-theme='light'] .bc-navbar .bc-actions button:hover {
+  color: #1a1a2e;
+  border-color: #b87333;
+}
+
+[data-theme='light'] .bc-navbar .bc-hamburger {
+  color: #1a1a2e;
+}
+
+[data-theme='light'] .paste-area textarea {
+  border-color: rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  color: #1a1a2e;
+}
+
+[data-theme='light'] .paste-area textarea:focus {
+  border-color: #b87333;
+}
+
+[data-theme='light'] .btn-ghost {
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #666680;
+}
+
+[data-theme='light'] .btn-ghost:hover {
+  color: #1a1a2e;
+  border-color: #b87333;
+}
+
+[data-theme='light'] #brew-header {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .progress-bar {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='light'] .step-badge {
+  background: #e0d8c8;
+  color: #b87333;
+}
+
+[data-theme='light'] .step-water {
+  background: rgba(184, 115, 51, 0.08);
+}
