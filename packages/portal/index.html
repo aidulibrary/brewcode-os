@@ -84,6 +84,29 @@
         font-size: 20px;
         cursor: pointer;
       }
+      .bc-navbar .bc-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .bc-navbar .bc-actions button {
+        background: none;
+        border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+        color: var(--text-dim, #8888aa);
+        padding: 4px 10px;
+        border-radius: var(--radius-sm, 8px);
+        cursor: pointer;
+        font-size: 13px;
+        white-space: nowrap;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .bc-navbar .bc-actions button:hover {
+        color: var(--text, #e0e0e8);
+        border-color: var(--accent, #e8a850);
+      }
       @media (max-width: 640px) {
         .bc-navbar .bc-links {
           display: none;
@@ -123,6 +146,10 @@
         <a href="https://repo.礼字号.中国">Repo</a>
         <a href="https://forge.礼字号.中国">Forge</a>
       </div>
+      <div class="bc-actions">
+        <button id="btn-theme" aria-label="切换主题 (Toggle theme)">☀️ 浅色</button>
+        <button id="btn-lang" aria-label="切换语言 (Toggle language)">EN</button>
+      </div>
     </nav>
     <script>
       (function () {
@@ -143,11 +170,6 @@
         });
       })();
     </script>
-
-    <div id="toolbar">
-      <button id="btn-theme" aria-label="切换主题 (Toggle theme)">☀️ 浅色</button>
-      <button id="btn-lang" aria-label="切换语言 (Toggle language)">EN</button>
-    </div>
 
     <!-- ============================================================
     首屏 Hero — 中英双语并排展示

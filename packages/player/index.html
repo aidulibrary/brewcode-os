@@ -141,8 +141,13 @@
     </nav>
     <script>
       (function () {
-        var theme = localStorage.getItem('brewcode_theme') || 'dark';
-        var lang = localStorage.getItem('brewcode_lang') || 'zh';
+        var isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        function getCookie(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : null; }
+        function setCookie(n, v) { document.cookie = n + '=' + v + '; path=/; max-age=31536000; SameSite=Lax' + (isLocal ? '' : '; domain=.礼字号.中国'); }
+        function getShared(n, d) { return getCookie(n) || localStorage.getItem(n) || d; }
+        function setShared(n, v) { localStorage.setItem(n, v); setCookie(n, v); }
+        var theme = getShared('brewcode_theme', 'dark');
+        var lang = getShared('brewcode_lang', 'zh');
         function applyTheme(t) {
           document.documentElement.setAttribute('data-theme', t);
           document.querySelector('#bc-theme-btn').textContent = t === 'dark' ? '🌙' : '☀️';
@@ -164,12 +169,12 @@
         applyLang(lang);
         document.querySelector('#bc-theme-btn').addEventListener('click', function () {
           theme = theme === 'dark' ? 'light' : 'dark';
-          localStorage.setItem('brewcode_theme', theme);
+          setShared('brewcode_theme', theme);
           applyTheme(theme);
         });
         document.querySelector('#bc-lang-btn').addEventListener('click', function () {
           lang = lang === 'zh' ? 'en' : 'zh';
-          localStorage.setItem('brewcode_lang', lang);
+          setShared('brewcode_lang', lang);
           applyLang(lang);
         });
         var hamburger = document.querySelector('#bc-hamburger');

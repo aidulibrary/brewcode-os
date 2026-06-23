@@ -423,7 +423,7 @@
     var params = new URLSearchParams(window.location.search);
     var brewParam = params.get('brew');
     if (brewParam) {
-      var raw = decodeURIComponent(brewParam);
+      var raw = brewParam;
       if (raw.trim().charAt(0) === '{') {
         /* inline JSON (from Forge) */
         try {
