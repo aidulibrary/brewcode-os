@@ -196,6 +196,19 @@
         function applyTheme(t) {
           document.documentElement.setAttribute('data-theme', t);
           document.querySelector('#bc-theme-btn').textContent = t === 'dark' ? '🌙' : '☀️';
+          var isDark = t === 'dark';
+          var root = document.documentElement.style;
+          root.setProperty('--bg',        isDark ? '#1a1a2e' : '#f5f0eb');
+          root.setProperty('--bg-card',   isDark ? '#222244' : '#ffffff');
+          root.setProperty('--bg-card-hover', isDark ? '#2a2a50' : '#f0ece6');
+          root.setProperty('--bg-input',  isDark ? '#16162a' : '#ffffff');
+          root.setProperty('--text',      isDark ? '#e0e0e8' : '#1a1a2e');
+          root.setProperty('--text-dim',  isDark ? '#8888aa' : '#666680');
+          root.setProperty('--text-label', isDark ? '#aaaac0' : '#666680');
+          root.setProperty('--accent',    isDark ? '#e8a850' : '#b87333');
+          root.setProperty('--accent-dim', isDark ? '#c08030' : '#9a5c20');
+          root.setProperty('--border',    isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)');
+          root.setProperty('--border-focus', isDark ? 'rgba(232,168,80,0.4)' : 'rgba(184,115,51,0.4)');
         }
         function applyLang(l) {
           document.querySelector('#bc-lang-btn').textContent = l === 'zh' ? 'EN' : '中';

@@ -1898,7 +1898,9 @@ document.addEventListener('DOMContentLoaded', function () {
   $('#btn-open-in-player').addEventListener('click', function () {
     collectFormToState();
     var json = encodeURIComponent(JSON.stringify(buildBrewJSON()));
-    window.open('https://player.礼字号.中国?brew=' + json, '_blank');
+    var isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    var playerBase = isLocal ? 'http://localhost:8789' : 'https://player.礼字号.中国';
+    window.open(playerBase + '?brew=' + json, '_blank');
   });
   $('#btn-toggle-code').addEventListener('click', toggleCodeMode);
 
