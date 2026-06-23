@@ -191,11 +191,29 @@
     </nav>
     <script>
       (function () {
-        var isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        function getCookie(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : null; }
-        function setCookie(n, v) { document.cookie = n + '=' + v + '; path=/; max-age=31536000; SameSite=Lax' + (isLocal ? '' : '; domain=.礼字号.中国'); }
-        function getShared(n, d) { return getCookie(n) || localStorage.getItem(n) || d; }
-        function setShared(n, v) { localStorage.setItem(n, v); setCookie(n, v); }
+        var isLocal =
+          window.location.protocol === 'file:' ||
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1';
+        function getCookie(n) {
+          var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
+          return m ? m[2] : null;
+        }
+        function setCookie(n, v) {
+          document.cookie =
+            n +
+            '=' +
+            v +
+            '; path=/; max-age=31536000; SameSite=Lax' +
+            (isLocal ? '' : '; domain=.礼字号.中国');
+        }
+        function getShared(n, d) {
+          return getCookie(n) || localStorage.getItem(n) || d;
+        }
+        function setShared(n, v) {
+          localStorage.setItem(n, v);
+          setCookie(n, v);
+        }
         var theme = getShared('brewcode_theme', 'dark');
         var lang = getShared('brewcode_lang', 'zh');
         function applyTheme(t) {
@@ -203,17 +221,20 @@
           document.querySelector('#bc-theme-btn').textContent = t === 'dark' ? '🌙' : '☀️';
           var isDark = t === 'dark';
           var root = document.documentElement.style;
-          root.setProperty('--bg',        isDark ? '#1a1a2e' : '#f5f0eb');
-          root.setProperty('--bg-card',   isDark ? '#222244' : '#ffffff');
+          root.setProperty('--bg', isDark ? '#1a1a2e' : '#f5f0eb');
+          root.setProperty('--bg-card', isDark ? '#222244' : '#ffffff');
           root.setProperty('--bg-card-hover', isDark ? '#2a2a50' : '#f0ece6');
-          root.setProperty('--bg-input',  isDark ? '#16162a' : '#ffffff');
-          root.setProperty('--text',      isDark ? '#e0e0e8' : '#1a1a2e');
-          root.setProperty('--text-dim',  isDark ? '#8888aa' : '#666680');
+          root.setProperty('--bg-input', isDark ? '#16162a' : '#ffffff');
+          root.setProperty('--text', isDark ? '#e0e0e8' : '#1a1a2e');
+          root.setProperty('--text-dim', isDark ? '#8888aa' : '#666680');
           root.setProperty('--text-label', isDark ? '#aaaac0' : '#666680');
-          root.setProperty('--accent',    isDark ? '#e8a850' : '#b87333');
+          root.setProperty('--accent', isDark ? '#e8a850' : '#b87333');
           root.setProperty('--accent-dim', isDark ? '#c08030' : '#9a5c20');
-          root.setProperty('--border',    isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)');
-          root.setProperty('--border-focus', isDark ? 'rgba(232,168,80,0.4)' : 'rgba(184,115,51,0.4)');
+          root.setProperty('--border', isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)');
+          root.setProperty(
+            '--border-focus',
+            isDark ? 'rgba(232,168,80,0.4)' : 'rgba(184,115,51,0.4)'
+          );
         }
         function applyLang(l) {
           document.querySelector('#bc-lang-btn').textContent = l === 'zh' ? 'EN' : '中';
@@ -261,6 +282,9 @@
         <button id="btn-ai-diagnose" class="btn btn-ghost" type="button">🔍 AI 诊断</button>
         <button id="btn-ai-generate" class="btn btn-ghost" type="button">🤖 AI 生成</button>
         <button id="btn-toggle-code" class="btn btn-ghost" type="button">{} 代码</button>
+        <button id="btn-llm-config" class="btn btn-ghost" type="button" title="大模型配置">
+          ⚙️
+        </button>
       </div>
       <div id="code-editor-container" class="hidden">
         <div id="code-error-bar" class="code-error-bar hidden"></div>
@@ -1047,6 +1071,54 @@
       <footer id="forge-footer">
         <span class="footer-hint">所有输入即时保存到状态中</span>
       </footer>
+
+      <div id="llm-config-modal" class="modal-overlay hidden">
+        <div class="modal-panel modal-panel-wide">
+          <div class="modal-header">
+            <h3>⚙️ 连接你的大模型</h3>
+            <button class="btn-icon btn-close-llm-config" type="button" aria-label="关闭">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-grid">
+              <label class="field">
+                <span class="field-label">提供商</span>
+                <select id="inp-llm-provider" class="input">
+                  <option value="deepseek">DeepSeek</option>
+                  <option value="openai">OpenAI</option>
+                  <option value="zhipu">智谱 GLM</option>
+                  <option value="moonshot">Moonshot</option>
+                  <option value="custom">自定义</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field-label">API Key</span>
+                <input type="password" id="inp-llm-apikey" class="input" placeholder="sk-..." />
+              </label>
+              <label class="field" id="field-llm-apibase">
+                <span class="field-label">API Base</span>
+                <input
+                  type="text"
+                  id="inp-llm-apibase"
+                  class="input"
+                  placeholder="https://api.deepseek.com/v1"
+                />
+              </label>
+              <label class="field" id="field-llm-model">
+                <span class="field-label">模型</span>
+                <input type="text" id="inp-llm-model" class="input" placeholder="deepseek-chat" />
+              </label>
+            </div>
+            <p class="llm-config-hint">🔒 你的 Key 只保存在本地浏览器中，不会被上传。</p>
+            <div id="llm-config-error" class="ai-error hidden"></div>
+          </div>
+          <div class="modal-footer">
+            <button id="btn-save-llm-config" class="btn btn-primary" type="button">保存配置</button>
+            <button id="btn-clear-llm-config" class="btn btn-ghost" type="button">清除配置</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="forge.js"></script>
