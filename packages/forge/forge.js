@@ -18,6 +18,22 @@ function $(sel) {
   return document.querySelector(sel);
 }
 
+function refreshI18nTexts() {
+  var elements = document.querySelectorAll('[data-i18n]');
+  for (var i = 0; i < elements.length; i++) {
+    var el = elements[i];
+    var key = el.getAttribute('data-i18n');
+    if (key) {
+      var tag = el.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA') {
+        el.placeholder = BrewCodeI18n.t(key);
+      } else {
+        el.textContent = BrewCodeI18n.t(key);
+      }
+    }
+  }
+}
+
 /* Schema & CodeMirror 运行态 */
 var brewSchemaValidator = null;
 var cmView = null;
@@ -341,43 +357,61 @@ function validateState() {
   var s = editorState;
 
   if (!s.meta.name || !s.meta.name.trim()) {
-    errors.push({ field: 'meta.name', label: '方案名称', message: '必填，请输入方案名称' });
+    errors.push({
+      field: 'meta.name',
+      label: BrewCodeI18n.t('validation.fieldName'),
+      message: BrewCodeI18n.t('validation.requiredField') + BrewCodeI18n.t('validation.fieldName'),
+    });
   }
   if (!s.coffee.name || !s.coffee.name.trim()) {
-    errors.push({ field: 'coffee.name', label: '咖啡豆名称', message: '必填，请输入咖啡豆名称' });
+    errors.push({
+      field: 'coffee.name',
+      label: BrewCodeI18n.t('validation.fieldCoffeeName'),
+      message:
+        BrewCodeI18n.t('validation.requiredField') + BrewCodeI18n.t('validation.fieldCoffeeName'),
+    });
   }
   if (!s.equipment.brewer || !s.equipment.brewer.trim()) {
     errors.push({
       field: 'equipment.brewer',
-      label: '冲煮器具',
-      message: '必填，请选择或输入冲煮器具',
+      label: BrewCodeI18n.t('validation.fieldBrewer'),
+      message:
+        BrewCodeI18n.t('validation.requiredField') + BrewCodeI18n.t('validation.fieldBrewer'),
     });
   }
 
   var dose = s.recipe.dose;
   if (dose.value == null || dose.value === '' || isNaN(dose.value)) {
-    errors.push({ field: 'recipe.dose.value', label: '粉量', message: '必填，请输入粉量' });
+    errors.push({
+      field: 'recipe.dose.value',
+      label: BrewCodeI18n.t('validation.fieldDose'),
+      message: BrewCodeI18n.t('validation.requiredField') + BrewCodeI18n.t('validation.fieldDose'),
+    });
   } else {
     var dv = Number(dose.value);
     if (dv < 1 || dv > 100) {
       errors.push({
         field: 'recipe.dose.value',
-        label: '粉量',
-        message: '粉量范围 1-100g，当前值：' + dv,
+        label: BrewCodeI18n.t('validation.fieldDose'),
+        message: BrewCodeI18n.t('validation.errDoseRange') + dv,
       });
     }
   }
 
   var water = s.recipe.waterAmount;
   if (water.value == null || water.value === '' || isNaN(water.value)) {
-    errors.push({ field: 'recipe.waterAmount.value', label: '水量', message: '必填，请输入水量' });
+    errors.push({
+      field: 'recipe.waterAmount.value',
+      label: BrewCodeI18n.t('validation.fieldWater'),
+      message: BrewCodeI18n.t('validation.requiredField') + BrewCodeI18n.t('validation.fieldWater'),
+    });
   } else {
     var wv = Number(water.value);
     if (wv < 1 || wv > 2000) {
       errors.push({
         field: 'recipe.waterAmount.value',
-        label: '水量',
-        message: '水量范围 1-2000ml，当前值：' + wv,
+        label: BrewCodeI18n.t('validation.fieldWater'),
+        message: BrewCodeI18n.t('validation.errWaterRange') + wv,
       });
     }
   }
@@ -386,16 +420,16 @@ function validateState() {
   if (temp.value == null || temp.value === '' || isNaN(temp.value)) {
     errors.push({
       field: 'recipe.waterTemperature.value',
-      label: '水温',
-      message: '必填，请输入水温',
+      label: BrewCodeI18n.t('validation.fieldTemp'),
+      message: BrewCodeI18n.t('validation.requiredField') + BrewCodeI18n.t('validation.fieldTemp'),
     });
   } else {
     var tv = Number(temp.value);
     if (tv < 0 || tv > 100) {
       errors.push({
         field: 'recipe.waterTemperature.value',
-        label: '水温',
-        message: '水温范围 0-100°C，当前值：' + tv,
+        label: BrewCodeI18n.t('validation.fieldTemp'),
+        message: BrewCodeI18n.t('validation.errTempRange') + tv,
       });
     }
   }
@@ -413,13 +447,14 @@ function updateValidationBar(errors) {
     bar.classList.add('valid');
     bar.classList.add('collapsed');
     bar.querySelector('.val-icon').textContent = '✅';
-    bar.querySelector('.val-text').textContent = '校验通过';
+    bar.querySelector('.val-text').textContent = BrewCodeI18n.t('validation.pass');
     bar.querySelector('.val-details').innerHTML = '';
   } else {
     bar.classList.add('warning');
     bar.classList.remove('collapsed');
     bar.querySelector('.val-icon').textContent = '⚠️';
-    bar.querySelector('.val-text').textContent = errors.length + ' 个必填项';
+    bar.querySelector('.val-text').textContent =
+      errors.length + BrewCodeI18n.t('validation.required');
 
     var html = '';
     for (var i = 0; i < errors.length; i++) {
@@ -667,7 +702,11 @@ function updateValidationBarFromCode() {
   try {
     JSON.parse(text);
   } catch (e) {
-    errors.push({ field: 'json-syntax', label: 'JSON 语法', message: e.message });
+    errors.push({
+      field: 'json-syntax',
+      label: BrewCodeI18n.t('validation.jsonSyntax'),
+      message: e.message,
+    });
     updateValidationBar(errors);
     return;
   }
@@ -700,7 +739,7 @@ function renderStepList() {
   var steps = editorState.steps;
 
   if (!steps.length) {
-    list.innerHTML = '<p class="step-empty">暂无步骤，点击下方按钮添加</p>';
+    list.innerHTML = '<p class="step-empty">' + BrewCodeI18n.t('step.noSteps') + '</p>';
     return;
   }
 
@@ -717,7 +756,11 @@ function renderStepList() {
     }
     if (s.waterAmount && s.waterAmount.value) {
       metaParts.push(
-        '<span class="step-meta-tag">注水 ' + s.waterAmount.value + s.waterAmount.unit + '</span>'
+        '<span class="step-meta-tag">' +
+          BrewCodeI18n.t('step.pourWater') +
+          s.waterAmount.value +
+          s.waterAmount.unit +
+          '</span>'
       );
     }
 
@@ -735,17 +778,33 @@ function renderStepList() {
       '<div class="step-card-actions">' +
       '<button class="btn-icon-sm" data-step="' +
       i +
-      '" data-action="move-up" title="上移" aria-label="上移">&#9650;</button>' +
+      '" data-action="move-up" title="' +
+      BrewCodeI18n.t('step.moveUp') +
+      '" aria-label="' +
+      BrewCodeI18n.t('step.moveUp') +
+      '">&#9650;</button>' +
       '<button class="btn-icon-sm" data-step="' +
       i +
-      '" data-action="move-down" title="下移" aria-label="下移">&#9660;</button>' +
+      '" data-action="move-down" title="' +
+      BrewCodeI18n.t('step.moveDown') +
+      '" aria-label="' +
+      BrewCodeI18n.t('step.moveDown') +
+      '">&#9660;</button>' +
       '<button class="btn-icon-sm" data-step="' +
       i +
-      '" data-action="edit" title="编辑" aria-label="编辑">&#9998;</button>' +
+      '" data-action="edit" title="' +
+      BrewCodeI18n.t('step.edit') +
+      '" aria-label="' +
+      BrewCodeI18n.t('step.edit') +
+      '">&#9998;</button>' +
       (showDelete
         ? '<button class="btn-icon-sm btn-icon-danger" data-step="' +
           i +
-          '" data-action="delete" title="删除" aria-label="删除">&#10005;</button>'
+          '" data-action="delete" title="' +
+          BrewCodeI18n.t('step.delete') +
+          '" aria-label="' +
+          BrewCodeI18n.t('step.delete') +
+          '">&#10005;</button>'
         : '') +
       '</div>' +
       '</div>' +
@@ -760,22 +819,7 @@ function renderStepList() {
 }
 
 function actionLabel(action) {
-  var map = {
-    prepare: '准备',
-    rinse: '冲洗',
-    grind: '研磨',
-    dose: '投粉',
-    bloom: '闷蒸',
-    pour: '注水',
-    stir: '搅拌',
-    swirl: '摇晃',
-    drawdown: '滴滤',
-    wait: '等待',
-    measure: '测量',
-    taste: '品鉴',
-    note: '备注',
-  };
-  return map[action] || action || '';
+  return BrewCodeI18n.t('action.' + (action || '')) || action || '';
 }
 
 function escapeHTML(str) {
@@ -789,10 +833,11 @@ function openStepModal(index) {
   $('#step-modal').classList.remove('hidden');
 
   if (index >= 0) {
-    $('#modal-title').textContent = '编辑步骤 #' + editorState.steps[index].order;
+    $('#modal-title').textContent =
+      BrewCodeI18n.t('step.editStep') + editorState.steps[index].order;
     syncStepFormFromStep(editorState.steps[index]);
   } else {
-    $('#modal-title').textContent = '添加步骤';
+    $('#modal-title').textContent = BrewCodeI18n.t('step.addStepTitle');
     clearStepForm();
   }
 }
@@ -1167,7 +1212,7 @@ function exportBrewFile() {
 
   var btn = $('#btn-export');
   var originalText = btn.textContent;
-  btn.textContent = '✓ 已下载';
+  btn.textContent = BrewCodeI18n.t('common.exported');
   btn.classList.add('btn-success');
   setTimeout(function () {
     btn.textContent = originalText;
@@ -1309,7 +1354,7 @@ function toggleCodeMode() {
       updateValidationBarFromCode();
     });
 
-    document.getElementById('btn-toggle-code').textContent = '📝 表单';
+    document.getElementById('btn-toggle-code').textContent = BrewCodeI18n.t('button.form');
     codeMode = true;
   } else {
     var content = getCodeMirrorContent();
@@ -1318,7 +1363,7 @@ function toggleCodeMode() {
       JSON.parse(content);
     } catch (e) {
       var errBar = document.getElementById('code-error-bar');
-      errBar.textContent = 'JSON 语法错误，请修正后再切换：' + e.message;
+      errBar.textContent = BrewCodeI18n.t('validation.jsonSyntaxError') + e.message;
       errBar.classList.remove('hidden');
       return;
     }
@@ -1329,9 +1374,9 @@ function toggleCodeMode() {
       if (!valid && brewSchemaValidator.errors && brewSchemaValidator.errors.length) {
         var errBar = document.getElementById('code-error-bar');
         errBar.textContent =
-          'Schema 校验未通过，仍有 ' +
+          BrewCodeI18n.t('validation.schemaFail') +
           brewSchemaValidator.errors.length +
-          ' 个错误，请修正后再切换';
+          BrewCodeI18n.t('validation.schemaFailSuffix');
         errBar.classList.remove('hidden');
         return;
       }
@@ -1341,7 +1386,7 @@ function toggleCodeMode() {
       loadBrewJSON(content);
     } catch (e) {
       var errBar2 = document.getElementById('code-error-bar');
-      errBar2.textContent = 'JSON 解析错误：' + e.message;
+      errBar2.textContent = BrewCodeI18n.t('validation.jsonSyntaxError') + e.message;
       errBar2.classList.remove('hidden');
       return;
     }
@@ -1358,7 +1403,7 @@ function toggleCodeMode() {
     var errors = validateState();
     updateValidationBar(errors);
 
-    document.getElementById('btn-toggle-code').textContent = '{} 代码';
+    document.getElementById('btn-toggle-code').textContent = BrewCodeI18n.t('button.code');
     codeMode = false;
   }
 }
@@ -1431,26 +1476,40 @@ function createAIModals() {
     '<div id="ai-diagnose-modal" class="modal-overlay hidden">' +
     '  <div class="modal-panel">' +
     '    <div class="modal-header">' +
-    '      <h3>🔍 AI 诊断</h3>' +
-    '      <button class="btn-ai-close btn-icon" type="button" aria-label="关闭">&times;</button>' +
+    '      <h3 data-i18n="ai.diagnoseTitle">' +
+    BrewCodeI18n.t('ai.diagnoseTitle') +
+    '</h3>' +
+    '<button class="btn-ai-close btn-icon" type="button" aria-label="' +
+    BrewCodeI18n.t('common.close') +
+    '">&times;</button>' +
     '    </div>' +
     '    <div class="modal-body">' +
     '      <div class="ai-loading hidden">' +
     '        <div class="ai-loading-spinner"></div>' +
-    '        <p>正在分析方案，请稍候…</p>' +
+    '        <p data-i18n="ai.diagnosing">' +
+    BrewCodeI18n.t('ai.diagnosing') +
+    '</p>' +
     '      </div>' +
     '      <div class="ai-error hidden"></div>' +
     '      <div class="ai-form">' +
     '        <label class="field">' +
-    '          <span class="field-label">描述你遇到的问题</span>' +
-    '          <textarea id="inp-diagnose-issue" class="input" rows="3" placeholder="例如：冲出来太酸了，没有甜感…"></textarea>' +
+    '          <span class="field-label" data-i18n="ai.issueLabel">' +
+    BrewCodeI18n.t('ai.issueLabel') +
+    '</span>' +
+    '          <textarea id="inp-diagnose-issue" class="input" rows="3" data-i18n="ai.issuePlaceholder" placeholder="' +
+    BrewCodeI18n.t('ai.issuePlaceholder') +
+    '"></textarea>' +
     '        </label>' +
     '      </div>' +
     '      <div id="ai-diagnose-result" class="ai-result hidden"></div>' +
     '    </div>' +
     '    <div class="modal-footer">' +
-    '      <button id="btn-submit-diagnose" class="btn btn-primary" type="button">提交诊断</button>' +
-    '      <button class="btn-ai-close btn btn-ghost" type="button">取消</button>' +
+    '      <button id="btn-submit-diagnose" class="btn btn-primary" type="button" data-i18n="ai.submitDiagnose">' +
+    BrewCodeI18n.t('ai.submitDiagnose') +
+    '</button>' +
+    '      <button class="btn-ai-close btn btn-ghost" type="button" data-i18n="ai.cancel">' +
+    BrewCodeI18n.t('ai.cancel') +
+    '</button>' +
     '    </div>' +
     '  </div>' +
     '</div>';
@@ -1459,22 +1518,38 @@ function createAIModals() {
     '<div id="ai-generate-modal" class="modal-overlay hidden">' +
     '  <div class="modal-panel">' +
     '    <div class="modal-header">' +
-    '      <h3>🤖 AI 生成方案</h3>' +
-    '      <button class="btn-ai-close btn-icon" type="button" aria-label="关闭">&times;</button>' +
+    '      <h3 data-i18n="ai.generateTitle">' +
+    BrewCodeI18n.t('ai.generateTitle') +
+    '</h3>' +
+    '      <button class="btn-ai-close btn-icon" type="button" aria-label="' +
+    BrewCodeI18n.t('common.close') +
+    '">&times;</button>' +
     '    </div>' +
     '    <div class="modal-body">' +
     '      <div class="ai-loading hidden">' +
     '        <div class="ai-loading-spinner"></div>' +
-    '        <p>正在生成方案，请稍候…</p>' +
+    '        <p data-i18n="ai.generating">' +
+    BrewCodeI18n.t('ai.generating') +
+    '</p>' +
     '      </div>' +
     '      <div class="ai-error hidden"></div>' +
     '      <div class="ai-form">' +
     '        <label class="field field-span-2">' +
-    '          <span class="field-label">产地<span class="required-hint">（必填）</span></span>' +
-    '          <input type="text" id="inp-gen-origin" class="input" placeholder="例如：埃塞俄比亚 耶加雪菲" />' +
+    '          <span class="field-label"><span data-i18n="ai.originLabel">' +
+    BrewCodeI18n.t('ai.originLabel') +
+    '</span><span class="required-hint" data-i18n="field.必填">' +
+    BrewCodeI18n.t('field.必填') +
+    '</span></span>' +
+    '          <input type="text" id="inp-gen-origin" class="input" data-i18n="ai.originPlaceholder" placeholder="' +
+    BrewCodeI18n.t('ai.originPlaceholder') +
+    '" />' +
     '        </label>' +
     '        <label class="field">' +
-    '          <span class="field-label">烘焙度<span class="required-hint">（必填）</span></span>' +
+    '          <span class="field-label"><span data-i18n="ai.roastLabel">' +
+    BrewCodeI18n.t('ai.roastLabel') +
+    '</span><span class="required-hint" data-i18n="field.必填">' +
+    BrewCodeI18n.t('field.必填') +
+    '</span></span>' +
     '          <select id="inp-gen-roast" class="input">' +
     '            <option value="极浅烘">极浅烘</option>' +
     '            <option value="浅烘" selected>浅烘</option>' +
@@ -1486,7 +1561,11 @@ function createAIModals() {
     '          </select>' +
     '        </label>' +
     '        <label class="field">' +
-    '          <span class="field-label">处理法<span class="required-hint">（必填）</span></span>' +
+    '          <span class="field-label"><span data-i18n="ai.processLabel">' +
+    BrewCodeI18n.t('ai.processLabel') +
+    '</span><span class="required-hint" data-i18n="field.必填">' +
+    BrewCodeI18n.t('field.必填') +
+    '</span></span>' +
     '          <select id="inp-gen-process" class="input">' +
     '            <option value="水洗" selected>水洗</option>' +
     '            <option value="日晒">日晒</option>' +
@@ -1497,18 +1576,30 @@ function createAIModals() {
     '          </select>' +
     '        </label>' +
     '        <label class="field field-span-2">' +
-    '          <span class="field-label">冲煮器具</span>' +
-    '          <input type="text" id="inp-gen-equipment" class="input" placeholder="V60 / Kalita Wave / Origami / 爱乐压（逗号分隔）" />' +
+    '          <span class="field-label" data-i18n="field.冲煮器具_ai">' +
+    BrewCodeI18n.t('field.冲煮器具_ai') +
+    '</span>' +
+    '          <input type="text" id="inp-gen-equipment" class="input" data-i18n="ai.equipmentPlaceholder" placeholder="' +
+    BrewCodeI18n.t('ai.equipmentPlaceholder') +
+    '" />' +
     '        </label>' +
     '        <label class="field field-span-2">' +
-    '          <span class="field-label">口味偏好</span>' +
-    '          <input type="text" id="inp-gen-preference" class="input" placeholder="例如：偏甜感、果酸明亮、口感醇厚…" />' +
+    '          <span class="field-label" data-i18n="ai.preferenceLabel">' +
+    BrewCodeI18n.t('ai.preferenceLabel') +
+    '</span>' +
+    '          <input type="text" id="inp-gen-preference" class="input" data-i18n="ai.preferencePlaceholder" placeholder="' +
+    BrewCodeI18n.t('ai.preferencePlaceholder') +
+    '" />' +
     '        </label>' +
     '      </div>' +
     '    </div>' +
     '    <div class="modal-footer">' +
-    '      <button id="btn-submit-generate" class="btn btn-primary" type="button">生成方案</button>' +
-    '      <button class="btn-ai-close btn btn-ghost" type="button">取消</button>' +
+    '      <button id="btn-submit-generate" class="btn btn-primary" type="button" data-i18n="ai.submitGenerate">' +
+    BrewCodeI18n.t('ai.submitGenerate') +
+    '</button>' +
+    '      <button class="btn-ai-close btn btn-ghost" type="button" data-i18n="ai.cancel">' +
+    BrewCodeI18n.t('ai.cancel') +
+    '</button>' +
     '    </div>' +
     '  </div>' +
     '</div>';
@@ -1608,11 +1699,15 @@ function aiFetch(path, body) {
         return res
           .json()
           .then(function (err) {
-            throw new Error(err.message || 'API 返回错误 ' + res.status);
+            throw new Error(err.message || BrewCodeI18n.t('ai.apiError') + res.status);
           })
           .catch(function (parseErr) {
-            if (parseErr.message && parseErr.message.indexOf('API 返回错误') === 0) throw parseErr;
-            throw new Error('API 返回错误 ' + res.status);
+            if (
+              parseErr.message &&
+              parseErr.message.indexOf(BrewCodeI18n.t('ai.apiError').replace(/\s+\d+$/, '')) === 0
+            )
+              throw parseErr;
+            throw new Error(BrewCodeI18n.t('ai.apiError') + res.status);
           });
       }
       return res.json();
@@ -1620,10 +1715,10 @@ function aiFetch(path, body) {
     .catch(function (err) {
       clearTimeout(timeoutId);
       if (err.name === 'AbortError') {
-        throw new Error('请求超时，请检查网络连接后重试');
+        throw new Error(BrewCodeI18n.t('ai.timeout'));
       }
       if (err.name === 'TypeError' && err.message === 'Failed to fetch') {
-        throw new Error('网络连接失败，请检查网络后重试');
+        throw new Error(BrewCodeI18n.t('ai.networkError'));
       }
       throw err;
     });
@@ -1675,15 +1770,15 @@ function openAIDiagnoseModal() {
 
   $('#inp-diagnose-issue').value = '';
   $('#btn-submit-diagnose').disabled = false;
-  $('#btn-submit-diagnose').textContent = '提交诊断';
+  $('#btn-submit-diagnose').textContent = BrewCodeI18n.t('ai.submitDiagnose');
 }
 
 function submitDiagnose() {
   var issueEl = $('#inp-diagnose-issue');
   var issue = issueEl.value.trim();
   if (!issue) {
-    setAIInputError(issueEl, '请输入问题描述');
-    showAIError($('#ai-diagnose-modal'), '请输入问题描述');
+    setAIInputError(issueEl, BrewCodeI18n.t('ai.issueRequired'));
+    showAIError($('#ai-diagnose-modal'), BrewCodeI18n.t('ai.issueRequired'));
     return;
   }
 
@@ -1696,7 +1791,7 @@ function submitDiagnose() {
 
   showAILoading(modal);
   btn.disabled = true;
-  btn.textContent = '分析中…';
+  btn.textContent = BrewCodeI18n.t('ai.analyzing');
 
   if (result) result.classList.add('hidden');
 
@@ -1704,18 +1799,18 @@ function submitDiagnose() {
     .then(function (data) {
       hideAILoading(modal);
       btn.disabled = false;
-      btn.textContent = '提交诊断';
+      btn.textContent = BrewCodeI18n.t('ai.submitDiagnose');
       if (data.suggestions && data.suggestions.length) {
         renderDiagnoseResult(data.suggestions);
       } else {
-        showAIError(modal, '未发现可优化的参数，当前方案已较为合理');
+        showAIError(modal, BrewCodeI18n.t('ai.emptyResult'));
       }
     })
     .catch(function (err) {
       hideAILoading(modal);
       btn.disabled = false;
-      btn.textContent = '提交诊断';
-      showAIError(modal, err.message || '诊断请求失败，请稍后重试');
+      btn.textContent = BrewCodeI18n.t('ai.submitDiagnose');
+      showAIError(modal, err.message || BrewCodeI18n.t('ai.diagnoseFail'));
     });
 }
 
@@ -1741,7 +1836,7 @@ function openAIGenerateModal() {
   $('#inp-gen-equipment').value = '';
   $('#inp-gen-preference').value = '';
   $('#btn-submit-generate').disabled = false;
-  $('#btn-submit-generate').textContent = '生成方案';
+  $('#btn-submit-generate').textContent = BrewCodeI18n.t('ai.submitGenerate');
 }
 
 function submitGenerate() {
@@ -1756,19 +1851,19 @@ function submitGenerate() {
 
   var hasError = false;
   if (!origin) {
-    setAIInputError(originEl, '请输入产地');
+    setAIInputError(originEl, BrewCodeI18n.t('ai.originRequired'));
     hasError = true;
   }
   if (!roastLevel) {
-    setAIInputError(roastEl, '请选择烘焙度');
+    setAIInputError(roastEl, BrewCodeI18n.t('ai.roastRequired'));
     hasError = true;
   }
   if (!process) {
-    setAIInputError(processEl, '请选择处理法');
+    setAIInputError(processEl, BrewCodeI18n.t('ai.processRequired'));
     hasError = true;
   }
   if (hasError) {
-    showAIError($('#ai-generate-modal'), '请填写必填字段');
+    showAIError($('#ai-generate-modal'), BrewCodeI18n.t('ai.requiredFields'));
     return;
   }
 
@@ -1786,7 +1881,7 @@ function submitGenerate() {
 
   showAILoading(modal);
   btn.disabled = true;
-  btn.textContent = '生成中…';
+  btn.textContent = BrewCodeI18n.t('ai.genInProgress');
 
   aiFetch('/generate', {
     coffee: { origin: origin, roastLevel: roastLevel, process: process },
@@ -1805,15 +1900,15 @@ function submitGenerate() {
       } else {
         hideAILoading(modal);
         btn.disabled = false;
-        btn.textContent = '生成方案';
-        showAIError(modal, '生成失败，未返回有效方案');
+        btn.textContent = BrewCodeI18n.t('ai.submitGenerate');
+        showAIError(modal, BrewCodeI18n.t('ai.genFail'));
       }
     })
     .catch(function (err) {
       hideAILoading(modal);
       btn.disabled = false;
-      btn.textContent = '生成方案';
-      showAIError(modal, err.message || '生成请求失败，请稍后重试');
+      btn.textContent = BrewCodeI18n.t('ai.submitGenerate');
+      showAIError(modal, err.message || BrewCodeI18n.t('ai.generateFail'));
     });
 }
 
@@ -1821,7 +1916,10 @@ function renderDiagnoseResult(suggestions) {
   var result = $('#ai-diagnose-result');
   if (!result) return;
 
-  var html = '<h4 class="ai-result-title">诊断建议</h4><ul class="ai-suggestion-list">';
+  var html =
+    '<h4 class="ai-result-title">' +
+    BrewCodeI18n.t('ai.diagnoseSuggestions') +
+    '</h4><ul class="ai-suggestion-list">';
 
   for (var i = 0; i < suggestions.length; i++) {
     var s = suggestions[i];
@@ -1833,19 +1931,27 @@ function renderDiagnoseResult(suggestions) {
       '</span>' +
       '</div>' +
       '<div class="ai-suggestion-body">' +
-      '<div class="ai-suggestion-row"><span class="ai-label">当前值：</span><span>' +
+      '<div class="ai-suggestion-row"><span class="ai-label">' +
+      BrewCodeI18n.t('ai.currentValue') +
+      '</span><span>' +
       escapeHTML(String(s.current != null ? s.current : '')) +
       '</span></div>' +
-      '<div class="ai-suggestion-row"><span class="ai-label">建议值：</span><span class="ai-suggested">' +
+      '<div class="ai-suggestion-row"><span class="ai-label">' +
+      BrewCodeI18n.t('ai.suggestedValue') +
+      '</span><span class="ai-suggested">' +
       escapeHTML(String(s.suggested != null ? s.suggested : '')) +
       '</span></div>' +
-      '<div class="ai-suggestion-row"><span class="ai-label">理由：</span><span>' +
+      '<div class="ai-suggestion-row"><span class="ai-label">' +
+      BrewCodeI18n.t('ai.reason') +
+      '</span><span>' +
       escapeHTML(s.reason || '') +
       '</span></div>' +
       '</div>' +
       '<button class="btn btn-sm btn-apply-suggestion" data-index="' +
       i +
-      '" type="button">应用建议</button>' +
+      '" type="button">' +
+      BrewCodeI18n.t('ai.applySuggestion') +
+      '</button>' +
       '</li>';
   }
 
@@ -2011,11 +2117,11 @@ function bindLLMConfigEvents() {
     var model = modelInput.value.trim();
 
     if (!apiKey) {
-      showConfigError('请输入 API Key');
+      showConfigError(BrewCodeI18n.t('llm.keyRequired'));
       return;
     }
     if (!apiBase) {
-      showConfigError('请输入 API Base 地址');
+      showConfigError(BrewCodeI18n.t('llm.baseRequired'));
       return;
     }
 
@@ -2044,6 +2150,11 @@ function bindLLMConfigEvents() {
  * ================================================================ */
 
 document.addEventListener('DOMContentLoaded', function () {
+  var savedLang = localStorage.getItem('brewcode_lang');
+  if (savedLang) {
+    BrewCodeI18n.setLang(savedLang);
+  }
+
   initSchemaValidator();
 
   syncFormFromState();
@@ -2053,6 +2164,8 @@ document.addEventListener('DOMContentLoaded', function () {
   bindAIDialogEvents();
   bindLLMConfigEvents();
   renderStepList();
+
+  refreshI18nTexts();
 
   $('#btn-export').addEventListener('click', exportBrewFile);
   $('#btn-open-in-player').addEventListener('click', function () {
