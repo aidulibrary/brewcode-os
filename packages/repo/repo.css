@@ -571,3 +571,88 @@ body {
     padding: 20px 16px 24px;
   }
 }
+
+/* ══════════════════════════════════════════════════════════
+   Light Theme Overrides
+   ══════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  /* Navigation Bar */
+  .bc-navbar {
+    background: #f5f0eb;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .bc-navbar .bc-links a {
+    color: #1a1a2e;
+  }
+  .bc-navbar .bc-links a:hover {
+    color: #b87333;
+  }
+  .bc-navbar .bc-links a.active {
+    color: #b87333;
+    border-bottom-color: #b87333;
+  }
+  .bc-navbar .bc-actions button {
+    color: #666680;
+    background: transparent;
+  }
+  .bc-navbar .bc-actions button:hover {
+    color: #b87333;
+  }
+
+  /* Top Bar */
+  #top-bar {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Filter Bar */
+  .search-input {
+    border-color: rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+  }
+  .btn-reset {
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+  .btn-reset:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+
+  /* Card Grid */
+  .card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .card:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+  }
+  .card-meta-sep {
+    color: #bbbbcc;
+  }
+  .card-tag {
+    background: #e8e4dc;
+    color: #666680;
+  }
+  .card-tag.country {
+    color: #5b7fc0;
+  }
+
+  /* Detail Panel */
+  .detail-card {
+    background: #ffffff;
+  }
+
+  /* Buttons */
+  .btn-ghost {
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Footer */
+  #footer {
+    border-top-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Toast */
+  #toast {
+    border-color: rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+  }
+}
