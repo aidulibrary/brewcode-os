@@ -18,8 +18,132 @@
     />
 
     <link rel="stylesheet" href="portal.css" />
+
+    <!-- 导航栏内联样式（v0.9 — 统一导航栏试点） -->
+    <style>
+      .bc-navbar {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        height: 48px;
+        padding: 0 20px;
+        background: var(--bg, #1a1a2e);
+        color: var(--text, #e0e0e8);
+        border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+        font-size: 14px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-sizing: border-box;
+        flex-wrap: nowrap;
+      }
+      .bc-navbar .bc-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: inherit;
+        flex-shrink: 0;
+      }
+      .bc-navbar .bc-logo svg {
+        width: 22px;
+        height: 22px;
+      }
+      .bc-navbar .bc-logo span {
+        font-weight: 600;
+      }
+      .bc-navbar .bc-links {
+        display: flex;
+        gap: 8px;
+        flex: 1;
+        justify-content: flex-end;
+      }
+      .bc-navbar .bc-links a {
+        color: var(--text-dim, #8888aa);
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: var(--radius-sm, 8px);
+        transition:
+          color 0.2s,
+          background 0.2s;
+        white-space: nowrap;
+      }
+      .bc-navbar .bc-links a.active {
+        color: var(--accent, #e8a850);
+        border-bottom: 2px solid var(--accent, #e8a850);
+      }
+      .bc-navbar .bc-links a:hover {
+        color: var(--text, #e0e0e8);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .bc-navbar .bc-hamburger {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text, #e0e0e8);
+        font-size: 20px;
+        cursor: pointer;
+      }
+      @media (max-width: 640px) {
+        .bc-navbar .bc-links {
+          display: none;
+          position: absolute;
+          top: 48px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          background: var(--bg, #1a1a2e);
+          border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+          padding: 8px 0;
+          z-index: 999;
+        }
+        .bc-navbar .bc-links.open {
+          display: flex;
+        }
+        .bc-navbar .bc-hamburger {
+          display: block;
+        }
+      }
+    </style>
   </head>
   <body>
+    <!-- 导航栏（v0.9 — 统一导航栏试点） -->
+    <nav class="bc-navbar" id="bc-navbar">
+      <a class="bc-logo" href="https://brewcode.礼字号.中国">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" />
+          <text x="12" y="17" text-anchor="middle" font-size="14" fill="currentColor">{}</text>
+        </svg>
+        <span>BrewCode</span>
+      </a>
+      <button class="bc-hamburger" id="bc-hamburger" aria-label="菜单">☰</button>
+      <div class="bc-links" id="bc-links">
+        <a href="https://brewcode.礼字号.中国" class="active">首页</a>
+        <a href="https://player.礼字号.中国">Player</a>
+        <a href="https://repo.礼字号.中国">Repo</a>
+        <a href="https://forge.礼字号.中国">Forge</a>
+      </div>
+    </nav>
+    <script>
+      (function () {
+        var hamburger = document.querySelector('#bc-hamburger');
+        var links = document.querySelector('#bc-links');
+        links.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            links.classList.remove('open');
+          });
+        });
+        hamburger.addEventListener('click', function () {
+          links.classList.toggle('open');
+        });
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('#bc-navbar')) {
+            links.classList.remove('open');
+          }
+        });
+      })();
+    </script>
+
     <div id="toolbar">
       <button id="btn-theme" aria-label="切换主题 (Toggle theme)">☀️ 浅色</button>
       <button id="btn-lang" aria-label="切换语言 (Toggle language)">EN</button>
