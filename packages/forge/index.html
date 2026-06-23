@@ -7,6 +7,7 @@
     <meta name="description" content="BrewCode OS BrewForge - .brew 文件可视化编辑器" />
     <title>BrewForge</title>
     <link rel="stylesheet" href="forge.css" />
+    <script src="../common/i18n/index.js"></script>
     <script type="importmap">
       {
         "imports": {
@@ -179,10 +180,10 @@
       </a>
       <button class="bc-hamburger" id="bc-hamburger" aria-label="菜单">☰</button>
       <div class="bc-links" id="bc-links">
-        <a href="https://brewcode.礼字号.中国">首页</a>
-        <a href="https://player.礼字号.中国">Player</a>
-        <a href="https://repo.礼字号.中国">Repo</a>
-        <a href="https://forge.礼字号.中国" class="active">Forge</a>
+        <a href="https://brewcode.礼字号.中国" data-i18n="nav.home">首页</a>
+        <a href="https://player.礼字号.中国" data-i18n="nav.player">Player</a>
+        <a href="https://repo.礼字号.中国" data-i18n="nav.repo">Repo</a>
+        <a href="https://forge.礼字号.中国" class="active" data-i18n="nav.forge">Forge</a>
       </div>
       <div class="bc-actions">
         <button id="bc-theme-btn" title="切换主题">🌙</button>
@@ -241,15 +242,23 @@
         }
         applyTheme(theme);
         applyLang(lang);
+        BrewCodeI18n.setLang(lang);
         document.querySelector('#bc-theme-btn').addEventListener('click', function () {
           theme = theme === 'dark' ? 'light' : 'dark';
           setShared('brewcode_theme', theme);
           applyTheme(theme);
         });
         document.querySelector('#bc-lang-btn').addEventListener('click', function () {
-          lang = lang === 'zh' ? 'en' : 'zh';
-          setShared('brewcode_lang', lang);
-          applyLang(lang);
+          var newLang = BrewCodeI18n.getLang() === 'zh' ? 'en' : 'zh';
+          BrewCodeI18n.setLang(newLang);
+          setShared('brewcode_lang', newLang);
+          applyLang(newLang);
+          if (typeof refreshI18nTexts === 'function') {
+            refreshI18nTexts();
+          }
+          if (typeof renderStepList === 'function') {
+            renderStepList();
+          }
         });
         var hamburger = document.querySelector('#bc-hamburger');
         var links = document.querySelector('#bc-links');
@@ -265,24 +274,53 @@
     </script>
     <div id="app">
       <header id="forge-header">
-        <h1 class="brand">BrewForge</h1>
-        <p class="sub">可视化 .brew 方案编辑器</p>
+        <h1 class="brand" data-i18n="common.forgeHeader">BrewForge</h1>
+        <p class="sub" data-i18n="common.forgeSubtitle">可视化 .brew 方案编辑器</p>
       </header>
       <div id="validation-bar" class="val-bar valid collapsed">
         <span class="val-icon">✅</span>
-        <span class="val-text">校验通过</span>
+        <span class="val-text" data-i18n="validation.pass">校验通过</span>
         <span class="val-toggle">▾</span>
         <div class="val-details"></div>
       </div>
       <div id="forge-toolbar">
-        <button id="btn-export" class="btn btn-primary" type="button">⬇ 导出 .brew</button>
-        <button id="btn-open-in-player" class="btn btn-ghost" type="button">
+        <button id="btn-export" class="btn btn-primary" type="button" data-i18n="button.export">
+          ⬇ 导出 .brew
+        </button>
+        <button
+          id="btn-open-in-player"
+          class="btn btn-ghost"
+          type="button"
+          data-i18n="button.openInPlayer"
+        >
           ▶ 在 Player 中打开
         </button>
-        <button id="btn-ai-diagnose" class="btn btn-ghost" type="button">🔍 AI 诊断</button>
-        <button id="btn-ai-generate" class="btn btn-ghost" type="button">🤖 AI 生成</button>
-        <button id="btn-toggle-code" class="btn btn-ghost" type="button">{} 代码</button>
-        <button id="btn-llm-config" class="btn btn-ghost" type="button" title="大模型配置">
+        <button
+          id="btn-ai-diagnose"
+          class="btn btn-ghost"
+          type="button"
+          data-i18n="button.aiDiagnose"
+        >
+          🔍 AI 诊断
+        </button>
+        <button
+          id="btn-ai-generate"
+          class="btn btn-ghost"
+          type="button"
+          data-i18n="button.aiGenerate"
+        >
+          🤖 AI 生成
+        </button>
+        <button id="btn-toggle-code" class="btn btn-ghost" type="button" data-i18n="button.code">
+          {} 代码
+        </button>
+        <button
+          id="btn-llm-config"
+          class="btn btn-ghost"
+          type="button"
+          title="大模型配置"
+          data-i18n="button.llmConfig"
+        >
           ⚙️
         </button>
       </div>
@@ -293,10 +331,13 @@
       <main id="forge-main">
         <!-- 方案信息 -->
         <section class="form-section">
-          <h2 class="section-title">方案信息</h2>
+          <h2 class="section-title" data-i18n="section.recipeInfo">方案信息</h2>
           <div class="form-grid">
             <label class="field">
-              <span class="field-label">方案名称<span class="required-hint">（必填）</span></span>
+              <span class="field-label"
+                ><span data-i18n="field.方案名称">方案名称</span
+                ><span class="required-hint" data-i18n="field.必填">（必填）</span></span
+              >
               <input
                 type="text"
                 id="inp-meta-name"
@@ -305,15 +346,15 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">版本号</span>
+              <span class="field-label" data-i18n="field.版本号">版本号</span>
               <input type="text" id="inp-meta-version" class="input" placeholder="1.0.0" />
             </label>
             <label class="field">
-              <span class="field-label">作者</span>
+              <span class="field-label" data-i18n="field.作者">作者</span>
               <input type="text" id="inp-meta-author" class="input" placeholder="您的名字或 ID" />
             </label>
             <label class="field">
-              <span class="field-label">许可证</span>
+              <span class="field-label" data-i18n="field.许可证">许可证</span>
               <select id="inp-meta-license" class="input">
                 <option value="CC0">CC0 — 完全公共领域</option>
                 <option value="MIT">MIT</option>
@@ -321,7 +362,7 @@
               </select>
             </label>
             <label class="field field-span-2">
-              <span class="field-label">方案描述</span>
+              <span class="field-label" data-i18n="field.方案描述">方案描述</span>
               <textarea
                 id="inp-meta-desc"
                 class="input"
@@ -330,7 +371,7 @@
               ></textarea>
             </label>
             <label class="field field-span-2">
-              <span class="field-label">标签</span>
+              <span class="field-label" data-i18n="field.标签">标签</span>
               <input
                 type="text"
                 id="inp-meta-tags"
@@ -339,7 +380,7 @@
               />
             </label>
             <label class="field field-span-2">
-              <span class="field-label">来源 URL</span>
+              <span class="field-label" data-i18n="field.来源URL">来源 URL</span>
               <input type="text" id="inp-meta-source" class="input" placeholder="https://..." />
             </label>
           </div>
@@ -347,10 +388,13 @@
 
         <!-- 咖啡豆信息 -->
         <section class="form-section">
-          <h2 class="section-title">咖啡豆信息</h2>
+          <h2 class="section-title" data-i18n="section.coffeeInfo">咖啡豆信息</h2>
           <div class="form-grid">
             <label class="field field-span-2">
-              <span class="field-label">咖啡豆名称<span class="required-hint">（必填）</span></span>
+              <span class="field-label"
+                ><span data-i18n="field.咖啡豆名称">咖啡豆名称</span
+                ><span class="required-hint" data-i18n="field.必填">（必填）</span></span
+              >
               <input
                 type="text"
                 id="inp-coffee-name"
@@ -359,7 +403,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">生产者 / 庄园</span>
+              <span class="field-label" data-i18n="field.生产者庄园">生产者 / 庄园</span>
               <input
                 type="text"
                 id="inp-coffee-producer"
@@ -368,7 +412,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">豆种</span>
+              <span class="field-label" data-i18n="field.豆种">豆种</span>
               <input
                 type="text"
                 id="inp-coffee-variety"
@@ -377,23 +421,23 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">产国</span>
+              <span class="field-label" data-i18n="field.产国">产国</span>
               <input type="text" id="inp-coffee-country" class="input" placeholder="埃塞俄比亚" />
             </label>
             <label class="field">
-              <span class="field-label">产区</span>
+              <span class="field-label" data-i18n="field.产区">产区</span>
               <input type="text" id="inp-coffee-region" class="input" placeholder="耶加雪菲" />
             </label>
             <label class="field">
-              <span class="field-label">庄园 / 处理站</span>
+              <span class="field-label" data-i18n="field.庄园处理站">庄园 / 处理站</span>
               <input type="text" id="inp-coffee-farm" class="input" placeholder="Aricha 处理站" />
             </label>
             <label class="field">
-              <span class="field-label">海拔</span>
+              <span class="field-label" data-i18n="field.海拔">海拔</span>
               <input type="text" id="inp-coffee-altitude" class="input" placeholder="1900-2100m" />
             </label>
             <label class="field">
-              <span class="field-label">处理法</span>
+              <span class="field-label" data-i18n="field.处理法">处理法</span>
               <input
                 type="text"
                 id="inp-coffee-process"
@@ -402,7 +446,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">烘焙度</span>
+              <span class="field-label" data-i18n="field.烘焙度">烘焙度</span>
               <select id="inp-coffee-roastLevel" class="input">
                 <option value="极浅烘">极浅烘</option>
                 <option value="浅烘">浅烘</option>
@@ -414,15 +458,15 @@
               </select>
             </label>
             <label class="field">
-              <span class="field-label">烘焙商</span>
+              <span class="field-label" data-i18n="field.烘焙商">烘焙商</span>
               <input type="text" id="inp-coffee-roaster" class="input" placeholder="烘焙商名称" />
             </label>
             <label class="field">
-              <span class="field-label">烘焙日期</span>
+              <span class="field-label" data-i18n="field.烘焙日期">烘焙日期</span>
               <input type="date" id="inp-coffee-roastDate" class="input" />
             </label>
             <label class="field field-span-2">
-              <span class="field-label">风味描述</span>
+              <span class="field-label" data-i18n="field.风味描述">风味描述</span>
               <input
                 type="text"
                 id="inp-coffee-flavorNotes"
@@ -435,10 +479,13 @@
 
         <!-- 器具信息 -->
         <section class="form-section">
-          <h2 class="section-title">器具信息</h2>
+          <h2 class="section-title" data-i18n="section.equipmentInfo">器具信息</h2>
           <div class="form-grid">
             <label class="field">
-              <span class="field-label">冲煮器具<span class="required-hint">（必填）</span></span>
+              <span class="field-label"
+                ><span data-i18n="field.冲煮器具">冲煮器具</span
+                ><span class="required-hint" data-i18n="field.必填">（必填）</span></span
+              >
               <input
                 type="text"
                 id="inp-equip-brewer"
@@ -447,7 +494,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">滤杯材质</span>
+              <span class="field-label" data-i18n="field.滤杯材质">滤杯材质</span>
               <input
                 type="text"
                 id="inp-equip-material"
@@ -456,7 +503,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">滤杯规格</span>
+              <span class="field-label" data-i18n="field.滤杯规格">滤杯规格</span>
               <input
                 type="text"
                 id="inp-equip-size"
@@ -465,7 +512,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">滤纸</span>
+              <span class="field-label" data-i18n="field.滤纸">滤纸</span>
               <input
                 type="text"
                 id="inp-equip-filter"
@@ -474,7 +521,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">磨豆机</span>
+              <span class="field-label" data-i18n="field.磨豆机">磨豆机</span>
               <input
                 type="text"
                 id="inp-equip-grinder"
@@ -483,7 +530,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">手冲壶</span>
+              <span class="field-label" data-i18n="field.手冲壶">手冲壶</span>
               <input
                 type="text"
                 id="inp-equip-kettle"
@@ -492,11 +539,11 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">电子秤</span>
+              <span class="field-label" data-i18n="field.电子秤">电子秤</span>
               <input type="text" id="inp-equip-scale" class="input" placeholder="Acaia Pearl" />
             </label>
             <label class="field">
-              <span class="field-label">分享壶</span>
+              <span class="field-label" data-i18n="field.分享壶">分享壶</span>
               <input
                 type="text"
                 id="inp-equip-server"
@@ -509,10 +556,13 @@
 
         <!-- 冲煮参数 -->
         <section class="form-section">
-          <h2 class="section-title">冲煮参数</h2>
+          <h2 class="section-title" data-i18n="section.brewParams">冲煮参数</h2>
           <div class="form-grid">
             <label class="field">
-              <span class="field-label">粉量 (g)<span class="required-hint">（必填）</span></span>
+              <span class="field-label"
+                ><span data-i18n="field.粉量">粉量 (g)</span
+                ><span class="required-hint" data-i18n="field.必填">（必填）</span></span
+              >
               <input
                 type="number"
                 id="inp-recipe-dose"
@@ -524,7 +574,8 @@
             </label>
             <label class="field">
               <span class="field-label"
-                >总注水量 (ml)<span class="required-hint">（必填）</span></span
+                ><span data-i18n="field.总注水量">总注水量 (ml)</span
+                ><span class="required-hint" data-i18n="field.必填">（必填）</span></span
               >
               <input
                 type="number"
@@ -536,11 +587,14 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">粉水比</span>
+              <span class="field-label" data-i18n="field.粉水比">粉水比</span>
               <input type="text" id="inp-recipe-ratio" class="input" placeholder="1:15" />
             </label>
             <label class="field">
-              <span class="field-label">水温 (°C)<span class="required-hint">（必填）</span></span>
+              <span class="field-label"
+                ><span data-i18n="field.水温">水温 (°C)</span
+                ><span class="required-hint" data-i18n="field.必填">（必填）</span></span
+              >
               <input
                 type="number"
                 id="inp-recipe-waterTemp"
@@ -551,7 +605,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">研磨刻度</span>
+              <span class="field-label" data-i18n="field.研磨刻度">研磨刻度</span>
               <input
                 type="number"
                 id="inp-recipe-grindValue"
@@ -562,7 +616,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">研磨参考系</span>
+              <span class="field-label" data-i18n="field.研磨参考系">研磨参考系</span>
               <input
                 type="text"
                 id="inp-recipe-grindUnit"
@@ -571,11 +625,11 @@
               />
             </label>
             <label class="field field-span-2">
-              <span class="field-label">研磨度描述</span>
+              <span class="field-label" data-i18n="field.研磨度描述">研磨度描述</span>
               <input type="text" id="inp-recipe-grindDesc" class="input" placeholder="细砂糖粗细" />
             </label>
             <label class="field">
-              <span class="field-label">用水类型</span>
+              <span class="field-label" data-i18n="field.用水类型">用水类型</span>
               <input
                 type="text"
                 id="inp-recipe-waterType"
@@ -584,7 +638,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">水 TDS (ppm)</span>
+              <span class="field-label" data-i18n="field.水TDS">水 TDS (ppm)</span>
               <input
                 type="number"
                 id="inp-recipe-waterTDS"
@@ -595,7 +649,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">目标冲煮时间 (s)</span>
+              <span class="field-label" data-i18n="field.目标冲煮时间">目标冲煮时间 (s)</span>
               <input
                 type="number"
                 id="inp-recipe-brewTime"
@@ -606,11 +660,11 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">闷蒸水量比例</span>
+              <span class="field-label" data-i18n="field.闷蒸比例">闷蒸水量比例</span>
               <input type="text" id="inp-recipe-bloomRatio" class="input" placeholder="1:3" />
             </label>
             <label class="field">
-              <span class="field-label">闷蒸时间 (s)</span>
+              <span class="field-label" data-i18n="field.闷蒸时间">闷蒸时间 (s)</span>
               <input
                 type="number"
                 id="inp-recipe-bloomTime"
@@ -621,7 +675,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">目标 TDS (%)</span>
+              <span class="field-label" data-i18n="field.目标TDS">目标 TDS (%)</span>
               <input
                 type="number"
                 id="inp-recipe-targetTDS"
@@ -632,7 +686,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">目标萃取率 (%)</span>
+              <span class="field-label" data-i18n="field.目标萃取率">目标萃取率 (%)</span>
               <input
                 type="number"
                 id="inp-recipe-targetExtraction"
@@ -647,21 +701,25 @@
 
         <!-- 冲煮步骤 -->
         <section class="form-section" id="section-steps">
-          <h2 class="section-title">冲煮步骤</h2>
+          <h2 class="section-title" data-i18n="section.steps">冲煮步骤</h2>
           <div id="step-list" class="step-list">
-            <p class="step-empty">暂无步骤，点击下方按钮添加</p>
+            <p class="step-empty" data-i18n="step.noSteps">暂无步骤，点击下方按钮添加</p>
           </div>
-          <button id="btn-add-step" class="btn btn-primary" type="button">+ 添加步骤</button>
+          <button id="btn-add-step" class="btn btn-primary" type="button" data-i18n="step.addStep">
+            + 添加步骤
+          </button>
         </section>
 
         <!-- 品鉴结果 -->
         <section class="form-section" id="section-result">
-          <h2 class="section-title">品鉴结果</h2>
-          <p class="section-hint">所有字段均为可选，仅在实际冲煮后记录</p>
+          <h2 class="section-title" data-i18n="section.result">品鉴结果</h2>
+          <p class="section-hint" data-i18n="section.resultHint">
+            所有字段均为可选，仅在实际冲煮后记录
+          </p>
 
           <div class="form-grid">
             <label class="field">
-              <span class="field-label">实际冲煮时间</span>
+              <span class="field-label" data-i18n="field.实际冲煮时间">实际冲煮时间</span>
               <input
                 type="number"
                 id="inp-result-brewtime-value"
@@ -672,14 +730,14 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">单位</span>
+              <span class="field-label" data-i18n="field.单位">单位</span>
               <select id="inp-result-brewtime-unit" class="input">
-                <option value="s">秒 (s)</option>
-                <option value="min">分 (min)</option>
+                <option value="s" data-i18n="common.seconds">秒 (s)</option>
+                <option value="min" data-i18n="common.minutes">分 (min)</option>
               </select>
             </label>
             <label class="field">
-              <span class="field-label">最终咖啡液重</span>
+              <span class="field-label" data-i18n="field.最终咖啡液重">最终咖啡液重</span>
               <input
                 type="number"
                 id="inp-result-yield-value"
@@ -690,14 +748,14 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">单位</span>
+              <span class="field-label" data-i18n="field.单位">单位</span>
               <select id="inp-result-yield-unit" class="input">
-                <option value="g">克 (g)</option>
-                <option value="ml">毫升 (ml)</option>
+                <option value="g" data-i18n="common.g">克 (g)</option>
+                <option value="ml" data-i18n="common.ml">毫升 (ml)</option>
               </select>
             </label>
             <label class="field">
-              <span class="field-label">实测 TDS (%)</span>
+              <span class="field-label" data-i18n="field.实测TDS">实测 TDS (%)</span>
               <input
                 type="number"
                 id="inp-result-tds"
@@ -708,7 +766,7 @@
               />
             </label>
             <label class="field">
-              <span class="field-label">萃取率 (%)</span>
+              <span class="field-label" data-i18n="field.萃取率">萃取率 (%)</span>
               <input
                 type="number"
                 id="inp-result-extraction"
@@ -719,7 +777,7 @@
               />
             </label>
             <label class="field field-span-2">
-              <span class="field-label">综合评分 (0-10)</span>
+              <span class="field-label" data-i18n="field.综合评分">综合评分 (0-10)</span>
               <input
                 type="number"
                 id="inp-result-rating"
@@ -732,10 +790,10 @@
             </label>
           </div>
 
-          <h3 class="subsection-title">风味维度评分</h3>
+          <h3 class="subsection-title" data-i18n="section.flavorDimensions">风味维度评分</h3>
           <div class="flavor-grid">
             <div class="flavor-dim">
-              <span class="flavor-dim-label">干/湿香 (Aroma)</span>
+              <span class="flavor-dim-label" data-i18n="field.干湿香评分">干/湿香 (Aroma)</span>
               <div class="flavor-dim-row">
                 <input
                   type="number"
@@ -750,7 +808,7 @@
               </div>
             </div>
             <div class="flavor-dim">
-              <span class="flavor-dim-label">风味 (Flavor)</span>
+              <span class="flavor-dim-label" data-i18n="field.风味评分">风味 (Flavor)</span>
               <div class="flavor-dim-row">
                 <input
                   type="number"
@@ -765,7 +823,7 @@
               </div>
             </div>
             <div class="flavor-dim">
-              <span class="flavor-dim-label">余韵 (Aftertaste)</span>
+              <span class="flavor-dim-label" data-i18n="field.余韵评分">余韵 (Aftertaste)</span>
               <div class="flavor-dim-row">
                 <input
                   type="number"
@@ -785,7 +843,7 @@
               </div>
             </div>
             <div class="flavor-dim">
-              <span class="flavor-dim-label">酸质 (Acidity)</span>
+              <span class="flavor-dim-label" data-i18n="field.酸质评分">酸质 (Acidity)</span>
               <div class="flavor-dim-row">
                 <input
                   type="number"
@@ -800,7 +858,7 @@
               </div>
             </div>
             <div class="flavor-dim">
-              <span class="flavor-dim-label">醇厚度 (Body)</span>
+              <span class="flavor-dim-label" data-i18n="field.醇厚度评分">醇厚度 (Body)</span>
               <div class="flavor-dim-row">
                 <input
                   type="number"
@@ -815,7 +873,7 @@
               </div>
             </div>
             <div class="flavor-dim">
-              <span class="flavor-dim-label">平衡感 (Balance)</span>
+              <span class="flavor-dim-label" data-i18n="field.平衡感评分">平衡感 (Balance)</span>
               <div class="flavor-dim-row">
                 <input
                   type="number"
@@ -830,7 +888,7 @@
               </div>
             </div>
             <div class="flavor-dim">
-              <span class="flavor-dim-label">甜感 (Sweetness)</span>
+              <span class="flavor-dim-label" data-i18n="field.甜感评分">甜感 (Sweetness)</span>
               <div class="flavor-dim-row">
                 <input
                   type="number"
@@ -850,7 +908,7 @@
               </div>
             </div>
             <div class="flavor-dim">
-              <span class="flavor-dim-label">干净度 (Clean Cup)</span>
+              <span class="flavor-dim-label" data-i18n="field.干净度评分">干净度 (Clean Cup)</span>
               <div class="flavor-dim-row">
                 <input
                   type="number"
@@ -870,7 +928,7 @@
               </div>
             </div>
             <div class="flavor-dim">
-              <span class="flavor-dim-label">总体 (Overall)</span>
+              <span class="flavor-dim-label" data-i18n="field.总体评分">总体 (Overall)</span>
               <div class="flavor-dim-row">
                 <input
                   type="number"
@@ -888,7 +946,7 @@
 
           <div class="form-grid" style="margin-top: 20px">
             <label class="field field-span-2">
-              <span class="field-label">品鉴风味笔记</span>
+              <span class="field-label" data-i18n="field.品鉴风味笔记">品鉴风味笔记</span>
               <input
                 type="text"
                 id="inp-result-tastingNotes"
@@ -897,7 +955,7 @@
               />
             </label>
             <label class="field field-span-2">
-              <span class="field-label">下次改进建议</span>
+              <span class="field-label" data-i18n="field.下次改进建议">下次改进建议</span>
               <textarea
                 id="inp-result-improvements"
                 class="input"
@@ -913,7 +971,7 @@
       <div id="step-modal" class="modal-overlay hidden">
         <div class="modal-panel">
           <div class="modal-header">
-            <h3 id="modal-title">添加步骤</h3>
+            <h3 id="modal-title" data-i18n="step.addStepTitle">添加步骤</h3>
             <button id="btn-close-modal" class="btn-icon" type="button" aria-label="关闭">
               &times;
             </button>
@@ -921,25 +979,25 @@
           <div class="modal-body">
             <div class="form-grid">
               <label class="field">
-                <span class="field-label">操作类型</span>
+                <span class="field-label" data-i18n="field.操作类型">操作类型</span>
                 <select id="inp-step-action" class="input">
-                  <option value="prepare">准备 (prepare)</option>
-                  <option value="rinse">冲洗 (rinse)</option>
-                  <option value="grind">研磨 (grind)</option>
-                  <option value="dose">投粉 (dose)</option>
-                  <option value="bloom">闷蒸 (bloom)</option>
-                  <option value="pour">注水 (pour)</option>
-                  <option value="stir">搅拌 (stir)</option>
-                  <option value="swirl">摇晃 (swirl)</option>
-                  <option value="drawdown">滴滤 (drawdown)</option>
-                  <option value="wait">等待 (wait)</option>
-                  <option value="measure">测量 (measure)</option>
-                  <option value="taste">品鉴 (taste)</option>
-                  <option value="note">备注 (note)</option>
+                  <option value="prepare" data-i18n="action.prepare">准备 (prepare)</option>
+                  <option value="rinse" data-i18n="action.rinse">冲洗 (rinse)</option>
+                  <option value="grind" data-i18n="action.grind">研磨 (grind)</option>
+                  <option value="dose" data-i18n="action.dose">投粉 (dose)</option>
+                  <option value="bloom" data-i18n="action.bloom">闷蒸 (bloom)</option>
+                  <option value="pour" data-i18n="action.pour">注水 (pour)</option>
+                  <option value="stir" data-i18n="action.stir">搅拌 (stir)</option>
+                  <option value="swirl" data-i18n="action.swirl">摇晃 (swirl)</option>
+                  <option value="drawdown" data-i18n="action.drawdown">滴滤 (drawdown)</option>
+                  <option value="wait" data-i18n="action.wait">等待 (wait)</option>
+                  <option value="measure" data-i18n="action.measure">测量 (measure)</option>
+                  <option value="taste" data-i18n="action.taste">品鉴 (taste)</option>
+                  <option value="note" data-i18n="action.note">备注 (note)</option>
                 </select>
               </label>
               <label class="field">
-                <span class="field-label">耗时</span>
+                <span class="field-label" data-i18n="field.耗时">耗时</span>
                 <input
                   type="number"
                   id="inp-step-duration-value"
@@ -952,12 +1010,12 @@
               <label class="field">
                 <span class="field-label">&nbsp;</span>
                 <select id="inp-step-duration-unit" class="input">
-                  <option value="s">秒 (s)</option>
-                  <option value="min">分 (min)</option>
+                  <option value="s" data-i18n="common.seconds">秒 (s)</option>
+                  <option value="min" data-i18n="common.minutes">分 (min)</option>
                 </select>
               </label>
               <label class="field">
-                <span class="field-label">注水量</span>
+                <span class="field-label" data-i18n="field.注水量">注水量</span>
                 <input
                   type="number"
                   id="inp-step-water-value"
@@ -970,12 +1028,12 @@
               <label class="field">
                 <span class="field-label">&nbsp;</span>
                 <select id="inp-step-water-unit" class="input">
-                  <option value="ml">毫升 (ml)</option>
-                  <option value="g">克 (g)</option>
+                  <option value="ml" data-i18n="common.ml">毫升 (ml)</option>
+                  <option value="g" data-i18n="common.g">克 (g)</option>
                 </select>
               </label>
               <label class="field">
-                <span class="field-label">累计注水量</span>
+                <span class="field-label" data-i18n="field.累计注水量">累计注水量</span>
                 <input
                   type="number"
                   id="inp-step-cumulative-value"
@@ -988,12 +1046,12 @@
               <label class="field">
                 <span class="field-label">&nbsp;</span>
                 <select id="inp-step-cumulative-unit" class="input">
-                  <option value="ml">毫升 (ml)</option>
-                  <option value="g">克 (g)</option>
+                  <option value="ml" data-i18n="common.ml">毫升 (ml)</option>
+                  <option value="g" data-i18n="common.g">克 (g)</option>
                 </select>
               </label>
               <label class="field">
-                <span class="field-label">目标重量</span>
+                <span class="field-label" data-i18n="field.目标重量">目标重量</span>
                 <input
                   type="number"
                   id="inp-step-targetWeight-value"
@@ -1004,7 +1062,7 @@
                 />
               </label>
               <label class="field">
-                <span class="field-label">目标重量单位</span>
+                <span class="field-label" data-i18n="field.目标重量单位">目标重量单位</span>
                 <input
                   type="text"
                   id="inp-step-targetWeight-unit"
@@ -1014,26 +1072,26 @@
                 />
               </label>
               <label class="field">
-                <span class="field-label">注水手法</span>
+                <span class="field-label" data-i18n="field.注水手法">注水手法</span>
                 <select id="inp-step-pourStyle" class="input">
-                  <option value="">— 不设置 —</option>
-                  <option value="centerPour">中心注水</option>
-                  <option value="circlePour">绕圈注水</option>
-                  <option value="spotPour">定点注水</option>
-                  <option value="stirPour">搅拌注水</option>
+                  <option value="" data-i18n="step.notSet">— 不设置 —</option>
+                  <option value="centerPour" data-i18n="step.centerPour">中心注水</option>
+                  <option value="circlePour" data-i18n="step.circlePour">绕圈注水</option>
+                  <option value="spotPour" data-i18n="step.spotPour">定点注水</option>
+                  <option value="stirPour" data-i18n="step.stirPour">搅拌注水</option>
                 </select>
               </label>
               <label class="field">
-                <span class="field-label">注水强度</span>
+                <span class="field-label" data-i18n="field.注水强度">注水强度</span>
                 <select id="inp-step-pourIntensity" class="input">
-                  <option value="">— 不设置 —</option>
-                  <option value="gentleStream">细水流</option>
-                  <option value="mediumStream">中水流</option>
-                  <option value="heavyStream">大水流</option>
+                  <option value="" data-i18n="step.notSet">— 不设置 —</option>
+                  <option value="gentleStream" data-i18n="step.gentleStream">细水流</option>
+                  <option value="mediumStream" data-i18n="step.mediumStream">中水流</option>
+                  <option value="heavyStream" data-i18n="step.heavyStream">大水流</option>
                 </select>
               </label>
               <label class="field">
-                <span class="field-label">本步水温 (°C)</span>
+                <span class="field-label" data-i18n="field.本步水温">本步水温 (°C)</span>
                 <input
                   type="number"
                   id="inp-step-temp-value"
@@ -1046,12 +1104,12 @@
               <label class="field">
                 <span class="field-label">&nbsp;</span>
                 <select id="inp-step-temp-unit" class="input">
-                  <option value="°C">°C</option>
-                  <option value="°F">°F</option>
+                  <option value="°C" data-i18n="common.celsius">°C</option>
+                  <option value="°F" data-i18n="common.fahrenheit">°F</option>
                 </select>
               </label>
               <label class="field field-span-2">
-                <span class="field-label">步骤描述</span>
+                <span class="field-label" data-i18n="field.步骤描述">步骤描述</span>
                 <textarea
                   id="inp-step-description"
                   class="input"
@@ -1062,20 +1120,34 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button id="btn-save-step" class="btn btn-primary" type="button">保存</button>
-            <button id="btn-cancel-step" class="btn btn-ghost" type="button">取消</button>
+            <button
+              id="btn-save-step"
+              class="btn btn-primary"
+              type="button"
+              data-i18n="step.saveStep"
+            >
+              保存
+            </button>
+            <button
+              id="btn-cancel-step"
+              class="btn btn-ghost"
+              type="button"
+              data-i18n="step.cancel"
+            >
+              取消
+            </button>
           </div>
         </div>
       </div>
 
       <footer id="forge-footer">
-        <span class="footer-hint">所有输入即时保存到状态中</span>
+        <span class="footer-hint" data-i18n="common.footerHint">所有输入即时保存到状态中</span>
       </footer>
 
       <div id="llm-config-modal" class="modal-overlay hidden">
         <div class="modal-panel modal-panel-wide">
           <div class="modal-header">
-            <h3>⚙️ 连接你的大模型</h3>
+            <h3 data-i18n="llm.title">⚙️ 连接你的大模型</h3>
             <button class="btn-icon btn-close-llm-config" type="button" aria-label="关闭">
               &times;
             </button>
@@ -1083,7 +1155,7 @@
           <div class="modal-body">
             <div class="form-grid">
               <label class="field">
-                <span class="field-label">提供商</span>
+                <span class="field-label" data-i18n="llm.provider">提供商</span>
                 <select id="inp-llm-provider" class="input">
                   <option value="deepseek">DeepSeek</option>
                   <option value="openai">OpenAI</option>
@@ -1093,11 +1165,11 @@
                 </select>
               </label>
               <label class="field">
-                <span class="field-label">API Key</span>
+                <span class="field-label" data-i18n="llm.apiKey">API Key</span>
                 <input type="password" id="inp-llm-apikey" class="input" placeholder="sk-..." />
               </label>
               <label class="field" id="field-llm-apibase">
-                <span class="field-label">API Base</span>
+                <span class="field-label" data-i18n="llm.apiBase">API Base</span>
                 <input
                   type="text"
                   id="inp-llm-apibase"
@@ -1106,16 +1178,32 @@
                 />
               </label>
               <label class="field" id="field-llm-model">
-                <span class="field-label">模型</span>
+                <span class="field-label" data-i18n="llm.model">模型</span>
                 <input type="text" id="inp-llm-model" class="input" placeholder="deepseek-chat" />
               </label>
             </div>
-            <p class="llm-config-hint">🔒 你的 Key 只保存在本地浏览器中，不会被上传。</p>
+            <p class="llm-config-hint" data-i18n="llm.hint">
+              🔒 你的 Key 只保存在本地浏览器中，不会被上传。
+            </p>
             <div id="llm-config-error" class="ai-error hidden"></div>
           </div>
           <div class="modal-footer">
-            <button id="btn-save-llm-config" class="btn btn-primary" type="button">保存配置</button>
-            <button id="btn-clear-llm-config" class="btn btn-ghost" type="button">清除配置</button>
+            <button
+              id="btn-save-llm-config"
+              class="btn btn-primary"
+              type="button"
+              data-i18n="llm.saveConfig"
+            >
+              保存配置
+            </button>
+            <button
+              id="btn-clear-llm-config"
+              class="btn btn-ghost"
+              type="button"
+              data-i18n="llm.clearConfig"
+            >
+              清除配置
+            </button>
           </div>
         </div>
       </div>
