@@ -4,10 +4,10 @@
   const $ = (s) => document.querySelector(s);
 
   /* ── Player base URL ── */
-  const isLocal = window.location.protocol === 'file:';
-  const PLAYER_BASE = isLocal ? '../player/index.html' : 'https://player.礼字号.中国';
+  const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const PLAYER_BASE = isLocal ? 'http://localhost:8789' : 'https://player.礼字号.中国';
   const SEEDS_DIR = 'seeds/';
-  const SEEDS_BASE = isLocal ? '../player/seeds/' : 'https://player.礼字号.中国/seeds/';
+  const SEEDS_BASE = isLocal ? 'http://localhost:8789/seeds/' : 'https://player.礼字号.中国/seeds/';
 
   /* ── State ── */
   let allRecipes = [];

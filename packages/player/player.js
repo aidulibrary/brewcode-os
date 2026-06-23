@@ -418,20 +418,40 @@
     setState(STATE.IDLE);
   });
 
-  /* ── URL param: ?brew=JSON ── */
+  /* ── URL param: ?brew=JSON or ?brew=URL ── */
   (function () {
     var params = new URLSearchParams(window.location.search);
     var brewParam = params.get('brew');
     if (brewParam) {
-      try {
-        var json = decodeURIComponent(brewParam);
-        JSON.parse(json); /* validate */
-        console.log('[BrewPlayer] loading inline JSON, length=' + json.length);
-        loadRecipe(json);
-      } catch (e) {
-        console.error('[BrewPlayer] inline JSON parse failed:', e);
-        $('#load-error').textContent = '无法解析方案数据：' + e.message;
-        $('#load-error').classList.remove('hidden');
+      var raw = decodeURIComponent(brewParam);
+      if (raw.trim().charAt(0) === '{') {
+        /* inline JSON (from Forge) */
+        try {
+          JSON.parse(raw); /* validate */
+          console.log('[BrewPlayer] loading inline JSON, length=' + raw.length);
+          loadRecipe(raw);
+        } catch (e) {
+          console.error('[BrewPlayer] inline JSON parse failed:', e);
+          $('#load-error').textContent = '无法解析方案数据：' + e.message;
+          $('#load-error').classList.remove('hidden');
+        }
+      } else {
+        /* remote URL or relative path (from Repo) */
+        console.log('[BrewPlayer] fetching remote recipe: ' + raw);
+        fetch(raw)
+          .then(function (resp) {
+            if (!resp.ok) throw new Error('HTTP ' + resp.status);
+            return resp.text();
+          })
+          .then(function (jsonText) {
+            console.log('[BrewPlayer] remote recipe loaded, length=' + jsonText.length);
+            loadRecipe(jsonText);
+          })
+          .catch(function (e) {
+            console.error('[BrewPlayer] remote fetch failed:', e);
+            $('#load-error').textContent = '无法获取方案数据：' + e.message;
+            $('#load-error').classList.remove('hidden');
+          });
       }
     }
   })();
@@ -439,7 +459,9 @@
   /* Back to Forge */
   $('#btn-back-to-forge').addEventListener('click', function () {
     if (!recipe) return;
-    window.open('https://forge.礼字号.中国/#brew=' + encodeURIComponent(JSON.stringify(recipe)), '_blank');
+    var isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    var forgeBase = isLocal ? 'http://localhost:8788' : 'https://forge.礼字号.中国';
+    window.open(forgeBase + '/#brew=' + encodeURIComponent(JSON.stringify(recipe)), '_blank');
   });
 
   /* initial render */
