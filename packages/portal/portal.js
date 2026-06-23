@@ -7,6 +7,10 @@
 (function () {
   'use strict';
 
+  var isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  function getCookie(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : null; }
+  function setCookie(n, v) { document.cookie = n + '=' + v + '; path=/; max-age=31536000; SameSite=Lax' + (isLocal ? '' : '; domain=.礼字号.中国'); }
+
   /* ================================================================
    * i18n 词条（内嵌，零网络请求）
    * ================================================================ */
@@ -89,14 +93,16 @@
     get: function () {
       return (
         document.documentElement.getAttribute('data-theme') ||
-        localStorage.getItem('brewcode-theme') ||
+        getCookie('brewcode_theme') ||
+        localStorage.getItem('brewcode_theme') ||
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
       );
     },
 
     set: function (name) {
       document.documentElement.setAttribute('data-theme', name);
-      localStorage.setItem('brewcode-theme', name);
+      localStorage.setItem('brewcode_theme', name);
+      setCookie('brewcode_theme', name);
       this.updateButton(name);
     },
 
@@ -126,7 +132,7 @@
       }
 
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-        if (!localStorage.getItem('brewcode-theme')) {
+        if (!getCookie('brewcode_theme') && !localStorage.getItem('brewcode_theme')) {
           Theme.set(e.matches ? 'dark' : 'light');
         }
       });
@@ -143,7 +149,9 @@
     get: function () {
       var q = new URLSearchParams(window.location.search).get('lang');
       if (q === 'zh' || q === 'en') return q;
-      var stored = localStorage.getItem('brewcode-lang');
+      var cookie = getCookie('brewcode_lang');
+      if (cookie === 'zh' || cookie === 'en') return cookie;
+      var stored = localStorage.getItem('brewcode_lang');
       if (stored === 'zh' || stored === 'en') return stored;
       var nav = (navigator.language || '').toLowerCase();
       return nav.startsWith('zh') ? 'zh' : 'en';
@@ -151,7 +159,8 @@
 
     set: function (lang) {
       this.current = lang;
-      localStorage.setItem('brewcode-lang', lang);
+      localStorage.setItem('brewcode_lang', lang);
+      setCookie('brewcode_lang', lang);
       this.updateButton(lang);
     },
 
