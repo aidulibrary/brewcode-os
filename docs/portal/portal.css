@@ -709,3 +709,83 @@ a:hover {
 .hero-actions {
   animation-delay: 0.4s;
 }
+
+/* ==========================================================================
+   浅色主题元素覆盖（手动切换 data-theme='light'）
+   覆盖硬编码深色值及需要提升特异度的元素
+   ========================================================================== */
+
+[data-theme="light"] .bc-navbar {
+  background: #f5f0eb;
+  color: #1a1a2e;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .bc-navbar .bc-links a {
+  color: #666680;
+}
+
+[data-theme="light"] .bc-navbar .bc-links a.active {
+  color: #b87333;
+}
+
+[data-theme="light"] .bc-navbar .bc-links a:hover {
+  color: #1a1a2e;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .bc-navbar .bc-hamburger {
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .bc-navbar .bc-links {
+  background: #f5f0eb;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] #toolbar button {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #666680;
+}
+
+[data-theme="light"] #toolbar button:hover {
+  background: #f0ebe3;
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .btn-primary {
+  color: #f5f0eb;
+}
+
+[data-theme="light"] .btn-outline:hover {
+  color: #f5f0eb;
+}
+
+[data-theme="light"] .story-en {
+  border-left-color: #a08060;
+  color: #555555;
+}
+
+[data-theme="light"] .story-zh {
+  color: #222222;
+}
+
+[data-theme="light"] .community-link {
+  background: #f5f0eb;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .community-link:hover {
+  border-color: #b87333;
+  color: #b87333;
+}
+
+[data-theme="light"] .footer {
+  background: #f5f0eb;
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .section-title {
+  color: #3e2723;
+}
