@@ -1371,6 +1371,30 @@ var AI_API_BASE = 'https://api.礼字号.中国';
 var AI_AUTH_TOKEN = 'bk_test1234567890abcdef';
 var AI_TIMEOUT_MS = 15000;
 
+var LLM_PROVIDERS = {
+  deepseek: { apiBase: 'https://api.deepseek.com/v1', model: 'deepseek-chat' },
+  openai: { apiBase: 'https://api.openai.com/v1', model: 'gpt-3.5-turbo' },
+  zhipu: { apiBase: 'https://open.bigmodel.cn/api/paas/v4', model: 'glm-4-flash' },
+  moonshot: { apiBase: 'https://api.moonshot.cn/v1', model: 'moonshot-v1-8k' },
+};
+
+function loadLLMConfig() {
+  try {
+    var raw = localStorage.getItem('brewcode_user_llm_config');
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function saveLLMConfig(config) {
+  localStorage.setItem('brewcode_user_llm_config', JSON.stringify(config));
+}
+
+function clearLLMConfig() {
+  localStorage.removeItem('brewcode_user_llm_config');
+}
+
 function injectAIStyles() {
   if (document.getElementById('ai-forge-styles')) return;
 
@@ -1556,16 +1580,24 @@ function setAIInputError(input, message) {
 }
 
 function aiFetch(path, body) {
+  var userConfig = loadLLMConfig();
+  var apiBase = userConfig && userConfig.apiKey ? userConfig.apiBase : AI_API_BASE;
+  var authToken = userConfig && userConfig.apiKey ? userConfig.apiKey : AI_AUTH_TOKEN;
+
+  if (userConfig && userConfig.apiKey && userConfig.model) {
+    body = Object.assign({}, body, { model: userConfig.model });
+  }
+
   var controller = new AbortController();
   var timeoutId = setTimeout(function () {
     controller.abort();
   }, AI_TIMEOUT_MS);
 
-  return fetch(AI_API_BASE + path, {
+  return fetch(apiBase + path, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + AI_AUTH_TOKEN,
+      Authorization: 'Bearer ' + authToken,
     },
     body: JSON.stringify(body),
     signal: controller.signal,
@@ -1881,6 +1913,133 @@ function applyDiagnoseSuggestion(suggestion) {
 }
 
 /* ================================================================
+ * LLM 配置 — 用户自定义大模型
+ * ================================================================ */
+
+function bindLLMConfigEvents() {
+  var modal = $('#llm-config-modal');
+  var btnOpen = $('#btn-llm-config');
+  var btnSave = $('#btn-save-llm-config');
+  var btnClear = $('#btn-clear-llm-config');
+  var btnClose = modal.querySelector('.btn-close-llm-config');
+  var providerSelect = $('#inp-llm-provider');
+  var apiKeyInput = $('#inp-llm-apikey');
+  var apiBaseInput = $('#inp-llm-apibase');
+  var modelInput = $('#inp-llm-model');
+  var errorEl = $('#llm-config-error');
+
+  function showConfigError(msg) {
+    if (errorEl) {
+      errorEl.textContent = msg;
+      errorEl.classList.remove('hidden');
+    }
+  }
+
+  function hideConfigError() {
+    if (errorEl) {
+      errorEl.classList.add('hidden');
+      errorEl.textContent = '';
+    }
+  }
+
+  function updateGearIcon() {
+    var config = loadLLMConfig();
+    if (config && config.apiKey) {
+      btnOpen.textContent = '⚙️';
+      btnOpen.style.color = '#40a060';
+    } else {
+      btnOpen.textContent = '⚙️';
+      btnOpen.style.color = '';
+    }
+  }
+
+  function autoFillProvider(provider) {
+    var info = LLM_PROVIDERS[provider];
+    if (info) {
+      apiBaseInput.value = info.apiBase;
+      modelInput.value = info.model;
+      apiBaseInput.readOnly = false;
+      modelInput.readOnly = false;
+    } else {
+      apiBaseInput.value = '';
+      modelInput.value = '';
+      apiBaseInput.readOnly = false;
+      modelInput.readOnly = false;
+    }
+  }
+
+  function openConfigModal() {
+    var config = loadLLMConfig();
+    hideConfigError();
+
+    if (config) {
+      providerSelect.value = config.provider || 'deepseek';
+      apiKeyInput.value = config.apiKey || '';
+      apiBaseInput.value = config.apiBase || '';
+      modelInput.value = config.model || '';
+    } else {
+      providerSelect.value = 'deepseek';
+      apiKeyInput.value = '';
+      autoFillProvider('deepseek');
+    }
+
+    modal.classList.remove('hidden');
+  }
+
+  function closeConfigModal() {
+    modal.classList.add('hidden');
+  }
+
+  providerSelect.addEventListener('change', function () {
+    autoFillProvider(this.value);
+  });
+
+  btnOpen.addEventListener('click', openConfigModal);
+
+  btnClose.addEventListener('click', closeConfigModal);
+
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeConfigModal();
+  });
+
+  btnSave.addEventListener('click', function () {
+    hideConfigError();
+
+    var provider = providerSelect.value;
+    var apiKey = apiKeyInput.value.trim();
+    var apiBase = apiBaseInput.value.trim();
+    var model = modelInput.value.trim();
+
+    if (!apiKey) {
+      showConfigError('请输入 API Key');
+      return;
+    }
+    if (!apiBase) {
+      showConfigError('请输入 API Base 地址');
+      return;
+    }
+
+    saveLLMConfig({
+      provider: provider,
+      apiKey: apiKey,
+      apiBase: apiBase,
+      model: model || null,
+    });
+
+    updateGearIcon();
+    closeConfigModal();
+  });
+
+  btnClear.addEventListener('click', function () {
+    clearLLMConfig();
+    updateGearIcon();
+    closeConfigModal();
+  });
+
+  updateGearIcon();
+}
+
+/* ================================================================
  * 初始化
  * ================================================================ */
 
@@ -1892,13 +2051,17 @@ document.addEventListener('DOMContentLoaded', function () {
   bindFormEvents();
   bindStepEvents();
   bindAIDialogEvents();
+  bindLLMConfigEvents();
   renderStepList();
 
   $('#btn-export').addEventListener('click', exportBrewFile);
   $('#btn-open-in-player').addEventListener('click', function () {
     collectFormToState();
     var json = encodeURIComponent(JSON.stringify(buildBrewJSON()));
-    var isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    var isLocal =
+      window.location.protocol === 'file:' ||
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1';
     var playerBase = isLocal ? 'http://localhost:8789' : 'https://player.礼字号.中国';
     window.open(playerBase + '?brew=' + json, '_blank');
   });

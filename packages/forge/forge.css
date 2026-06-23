@@ -912,6 +912,13 @@ input[type='number']::-webkit-outer-spin-button {
   background: #ffffff;
 }
 
+.llm-config-hint {
+  color: var(--text-dim, #8888aa);
+  font-size: 12px;
+  text-align: center;
+  margin-top: 12px;
+}
+
 @media (max-width: 640px) {
   [data-theme='light'] .bc-navbar .bc-links {
     background: #f5f0eb;
