@@ -1,6 +1,22 @@
 (function () {
   'use strict';
 
+  function refreshI18nTexts() {
+    var elements = document.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < elements.length; i++) {
+      var el = elements[i];
+      var key = el.getAttribute('data-i18n');
+      if (key) {
+        var tag = el.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA') {
+          el.placeholder = BrewCodeI18n.t(key);
+        } else {
+          el.textContent = BrewCodeI18n.t(key);
+        }
+      }
+    }
+  }
+
   /* ── DOM refs ── */
   const $ = (s) => document.querySelector(s);
   const $$ = (s) => document.querySelectorAll(s);
@@ -52,10 +68,10 @@
       const data = JSON.parse(jsonText);
 
       /* basic validation */
-      if (!data.meta || !data.meta.name) throw new Error('缺少 meta.name');
-      if (!data.recipe) throw new Error('缺少 recipe');
+      if (!data.meta || !data.meta.name) throw new Error(BrewCodeI18n.t('player.missingMetaName'));
+      if (!data.recipe) throw new Error(BrewCodeI18n.t('player.missingRecipe'));
       if (!data.steps || !Array.isArray(data.steps) || data.steps.length === 0) {
-        throw new Error('缺少 steps 或 steps 为空');
+        throw new Error(BrewCodeI18n.t('player.missingSteps'));
       }
 
       data.steps.sort((a, b) => a.order - b.order);
@@ -65,7 +81,7 @@
       setState(STATE.LOADED);
       $('#load-error').classList.add('hidden');
     } catch (e) {
-      $('#load-error').textContent = '解析失败：' + e.message;
+      $('#load-error').textContent = BrewCodeI18n.t('player.parseError') + e.message;
       $('#load-error').classList.remove('hidden');
     }
   }
@@ -85,7 +101,7 @@
     const r = recipe.recipe;
 
     $('#ov-name').textContent = m.name;
-    $('#ov-author').textContent = m.author ? '作者：' + m.author : '';
+    $('#ov-author').textContent = m.author ? BrewCodeI18n.t('player.author') + m.author : '';
     $('#ov-desc').textContent = m.description || '';
 
     /* coffee */
@@ -94,14 +110,14 @@
     if (c.roaster) coffeeParts.push(c.roaster);
     if (c.roastLevel) coffeeParts.push(c.roastLevel);
     if (c.process) coffeeParts.push(c.process);
-    $('#ov-coffee').textContent = coffeeParts.join(' · ') || '未指定';
+    $('#ov-coffee').textContent = coffeeParts.join(' · ') || BrewCodeI18n.t('player.unspecified');
 
     /* equipment */
     let equipParts = [];
     if (e.brewer) equipParts.push(e.brewer);
     if (e.grinder) equipParts.push(e.grinder);
     if (e.filter) equipParts.push(e.filter);
-    $('#ov-equipment').textContent = equipParts.join(' · ') || '未指定';
+    $('#ov-equipment').textContent = equipParts.join(' · ') || BrewCodeI18n.t('player.unspecified');
 
     /* recipe params */
     const params = $('#ov-recipe');
@@ -119,37 +135,25 @@
       params.appendChild(div);
     };
 
-    if (r.dose) addParam('粉量', r.dose.value + r.dose.unit);
-    if (r.waterAmount) addParam('总水量', r.waterAmount.value + (r.waterAmount.unit || 'ml'));
-    if (r.ratio) addParam('粉水比', r.ratio);
+    if (r.dose) addParam(BrewCodeI18n.t('player.dose'), r.dose.value + r.dose.unit);
+    if (r.waterAmount) addParam(BrewCodeI18n.t('player.waterAmount'), r.waterAmount.value + (r.waterAmount.unit || 'ml'));
+    if (r.ratio) addParam(BrewCodeI18n.t('player.ratio'), r.ratio);
     if (r.grindSize) {
       let gs = r.grindSize.value + (r.grindSize.unit ? ' ' + r.grindSize.unit : '');
-      addParam('研磨度', gs);
+      addParam(BrewCodeI18n.t('player.grindSize'), gs);
     }
     if (r.waterTemperature) {
-      addParam('水温', r.waterTemperature.value + (r.waterTemperature.unit || '°C'));
+      addParam(BrewCodeI18n.t('player.waterTemp'), r.waterTemperature.value + (r.waterTemperature.unit || '°C'));
     }
     if (r.brewTime) {
-      addParam('目标时间', r.brewTime.value + (r.brewTime.unit || 's'));
+      addParam(BrewCodeI18n.t('player.brewTime'), r.brewTime.value + (r.brewTime.unit || 's'));
     }
   }
 
   /* ── Action labels ── */
-  const actionLabels = {
-    prepare: '准备',
-    rinse: '润湿滤纸',
-    grind: '研磨',
-    dose: '投粉',
-    bloom: '闷蒸',
-    pour: '注水',
-    stir: '搅拌',
-    swirl: '摇晃',
-    drawdown: '滴滤完成',
-    wait: '等待',
-    measure: '测量',
-    taste: '品鉴',
-    note: '记录',
-  };
+  function actionLabel(action) {
+    return BrewCodeI18n.t('action.' + (action || '')) || action || '';
+  }
 
   /* ── Render step ── */
   function renderStep() {
@@ -166,16 +170,16 @@
     /* progress */
     const pct = (currentStep / total) * 100;
     $('#progress-fill').style.width = pct + '%';
-    $('#progress-text').textContent = '步骤 ' + (currentStep + 1) + ' / ' + total;
+    $('#progress-text').textContent = BrewCodeI18n.t('player.step') + ' ' + (currentStep + 1) + ' / ' + total;
 
     /* header */
-    $('#header-step').textContent = '步骤 ' + (currentStep + 1) + '/' + total;
+    $('#header-step').textContent = BrewCodeI18n.t('player.step') + ' ' + (currentStep + 1) + '/' + total;
 
     /* badge */
-    $('#step-badge').textContent = actionLabels[s.action] || s.action;
+    $('#step-badge').textContent = actionLabel(s.action);
 
     /* action text */
-    let actionText = s.description || actionLabels[s.action] || s.action;
+    let actionText = s.description || actionLabel(s.action);
     $('#step-action').textContent = actionText;
 
     /* description (extra detail) */
@@ -189,9 +193,9 @@
 
       if (s.cumulativeWater && s.cumulativeWater.value > 0) {
         $('#water-target').textContent =
-          '累计 ' + s.cumulativeWater.value + (s.cumulativeWater.unit || 'ml');
+          BrewCodeI18n.t('player.cumulative') + ' ' + s.cumulativeWater.value + (s.cumulativeWater.unit || 'ml');
       } else if (s.targetWeight && s.targetWeight.value > 0) {
-        $('#water-target').textContent = '目标秤重 ' + s.targetWeight.value + 'g';
+        $('#water-target').textContent = BrewCodeI18n.t('player.targetWeight') + ' ' + s.targetWeight.value + 'g';
       } else {
         $('#water-target').textContent = '';
       }
@@ -225,20 +229,20 @@
     }
 
     if (timerRunning) {
-      btnTimer.textContent = '暂停';
+      btnTimer.textContent = BrewCodeI18n.t('player.pause');
       btnTimer.classList.add('btn-ghost');
       btnTimer.classList.remove('btn-timer');
     } else if (s.duration && s.duration.value > 0) {
-      btnTimer.textContent = '开始计时 (' + formatTime(durationToSeconds(s.duration)) + ')';
+      btnTimer.textContent = BrewCodeI18n.t('player.startTimer') + ' (' + formatTime(durationToSeconds(s.duration)) + ')';
       btnTimer.classList.add('btn-timer');
       btnTimer.classList.remove('btn-ghost');
     }
 
     /* next button */
     if (currentStep >= total - 1) {
-      $('#btn-next').textContent = '完成';
+      $('#btn-next').textContent = BrewCodeI18n.t('player.finish');
     } else {
-      $('#btn-next').textContent = '下一步';
+      $('#btn-next').textContent = BrewCodeI18n.t('player.nextStep');
     }
   }
 
@@ -295,7 +299,7 @@
     doneView.classList.remove('hidden');
 
     const totalSteps = recipe.steps.length;
-    $('#done-msg').textContent = '共完成 ' + totalSteps + ' 个步骤。';
+    $('#done-msg').textContent = BrewCodeI18n.t('player.doneMsg') + ' ' + totalSteps + ' ' + BrewCodeI18n.t('player.doneMsgSuffix');
 
     const result = recipe.result;
     const resultDiv = $('#done-result');
@@ -318,19 +322,19 @@
       };
 
       if (result.actualBrewTime) {
-        addResult('实际用时', result.actualBrewTime.value + (result.actualBrewTime.unit || 's'));
+        addResult(BrewCodeI18n.t('player.actualTime'), result.actualBrewTime.value + (result.actualBrewTime.unit || 's'));
       }
       if (result.finalYield) {
-        addResult('出杯量', result.finalYield.value + (result.finalYield.unit || 'g'));
+        addResult(BrewCodeI18n.t('player.yield'), result.finalYield.value + (result.finalYield.unit || 'g'));
       }
       if (result.measuredTDS != null) addResult('TDS', result.measuredTDS + '%');
-      if (result.extractionYield != null) addResult('萃取率', result.extractionYield + '%');
-      if (result.rating != null) addResult('评分', result.rating + '/10');
+      if (result.extractionYield != null) addResult(BrewCodeI18n.t('player.extraction'), result.extractionYield + '%');
+      if (result.rating != null) addResult(BrewCodeI18n.t('player.rating'), result.rating + '/10');
     } else {
       resultDiv.classList.add('hidden');
     }
 
-    $('#header-step').textContent = '已完成';
+    $('#header-step').textContent = BrewCodeI18n.t('player.completed');
   }
 
   /* ── Event handlers ── */
@@ -432,7 +436,7 @@
           loadRecipe(raw);
         } catch (e) {
           console.error('[BrewPlayer] inline JSON parse failed:', e);
-          $('#load-error').textContent = '无法解析方案数据：' + e.message;
+          $('#load-error').textContent = BrewCodeI18n.t('player.parseError') + e.message;
           $('#load-error').classList.remove('hidden');
         }
       } else {
@@ -449,7 +453,7 @@
           })
           .catch(function (e) {
             console.error('[BrewPlayer] remote fetch failed:', e);
-            $('#load-error').textContent = '无法获取方案数据：' + e.message;
+            $('#load-error').textContent = BrewCodeI18n.t('player.fetchError') + e.message;
             $('#load-error').classList.remove('hidden');
           });
       }
@@ -463,6 +467,13 @@
     var forgeBase = isLocal ? 'http://localhost:8788' : 'https://forge.礼字号.中国';
     window.open(forgeBase + '/#brew=' + encodeURIComponent(JSON.stringify(recipe)), '_blank');
   });
+
+  /* language init */
+  var savedLang = localStorage.getItem('brewcode_lang');
+  if (savedLang) {
+    BrewCodeI18n.setLang(savedLang);
+  }
+  refreshI18nTexts();
 
   /* initial render */
   render();

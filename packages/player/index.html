@@ -8,6 +8,7 @@
     <title>BrewPlayer</title>
     <link rel="stylesheet" href="player.css" />
     <link rel="manifest" href="manifest.json" />
+    <script src="../common/i18n/index.js"></script>
     <style>
       .bc-navbar {
         display: flex;
@@ -129,10 +130,10 @@
       </a>
       <button class="bc-hamburger" id="bc-hamburger" aria-label="菜单">☰</button>
       <div class="bc-links" id="bc-links">
-        <a href="https://brewcode.礼字号.中国">首页</a>
-        <a href="https://player.礼字号.中国" class="active">Player</a>
-        <a href="https://repo.礼字号.中国">Repo</a>
-        <a href="https://forge.礼字号.中国">Forge</a>
+        <a href="https://brewcode.礼字号.中国" data-i18n="nav.home">首页</a>
+        <a href="https://player.礼字号.中国" class="active" data-i18n="nav.player">Player</a>
+        <a href="https://repo.礼字号.中国" data-i18n="nav.repo">Repo</a>
+        <a href="https://forge.礼字号.中国" data-i18n="nav.forge">Forge</a>
       </div>
       <div class="bc-actions">
         <button id="bc-theme-btn" title="切换主题">🌙</button>
@@ -173,9 +174,13 @@
           applyTheme(theme);
         });
         document.querySelector('#bc-lang-btn').addEventListener('click', function () {
-          lang = lang === 'zh' ? 'en' : 'zh';
-          setShared('brewcode_lang', lang);
-          applyLang(lang);
+          var newLang = BrewCodeI18n.getLang() === 'zh' ? 'en' : 'zh';
+          BrewCodeI18n.setLang(newLang);
+          setShared('brewcode_lang', newLang);
+          applyLang(newLang);
+          if (typeof refreshI18nTexts === 'function') {
+            refreshI18nTexts();
+          }
         });
         var hamburger = document.querySelector('#bc-hamburger');
         var links = document.querySelector('#bc-links');
@@ -195,28 +200,28 @@
     <div id="app">
       <div id="load-screen">
         <div class="load-inner">
-          <h1 class="brand">BrewPlayer</h1>
-          <p class="sub">载入 .brew 文件，开始冲煮</p>
+          <h1 class="brand" data-i18n="player.loadTitle">BrewPlayer</h1>
+          <p class="sub" data-i18n="player.loadSubtitle">载入 .brew 文件，开始冲煮</p>
           <div class="load-actions">
-            <button id="btn-paste" class="btn">粘贴 JSON</button>
-            <button id="btn-file" class="btn btn-ghost">打开文件</button>
+            <button id="btn-paste" class="btn" data-i18n="player.pasteJSON">粘贴 JSON</button>
+            <button id="btn-file" class="btn btn-ghost" data-i18n="player.openFile">打开文件</button>
             <input type="file" id="file-input" accept=".brew,.json" hidden />
           </div>
           <div id="paste-area" class="paste-area hidden">
-            <textarea id="paste-text" placeholder="在此粘贴 .brew 文件内容..."></textarea>
+            <textarea id="paste-text" data-i18n="player.pastePlaceholder" placeholder="在此粘贴 .brew 文件内容..."></textarea>
             <div class="paste-actions">
-              <button id="btn-load" class="btn">载入</button>
-              <button id="btn-cancel" class="btn btn-ghost">取消</button>
+              <button id="btn-load" class="btn" data-i18n="player.load">载入</button>
+              <button id="btn-cancel" class="btn btn-ghost" data-i18n="player.cancel">取消</button>
             </div>
           </div>
           <p id="load-error" class="error hidden"></p>
-          <p class="url-hint">或在 URL 后添加 ?brew=文件URL 直接打开</p>
+          <p class="url-hint" data-i18n="player.urlHint">或在 URL 后添加 ?brew=文件URL 直接打开</p>
         </div>
       </div>
 
       <div id="brew-screen" class="hidden">
         <header id="brew-header">
-          <button id="btn-back" class="btn-icon" title="返回">←</button>
+          <button id="btn-back" class="btn-icon" data-i18n="player.back" title="返回">←</button>
           <div class="header-info">
             <span id="header-name"></span>
             <span id="header-step" class="header-step"></span>
@@ -231,18 +236,18 @@
               <p id="ov-desc" class="meta"></p>
             </div>
             <div class="card card-sm">
-              <h3>咖啡豆</h3>
+              <h3 data-i18n="player.coffee">咖啡豆</h3>
               <p id="ov-coffee"></p>
             </div>
             <div class="card card-sm">
-              <h3>器具</h3>
+              <h3 data-i18n="player.equipment">器具</h3>
               <p id="ov-equipment"></p>
             </div>
             <div class="card card-sm">
-              <h3>参数</h3>
+              <h3 data-i18n="player.params">参数</h3>
               <div id="ov-recipe" class="param-grid"></div>
             </div>
-            <button id="btn-start" class="btn btn-primary btn-large">开始冲煮</button>
+            <button id="btn-start" class="btn btn-primary btn-large" data-i18n="player.startBrewing">开始冲煮</button>
           </div>
 
           <div id="step-view" class="hidden">
@@ -259,7 +264,7 @@
               <p class="step-desc" id="step-desc"></p>
 
               <div id="step-water" class="step-water hidden">
-                <span class="water-label">注水</span>
+                <span class="water-label" data-i18n="player.pourWater">注水</span>
                 <span class="water-value" id="water-value"></span>
                 <span class="water-target" id="water-target"></span>
               </div>
@@ -274,24 +279,24 @@
               </div>
 
               <div class="step-controls">
-                <button id="btn-timer" class="btn btn-timer hidden">开始计时</button>
-                <button id="btn-next" class="btn btn-primary">下一步</button>
+                <button id="btn-timer" class="btn btn-timer hidden" data-i18n="player.startTimer">开始计时</button>
+                <button id="btn-next" class="btn btn-primary" data-i18n="player.nextStep">下一步</button>
               </div>
             </div>
           </div>
 
           <div id="done-view" class="hidden">
             <div class="card done-card">
-              <h2>冲煮完成</h2>
+              <h2 data-i18n="player.brewComplete">冲煮完成</h2>
               <p id="done-msg"></p>
               <div id="done-result" class="hidden">
-                <h3>结果记录</h3>
+                <h3 data-i18n="player.results">结果记录</h3>
                 <div id="done-result-content"></div>
               </div>
               <div class="done-actions">
-                <button id="btn-restart" class="btn btn-ghost">重新开始</button>
-                <button id="btn-new" class="btn">载入新方案</button>
-                <button id="btn-back-to-forge" class="btn btn-ghost">✏️ 回 Forge 调整</button>
+                <button id="btn-restart" class="btn btn-ghost" data-i18n="player.restart">重新开始</button>
+                <button id="btn-new" class="btn" data-i18n="player.loadNew">载入新方案</button>
+                <button id="btn-back-to-forge" class="btn btn-ghost" data-i18n="player.backToForge">✏️ 回 Forge 调整</button>
               </div>
             </div>
           </div>
