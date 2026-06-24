@@ -312,6 +312,82 @@
     "keyRequired": "Please enter API Key",
     "baseRequired": "Please enter API Base URL"
   },
+  "repo": {
+    "title": "BrewRepo",
+    "subtitle": "Public Recipe Repository",
+    "loading": "Loading…",
+    "loadError": "Failed to load: ",
+    "stats": {
+      "total": "",
+      "recipes": "recipes",
+      "covers": "across",
+      "origins": "origins",
+      "brewers": "brewers"
+    },
+    "filter": {
+      "brewer": "Brewer",
+      "roast": "Roast",
+      "origin": "Origin",
+      "reset": "Clear Filters",
+      "all": "All"
+    },
+    "search": "Search",
+    "search.placeholder": "Search by name, origin, author…",
+    "noResults": "No matching recipes",
+    "showing": "Showing",
+    "recipes": "recipes",
+    "empty": "No matching recipes",
+    "emptyHint": "Try adjusting filters or search keywords",
+    "card": {
+      "viewDetail": "View Details →"
+    },
+    "detail": {
+      "coffee": "Coffee",
+      "params": "Brew Parameters",
+      "notes": "Flavor Notes",
+      "openPlayer": "Open in Player",
+      "copy": "Copy .brew Content",
+      "author": "Author: ",
+      "beans": "Beans",
+      "origin": "Origin",
+      "process": "Process",
+      "roast": "Roast Level",
+      "variety": "Variety",
+      "brewer": "Brewer",
+      "grinder": "Grinder",
+      "ratio": "Ratio",
+      "dose": "Dose",
+      "water": "Water",
+      "temp": "Temperature",
+      "time": "Brew Time",
+      "unspecified": "Unspecified"
+    },
+    "toast": {
+      "copied": "Copied .brew content to clipboard",
+      "copyFailed": "Copy failed: "
+    },
+    "footer": "BrewCode OS · CC0",
+    "filterValue": {
+      "法压壶": "French Press",
+      "爱乐压": "Aeropress",
+      "V60": "V60",
+      "Kalita Wave": "Kalita Wave",
+      "Origami": "Origami",
+      "Chemex": "Chemex",
+      "未知": "Unknown",
+      "浅烘": "Light",
+      "中烘": "Medium",
+      "深烘": "Dark",
+      "埃塞俄比亚": "Ethiopia",
+      "哥伦比亚": "Colombia",
+      "巴西": "Brazil",
+      "危地马拉": "Guatemala",
+      "哥斯达黎加": "Costa Rica",
+      "巴拿马": "Panama",
+      "印尼": "Indonesia",
+      "中国": "China"
+    }
+  },
   "common": {
     "required": " (required)",
     "optional": " (optional)",

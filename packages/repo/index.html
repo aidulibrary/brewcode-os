@@ -7,6 +7,7 @@
     <meta name="description" content="BrewCode OS BrewRepo - .brew 冲煮方案公共仓库" />
     <title>BrewRepo</title>
     <link rel="stylesheet" href="repo.css?v=20260615" />
+    <script src="common/i18n/index.js"></script>
     <style>
       .bc-navbar {
         display: flex;
@@ -128,10 +129,10 @@
       </a>
       <button class="bc-hamburger" id="bc-hamburger" aria-label="菜单">☰</button>
       <div class="bc-links" id="bc-links">
-        <a href="https://brewcode.礼字号.中国">首页</a>
-        <a href="https://player.礼字号.中国">Player</a>
-        <a href="https://repo.礼字号.中国" class="active">Repo</a>
-        <a href="https://forge.礼字号.中国">Forge</a>
+        <a href="https://brewcode.礼字号.中国" data-i18n="nav.home">首页</a>
+        <a href="https://player.礼字号.中国" data-i18n="nav.player">Player</a>
+        <a href="https://repo.礼字号.中国" class="active" data-i18n="nav.repo">Repo</a>
+        <a href="https://forge.礼字号.中国" data-i18n="nav.forge">Forge</a>
       </div>
       <div class="bc-actions">
         <button id="bc-theme-btn" title="切换主题">🌙</button>
@@ -140,11 +141,29 @@
     </nav>
     <script>
       (function () {
-        var isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        function getCookie(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : null; }
-        function setCookie(n, v) { document.cookie = n + '=' + v + '; path=/; max-age=31536000; SameSite=Lax' + (isLocal ? '' : '; domain=.礼字号.中国'); }
-        function getShared(n, d) { return getCookie(n) || localStorage.getItem(n) || d; }
-        function setShared(n, v) { localStorage.setItem(n, v); setCookie(n, v); }
+        var isLocal =
+          window.location.protocol === 'file:' ||
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1';
+        function getCookie(n) {
+          var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
+          return m ? m[2] : null;
+        }
+        function setCookie(n, v) {
+          document.cookie =
+            n +
+            '=' +
+            v +
+            '; path=/; max-age=31536000; SameSite=Lax' +
+            (isLocal ? '' : '; domain=.礼字号.中国');
+        }
+        function getShared(n, d) {
+          return getCookie(n) || localStorage.getItem(n) || d;
+        }
+        function setShared(n, v) {
+          localStorage.setItem(n, v);
+          setCookie(n, v);
+        }
         var theme = getShared('brewcode_theme', 'dark');
         var lang = getShared('brewcode_lang', 'zh');
         function applyTheme(t) {
@@ -152,14 +171,14 @@
           document.querySelector('#bc-theme-btn').textContent = t === 'dark' ? '🌙' : '☀️';
           var isDark = t === 'dark';
           var root = document.documentElement.style;
-          root.setProperty('--bg',        isDark ? '#1a1a2e' : '#f5f0eb');
-          root.setProperty('--bg-card',   isDark ? '#222244' : '#ffffff');
+          root.setProperty('--bg', isDark ? '#1a1a2e' : '#f5f0eb');
+          root.setProperty('--bg-card', isDark ? '#222244' : '#ffffff');
           root.setProperty('--bg-card-hover', isDark ? '#2a2a50' : '#f0ece6');
-          root.setProperty('--text',      isDark ? '#e0e0e8' : '#1a1a2e');
-          root.setProperty('--text-dim',  isDark ? '#8888aa' : '#666680');
-          root.setProperty('--accent',    isDark ? '#e8a850' : '#b87333');
+          root.setProperty('--text', isDark ? '#e0e0e8' : '#1a1a2e');
+          root.setProperty('--text-dim', isDark ? '#8888aa' : '#666680');
+          root.setProperty('--accent', isDark ? '#e8a850' : '#b87333');
           root.setProperty('--accent-dim', isDark ? '#c08030' : '#9a5c20');
-          root.setProperty('--border',    isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)');
+          root.setProperty('--border', isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)');
         }
         function applyLang(l) {
           document.querySelector('#bc-lang-btn').textContent = l === 'zh' ? 'EN' : '中';
@@ -172,9 +191,16 @@
           applyTheme(theme);
         });
         document.querySelector('#bc-lang-btn').addEventListener('click', function () {
-          lang = lang === 'zh' ? 'en' : 'zh';
-          setShared('brewcode_lang', lang);
-          applyLang(lang);
+          var newLang = BrewCodeI18n.getLang() === 'zh' ? 'en' : 'zh';
+          BrewCodeI18n.setLang(newLang);
+          lang = newLang;
+          setShared('brewcode_lang', newLang);
+          applyLang(newLang);
+          if (typeof refreshRepo === 'function') {
+            refreshRepo();
+          } else if (typeof refreshI18nTexts === 'function') {
+            refreshI18nTexts();
+          }
         });
         var hamburger = document.querySelector('#bc-hamburger');
         var links = document.querySelector('#bc-links');
@@ -195,38 +221,39 @@
     </script>
     <div id="app">
       <header id="top-bar">
-        <a href="../player/" class="brand">BrewRepo</a>
-        <span class="brand-sub">冲煮方案公共仓库</span>
+        <a href="../player/" class="brand" data-i18n="repo.title">BrewRepo</a>
+        <span class="brand-sub" data-i18n="repo.subtitle">冲煮方案公共仓库</span>
       </header>
 
       <div id="stats-bar">
-        <span id="stats-text">加载中…</span>
+        <span id="stats-text" data-i18n="repo.loading">加载中…</span>
       </div>
 
       <div id="filter-bar">
         <div class="filter-section">
-          <span class="filter-label">器具</span>
+          <span class="filter-label" data-i18n="repo.filter.brewer">器具</span>
           <div id="filter-brewer" class="filter-pills"></div>
         </div>
         <div class="filter-section">
-          <span class="filter-label">烘焙度</span>
+          <span class="filter-label" data-i18n="repo.filter.roast">烘焙度</span>
           <div id="filter-roast" class="filter-pills"></div>
         </div>
         <div class="filter-section">
-          <span class="filter-label">产区</span>
+          <span class="filter-label" data-i18n="repo.filter.origin">产区</span>
           <div id="filter-country" class="filter-pills"></div>
         </div>
         <div class="filter-section">
-          <span class="filter-label">搜索</span>
+          <span class="filter-label" data-i18n="repo.search">搜索</span>
           <input
             type="text"
             id="search-input"
             class="search-input"
             placeholder="搜索方案名、产区、作者…"
+            data-i18n="repo.search.placeholder"
           />
           <button id="btn-clear-search" class="btn-clear hidden">✕</button>
         </div>
-        <button id="btn-reset" class="btn-reset">清除筛选</button>
+        <button id="btn-reset" class="btn-reset" data-i18n="repo.filter.reset">清除筛选</button>
       </div>
 
       <div id="results-summary">
@@ -236,8 +263,8 @@
       <main id="card-grid"></main>
 
       <div id="empty-state" class="hidden">
-        <p class="empty-msg">没有匹配的方案</p>
-        <p class="empty-hint">试试调整筛选条件或搜索关键词</p>
+        <p class="empty-msg" data-i18n="repo.empty">没有匹配的方案</p>
+        <p class="empty-hint" data-i18n="repo.emptyHint">试试调整筛选条件或搜索关键词</p>
       </div>
 
       <div id="detail-overlay" class="hidden">
@@ -247,26 +274,30 @@
           <h2 id="detail-name"></h2>
           <p id="detail-author" class="detail-meta"></p>
           <div class="detail-section">
-            <h3>咖啡豆</h3>
+            <h3 data-i18n="repo.detail.coffee">咖啡豆</h3>
             <div id="detail-coffee" class="detail-grid"></div>
           </div>
           <div class="detail-section">
-            <h3>冲煮参数</h3>
+            <h3 data-i18n="repo.detail.params">冲煮参数</h3>
             <div id="detail-recipe" class="detail-grid"></div>
           </div>
           <div class="detail-section">
-            <h3>风味笔记</h3>
+            <h3 data-i18n="repo.detail.notes">风味笔记</h3>
             <div id="detail-flavors" class="flavor-chips"></div>
           </div>
           <div class="detail-actions">
-            <button id="btn-open-player" class="btn btn-primary">在 Player 中打开</button>
-            <button id="btn-copy-json" class="btn btn-ghost">复制 .brew 内容</button>
+            <button id="btn-open-player" class="btn btn-primary" data-i18n="repo.detail.openPlayer">
+              在 Player 中打开
+            </button>
+            <button id="btn-copy-json" class="btn btn-ghost" data-i18n="repo.detail.copy">
+              复制 .brew 内容
+            </button>
           </div>
         </div>
       </div>
 
       <footer id="footer">
-        <span>BrewCode OS · CC0</span>
+        <span data-i18n="repo.footer">BrewCode OS · CC0</span>
         <a href="https://github.com/aidulibrary/brewcode-os" target="_blank" rel="noopener"
           >GitHub</a
         >
