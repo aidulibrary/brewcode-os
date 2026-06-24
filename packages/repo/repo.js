@@ -1,10 +1,39 @@
 (function () {
   'use strict';
 
+  function refreshI18nTexts() {
+    var elements = document.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < elements.length; i++) {
+      var el = elements[i];
+      var key = el.getAttribute('data-i18n');
+      if (key) {
+        var tag = el.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA') {
+          el.placeholder = BrewCodeI18n.t(key);
+        } else {
+          el.textContent = BrewCodeI18n.t(key);
+        }
+      }
+    }
+  }
+
+  function refreshAll() {
+    refreshI18nTexts();
+    renderStats();
+    renderPills();
+    renderCards();
+  }
+
+  window.refreshI18nTexts = refreshI18nTexts;
+  window.refreshRepo = refreshAll;
+
   const $ = (s) => document.querySelector(s);
 
   /* ── Player base URL ── */
-  const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const isLocal =
+    window.location.protocol === 'file:' ||
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1';
   const PLAYER_BASE = isLocal ? 'http://localhost:8789' : 'https://player.礼字号.中国';
   const SEEDS_DIR = 'seeds/';
   const SEEDS_BASE = isLocal ? 'http://localhost:8789/seeds/' : 'https://player.礼字号.中国/seeds/';
@@ -1446,7 +1475,7 @@
       console.log('[BrewRepo] SEEDS_MANIFEST 加载完成，共 ' + allRecipes.length + ' 个方案');
       init();
     } catch (e) {
-      $('#stats-text').textContent = '加载失败：' + e.message;
+      $('#stats-text').textContent = BrewCodeI18n.t('repo.loadError') + e.message;
       console.error('[BrewRepo] 初始化失败:', e);
     }
   }
@@ -1487,7 +1516,7 @@
     items.forEach((item) => {
       const btn = document.createElement('button');
       btn.className = 'pill' + (currentActive === item ? ' active' : '');
-      btn.textContent = item;
+      btn.textContent = BrewCodeI18n.t('repo.filterValue.' + item) || item;
       btn.addEventListener('click', () => {
         if (activeFilters[filterKey] === item) {
           activeFilters[filterKey] = null;
@@ -1552,11 +1581,17 @@
 
     if (filtered.length === 0) {
       $('#empty-state').classList.remove('hidden');
-      $('#results-count').textContent = '没有匹配的方案';
+      $('#results-count').textContent = BrewCodeI18n.t('repo.noResults');
     } else {
       $('#empty-state').classList.add('hidden');
       $('#results-count').textContent =
-        '显示 ' + filtered.length + ' / ' + allRecipes.length + ' 个方案';
+        BrewCodeI18n.t('repo.showing') +
+        ' ' +
+        filtered.length +
+        ' / ' +
+        allRecipes.length +
+        ' ' +
+        BrewCodeI18n.t('repo.recipes');
     }
 
     filtered.forEach((recipe) => {
@@ -1566,6 +1601,9 @@
       const brewer = normalizeBrewer(recipe.equipment && recipe.equipment.brewer);
       const roast = normalizeRoast(recipe.coffee && recipe.coffee.roastLevel);
       const country = recipe.coffee && recipe.coffee.country;
+      const brewerText = BrewCodeI18n.t('repo.filterValue.' + brewer) || brewer;
+      const roastText = BrewCodeI18n.t('repo.filterValue.' + roast) || roast;
+      const countryText = country ? (BrewCodeI18n.t('repo.filterValue.' + country) || country) : '';
 
       card.innerHTML =
         '<div class="card-header">' +
@@ -1575,29 +1613,31 @@
         (recipe.rating ? '<span class="card-rating">' + recipe.rating + '</span>' : '') +
         '</div>' +
         '<div class="card-meta">' +
-        (country ? '<span>' + escHtml(country) + '</span>' : '') +
-        (country && recipe.equipment && recipe.equipment.brewer
+        (countryText ? '<span>' + escHtml(countryText) + '</span>' : '') +
+        (countryText && recipe.equipment && recipe.equipment.brewer
           ? '<span class="card-meta-sep">·</span>'
           : '') +
         (recipe.equipment && recipe.equipment.brewer
-          ? '<span>' + escHtml(brewer) + '</span>'
+          ? '<span>' + escHtml(brewerText) + '</span>'
           : '') +
-        (roast ? '<span class="card-meta-sep">·</span><span>' + escHtml(roast) + '</span>' : '') +
+        (roastText ? '<span class="card-meta-sep">·</span><span>' + escHtml(roastText) + '</span>' : '') +
         '</div>' +
         '<div class="card-tags">' +
         '<span class="card-tag brewer">' +
-        escHtml(brewer) +
+        escHtml(brewerText) +
         '</span>' +
         '<span class="card-tag roast">' +
-        escHtml(roast) +
+        escHtml(roastText) +
         '</span>' +
-        (country ? '<span class="card-tag country">' + escHtml(country) + '</span>' : '') +
+        (countryText ? '<span class="card-tag country">' + escHtml(countryText) + '</span>' : '') +
         '</div>' +
         '<div class="card-footer">' +
         '<span class="card-author">' +
         escHtml(recipe.author || '') +
         '</span>' +
-        '<span class="card-open">查看详情 →</span>' +
+        '<span class="card-open">' +
+        BrewCodeI18n.t('repo.card.viewDetail') +
+        '</span>' +
         '</div>';
 
       card.addEventListener('click', () => openDetail(recipe));
@@ -1609,13 +1649,21 @@
     const brewers = getUniqueBrewers();
     const countries = getUniqueCountries();
     $('#stats-text').innerHTML =
-      '共 <strong>' +
+      BrewCodeI18n.t('repo.stats.total') +
+      ' <strong>' +
       allRecipes.length +
-      '</strong> 个方案，覆盖 <strong>' +
+      '</strong> ' +
+      BrewCodeI18n.t('repo.stats.recipes') +
+      ', ' +
+      BrewCodeI18n.t('repo.stats.covers') +
+      ' <strong>' +
       countries.length +
-      '</strong> 个产区，<strong>' +
+      '</strong> ' +
+      BrewCodeI18n.t('repo.stats.origins') +
+      ', <strong>' +
       brewers.length +
-      '</strong> 种器具';
+      '</strong> ' +
+      BrewCodeI18n.t('repo.stats.brewers');
   }
 
   /* ── Detail overlay ── */
@@ -1625,22 +1673,34 @@
     const rcp = recipe.recipe || {};
 
     $('#detail-name').textContent = recipe.name;
-    $('#detail-author').textContent = recipe.author ? '作者：' + recipe.author : '';
+    $('#detail-author').textContent = recipe.author
+      ? BrewCodeI18n.t('repo.detail.author') + recipe.author
+      : '';
 
     /* coffee grid */
     const coffeeItems = [];
-    if (c.name) coffeeItems.push({ label: '豆子', value: c.name });
+    if (c.name) coffeeItems.push({ label: BrewCodeI18n.t('repo.detail.beans'), value: c.name });
     if (c.country)
-      coffeeItems.push({ label: '产区', value: c.country + (c.region ? ' / ' + c.region : '') });
-    if (c.process) coffeeItems.push({ label: '处理法', value: c.process });
-    if (c.roastLevel) coffeeItems.push({ label: '烘焙度', value: normalizeRoast(c.roastLevel) });
-    if (c.variety) coffeeItems.push({ label: '品种', value: c.variety });
+      coffeeItems.push({
+        label: BrewCodeI18n.t('repo.detail.origin'),
+        value: (BrewCodeI18n.t('repo.filterValue.' + c.country) || c.country) + (c.region ? ' / ' + c.region : ''),
+      });
+    if (c.process)
+      coffeeItems.push({ label: BrewCodeI18n.t('repo.detail.process'), value: c.process });
+    if (c.roastLevel)
+      coffeeItems.push({
+        label: BrewCodeI18n.t('repo.detail.roast'),
+        value: BrewCodeI18n.t('repo.filterValue.' + normalizeRoast(c.roastLevel)) || normalizeRoast(c.roastLevel),
+      });
+    if (c.variety)
+      coffeeItems.push({ label: BrewCodeI18n.t('repo.detail.variety'), value: c.variety });
     if (e.brewer)
       coffeeItems.push({
-        label: '器具',
-        value: e.brewer + (e.brewerSize ? ' (' + e.brewerSize + ')' : ''),
+        label: BrewCodeI18n.t('repo.detail.brewer'),
+        value: (BrewCodeI18n.t('repo.filterValue.' + normalizeBrewer(e.brewer)) || normalizeBrewer(e.brewer)) + (e.brewerSize ? ' (' + e.brewerSize + ')' : ''),
       });
-    if (e.grinder) coffeeItems.push({ label: '磨豆机', value: e.grinder });
+    if (e.grinder)
+      coffeeItems.push({ label: BrewCodeI18n.t('repo.detail.grinder'), value: e.grinder });
 
     let coffeeHtml = '';
     coffeeItems.forEach((item) => {
@@ -1658,11 +1718,15 @@
 
     /* recipe grid */
     const recipeItems = [];
-    if (rcp.ratio) recipeItems.push({ label: '粉水比', value: rcp.ratio });
-    if (rcp.dose) recipeItems.push({ label: '粉量', value: rcp.dose });
-    if (rcp.waterAmount) recipeItems.push({ label: '水量', value: rcp.waterAmount });
-    if (rcp.waterTemperature) recipeItems.push({ label: '水温', value: rcp.waterTemperature });
-    if (rcp.brewTime) recipeItems.push({ label: '冲煮时间', value: rcp.brewTime });
+    if (rcp.ratio)
+      recipeItems.push({ label: BrewCodeI18n.t('repo.detail.ratio'), value: rcp.ratio });
+    if (rcp.dose) recipeItems.push({ label: BrewCodeI18n.t('repo.detail.dose'), value: rcp.dose });
+    if (rcp.waterAmount)
+      recipeItems.push({ label: BrewCodeI18n.t('repo.detail.water'), value: rcp.waterAmount });
+    if (rcp.waterTemperature)
+      recipeItems.push({ label: BrewCodeI18n.t('repo.detail.temp'), value: rcp.waterTemperature });
+    if (rcp.brewTime)
+      recipeItems.push({ label: BrewCodeI18n.t('repo.detail.time'), value: rcp.brewTime });
 
     let recipeHtml = '';
     recipeItems.forEach((item) => {
@@ -1685,7 +1749,10 @@
         flavorsHtml += '<span class="flavor-chip">' + escHtml(f) + '</span>';
       });
     } else {
-      flavorsHtml = '<span class="detail-value" style="color:var(--text-dim)">未指定</span>';
+      flavorsHtml =
+        '<span class="detail-value" style="color:var(--text-dim)">' +
+        BrewCodeI18n.t('repo.detail.unspecified') +
+        '</span>';
     }
     $('#detail-flavors').innerHTML = flavorsHtml;
 
@@ -1701,9 +1768,9 @@
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         const text = await resp.text();
         await navigator.clipboard.writeText(text);
-        showToast('已复制 .brew 内容到剪贴板');
+        showToast(BrewCodeI18n.t('repo.toast.copied'));
       } catch (e) {
-        showToast('复制失败：' + e.message);
+        showToast(BrewCodeI18n.t('repo.toast.copyFailed') + e.message);
       }
     };
 
@@ -1780,10 +1847,15 @@
   /* ── Init ── */
   function init() {
     console.log('[BrewRepo] init() 开始: allRecipes=' + allRecipes.length);
+    var savedLang = localStorage.getItem('brewcode_lang');
+    if (savedLang) {
+      BrewCodeI18n.setLang(savedLang);
+    }
     renderStats();
     renderPills();
     renderCards();
     bindEvents();
+    refreshI18nTexts();
     console.log('[BrewRepo] init() 完成');
   }
 
