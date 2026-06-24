@@ -1029,8 +1029,8 @@ var BrewCodeI18n = (function () {
           BrewCodeI18n.setLang(newLang);
           setShared('brewcode_lang', newLang);
           applyLang(newLang);
-          if (typeof refreshI18nTexts === 'function') {
-            refreshI18nTexts();
+          if (typeof window.refreshI18nTexts === 'function') {
+            window.refreshI18nTexts();
           }
           if (typeof renderStepList === 'function') {
             renderStepList();
