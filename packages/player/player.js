@@ -16,6 +16,7 @@
       }
     }
   }
+  window.refreshI18nTexts = refreshI18nTexts;
 
   /* ── DOM refs ── */
   const $ = (s) => document.querySelector(s);

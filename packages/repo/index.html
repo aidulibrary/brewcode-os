@@ -972,10 +972,10 @@ var BrewCodeI18n = (function () {
           lang = newLang;
           setShared('brewcode_lang', newLang);
           applyLang(newLang);
-          if (typeof refreshRepo === 'function') {
-            refreshRepo();
-          } else if (typeof refreshI18nTexts === 'function') {
-            refreshI18nTexts();
+          if (typeof window.refreshRepo === 'function') {
+            window.refreshRepo();
+          } else if (typeof window.refreshI18nTexts === 'function') {
+            window.refreshI18nTexts();
           }
         });
         var hamburger = document.querySelector('#bc-hamburger');

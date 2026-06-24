@@ -33,6 +33,7 @@ function refreshI18nTexts() {
     }
   }
 }
+window.refreshI18nTexts = refreshI18nTexts;
 
 /* Schema & CodeMirror 运行态 */
 var brewSchemaValidator = null;
