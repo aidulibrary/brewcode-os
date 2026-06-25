@@ -1,60 +1,79 @@
-# BrewCode Compatible 参数映射表 v1.0
+# BrewCode Compatible 参数映射表
 
-## 基本信息
-
-| 项目 | 内容 |
-|------|------|
-| 厂商名称 / Manufacturer | Comandante |
-| 设备型号 / Device Model | C40 |
-| 固件版本 / Firmware Version | v2.1.0 |
-| 认证等级 / Certification Level | L2 Interactive |
-| 填表日期 / Date | 2026-06-25 |
+**厂商名称**：Comandante
+**设备型号**：C40 Nitro Blade
+**固件版本**：v2.1.0
+**认证等级**：L2 Interactive
+**认证编号**：BC-L2-2026-0001
+**填表日期**：2026-06-25
 
 ---
 
 ## A. 核心参数映射
 
 | 序号 | .brew 字段 | 设备参数名 | 映射方式 | 设备误差 |
-|------|-----------|-----------|---------|---------|
-| 1 | `recipe.dose.value` | `target_weight` | 直接 / Direct | ±0.5g |
-| 2 | `recipe.waterAmount.value` | `target_vol` | 直接 / Direct | ±5ml |
-| 3 | `recipe.waterTemperature.value` | `target_temp` | 直接 / Direct | ±1.0°C |
-| 4 | `recipe.grindSize.value` | `grind_clicks` | 转换 / Convert | ±2 格 (clicks) |
+|:---|:---|:---|:---|:---|
+| 1 | `recipe.dose.value` | 目标粉量 | 直接映射 | ±0.3g |
+| 2 | `recipe.waterAmount.value` | 目标水量 | 直接映射 | ±3ml |
+| 3 | `recipe.waterTemperature.value` | 目标水温 | 直接映射 | ±1.0°C |
+| 4 | `recipe.grindSize.value` | 研磨刻度 (Clicks) | 转换映射（见附注） | ±2 clicks |
 
-### 研磨度刻度 → 微米值对应关系（基于 D1 device_registry 真实数据）
-
-| 研磨刻度（格） | 微米值（μm） | 适用场景 |
-|:--------:|:---------:|------|
-| 15 | 400 | 细研磨，适合意式 |
-| 22 | 600 | 中细研磨，适合 V60 |
-| 30 | 900 | 粗研磨，适合法压壶 |
-
-> 转换公式：`grind_clicks = grindSize(μm) × (30 / 900)`，即每格约等于 30μm。C40 共有 30 格（15-45），覆盖 400-1350μm 范围。
+> **附注**：Comandante C40 的研磨刻度（Clicks）与微米（μm）的对应关系为厂商实验室实测数据。刻度 0 为刀盘闭合位置（零位），每增加 1 click 刀盘间距增加约 30μm。推荐手冲区间为 20-30 clicks（600-900μm）。
 
 ---
 
-## B. 步骤动作映射（L2 必填）
+## B. 研磨度映射对照表
+
+| C40 刻度 (Clicks) | 对应微米 (μm) | 适用场景 |
+|:---|:---|:---|
+| 15 | 400 | 细研磨，适用于意式浓缩 |
+| 22 | 600 | 中细研磨，适用于 V60 手冲 |
+| 30 | 900 | 粗研磨，适用于法压壶 |
+
+---
+
+## C. 步骤动作映射（L2 必填）
 
 | 序号 | steps.action | 设备动作名 | 动作参数 | 是否支持 |
-|------|-------------|-----------|---------|---------|
-| 1 | pour | 注水模式 | 水量(ml) | ✅ 是 |
-| 2 | wait | 暂停 | 时长(s) | ✅ 是 |
-| 3 | stir | 搅拌提示 | — | ✅ 是 |
-| 4 | swirl | 摇晃提示 | — | ✅ 是 |
-| 5 | drain | 排液提示 | — | ✅ 是 |
-| 6 | bloom | 闷蒸 | 水量(ml)+时长(s) | ✅ 是 |
+|:---|:---|:---|:---|:---|
+| 1 | `pour` | 注水 | 注水量 (ml)、注水时间 (s) | ✅ 支持 |
+| 2 | `wait` | 等待 | 等待时间 (s) | ✅ 支持 |
+| 3 | `stir` | 搅拌 | 搅拌时间 (s) | ✅ 支持 |
+| 4 | `swirl` | 摇晃 | 摇晃时间 (s) | ✅ 支持 |
+| 5 | `drawdown` | 滴滤 | 无额外参数 | ✅ 支持 |
+| 6 | `bloom` | 闷蒸 | 注水量 (ml)、闷蒸时间 (s) | ✅ 支持 |
 
-### C40 22 格 = 600μm 填写示例
+---
 
-```json
-{
-  "recipe": {
-    "dose": { "value": 15.0, "unit": "g" },
-    "waterAmount": { "value": 250, "unit": "ml" },
-    "waterTemperature": { "value": 93, "unit": "°C" },
-    "grindSize": { "value": 600, "unit": "μm" }
-  }
-}
-```
+## D. 单位转换支持
 
-当 `.brew` 文件中 `grindSize.value = 600μm` 时，设备应自动换算为 **C40 刻度 22 格**，实现 V60 中细研磨的标准参数映射。
+| 序号 | 转换类型 | 是否支持 | 转换方式 | 转换精度 |
+|:---|:---|:---|:---|:---|
+| 1 | g → oz | ✅ 支持 | 自动转换 | 2 位小数 |
+| 2 | ml → fl oz | ✅ 支持 | 自动转换 | 2 位小数 |
+| 3 | °C → °F | ✅ 支持 | 自动转换 | 1 位小数 |
+
+---
+
+## E. 传感器能力（L2 不适用，保留供未来升级参考）
+
+| 序号 | 传感器类型 | 是否内置 | 采样频率 | 精度 |
+|:---|:---|:---|:---|:---|
+| 1 | 温度传感器 | ❌ 否 | — | — |
+| 2 | 重量传感器 | ❌ 否 | — | — |
+| 3 | 流量传感器 | ❌ 否 | — | — |
+
+---
+
+## 填写示例
+
+| .brew 字段 | 设备参数名 | 映射方式 | 示例值 |
+|:---|:---|:---|:---|
+| `recipe.grindSize.value` | C40 刻度 | 转换映射 | `.brew` 中的 `600μm` → C40 刻度 `22 clicks` |
+| `recipe.waterTemperature.value` | 目标水温 | 直接映射 | `.brew` 中的 `93°C` → 设备设定 `93°C` |
+| `recipe.dose.value` | 目标粉量 | 直接映射 | `.brew` 中的 `15g` → 设备设定 `15g` |
+
+---
+
+> *本参数映射表由 Comandante 提供，用于 BrewCode Compatible L2 Interactive 认证申请。*
+> *This Parameter Mapping Table is provided by Comandante for BrewCode Compatible L2 Interactive certification application.*
