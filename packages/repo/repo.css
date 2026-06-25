@@ -319,6 +319,85 @@ body {
   font-weight: 500;
 }
 
+/* ── Community Section ── */
+#community-section {
+  margin-bottom: 24px;
+}
+
+.community-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+#community-grid.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.community-card {
+  position: relative;
+  border-top: 3px solid #e6b325;
+}
+
+.community-tag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #e6b325;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  line-height: 1.2;
+}
+
+.community-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.community-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.community-author-name {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+#community-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+#community-empty .empty-msg {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 0;
+}
+
+#community-empty a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+#community-empty a:hover {
+  text-decoration: underline;
+}
+
 /* ── Empty State ── */
 #empty-state {
   flex: 1;
@@ -538,6 +617,10 @@ body {
     grid-template-columns: 1fr 1fr;
   }
 
+  #community-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .detail-card {
     border-radius: 16px;
     margin-bottom: 24px;
@@ -550,6 +633,10 @@ body {
 
 @media (min-width: 900px) {
   #card-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  #community-grid {
     grid-template-columns: 1fr 1fr 1fr;
   }
 
@@ -575,7 +662,7 @@ body {
 /* ══════════════════════════════════════════════════════════
    Light Theme Overrides
    ══════════════════════════════════════════════════════════ */
-[data-theme="light"] {
+[data-theme='light'] {
   /* Navigation Bar */
   .bc-navbar {
     background: #f5f0eb;

@@ -22,6 +22,7 @@
     renderStats();
     renderPills();
     renderCards();
+    renderCommunityCards();
   }
 
   window.refreshI18nTexts = refreshI18nTexts;
@@ -40,6 +41,7 @@
 
   /* ── State ── */
   let allRecipes = [];
+  let communityRecipes = [];
   let activeFilters = { brewer: null, roast: null, country: null };
   let searchQuery = '';
 
@@ -1480,6 +1482,24 @@
     }
   }
 
+  function loadCommunityRecipes() {
+    fetch('community-recipes.json')
+      .then(function (resp) {
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        return resp.json();
+      })
+      .then(function (data) {
+        communityRecipes = Array.isArray(data) ? data : [];
+        console.log('[BrewRepo] 社区方案加载完成，共 ' + communityRecipes.length + ' 个');
+        renderCommunityCards();
+      })
+      .catch(function (e) {
+        console.error('[BrewRepo] 社区方案加载失败:', e);
+        communityRecipes = [];
+        renderCommunityCards();
+      });
+  }
+
   /* ── Extract metadata ── */
   function getUniqueBrewers() {
     const set = new Set();
@@ -1603,7 +1623,7 @@
       const country = recipe.coffee && recipe.coffee.country;
       const brewerText = BrewCodeI18n.t('repo.filterValue.' + brewer) || brewer;
       const roastText = BrewCodeI18n.t('repo.filterValue.' + roast) || roast;
-      const countryText = country ? (BrewCodeI18n.t('repo.filterValue.' + country) || country) : '';
+      const countryText = country ? BrewCodeI18n.t('repo.filterValue.' + country) || country : '';
 
       card.innerHTML =
         '<div class="card-header">' +
@@ -1620,7 +1640,9 @@
         (recipe.equipment && recipe.equipment.brewer
           ? '<span>' + escHtml(brewerText) + '</span>'
           : '') +
-        (roastText ? '<span class="card-meta-sep">·</span><span>' + escHtml(roastText) + '</span>' : '') +
+        (roastText
+          ? '<span class="card-meta-sep">·</span><span>' + escHtml(roastText) + '</span>'
+          : '') +
         '</div>' +
         '<div class="card-tags">' +
         '<span class="card-tag brewer">' +
@@ -1641,6 +1663,80 @@
         '</div>';
 
       card.addEventListener('click', () => openDetail(recipe));
+      grid.appendChild(card);
+    });
+  }
+
+  function renderCommunityCards() {
+    var section = $('#community-section');
+    var grid = $('#community-grid');
+    var empty = $('#community-empty');
+
+    if (!section || !grid || !empty) return;
+
+    if (communityRecipes.length === 0) {
+      section.querySelector('.community-title').classList.add('hidden');
+      grid.innerHTML = '';
+      empty.classList.remove('hidden');
+      return;
+    }
+
+    section.querySelector('.community-title').classList.remove('hidden');
+    empty.classList.add('hidden');
+    grid.innerHTML = '';
+
+    communityRecipes.forEach(function (recipe) {
+      var card = document.createElement('div');
+      card.className = 'recipe-card community-card';
+
+      var brewer = recipe.brewer || '';
+      var roast = normalizeRoast(recipe.roastLevel);
+      var roastText = BrewCodeI18n.t('repo.filterValue.' + roast) || roast;
+      var brewerText = BrewCodeI18n.t('repo.filterValue.' + brewer) || brewer;
+
+      card.innerHTML =
+        '<div class="card-header">' +
+        '<span class="card-name">' +
+        escHtml(recipe.name) +
+        '</span>' +
+        '<span class="community-tag" data-i18n="repo.community.tag">' +
+        BrewCodeI18n.t('repo.community.tag') +
+        '</span>' +
+        '</div>' +
+        '<div class="community-author">' +
+        (recipe.authorAvatarUrl
+          ? '<img class="community-avatar" src="' +
+            escHtml(recipe.authorAvatarUrl) +
+            '" alt="" width="20" height="20" loading="lazy" />'
+          : '') +
+        '<span class="community-author-name">' +
+        escHtml(recipe.author || '') +
+        '</span>' +
+        '</div>' +
+        '<div class="card-meta">' +
+        (recipe.coffeeName ? '<span>' + escHtml(recipe.coffeeName) + '</span>' : '') +
+        (recipe.coffeeName && brewer ? '<span class="card-meta-sep">·</span>' : '') +
+        (brewer ? '<span>' + escHtml(brewerText) + '</span>' : '') +
+        (roastText
+          ? '<span class="card-meta-sep">·</span><span>' + escHtml(roastText) + '</span>'
+          : '') +
+        '</div>' +
+        '<div class="card-tags">' +
+        (brewerText ? '<span class="card-tag brewer">' + escHtml(brewerText) + '</span>' : '') +
+        (roastText ? '<span class="card-tag roast">' + escHtml(roastText) + '</span>' : '') +
+        '</div>' +
+        '<div class="card-footer">' +
+        '<span class="card-author">' +
+        escHtml(recipe.author || '') +
+        '</span>' +
+        '<span class="card-open">' +
+        BrewCodeI18n.t('repo.card.viewDetail') +
+        '</span>' +
+        '</div>';
+
+      card.addEventListener('click', function () {
+        openCommunityDetail(recipe);
+      });
       grid.appendChild(card);
     });
   }
@@ -1683,21 +1779,27 @@
     if (c.country)
       coffeeItems.push({
         label: BrewCodeI18n.t('repo.detail.origin'),
-        value: (BrewCodeI18n.t('repo.filterValue.' + c.country) || c.country) + (c.region ? ' / ' + c.region : ''),
+        value:
+          (BrewCodeI18n.t('repo.filterValue.' + c.country) || c.country) +
+          (c.region ? ' / ' + c.region : ''),
       });
     if (c.process)
       coffeeItems.push({ label: BrewCodeI18n.t('repo.detail.process'), value: c.process });
     if (c.roastLevel)
       coffeeItems.push({
         label: BrewCodeI18n.t('repo.detail.roast'),
-        value: BrewCodeI18n.t('repo.filterValue.' + normalizeRoast(c.roastLevel)) || normalizeRoast(c.roastLevel),
+        value:
+          BrewCodeI18n.t('repo.filterValue.' + normalizeRoast(c.roastLevel)) ||
+          normalizeRoast(c.roastLevel),
       });
     if (c.variety)
       coffeeItems.push({ label: BrewCodeI18n.t('repo.detail.variety'), value: c.variety });
     if (e.brewer)
       coffeeItems.push({
         label: BrewCodeI18n.t('repo.detail.brewer'),
-        value: (BrewCodeI18n.t('repo.filterValue.' + normalizeBrewer(e.brewer)) || normalizeBrewer(e.brewer)) + (e.brewerSize ? ' (' + e.brewerSize + ')' : ''),
+        value:
+          (BrewCodeI18n.t('repo.filterValue.' + normalizeBrewer(e.brewer)) ||
+            normalizeBrewer(e.brewer)) + (e.brewerSize ? ' (' + e.brewerSize + ')' : ''),
       });
     if (e.grinder)
       coffeeItems.push({ label: BrewCodeI18n.t('repo.detail.grinder'), value: e.grinder });
@@ -1783,6 +1885,77 @@
     document.body.style.overflow = '';
   }
 
+  function openCommunityDetail(recipe) {
+    var coffeeName = recipe.coffeeName || '';
+    var brewerName = recipe.brewer || '';
+    var roastLevel = recipe.roastLevel || '';
+
+    $('#detail-name').textContent = recipe.name;
+    $('#detail-author').textContent = recipe.author
+      ? BrewCodeI18n.t('repo.detail.author') + recipe.author
+      : '';
+
+    var coffeeItems = [];
+    if (coffeeName)
+      coffeeItems.push({ label: BrewCodeI18n.t('repo.detail.beans'), value: coffeeName });
+    if (roastLevel)
+      coffeeItems.push({
+        label: BrewCodeI18n.t('repo.detail.roast'),
+        value:
+          BrewCodeI18n.t('repo.filterValue.' + normalizeRoast(roastLevel)) ||
+          normalizeRoast(roastLevel),
+      });
+    if (brewerName)
+      coffeeItems.push({
+        label: BrewCodeI18n.t('repo.detail.brewer'),
+        value:
+          BrewCodeI18n.t('repo.filterValue.' + normalizeBrewer(brewerName)) ||
+          normalizeBrewer(brewerName),
+      });
+
+    var coffeeHtml = '';
+    coffeeItems.forEach(function (item) {
+      coffeeHtml +=
+        '<div class="detail-item">' +
+        '<span class="detail-label">' +
+        escHtml(item.label) +
+        '</span>' +
+        '<span class="detail-value">' +
+        escHtml(item.value) +
+        '</span>' +
+        '</div>';
+    });
+    $('#detail-coffee').innerHTML = coffeeHtml;
+
+    $('#detail-recipe').innerHTML = '';
+
+    var flavorsHtml =
+      '<span class="detail-value" style="color:var(--text-dim)">' +
+      BrewCodeI18n.t('repo.detail.unspecified') +
+      '</span>';
+    $('#detail-flavors').innerHTML = flavorsHtml;
+
+    $('#btn-open-player').onclick = function () {
+      var playerUrl = PLAYER_BASE + '?brew=' + encodeURIComponent(recipe.filePath);
+      window.open(playerUrl, '_blank');
+    };
+
+    $('#btn-copy-json').onclick = async function () {
+      try {
+        var resp = await fetch(recipe.filePath);
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        var text = await resp.text();
+        await navigator.clipboard.writeText(text);
+        showToast(BrewCodeI18n.t('repo.toast.copied'));
+      } catch (e) {
+        showToast(BrewCodeI18n.t('repo.toast.copyFailed') + e.message);
+      }
+    };
+
+    $('#detail-overlay').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
   /* ── Toast ── */
   let toastTimer = null;
   function showToast(msg) {
@@ -1856,6 +2029,7 @@
     renderCards();
     bindEvents();
     refreshI18nTexts();
+    loadCommunityRecipes();
     console.log('[BrewRepo] init() 完成');
   }
 
