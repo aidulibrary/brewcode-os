@@ -60,6 +60,7 @@
             'nav.player': 'Player',
             'nav.repo': 'Repo',
             'nav.forge': 'Forge',
+            'nav.certified': '认证设备',
             'player.loadTitle': 'BrewPlayer',
             'player.loadSubtitle': '载入 .brew 文件，开始冲煮',
             'player.pasteJSON': '粘贴 JSON',
@@ -415,6 +416,7 @@
             'nav.player': 'Player',
             'nav.repo': 'Repo',
             'nav.forge': 'Forge',
+            'nav.certified': 'Certified',
             'player.loadTitle': 'BrewPlayer',
             'player.loadSubtitle': 'Load a .brew file and start brewing',
             'player.pasteJSON': 'Paste JSON',
@@ -837,6 +839,8 @@
       }
       .bc-navbar .bc-links a.active {
         color: var(--accent, #e8a850);
+        text-decoration: underline;
+        text-underline-offset: 4px;
         border-bottom: 2px solid var(--accent, #e8a850);
       }
       .bc-navbar .bc-links a:hover {
@@ -912,6 +916,7 @@
         <a href="https://player.礼字号.中国" class="active" data-i18n="nav.player">Player</a>
         <a href="https://repo.礼字号.中国" data-i18n="nav.repo">Repo</a>
         <a href="https://forge.礼字号.中国" data-i18n="nav.forge">Forge</a>
+        <a href="https://compatible.礼字号.中国" target="_blank" rel="noopener" data-i18n="nav.certified">认证设备</a>
       </div>
       <div class="bc-actions">
         <button id="bc-theme-btn" title="切换主题">🌙</button>
@@ -964,6 +969,7 @@
         }
         applyTheme(theme);
         applyLang(lang);
+        BrewCodeI18n.setLang(lang);
         document.querySelector('#bc-theme-btn').addEventListener('click', function () {
           theme = theme === 'dark' ? 'light' : 'dark';
           setShared('brewcode_theme', theme);
