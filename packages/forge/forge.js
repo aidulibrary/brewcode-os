@@ -1222,6 +1222,116 @@ function exportBrewFile() {
 }
 
 /* ================================================================
+ * 提交到 BrewRepo — GitHub PR 一键创建
+ * ================================================================ */
+
+function slugify(text) {
+  return text.replace(/[^\w\u4e00-\u9fff]+/g, '-').replace(/^-+|-+$/g, '') || 'untitled';
+}
+
+function submitToBrewRepo() {
+  collectFormToState();
+  collectResultToState();
+
+  var brew = buildBrewJSON();
+  var jsonStr = JSON.stringify(brew, null, 2);
+  var name = editorState.meta.name || 'untitled';
+  var slug = slugify(name);
+  var filePath = 'seeds/community/' + slug + '.brew.json';
+
+  var descLines = [];
+  descLines.push('## 方案信息');
+  descLines.push('');
+  descLines.push('**方案名称：** ' + (editorState.meta.name || '未命名'));
+  if (editorState.meta.description) {
+    descLines.push('**方案描述：** ' + editorState.meta.description);
+  }
+  descLines.push('');
+
+  descLines.push('## 咖啡豆信息');
+  descLines.push('');
+  if (editorState.coffee.name) {
+    descLines.push('- **咖啡豆：** ' + editorState.coffee.name);
+  }
+  if (editorState.coffee.variety) {
+    descLines.push('- **豆种：** ' + editorState.coffee.variety);
+  }
+  if (editorState.coffee.origin.country) {
+    descLines.push('- **产国：** ' + editorState.coffee.origin.country);
+  }
+  if (editorState.coffee.origin.region) {
+    descLines.push('- **产区：** ' + editorState.coffee.origin.region);
+  }
+  if (editorState.coffee.origin.altitude) {
+    descLines.push('- **海拔：** ' + editorState.coffee.origin.altitude);
+  }
+  if (editorState.coffee.process) {
+    descLines.push('- **处理法：** ' + editorState.coffee.process);
+  }
+  if (editorState.coffee.roastLevel) {
+    descLines.push('- **烘焙度：** ' + editorState.coffee.roastLevel);
+  }
+  descLines.push('');
+
+  descLines.push('## 器具信息');
+  descLines.push('');
+  if (editorState.equipment.brewer) {
+    descLines.push('- **冲煮器具：** ' + editorState.equipment.brewer);
+  }
+  if (editorState.equipment.grinder) {
+    descLines.push('- **磨豆机：** ' + editorState.equipment.grinder);
+  }
+  if (editorState.equipment.kettle) {
+    descLines.push('- **手冲壶：** ' + editorState.equipment.kettle);
+  }
+  if (editorState.equipment.scale) {
+    descLines.push('- **电子秤：** ' + editorState.equipment.scale);
+  }
+  descLines.push('');
+
+  descLines.push('## 冲煮参数');
+  descLines.push('');
+  var dose = editorState.recipe.dose;
+  if (dose && dose.value) {
+    descLines.push('- **粉量：** ' + dose.value + 'g');
+  }
+  var water = editorState.recipe.waterAmount;
+  if (water && water.value) {
+    descLines.push('- **总注水量：** ' + water.value + 'ml');
+  }
+  if (editorState.recipe.ratio) {
+    descLines.push('- **粉水比：** ' + editorState.recipe.ratio);
+  }
+  var temp = editorState.recipe.waterTemperature;
+  if (temp && temp.value) {
+    descLines.push('- **水温：** ' + temp.value + '°C');
+  }
+  descLines.push('');
+
+  descLines.push('## 作者');
+  descLines.push('');
+  descLines.push(editorState.meta.author || '未署名');
+
+  var prTitle = '[方案提交] ' + name;
+  var message = prTitle + '\n\n' + descLines.join('\n');
+
+  var encodedValue = encodeURIComponent(jsonStr);
+  var encodedMessage = encodeURIComponent(message);
+  var encodedFilename = encodeURIComponent(filePath);
+
+  var url =
+    'https://github.com/brewcode-os/brewcode-os/new/main' +
+    '?filename=' +
+    encodedFilename +
+    '&value=' +
+    encodedValue +
+    '&message=' +
+    encodedMessage;
+
+  window.open(url, '_blank');
+}
+
+/* ================================================================
  * JSON → State 回填
  * ================================================================ */
 
@@ -2169,6 +2279,7 @@ document.addEventListener('DOMContentLoaded', function () {
   refreshI18nTexts();
 
   $('#btn-export').addEventListener('click', exportBrewFile);
+  $('#btn-submit-to-repo').addEventListener('click', submitToBrewRepo);
   $('#btn-open-in-player').addEventListener('click', function () {
     collectFormToState();
     var json = encodeURIComponent(JSON.stringify(buildBrewJSON()));
