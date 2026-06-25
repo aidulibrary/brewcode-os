@@ -5,7 +5,7 @@
 //       v1.1 扩展返回认证信息字段
 //       v1.2 实现向后兼容机制，未认证设备返回 null
 // 请求: GET /api/translate?device=Comandante+C40&setting=22
-// 响应: { "device": "...", "setting": "...", "micron": 600, "description": "...", "certification": { "level": "L2", "date": "2026-06-25", "firmware": "v2.1.0", "mapping_url": "…", "logo_url": "…" } }
+// 响应: { "device": "...", "setting": "...", "micron": 600, "description": "...", "cert": { "level": "L2", "date": "2026-06-25", "firmware": "v2.1.0", "param_mapping_url": "…", "logo_url": "…" } }
 // ============================================================
 
 const CORS_HEADERS = {
@@ -66,24 +66,25 @@ export default {
         );
       }
 
-      const isCertified = row.certification_level !== null;
+      const isCertified = row.certification_level !== null && row.certification_level !== '';
 
-      return json(
-        {
-          device: row.device_name,
-          setting: row.setting,
-          micron: row.micron_value,
-          description: row.description,
-          certification: {
-            level: isCertified ? row.certification_level : null,
-            date: isCertified ? row.certification_date : null,
-            firmware: isCertified ? row.firmware_version : null,
-            mapping_url: isCertified ? row.param_mapping_url : null,
-            logo_url: isCertified ? row.brewcode_compatible_logo_url : null,
-          },
-        },
-        200
-      );
+      const responseBody = {
+        device: row.device_name,
+        setting: row.setting,
+        micron: row.micron_value,
+        description: row.description,
+        cert: isCertified
+          ? {
+              level: row.certification_level,
+              date: row.certification_date,
+              firmware: row.firmware_version,
+              param_mapping_url: row.param_mapping_url,
+              logo_url: row.brewcode_compatible_logo_url,
+            }
+          : null,
+      };
+
+      return json(responseBody, 200);
     } catch (e) {
       return json(
         {
