@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="description" content="BrewCode OS - 已认证设备列表" />
+    <title>BrewCode Certified - 认证设备库</title>
+    <link rel="stylesheet" href="certifications.css?v=20260625" />
+    <script>
+      /*
+       * BrewCode OS i18n — 通用多语言加载器
+       * 零框架依赖，词条内嵌，file:// 和 HTTP 双环境兼容
+       */
+
+      var BrewCodeI18n = (function () {
+        'use strict';
+
+        var lang = 'zh';
+        var loaded = false;
+        var callbacks = [];
+
+        var DICT = {
+          zh: {
+            'nav.home': '首页',
+            'nav.player': 'Player',
+            'nav.repo': 'Repo',
+            'nav.forge': 'Forge',
+            'nav.cert': '认证设备',
+            'title.brand': 'BrewCode',
+            'title.sub': '兼容认证设备库',
+            'stats.total': '共',
+            'stats.devices': '台认证设备',
+            'filter.all': '全部',
+            'filter.l1': 'L1 Ready',
+            'filter.l2': 'L2 Interactive',
+            'filter.l3': 'L3 Native',
+            loading: '加载中…',
+            'error.load': '加载失败，请稍后重试',
+            empty: '暂无认证设备',
+            'empty.hint': '第一台设备正在认证路上…',
+            'cert.id': '认证编号',
+            'cert.manufacturer': '厂商',
+            'cert.model': '型号',
+            'cert.level': '等级',
+            'cert.date': '认证日期',
+            'cert.description': '描述',
+            'cert.paramMapping': '参数映射',
+            'detail.close': '关闭',
+            'apply.title': '申请认证',
+            'apply.desc': '您的设备也想加入？',
+            'apply.button': '提交认证申请',
+            'footer.license': 'BrewCode OS · CC0',
+            'level.l1.name': '就绪级',
+            'level.l2.name': '交互级',
+            'level.l3.name': '原生级',
+            'level.l1.desc': '核心参数接收',
+            'level.l2.desc': '步骤序列执行',
+            'level.l3.desc': '数据记录回写',
+          },
+          en: {
+            'nav.home': 'Home',
+            'nav.player': 'Player',
+            'nav.repo': 'Repo',
+            'nav.forge': 'Forge',
+            'nav.cert': 'Certified',
+            'title.brand': 'BrewCode',
+            'title.sub': 'Certified Devices',
+            'stats.total': 'Total',
+            'stats.devices': 'certified devices',
+            'filter.all': 'All',
+            'filter.l1': 'L1 Ready',
+            'filter.l2': 'L2 Interactive',
+            'filter.l3': 'L3 Native',
+            loading: 'Loading…',
+            'error.load': 'Failed to load, please try again later',
+            empty: 'No certified devices yet',
+            'empty.hint': 'First device is on the way…',
+            'cert.id': 'Cert ID',
+            'cert.manufacturer': 'Manufacturer',
+            'cert.model': 'Model',
+            'cert.level': 'Level',
+            'cert.date': 'Certified Date',
+            'cert.description': 'Description',
+            'cert.paramMapping': 'Parameter Mapping',
+            'detail.close': 'Close',
+            'apply.title': 'Apply Certification',
+            'apply.desc': 'Want to add your device?',
+            'apply.button': 'Submit Application',
+            'footer.license': 'BrewCode OS · CC0',
+            'level.l1.name': 'L1 Ready',
+            'level.l2.name': 'L2 Interactive',
+            'level.l3.name': 'L3 Native',
+            'level.l1.desc': 'Core params reception',
+            'level.l2.desc': 'Step sequence execution',
+            'level.l3.desc': 'Data recording & write-back',
+          },
+        };
+
+        function t(key) {
+          var dict = DICT[lang] || DICT['zh'];
+          return dict[key] || key;
+        }
+
+        function setLang(newLang) {
+          lang = newLang;
+          refreshTexts();
+          if (window.refreshCertPage) {
+            window.refreshCertPage();
+          }
+        }
+
+        function refreshTexts() {
+          var elements = document.querySelectorAll('[data-i18n]');
+          for (var i = 0; i < elements.length; i++) {
+            var el = elements[i];
+            var key = el.getAttribute('data-i18n');
+            if (key) {
+              var tag = el.tagName;
+              if (tag === 'INPUT' || tag === 'TEXTAREA') {
+                el.placeholder = t(key);
+              } else {
+                el.textContent = t(key);
+              }
+            }
+          }
+        }
+
+        return {
+          t: t,
+          setLang: setLang,
+          refreshTexts: refreshTexts,
+        };
+      })();
+
+      window.BrewCodeI18n = BrewCodeI18n;
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <nav id="bc-navbar">
+        <div class="bc-brand">BrewCode <span class="bc-brand-light">Certified</span></div>
+        <div class="bc-links">
+          <a href="../" data-i18n="nav.home">首页</a>
+          <a href="../player/" data-i18n="nav.player">Player</a>
+          <a href="../packages/repo/" data-i18n="nav.repo">Repo</a>
+          <a href="../packages/forge/" data-i18n="nav.forge">Forge</a>
+          <a href="./" class="active" data-i18n="nav.cert">认证设备</a>
+        </div>
+        <button class="bc-hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+
+      <header id="top-bar">
+        <h1>
+          <span class="brand" data-i18n="title.brand">BrewCode</span>
+          <span class="brand-sub" data-i18n="title.sub">兼容认证设备库</span>
+        </h1>
+      </header>
+
+      <div id="stats-bar">
+        <div id="stats-text" data-i18n="loading">加载中…</div>
+      </div>
+
+      <div id="filter-bar">
+        <div class="filter-section">
+          <div id="filter-levels" class="filter-pills"></div>
+        </div>
+      </div>
+
+      <div id="loading-state" class="state-container">
+        <div class="loading-spinner"></div>
+        <p data-i18n="loading">加载中…</p>
+      </div>
+
+      <div id="error-state" class="state-container hidden">
+        <p class="empty-msg" data-i18n="error.load">加载失败，请稍后重试</p>
+      </div>
+
+      <div id="empty-state" class="state-container hidden">
+        <p class="empty-msg" data-i18n="empty">暂无认证设备</p>
+        <p class="empty-hint" data-i18n="empty.hint">第一台设备正在认证路上…</p>
+      </div>
+
+      <div id="devices-grid" class="devices-grid hidden"></div>
+
+      <div id="apply-section">
+        <div class="apply-card">
+          <div class="apply-info">
+            <p class="apply-title" data-i18n="apply.title">申请认证</p>
+            <p class="apply-desc" data-i18n="apply.desc">您的设备也想加入？</p>
+          </div>
+          <a
+            href="https://github.com/brewcode-os/brewcode-os/issues/new?template=certification-application.yml"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-primary"
+            data-i18n="apply.button"
+          >
+            提交认证申请
+          </a>
+        </div>
+      </div>
+
+      <footer id="footer">
+        <span data-i18n="footer.license">BrewCode OS · CC0</span>
+        <a href="https://github.com/brewcode-os/brewcode-os" target="_blank" rel="noopener"
+          >GitHub</a
+        >
+      </footer>
+    </div>
+
+    <div id="detail-overlay" class="hidden">
+      <div class="detail-backdrop"></div>
+      <div class="detail-card">
+        <div class="detail-header">
+          <div class="detail-logo-container" id="detail-logo-container">
+            <img id="detail-logo" alt="" />
+          </div>
+          <h2 id="detail-model"></h2>
+          <p id="detail-manufacturer"></p>
+          <span id="detail-level-badge" class="level-badge"></span>
+        </div>
+        <div class="detail-content">
+          <div class="detail-row">
+            <span class="detail-label" data-i18n="cert.id">认证编号</span>
+            <span id="detail-id" class="detail-value"></span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label" data-i18n="cert.date">认证日期</span>
+            <span id="detail-date" class="detail-value"></span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label" data-i18n="cert.description">描述</span>
+            <p id="detail-description" class="detail-description-text"></p>
+          </div>
+          <div class="detail-level-info" id="detail-level-info"></div>
+        </div>
+        <div class="detail-actions">
+          <a
+            id="detail-mapping-link"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-primary"
+          >
+            <span data-i18n="cert.paramMapping">参数映射</span>
+          </a>
+          <button id="btn-detail-close" class="btn btn-ghost" data-i18n="detail.close">关闭</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="certifications.js?v=20260625"></script>
+  </body>
+</html>
