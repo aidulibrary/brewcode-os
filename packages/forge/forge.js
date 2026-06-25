@@ -2304,6 +2304,11 @@ document.addEventListener('DOMContentLoaded', function () {
       var encoded = window.location.hash.slice(6);
       var json = JSON.parse(decodeURIComponent(encoded));
       loadBrewJSON(json);
+      syncFormFromState();
+      syncResultFromState();
+      renderStepList();
+      var hashErrors = validateState();
+      updateValidationBar(hashErrors);
     } catch (e) {
       console.warn('Forge: 无法解析 URL hash 中的方案数据', e);
     }
