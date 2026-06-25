@@ -1,0 +1,192 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "TC-L3-01 · BrewCode Compatible L3 Native 数据记录与回写测试",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode Certification Test Suite",
+    "description": "L3 Native 认证测试用例：验证设备能否在冲煮过程中实时记录数据，并在冲煮结束后将完整冲煮记录回写至 result 字段。",
+    "license": "CC0",
+    "tags": ["certification", "L3", "Native", "data-record", "write-back", "test-case"],
+    "createdAt": "2026-06-25T00:00:00Z"
+  },
+  "coffee": {
+    "name": "肯尼亚 涅里 水洗",
+    "origin": {
+      "country": "肯尼亚",
+      "region": "涅里",
+      "altitude": "1600-1800m"
+    },
+    "variety": "SL28",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-12",
+    "roaster": "BrewCode 认证测试用",
+    "flavorNotes": ["黑加仑", "蔓越莓", "红糖", "番茄"]
+  },
+  "equipment": {
+    "brewer": "Chemex",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "3 Cup",
+    "filter": "Chemex 方形滤纸",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": {
+      "value": 15.0,
+      "unit": "g"
+    },
+    "waterAmount": {
+      "value": 250,
+      "unit": "ml"
+    },
+    "ratio": "1:16.7",
+    "grindSize": {
+      "value": 600,
+      "unit": "μm",
+      "description": "中等偏粗研磨，Chemex 滤纸较厚需适当放粗"
+    },
+    "waterTemperature": {
+      "value": 93.0,
+      "unit": "°C"
+    },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": {
+      "value": 210,
+      "unit": "s"
+    },
+    "bloomRatio": "1:2",
+    "bloomTime": {
+      "value": 30,
+      "unit": "s"
+    }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "润湿 Chemex 专用滤纸（三层面向壶嘴），预热 Chemex 壶身。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15.0g 咖啡粉倒入滤纸，轻轻拍平粉床。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "【步骤 1/3】注入 30ml 水闷蒸 30 秒。从中心开始慢速绕圈，确保所有咖啡粉在 15 秒内被均匀浸润。",
+      "duration": {
+        "value": 30,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 30,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 30,
+        "unit": "ml"
+      },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "【步骤 2/3】第一次注水至 140ml。绕圈注水，保持水流稳定，粉床表面始终覆盖薄水层。",
+      "duration": {
+        "value": 35,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 110,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 140,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 140,
+        "unit": "g"
+      },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "pour",
+      "description": "【步骤 3/3】第二次注水至 250ml。中心注水为主，维持粉床稳定。",
+      "duration": {
+        "value": 35,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 110,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 250,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 250,
+        "unit": "g"
+      },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 6,
+      "action": "drawdown",
+      "description": "等待滴滤完成。Chemex 滤纸较厚，滴滤时间较长。总冲煮时间约 210 秒。",
+      "duration": {
+        "value": 110,
+        "unit": "s"
+      }
+    }
+  ],
+  "result": {
+    "actualBrewTime": {
+      "value": 215,
+      "unit": "s"
+    },
+    "finalYield": {
+      "value": 218,
+      "unit": "g"
+    },
+    "measuredTDS": 1.35,
+    "extractionYield": 19.6,
+    "rating": 8.5,
+    "aroma": {
+      "rating": 8.5,
+      "notes": "明显的黑加仑和红色浆果香气，干香浓郁，湿香释放出焦糖甜感。"
+    },
+    "flavor": {
+      "rating": 8.5,
+      "notes": "黑加仑酸质明亮，蔓越莓风味清晰，中段红糖甜感饱满，尾段有轻微番茄般的鲜味。"
+    },
+    "aftertaste": {
+      "rating": 8.0,
+      "notes": "余韵中等偏长，红糖甜感持久，酸质干净不涩。"
+    },
+    "acidity": {
+      "rating": 9.0,
+      "notes": "典型的肯尼亚明亮酸质，黑加仑般的酸感活泼但不刺激。"
+    },
+    "body": {
+      "rating": 7.5,
+      "notes": "中等醇厚度，Chemex 滤纸带来的干净口感，质地顺滑。"
+    },
+    "balance": {
+      "rating": 8.5,
+      "notes": "酸甜平衡良好，风味层次分明，整体协调。"
+    },
+    "tastingNotes": ["黑加仑", "蔓越莓", "红糖", "番茄鲜味", "焦糖甜感"],
+    "improvements": "可尝试将研磨度调细至 550μm，提升萃取率至 20.5% 左右，以增强甜感和醇厚度。"
+  }
+}

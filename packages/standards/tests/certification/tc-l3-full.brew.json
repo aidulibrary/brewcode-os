@@ -1,0 +1,242 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "TC-L3-02 · BrewCode Compatible L3 Native 完整冲煮方案综合测试",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode Certification Test Suite",
+    "description": "L3 Native 认证综合测试用例：验证设备对完整冲煮方案的执行能力，包括多步骤序列执行、实时数据采集、以及符合规范的 result 结构生成。",
+    "license": "CC0",
+    "tags": ["certification", "L3", "Native", "comprehensive", "full-recipe", "test-case"],
+    "createdAt": "2026-06-25T00:00:00Z"
+  },
+  "coffee": {
+    "name": "巴拿马 翡翠庄园 瑰夏 水洗",
+    "origin": {
+      "country": "巴拿马",
+      "region": "波奎特",
+      "farm": "翡翠庄园",
+      "altitude": "1600-1800m"
+    },
+    "variety": "Geisha",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-10",
+    "roaster": "BrewCode 认证测试用",
+    "flavorNotes": ["茉莉花", "佛手柑", "桃子", "蜂蜜", "绿茶"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "02",
+    "filter": "V60 漂白",
+    "grinder": "EK43",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": {
+      "value": 18.0,
+      "unit": "g"
+    },
+    "waterAmount": {
+      "value": 270,
+      "unit": "ml"
+    },
+    "ratio": "1:15",
+    "grindSize": {
+      "value": 700,
+      "unit": "μm",
+      "description": "中等研磨，相当于 EK43 10 刻度"
+    },
+    "waterTemperature": {
+      "value": 92.0,
+      "unit": "°C"
+    },
+    "waterType": "调配水",
+    "waterTDS": 80,
+    "brewTime": {
+      "value": 180,
+      "unit": "s"
+    },
+    "bloomRatio": "1:2.5",
+    "bloomTime": {
+      "value": 35,
+      "unit": "s"
+    }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "rinse",
+      "description": "润湿 V60 滤纸，充分预热滤杯和分享壶。倒掉预热用水，确保滤纸紧密贴合杯壁。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 18.0g 咖啡粉倒入滤杯，轻轻摇晃使粉层均匀分布，在粉床中心挖一个小坑以利于闷蒸。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "【步骤 1/5】注入 45ml 水闷蒸 35 秒。从中心小坑开始注入，细水流慢速绕圈，确保所有咖啡粉在 15 秒内被均匀浸润。观察粉层膨胀状态。",
+      "duration": {
+        "value": 35,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 45,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 45,
+        "unit": "ml"
+      },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "【步骤 2/5】第一次注水至 120ml。中速绕圈注水，从中心向外扩展至滤杯边缘再返回，保持粉床表面平整。",
+      "duration": {
+        "value": 20,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 75,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 120,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 120,
+        "unit": "g"
+      },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "【步骤 3/5】等待 15 秒。让水面自然下降，使前段风味充分萃取。",
+      "duration": {
+        "value": 15,
+        "unit": "s"
+      }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "【步骤 4/5】第二次注水至 200ml。绕圈注水，适当提高水流速度以增加萃取效率。",
+      "duration": {
+        "value": 20,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 80,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 200,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 200,
+        "unit": "g"
+      },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "pour",
+      "description": "【步骤 5/5】第三次注水至 270ml。采用中心注水，减少对粉床的扰动，确保后段萃取柔和。",
+      "duration": {
+        "value": 20,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 70,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 270,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 270,
+        "unit": "g"
+      },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "等待滴滤完成。瑰夏咖啡粉层细腻，滴滤时间相对较长。总冲煮时间约 180 秒。",
+      "duration": {
+        "value": 70,
+        "unit": "s"
+      }
+    },
+    {
+      "order": 9,
+      "action": "taste",
+      "description": "轻轻摇晃分享壶，倒入预热杯中品鉴。预期风味：茉莉花香、佛手柑柑橘调、桃子甜感、蜂蜜般顺滑、绿茶般干净收尾。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": {
+      "value": 185,
+      "unit": "s"
+    },
+    "finalYield": {
+      "value": 235,
+      "unit": "g"
+    },
+    "measuredTDS": 1.38,
+    "extractionYield": 20.7,
+    "rating": 9.0,
+    "aroma": {
+      "rating": 9.5,
+      "notes": "茉莉花香极为突出，伴随佛手柑般的柑橘调香气，干香已令人陶醉。"
+    },
+    "flavor": {
+      "rating": 9.0,
+      "notes": "入口茉莉花香瞬间绽放，佛手柑的柑橘调明亮优雅，中段桃子甜感饱满，尾段蜂蜜甜感绵长。"
+    },
+    "aftertaste": {
+      "rating": 9.0,
+      "notes": "余韵悠长，蜂蜜和绿茶般的回甘持久，口腔干净清爽。"
+    },
+    "acidity": {
+      "rating": 9.0,
+      "notes": "酸质明亮而优雅，佛手柑般的柑橘酸质，活泼但不刺激，与甜感完美融合。"
+    },
+    "body": {
+      "rating": 8.0,
+      "notes": "中等醇厚度，质地丝滑，蜂蜜般的顺滑口感。"
+    },
+    "balance": {
+      "rating": 9.0,
+      "notes": "酸甜平衡极佳，风味层次丰富，从花香到果甜再到茶感，过渡自然。"
+    },
+    "sweetness": {
+      "rating": 9.5,
+      "notes": "甜感突出，桃子般的果甜与蜂蜜般的醇甜交织，令人愉悦。"
+    },
+    "cleanCup": {
+      "rating": 9.5,
+      "notes": "干净度极高，无任何杂味，典型的瑰夏水洗处理法特征。"
+    },
+    "overall": {
+      "rating": 9.0,
+      "notes": "一支表现极佳的瑰夏，充分展现了 Geisha 品种的花香和柑橘调特征。萃取率 20.7% 处于理想区间，风味平衡且层次丰富。"
+    },
+    "tastingNotes": ["茉莉花", "佛手柑", "桃子", "蜂蜜", "绿茶"],
+    "improvements": "可尝试将水温提高至 93°C 以增强醇厚度，或将研磨度微调至 650μm 探索更高萃取率的表现。"
+  }
+}
