@@ -1,9 +1,11 @@
 // ============================================================
-// BrewCode OS — 语义翻译 Worker (v1.0)
+// BrewCode OS — 语义翻译 Worker (v1.2)
 // 路径: workers/translate/index.js
 // 功能: 磨豆机刻度 → 微米值翻译，查询 D1 device_registry 表
+//       v1.1 扩展返回认证信息字段
+//       v1.2 实现向后兼容机制，未认证设备返回 null
 // 请求: GET /api/translate?device=Comandante+C40&setting=22
-// 响应: { "device": "...", "setting": "...", "micron": 600, "description": "..." }
+// 响应: { "device": "...", "setting": "...", "micron": 600, "description": "...", "certification": { "level": "L2", "date": "2026-06-25", "firmware": "v2.1.0", "mapping_url": "…", "logo_url": "…" } }
 // ============================================================
 
 const CORS_HEADERS = {
@@ -47,7 +49,7 @@ export default {
 
     try {
       const row = await env.DB.prepare(
-        'SELECT device_name, setting, micron_value, description FROM device_registry WHERE device_name = ? AND setting = ?'
+        'SELECT device_name, setting, micron_value, description, certification_level, certification_date, firmware_version, param_mapping_url, brewcode_compatible_logo_url FROM device_registry WHERE device_name = ? AND setting = ?'
       )
         .bind(device, setting)
         .first();
@@ -64,12 +66,21 @@ export default {
         );
       }
 
+      const isCertified = row.certification_level !== null;
+
       return json(
         {
           device: row.device_name,
           setting: row.setting,
           micron: row.micron_value,
           description: row.description,
+          certification: {
+            level: isCertified ? row.certification_level : null,
+            date: isCertified ? row.certification_date : null,
+            firmware: isCertified ? row.firmware_version : null,
+            mapping_url: isCertified ? row.param_mapping_url : null,
+            logo_url: isCertified ? row.brewcode_compatible_logo_url : null,
+          },
         },
         200
       );
