@@ -14,7 +14,7 @@
       level: 'L1',
       firmwareVersion: 'v2.1.0',
       certifiedDate: '2026-06-20T00:00:00Z',
-      mappingUrl: 'https://brewcode.dev/certified/BC-L1-2026-0001/mapping',
+      mappingUrl: './mappings/ek43-v2.0.0.md',
       contactEmail: 'lab@brewcode.dev',
     },
     {
@@ -27,7 +27,7 @@
       level: 'L2',
       firmwareVersion: 'v3.0.0',
       certifiedDate: '2026-06-25T00:00:00Z',
-      mappingUrl: '',
+      mappingUrl: './mappings/comandante-c40-v2.1.0.md',
       contactEmail: 'lab@brewcode.dev',
     },
   ];
@@ -181,6 +181,13 @@
           '" target="_blank" rel="noopener">' +
           t('certified.card.mapping') +
           ' →</a>';
+      } else {
+        html +=
+          '<span class="cert-mapping-empty">' +
+          t('certified.card.mapping') +
+          ': ' +
+          (lang === 'zh' ? '暂无' : 'N/A') +
+          '</span>';
       }
       html +=
         '<span class="cert-id">' + t('certified.card.certId') + ': ' + escHtml(dev.id) + '</span>';
