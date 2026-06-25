@@ -1,0 +1,111 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "BrewCode Compatible L2 步骤序列执行测试",
+    "version": "1.0.0",
+    "brewCodeVersion": "1.0",
+    "author": "BrewCode Certification Test Suite",
+    "description": "L2 Interactive 认证测试用例：验证设备解析并执行完整 steps 数组的能力，包括按顺序执行、步骤提示和交互控制（跳过/暂停）。",
+    "license": "CC0-1.0",
+    "tags": ["certification", "L2", "test-case"],
+    "createdAt": "2026-06-25T00:00:00.000Z"
+  },
+  "coffee": {
+    "name": "测试用豆 · 埃塞俄比亚 古吉 日晒 浅烘",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "古吉"
+    },
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "variety": "Heirloom",
+    "flavorNotes": ["茉莉花", "蜂蜜", "柠檬", "绿茶"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "树脂",
+    "brewerSize": "01",
+    "filter": "V60 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "BrewCode Smart Kettle",
+    "scale": "BrewCode Smart Scale"
+  },
+  "recipe": {
+    "dose": {
+      "value": 15.0,
+      "unit": "g"
+    },
+    "waterAmount": {
+      "value": 250,
+      "unit": "ml"
+    },
+    "ratio": "1:16.67",
+    "grindSize": {
+      "value": 22,
+      "unit": "C40 click",
+      "description": "细砂糖粗细，适合 V60 浅烘冲煮"
+    },
+    "waterTemperature": {
+      "value": 93,
+      "unit": "°C"
+    },
+    "waterType": "过滤水",
+    "brewTime": {
+      "value": 165,
+      "unit": "s"
+    }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "bloom",
+      "waterAmount": {
+        "value": 30,
+        "unit": "ml"
+      },
+      "duration": {
+        "value": 30,
+        "unit": "s"
+      },
+      "description": "注入30ml水，等待30秒闷蒸",
+      "pourStyle": "绕圈注水"
+    },
+    {
+      "order": 2,
+      "action": "pour",
+      "waterAmount": {
+        "value": 120,
+        "unit": "ml"
+      },
+      "duration": {
+        "value": 30,
+        "unit": "s"
+      },
+      "description": "绕圈注入120ml水",
+      "pourStyle": "绕圈注水"
+    },
+    {
+      "order": 3,
+      "action": "wait",
+      "duration": {
+        "value": 20,
+        "unit": "s"
+      },
+      "description": "等待20秒"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "waterAmount": {
+        "value": 100,
+        "unit": "ml"
+      },
+      "duration": {
+        "value": 25,
+        "unit": "s"
+      },
+      "description": "中心注入100ml水",
+      "pourStyle": "中心注水"
+    }
+  ]
+}
