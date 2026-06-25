@@ -1744,7 +1744,8 @@
   function renderStats() {
     const brewers = getUniqueBrewers();
     const countries = getUniqueCountries();
-    $('#stats-text').innerHTML =
+    const statsEl = $('#stats-text');
+    statsEl.innerHTML =
       BrewCodeI18n.t('repo.stats.total') +
       ' <strong>' +
       allRecipes.length +
@@ -1760,6 +1761,7 @@
       brewers.length +
       '</strong> ' +
       BrewCodeI18n.t('repo.stats.brewers');
+    statsEl.removeAttribute('data-i18n');
   }
 
   /* ── Detail overlay ── */
