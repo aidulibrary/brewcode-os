@@ -4,7 +4,6 @@ const CACHE_URLS = [
   '/index.html',
   '/player.css',
   '/player.js',
-  '/manifest.json',
   '/seeds-manifest.json',
   '/sample.brew',
 ];
