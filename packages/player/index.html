@@ -66,7 +66,7 @@
             'player.pasteJSON': '粘贴 JSON',
             'player.openFile': '打开文件',
             'player.pastePlaceholder': '在此粘贴 .brew 文件内容...',
-            'player.load': '载入',
+            'player.load': '在 Player 中打开',
             'player.cancel': '取消',
             'player.urlHint': '或在 URL 后添加 ?brew=文件URL 直接打开',
             'player.back': '返回',
@@ -422,7 +422,7 @@
             'player.pasteJSON': 'Paste JSON',
             'player.openFile': 'Open File',
             'player.pastePlaceholder': 'Paste .brew file content here...',
-            'player.load': 'Load',
+            'player.load': 'Open in Player',
             'player.cancel': 'Cancel',
             'player.urlHint': 'Or add ?brew=fileURL to the URL',
             'player.back': 'Back',
@@ -1004,23 +1004,17 @@
         <div class="load-inner">
           <h1 class="brand" data-i18n="player.loadTitle">BrewPlayer</h1>
           <p class="sub" data-i18n="player.loadSubtitle">载入 .brew 文件，开始冲煮</p>
-          <div class="load-actions">
-            <button id="btn-paste" class="btn" data-i18n="player.pasteJSON">粘贴 JSON</button>
-            <button id="btn-file" class="btn btn-ghost" data-i18n="player.openFile">
-              打开文件
-            </button>
-            <input type="file" id="file-input" accept=".brew,.json" hidden />
-          </div>
-          <div id="paste-area" class="paste-area hidden">
+          <div class="paste-area">
             <textarea
               id="paste-text"
               data-i18n="player.pastePlaceholder"
               placeholder="在此粘贴 .brew 文件内容..."
             ></textarea>
-            <div class="paste-actions">
-              <button id="btn-load" class="btn" data-i18n="player.load">载入</button>
-              <button id="btn-cancel" class="btn btn-ghost" data-i18n="player.cancel">取消</button>
-            </div>
+          </div>
+          <div class="load-actions">
+            <button id="btn-load" class="btn btn-primary" data-i18n="player.load">在 Player 中打开</button>
+            <button id="btn-file" class="btn btn-ghost" data-i18n="player.openFile">打开文件</button>
+            <input type="file" id="file-input" accept=".brew,.json" hidden />
           </div>
           <p id="load-error" class="error hidden"></p>
           <p class="url-hint" data-i18n="player.urlHint">或在 URL 后添加 ?brew=文件URL 直接打开</p>

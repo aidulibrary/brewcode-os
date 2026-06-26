@@ -1,4 +1,4 @@
-const CACHE_NAME = 'brewplayer-v1';
+const CACHE_NAME = 'brewplayer-v2';
 const CACHE_URLS = [
   '/',
   '/index.html',
