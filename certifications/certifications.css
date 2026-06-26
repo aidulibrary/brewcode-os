@@ -47,16 +47,25 @@ body {
 #bc-navbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 14px 0;
-  border-bottom: 1px solid #222244;
-  margin-bottom: 8px;
+  gap: 16px;
+  height: 48px;
+  padding: 0 20px;
+  background: var(--bg, #1a1a2e);
+  color: var(--text, #e0e0e8);
+  border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
 }
 
 .bc-brand {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--accent);
+  flex-shrink: 0;
 }
 
 .bc-brand-light {
@@ -66,45 +75,39 @@ body {
 
 .bc-links {
   display: flex;
-  gap: 20px;
-  list-style: none;
+  gap: 8px;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .bc-links a {
-  color: var(--text-dim);
+  color: var(--text-dim, #8888aa);
   text-decoration: none;
-  font-size: 0.82rem;
-  font-weight: 500;
-  transition: color 0.15s;
-  padding-bottom: 2px;
-  border-bottom: 2px solid transparent;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm, 8px);
+  transition:
+    color 0.2s,
+    background 0.2s;
+  white-space: nowrap;
 }
 
 .bc-links a:hover {
-  color: var(--accent);
+  color: var(--text, #e0e0e8);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .bc-links a.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--accent, #e8a850);
+  border-bottom: 2px solid var(--accent, #e8a850);
 }
 
 .bc-hamburger {
   display: none;
   background: none;
   border: none;
+  color: var(--text, #e0e0e8);
+  font-size: 20px;
   cursor: pointer;
-  flex-direction: column;
-  gap: 4px;
-  padding: 4px;
-}
-
-.bc-hamburger span {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: var(--text-dim);
-  border-radius: 1px;
 }
 
 #bc-navbar .bc-actions {
@@ -115,10 +118,10 @@ body {
 }
 #bc-navbar .bc-actions button {
   background: none;
-  border: 1px solid var(--border, #222244);
-  color: var(--text-dim);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  color: var(--text-dim, #8888aa);
   padding: 4px 10px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm, 8px);
   cursor: pointer;
   font-size: 13px;
   white-space: nowrap;
@@ -127,36 +130,30 @@ body {
     border-color 0.2s;
 }
 #bc-navbar .bc-actions button:hover {
-  color: var(--text);
-  border-color: var(--accent);
+  color: var(--text, #e0e0e8);
+  border-color: var(--accent, #e8a850);
 }
 
 @media (max-width: 640px) {
   .bc-links {
     display: none;
     position: absolute;
-    top: 52px;
-    right: 16px;
-    background: var(--bg-card);
-    border: 1px solid #333366;
-    border-radius: 8px;
+    top: 48px;
+    left: 0;
+    right: 0;
     flex-direction: column;
+    background: var(--bg, #1a1a2e);
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
     padding: 8px 0;
-    z-index: 50;
-    min-width: 140px;
+    z-index: 999;
   }
 
   .bc-links.open {
     display: flex;
   }
 
-  .bc-links a {
-    padding: 8px 16px;
-    border-bottom: none;
-  }
-
   .bc-hamburger {
-    display: flex;
+    display: block;
   }
 }
 
