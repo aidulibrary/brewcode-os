@@ -129,6 +129,9 @@
         return {
           t: t,
           setLang: setLang,
+          getLang: function () {
+            return lang;
+          },
           refreshTexts: refreshTexts,
         };
       })();
@@ -146,6 +149,10 @@
           <a href="https://repo.礼字号.中国" data-i18n="nav.repo">Repo</a>
           <a href="https://forge.礼字号.中国" data-i18n="nav.forge">Forge</a>
           <a href="https://compatible.礼字号.中国" class="active" data-i18n="nav.cert">认证设备</a>
+        </div>
+        <div class="bc-actions">
+          <button id="bc-theme-btn" title="切换主题">🌙</button>
+          <button id="bc-lang-btn" title="切换语言">中</button>
         </div>
         <button class="bc-hamburger" aria-label="Menu">
           <span></span><span></span><span></span>
@@ -253,5 +260,65 @@
     </div>
 
     <script src="certifications.js?v=20260625"></script>
+    <script>
+      (function () {
+        var isLocal =
+          window.location.protocol === 'file:' ||
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1';
+        function getCookie(n) {
+          var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
+          return m ? m[2] : null;
+        }
+        function setCookie(n, v) {
+          document.cookie =
+            n +
+            '=' +
+            v +
+            '; path=/; max-age=31536000; SameSite=Lax' +
+            (isLocal ? '' : '; domain=.礼字号.中国');
+        }
+        function getShared(n, d) {
+          return getCookie(n) || localStorage.getItem(n) || d;
+        }
+        function setShared(n, v) {
+          localStorage.setItem(n, v);
+          setCookie(n, v);
+        }
+        var theme = getShared('brewcode_theme', 'dark');
+        var lang = getShared('brewcode_lang', 'en');
+        function applyTheme(t) {
+          document.documentElement.setAttribute('data-theme', t);
+          document.querySelector('#bc-theme-btn').textContent = t === 'dark' ? '🌙' : '☀️';
+          var isDark = t === 'dark';
+          var root = document.documentElement.style;
+          root.setProperty('--bg', isDark ? '#1a1a2e' : '#f5f0eb');
+          root.setProperty('--bg-card', isDark ? '#222244' : '#ffffff');
+          root.setProperty('--bg-card-hover', isDark ? '#2a2a50' : '#f0ece6');
+          root.setProperty('--text', isDark ? '#e0e0e8' : '#1a1a2e');
+          root.setProperty('--text-dim', isDark ? '#8888aa' : '#666680');
+          root.setProperty('--accent', isDark ? '#e8a850' : '#b87333');
+          root.setProperty('--accent-dim', isDark ? '#c08030' : '#9a5c20');
+          root.setProperty('--border', isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)');
+        }
+        function applyLang(l) {
+          document.querySelector('#bc-lang-btn').textContent = l === 'zh' ? 'EN' : '中';
+        }
+        applyTheme(theme);
+        applyLang(lang);
+        BrewCodeI18n.setLang(lang);
+        document.querySelector('#bc-theme-btn').addEventListener('click', function () {
+          theme = theme === 'dark' ? 'light' : 'dark';
+          setShared('brewcode_theme', theme);
+          applyTheme(theme);
+        });
+        document.querySelector('#bc-lang-btn').addEventListener('click', function () {
+          var newLang = BrewCodeI18n.getLang() === 'zh' ? 'en' : 'zh';
+          BrewCodeI18n.setLang(newLang);
+          setShared('brewcode_lang', newLang);
+          applyLang(newLang);
+        });
+      })();
+    </script>
   </body>
 </html>

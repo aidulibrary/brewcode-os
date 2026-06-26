@@ -107,6 +107,30 @@ body {
   border-radius: 1px;
 }
 
+#bc-navbar .bc-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+#bc-navbar .bc-actions button {
+  background: none;
+  border: 1px solid var(--border, #222244);
+  color: var(--text-dim);
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+#bc-navbar .bc-actions button:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
 @media (max-width: 640px) {
   .bc-links {
     display: none;
