@@ -340,21 +340,10 @@
 
   /* ── Event handlers ── */
 
-  /* Paste */
-  $('#btn-paste').addEventListener('click', function () {
-    $('#paste-area').classList.toggle('hidden');
-  });
-
-  $('#btn-cancel').addEventListener('click', function () {
-    $('#paste-area').classList.add('hidden');
-    $('#paste-text').value = '';
-  });
-
   $('#btn-load').addEventListener('click', function () {
     var text = $('#paste-text').value.trim();
     if (text) {
       loadRecipe(text);
-      $('#paste-area').classList.add('hidden');
     }
   });
 
