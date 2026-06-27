@@ -1878,6 +1878,32 @@
       }
     };
 
+    $('#btn-share-card').onclick = async function () {
+      var btn = $('#btn-share-card');
+      var originalText = btn.textContent;
+      btn.textContent = '生成中…';
+      btn.disabled = true;
+      try {
+        var resp = await fetch(SEEDS_BASE + recipe.file);
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        var brewData = await resp.json();
+        generateShareCard(brewData, { seedFilename: recipe.file })
+          .then(function () {
+            btn.textContent = originalText;
+            btn.disabled = false;
+          })
+          .catch(function (err) {
+            console.error('BrewRepo: 分享图生成失败', err);
+            btn.textContent = originalText;
+            btn.disabled = false;
+          });
+      } catch (e) {
+        console.error('BrewRepo: 获取方案数据失败', e);
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    };
+
     $('#detail-overlay').classList.remove('hidden');
     document.body.style.overflow = 'hidden';
   }
@@ -1951,6 +1977,32 @@
         showToast(BrewCodeI18n.t('repo.toast.copied'));
       } catch (e) {
         showToast(BrewCodeI18n.t('repo.toast.copyFailed') + e.message);
+      }
+    };
+
+    $('#btn-share-card').onclick = async function () {
+      var btn = $('#btn-share-card');
+      var originalText = btn.textContent;
+      btn.textContent = '生成中…';
+      btn.disabled = true;
+      try {
+        var resp = await fetch(recipe.filePath);
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        var brewData = await resp.json();
+        generateShareCard(brewData)
+          .then(function () {
+            btn.textContent = originalText;
+            btn.disabled = false;
+          })
+          .catch(function (err) {
+            console.error('BrewRepo: 分享图生成失败', err);
+            btn.textContent = originalText;
+            btn.disabled = false;
+          });
+      } catch (e) {
+        console.error('BrewRepo: 获取方案数据失败', e);
+        btn.textContent = originalText;
+        btn.disabled = false;
       }
     };
 

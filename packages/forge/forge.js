@@ -54,6 +54,7 @@ var editorState = {
     tags: [],
     createdAt: new Date().toISOString(),
     source: '',
+    brewId: '',
   },
   coffee: {
     name: '',
@@ -1055,6 +1056,7 @@ function buildBrewJSON() {
     tags: editorState.meta.tags.length ? editorState.meta.tags : undefined,
     createdAt: editorState.meta.createdAt,
     source: editorState.meta.source || undefined,
+    brewId: editorState.meta.brewId || undefined,
   };
 
   out.coffee = {
@@ -2291,6 +2293,42 @@ document.addEventListener('DOMContentLoaded', function () {
     window.open(playerBase + '?brew=' + json, '_blank');
   });
   $('#btn-toggle-code').addEventListener('click', toggleCodeMode);
+
+  function generateBrewId() {
+    return 'BC-' + Math.floor(Math.random() * 0xffff).toString(16).toUpperCase().padStart(4, '0');
+  }
+
+  // 分享按钮 — 使用事件委托确保可靠性
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('#btn-share-card');
+    if (!btn) return;
+    e.preventDefault();
+
+    var originalText = btn.textContent;
+    btn.textContent = '生成中…';
+    btn.disabled = true;
+
+    collectFormToState();
+    collectResultToState();
+    var brewData = buildBrewJSON();
+
+    if (!brewData.meta) brewData.meta = {};
+    if (!brewData.meta.brewId) {
+      brewData.meta.brewId = generateBrewId();
+      editorState.meta.brewId = brewData.meta.brewId;
+    }
+
+    generateShareCard(brewData)
+      .then(function () {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      })
+      .catch(function (err) {
+        console.error('BrewForge: 分享图生成失败', err);
+        btn.textContent = originalText;
+        btn.disabled = false;
+      });
+  });
 
   $('#validation-bar').addEventListener('click', function () {
     this.classList.toggle('collapsed');

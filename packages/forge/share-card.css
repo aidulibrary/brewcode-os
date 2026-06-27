@@ -1,0 +1,162 @@
+/*
+ * BrewCode OS — 分享图片生成器样式
+ * 零框架依赖，纯 CSS
+ * 用于 html2canvas 截图渲染，不插入 DOM
+ */
+
+.share-card {
+  width: 750px;
+  background: #1a1a2e;
+  color: #f0e8d8;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+  padding: 60px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.share-card-id {
+  font-size: 13px;
+  font-weight: 300;
+  color: #e8a850;
+  letter-spacing: 2px;
+  margin-bottom: 28px;
+}
+
+.share-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.share-card-brace {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 140px;
+  font-weight: 700;
+  color: #e8a850;
+  line-height: 1;
+  margin-right: 24px;
+  flex-shrink: 0;
+}
+
+.share-card-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.share-card-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: #e8a850;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.share-card-coffee-info {
+  font-size: 17px;
+  font-weight: 400;
+  color: #f0e8d8;
+  line-height: 1.5;
+}
+
+.share-card-flavors {
+  font-size: 15px;
+  font-weight: 400;
+  color: #f0e8d8;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.share-card-separator {
+  width: 100%;
+  height: 0.5px;
+  background: #e8a850;
+  margin: 16px 0;
+  opacity: 0.6;
+}
+
+.share-card-params {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.share-card-params-line {
+  font-size: 16px;
+  font-weight: 400;
+  color: #f0e8d8;
+  line-height: 1.6;
+}
+
+.share-card-params-line-secondary {
+  font-size: 15px;
+  font-weight: 400;
+  color: #b8a890;
+  line-height: 1.6;
+}
+
+.share-card-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.share-card-step {
+  font-size: 14px;
+  font-weight: 300;
+  color: #b8a890;
+  line-height: 1.6;
+}
+
+.share-card-keynote {
+  font-size: 14px;
+  font-weight: 300;
+  color: #b8a890;
+  margin-top: 6px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.share-card-meta {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.share-card-author {
+  font-size: 12px;
+  font-weight: 300;
+  color: #f0e8d8;
+  line-height: 1.5;
+}
+
+.share-card-source {
+  font-size: 12px;
+  font-weight: 300;
+  color: #b8a890;
+  line-height: 1.5;
+}
+
+.share-card-footer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.share-card-url {
+  font-size: 11px;
+  font-weight: 300;
+  color: #b8a890;
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+.share-card-cc0 {
+  font-size: 11px;
+  font-weight: 300;
+  color: #b8a890;
+  line-height: 1.5;
+}
