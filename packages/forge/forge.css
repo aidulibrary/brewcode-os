@@ -655,6 +655,30 @@ input[type='number']::-webkit-outer-spin-button {
   .form-grid {
     grid-template-columns: 1fr;
   }
+
+  /* Touch targets: 44x44px minimum */
+  .btn {
+    min-height: 44px;
+    padding: 12px 24px;
+  }
+
+  .btn-icon {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px;
+  }
+
+  .btn-icon-sm {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px;
+  }
+
+  #btn-toggle-code,
+  #btn-llm-config {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 .val-bar {
   display: flex;
@@ -924,4 +948,53 @@ input[type='number']::-webkit-outer-spin-button {
     background: #f5f0eb;
     border-bottom-color: rgba(0, 0, 0, 0.1);
   }
+}
+
+/* 分享图片遮罩 */
+#share-image-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#share-image-overlay.hidden {
+  display: none;
+}
+.share-image-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+}
+.share-image-container {
+  position: relative;
+  max-width: 95vw;
+  max-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.share-image-container .btn-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: #fff;
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+}
+.share-image-container img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.share-image-hint {
+  color: #aaa;
+  font-size: 14px;
+  margin-top: 16px;
+  text-align: center;
 }
