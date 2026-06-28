@@ -2261,15 +2261,33 @@ function ensureBrewId(brewData, seedFilename) {
 function loadHtml2Canvas() {
   return new Promise(function (resolve, reject) {
     if (typeof html2canvas !== 'undefined') return resolve();
-    var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
-    var settled = false;
-    function done() { if (!settled) { settled = true; resolve(); } }
-    function fail(msg) { if (!settled) { settled = true; reject(new Error(msg)); } }
-    script.onload = done;
-    script.onerror = function () { fail('html2canvas 加载失败'); };
-    document.head.appendChild(script);
-    setTimeout(function () { fail('html2canvas 加载超时 (10s)'); }, 10000);
+
+    var cdns = [
+      'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js',
+      'https://lib.baomitu.com/html2canvas/1.4.1/html2canvas.min.js',
+      'https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js',
+    ];
+    var idx = 0;
+
+    function tryNext() {
+      if (idx >= cdns.length) return reject(new Error('html2canvas 加载失败（已尝试 ' + cdns.length + ' 个 CDN）'));
+      var url = cdns[idx++];
+      var script = document.createElement('script');
+      var settled = false;
+      function done() {
+        if (!settled) { settled = true; resolve(); }
+      }
+      function fail() {
+        if (!settled) { settled = true; script.parentNode && script.parentNode.removeChild(script); tryNext(); }
+      }
+      script.onload = done;
+      script.onerror = fail;
+      script.src = url;
+      document.head.appendChild(script);
+      setTimeout(fail, 8000);
+    }
+
+    tryNext();
   });
 }
 
@@ -2551,9 +2569,18 @@ function showShareImage(canvas) {
     backdrop.onclick = hideOverlay;
   }
   var img = overlay.querySelector('#share-image-preview');
-  img.src = canvas.toDataURL('image/png');
-  overlay.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
+  // 微信环境中 toDataURL 对大图可能造成内存压力，优先用 Blob URL
+  if (canvas.toBlob) {
+    canvas.toBlob(function (blob) {
+      img.src = URL.createObjectURL(blob);
+      overlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }, 'image/png');
+  } else {
+    img.src = canvas.toDataURL('image/png');
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
 }
 
 function generateShareCard(brewData, options) {
