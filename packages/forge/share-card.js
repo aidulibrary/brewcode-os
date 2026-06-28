@@ -123,11 +123,13 @@ function loadHtml2Canvas() {
     if (typeof html2canvas !== 'undefined') return resolve();
     var script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
-    script.onload = resolve;
-    script.onerror = function () {
-      reject(new Error('html2canvas 加载失败'));
-    };
+    var settled = false;
+    function done() { if (!settled) { settled = true; resolve(); } }
+    function fail(msg) { if (!settled) { settled = true; reject(new Error(msg)); } }
+    script.onload = done;
+    script.onerror = function () { fail('html2canvas 加载失败'); };
     document.head.appendChild(script);
+    setTimeout(function () { fail('html2canvas 加载超时 (10s)'); }, 10000);
   });
 }
 
@@ -144,6 +146,7 @@ function buildShareCardHTML(brewData, options) {
 
   var name = (brewData.meta && brewData.meta.name) || '未命名方案';
   var coffeeInfo = buildCoffeeInfo(brewData);
+  var equipmentInfo = buildEquipmentInfo(brewData);
   var flavorStr = buildFlavorString(brewData);
   var paramsLine1 = buildParamsLine1(brewData);
   var paramsLine2 = buildParamsLine2(brewData);
@@ -167,6 +170,10 @@ function buildShareCardHTML(brewData, options) {
   }
   html += '</div>';
   html += '</div>';
+
+  if (equipmentInfo) {
+    html += '<div class="share-card-equipment">' + escHTML(equipmentInfo) + '</div>';
+  }
 
   if (flavorStr) {
     html += '<div class="share-card-flavors">' + escHTML(flavorStr) + '</div>';
@@ -236,6 +243,25 @@ function buildCoffeeInfo(brewData) {
   }
   if (coffee.process) parts.push(coffee.process);
   if (coffee.roastLevel) parts.push(coffee.roastLevel);
+  if (coffee.variety) parts.push(coffee.variety);
+
+  return parts.join(' · ');
+}
+
+function buildEquipmentInfo(brewData) {
+  var e = brewData.equipment;
+  if (!e) return '';
+
+  var parts = [];
+  if (e.brewer) {
+    var brewerStr = e.brewer;
+    if (e.brewerSize) brewerStr += ' (' + e.brewerSize + ')';
+    parts.push(brewerStr);
+  }
+  if (e.grinder) parts.push(e.grinder);
+  if (e.kettle) parts.push(e.kettle);
+  if (e.scale) parts.push(e.scale);
+  if (e.filter) parts.push(e.filter);
 
   return parts.join(' · ');
 }
@@ -256,13 +282,16 @@ function buildParamsLine1(brewData) {
 
   var parts = [];
   if (r.dose && r.dose.value) {
-    parts.push(r.dose.value + (r.dose.unit || 'g'));
+    parts.push('粉量 ' + r.dose.value + (r.dose.unit || 'g'));
   }
   if (r.waterAmount && r.waterAmount.value) {
-    parts.push(r.waterAmount.value + (r.waterAmount.unit || 'ml'));
+    parts.push('水量 ' + r.waterAmount.value + (r.waterAmount.unit || 'ml'));
   }
   if (r.waterTemperature && r.waterTemperature.value) {
-    parts.push(r.waterTemperature.value + (r.waterTemperature.unit || '°C'));
+    parts.push('水温 ' + r.waterTemperature.value + (r.waterTemperature.unit || '°C'));
+  }
+  if (r.brewTime && r.brewTime.value) {
+    parts.push('时间 ' + r.brewTime.value + (r.brewTime.unit || 's'));
   }
   return parts.join(' · ');
 }
@@ -275,10 +304,10 @@ function buildParamsLine2(brewData) {
   if (r.grindSize && r.grindSize.value) {
     var grindStr = r.grindSize.value + '';
     if (r.grindSize.unit) grindStr += ' ' + r.grindSize.unit;
-    parts.push(grindStr);
+    parts.push('研磨 ' + grindStr);
   }
   if (r.ratio) {
-    parts.push(r.ratio);
+    parts.push('粉水比 ' + r.ratio);
   }
   return parts.join(' · ');
 }
@@ -368,7 +397,7 @@ function generateShareCard(brewData, options) {
 
   var container = document.createElement('div');
   container.style.cssText =
-    'position:fixed;left:-9999px;top:0;width:750px;z-index:-1;';
+    'position:fixed;left:-9999px;top:0;width:640px;z-index:-1;';
   container.innerHTML = html;
   document.body.appendChild(container);
 
@@ -376,13 +405,19 @@ function generateShareCard(brewData, options) {
   linkEl.rel = 'stylesheet';
   linkEl.href = getShareCardCSSPath();
 
-  return new Promise(function (resolveCss, rejectCss) {
-    linkEl.onload = resolveCss;
+  return new Promise(function (resolveCss) {
+    var settled = false;
+    function done() {
+      if (!settled) { settled = true; resolveCss(); }
+    }
+    linkEl.onload = done;
     linkEl.onerror = function () {
       console.warn('share-card.css 加载失败，使用内联样式回退');
-      resolveCss();
+      done();
     };
     document.head.appendChild(linkEl);
+    // Guard: CSS 可能已被缓存，onload 在绑定前即触发
+    setTimeout(done, 1500);
   })
     .then(function () {
       return loadHtml2Canvas();
@@ -419,7 +454,7 @@ function generateShareCard(brewData, options) {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
       });
     });
 }
