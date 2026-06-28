@@ -2523,6 +2523,39 @@ function buildKeynote(brewData) {
   return '';
 }
 
+function isWeChat() {
+  return /MicroMessenger/i.test(navigator.userAgent);
+}
+
+function showShareImage(canvas) {
+  var overlay = document.getElementById('share-image-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'share-image-overlay';
+    overlay.className = 'hidden';
+    overlay.innerHTML =
+      '<div class="share-image-backdrop"></div>' +
+      '<div class="share-image-container">' +
+      '<button id="btn-share-image-close" class="btn-close">✕</button>' +
+      '<img id="share-image-preview" src="" alt="分享图片" />' +
+      '<p class="share-image-hint">长按图片保存或分享</p>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    var backdrop = overlay.querySelector('.share-image-backdrop');
+    var closeBtn = overlay.querySelector('#btn-share-image-close');
+    function hideOverlay() {
+      overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    closeBtn.onclick = hideOverlay;
+    backdrop.onclick = hideOverlay;
+  }
+  var img = overlay.querySelector('#share-image-preview');
+  img.src = canvas.toDataURL('image/png');
+  overlay.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
 function generateShareCard(brewData, options) {
   var opts = options || {};
   var seedFilename = opts.seedFilename || null;
@@ -2582,15 +2615,19 @@ function generateShareCard(brewData, options) {
       var safeName = name.replace(/[\\/:*?"<>|]/g, '-').replace(/\s+/g, '-');
       var filename = brewId + '-' + safeName + '.png';
 
-      canvas.toBlob(function (blob) {
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-      });
+      if (isWeChat()) {
+        showShareImage(canvas);
+      } else {
+        canvas.toBlob(function (blob) {
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+        });
+      }
     });
 }
