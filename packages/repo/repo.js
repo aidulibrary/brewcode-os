@@ -2291,6 +2291,15 @@ function loadHtml2Canvas() {
   });
 }
 
+/* 内联注入 share-card.css（CF Pages 不部署 common/ 目录） */
+function injectShareCardCSS() {
+  var css = `.share-card{width:640px;background:#1a1a2e;color:#f0e8d8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC',sans-serif;padding:32px;box-sizing:border-box;position:relative;overflow:hidden}.share-card-id{font-size:13px;font-weight:300;color:#e8a850;letter-spacing:2px;margin-bottom:28px}.share-card-header{display:flex;align-items:center;margin-bottom:18px}.share-card-brace{font-family:Georgia,'Times New Roman',serif;font-size:120px;font-weight:700;color:#e8a850;line-height:1.15;margin-right:20px;flex-shrink:0;text-shadow:0 0 40px rgba(232,168,80,0.3);letter-spacing:-3px}.share-card-title-group{display:flex;flex-direction:column}.share-card-name{font-size:26px;font-weight:700;color:#e8a850;line-height:1.4;margin-bottom:4px}.share-card-coffee-info{font-size:17px;font-weight:400;color:#f0e8d8;line-height:1.5}.share-card-equipment{font-size:15px;font-weight:400;color:#f0e8d8;margin-bottom:8px;line-height:1.5}.share-card-flavors{margin-bottom:20px;line-height:2}.share-card-separator{width:100%;height:0.5px;background:linear-gradient(to right,transparent,rgba(232,168,80,0.5),transparent);margin:16px 0;opacity:0.6}.share-card-params{display:flex;flex-direction:column;gap:6px;margin-bottom:4px}.share-card-params-line{font-size:16px;font-weight:400;color:#f0e8d8;line-height:1.6}.share-card-params-line-secondary{font-size:15px;font-weight:400;color:#c8bca0;line-height:1.6}.share-card-steps{display:flex;flex-direction:column;gap:4px}.share-card-step{display:flex;align-items:baseline;gap:10px;padding:5px 0}.share-card-step-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(232,168,80,0.5);color:#e8a850;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;line-height:1}.share-card-step-text{flex:1;font-size:14px;font-weight:300;color:#c8bca0;line-height:1.6}.share-card-keynote{margin-top:14px;padding:12px 16px;border-left:3px solid #e8a850;background:rgba(232,168,80,0.06);font-size:13px;font-weight:300;color:#d4c8a8;line-height:1.7;font-style:italic;border-radius:0 6px 6px 0}.share-card-meta{margin-top:20px;display:flex;flex-direction:column;gap:2px}.share-card-author{font-size:12px;font-weight:300;color:#f0e8d8;line-height:1.5}.share-card-source{font-size:12px;font-weight:300;color:#c8bca0;line-height:1.5}.share-card-footer{margin-top:20px;display:flex;flex-direction:column;gap:2px}.share-card-url{font-size:11px;font-weight:300;color:#c8bca0;letter-spacing:1px;line-height:1.5}.share-card-cc0{font-size:11px;font-weight:300;color:#c8bca0;line-height:1.5}.share-card-brace-right{position:absolute;right:32px;bottom:24px;font-family:Georgia,'Times New Roman',serif;font-size:120px;font-weight:700;color:rgba(232,168,80,0.10);line-height:1;pointer-events:none;transform:scaleX(-1)}.share-card-flavor-tag{display:inline-block;font-size:12px;font-weight:400;color:#f0e8d8;background:rgba(232,168,80,0.12);padding:3px 10px;border-radius:12px;margin:0 4px 6px 0;border:1px solid rgba(232,168,80,0.2)}.share-card-params-section{background:rgba(255,255,255,0.025);border-radius:6px;padding:14px 16px;margin:4px 0;border:1px solid rgba(255,255,255,0.04)}.share-card-bottom-line{width:50px;height:1.5px;background:rgba(232,168,80,0.35);margin-top:24px;margin-bottom:16px}`;
+  var style = document.createElement('style');
+  style.id = 'share-card-inline';
+  style.textContent = css;
+  document.head.appendChild(style);
+}
+
 function getShareCardCSSPath() {
   return 'share-card.css';
 }
@@ -2343,20 +2352,23 @@ function buildShareCardHTML(brewData, options) {
   }
 
   if (flavorStr) {
-    html += '<div class="share-card-flavors">' + escHTML(flavorStr) + '</div>';
+    var flavorTags = flavorStr.split(' · ').map(function(t) {
+      return '<span class="share-card-flavor-tag">' + escHTML(t) + '</span>';
+    }).join('');
+    html += '<div class="share-card-flavors">' + flavorTags + '</div>';
   }
 
   html += '<div class="share-card-separator"></div>';
 
   if (paramsLine1 || paramsLine2) {
-    html += '<div class="share-card-params">';
+    html += '<div class="share-card-params-section"><div class="share-card-params">';
     if (paramsLine1) {
       html += '<div class="share-card-params-line">' + escHTML(paramsLine1) + '</div>';
     }
     if (paramsLine2) {
       html += '<div class="share-card-params-line-secondary">' + escHTML(paramsLine2) + '</div>';
     }
-    html += '</div>';
+    html += '</div></div>';
   }
 
   html += '<div class="share-card-separator"></div>';
@@ -2365,6 +2377,7 @@ function buildShareCardHTML(brewData, options) {
     html += '<div class="share-card-steps">' + stepsHTML + '</div>';
   }
 
+  html += '<div class="share-card-bottom-line"></div>';
   if (includeNotes && keynote) {
     html += '<div class="share-card-keynote">' + escHTML(keynote) + '</div>';
   }
@@ -2383,6 +2396,7 @@ function buildShareCardHTML(brewData, options) {
   html += '<div class="share-card-cc0">可自由使用修改分享 · CC0</div>';
   html += '</div>';
 
+  html += '<div class="share-card-brace-right">}</div>';
   html += '</div>';
 
   return html;
@@ -2479,7 +2493,18 @@ function buildStepsHTML(brewData) {
     var s = steps[i];
     var stepText = buildStepText(s, i + 1);
     if (stepText) {
-      html += '<div class="share-card-step">' + escHTML(stepText) + '</div>';
+      var numEnd = stepText.indexOf(' ');
+      if (numEnd > 0) {
+        var num = stepText.substring(0, numEnd);
+        var text = stepText.substring(numEnd + 1);
+      } else {
+        var num = stepText;
+        var text = '';
+      }
+      html += '<div class="share-card-step">' +
+        '<span class="share-card-step-num">' + escHTML(num) + '</span>' +
+        '<span class="share-card-step-text">' + escHTML(text) + '</span>' +
+        '</div>';
     }
   }
   return html;
@@ -2597,27 +2622,12 @@ function generateShareCard(brewData, options) {
   container.innerHTML = html;
   document.body.appendChild(container);
 
-  var linkEl = document.createElement('link');
-  linkEl.rel = 'stylesheet';
-  linkEl.href = getShareCardCSSPath();
+  // 内联注入 CSS，消除外部文件依赖（CF Pages 不部署 common/ 目录）
+  injectShareCardCSS();
 
-  return new Promise(function (resolveCss) {
-    var settled = false;
-    function done() {
-      if (!settled) { settled = true; resolveCss(); }
-    }
-    linkEl.onload = done;
-    linkEl.onerror = function () {
-      console.warn('share-card.css 加载失败，使用内联样式回退');
-      done();
-    };
-    document.head.appendChild(linkEl);
-    // Guard: CSS 可能已被缓存，onload 在绑定前即触发
-    setTimeout(done, 1500);
+  return Promise.resolve().then(function () {
+    return loadHtml2Canvas();
   })
-    .then(function () {
-      return loadHtml2Canvas();
-    })
     .then(function () {
       return html2canvas(container.firstChild, {
         backgroundColor: '#1a1a2e',
@@ -2628,12 +2638,10 @@ function generateShareCard(brewData, options) {
     })
     .then(function (canvas) {
       document.body.removeChild(container);
-      if (linkEl.parentNode) linkEl.parentNode.removeChild(linkEl);
       return canvas;
     })
     .catch(function (err) {
       document.body.removeChild(container);
-      if (linkEl.parentNode) linkEl.parentNode.removeChild(linkEl);
       throw err;
     })
     .then(function (canvas) {
