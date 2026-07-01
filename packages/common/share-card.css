@@ -70,25 +70,22 @@
 }
 
 .share-card-flavors {
-  font-size: 15px;
-  font-weight: 400;
-  color: #f0e8d8;
   margin-bottom: 20px;
-  line-height: 1.5;
+  line-height: 2;
 }
 
 .share-card-separator {
   width: 100%;
-  height: 0.5px;
-  background: #e8a850;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(232,168,80,0.5), transparent);
   margin: 16px 0;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .share-card-params {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   margin-bottom: 4px;
 }
 
@@ -113,6 +110,27 @@
 }
 
 .share-card-step {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 5px 0;
+}
+.share-card-step-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(232,168,80,0.5);
+  color: #e8a850;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.share-card-step-text {
+  flex: 1;
   font-size: 14px;
   font-weight: 300;
   color: #c8bca0;
@@ -120,12 +138,16 @@
 }
 
 .share-card-keynote {
-  font-size: 14px;
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-left: 3px solid #e8a850;
+  background: rgba(232,168,80,0.06);
+  font-size: 13px;
   font-weight: 300;
-  color: #c8bca0;
-  margin-top: 6px;
-  line-height: 1.6;
+  color: #d4c8a8;
+  line-height: 1.7;
   font-style: italic;
+  border-radius: 0 6px 6px 0;
 }
 
 .share-card-meta {
@@ -169,4 +191,45 @@
   font-weight: 300;
   color: #c8bca0;
   line-height: 1.5;
+}
+
+.share-card-brace-right {
+  position: absolute;
+  right: 32px;
+  bottom: 24px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 120px;
+  font-weight: 700;
+  color: rgba(232,168,80,0.10);
+  line-height: 1;
+  pointer-events: none;
+  transform: scaleX(-1);
+}
+
+.share-card-flavor-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #f0e8d8;
+  background: rgba(232,168,80,0.12);
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin: 0 4px 6px 0;
+  border: 1px solid rgba(232,168,80,0.2);
+}
+
+.share-card-params-section {
+  background: rgba(255,255,255,0.025);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin: 4px 0;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.share-card-bottom-line {
+  width: 50px;
+  height: 1.5px;
+  background: rgba(232,168,80,0.35);
+  margin-top: 24px;
+  margin-bottom: 16px;
 }
