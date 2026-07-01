@@ -55,8 +55,7 @@
     "home": "首页",
     "player": "Player",
     "repo": "Repo",
-    "forge": "Forge",
-    "certified": "认证设备"
+    "forge": "Forge"
   },
   "player": {
     "loadTitle": "BrewPlayer",
@@ -367,27 +366,7 @@
       "copied": "已复制 .brew 内容到剪贴板",
       "copyFailed": "复制失败："
     },
-    "footer": "BrewCode OS · CC0",
-    "filterValue": {
-      "法压壶": "法压壶",
-      "爱乐压": "爱乐压",
-      "V60": "V60",
-      "Kalita Wave": "Kalita Wave",
-      "Origami": "Origami",
-      "Chemex": "Chemex",
-      "未知": "未知",
-      "浅烘": "浅烘",
-      "中烘": "中烘",
-      "深烘": "深烘",
-      "埃塞俄比亚": "埃塞俄比亚",
-      "哥伦比亚": "哥伦比亚",
-      "巴西": "巴西",
-      "危地马拉": "危地马拉",
-      "哥斯达黎加": "哥斯达黎加",
-      "巴拿马": "巴拿马",
-      "印尼": "印尼",
-      "中国": "中国"
-    }
+    "footer": "BrewCode OS · CC0"
   },
   "common": {
     "required": "（必填）",

@@ -1884,18 +1884,12 @@
       btn.disabled = true;
       try {
         var brewData = seedManifestToBrewData(recipe);
-        generateShareCard(brewData, { seedFilename: recipe.file })
-          .then(function () {
-            btn.textContent = originalText;
-            btn.disabled = false;
-          })
-          .catch(function (err) {
-            console.error('BrewRepo: 分享图生成失败', err);
-            btn.textContent = originalText;
-            btn.disabled = false;
-          });
+        await generateShareCard(brewData, { seedFilename: recipe.file });
+        btn.textContent = originalText;
+        btn.disabled = false;
       } catch (e) {
-        console.error('BrewRepo: 获取方案数据失败', e);
+        console.error('BrewRepo: 分享图生成失败', e);
+        showToast('分享图生成失败');
         btn.textContent = originalText;
         btn.disabled = false;
       }
@@ -1986,18 +1980,12 @@
         var resp = await fetch(recipe.filePath);
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         var brewData = await resp.json();
-        generateShareCard(brewData)
-          .then(function () {
-            btn.textContent = originalText;
-            btn.disabled = false;
-          })
-          .catch(function (err) {
-            console.error('BrewRepo: 分享图生成失败', err);
-            btn.textContent = originalText;
-            btn.disabled = false;
-          });
+        await generateShareCard(brewData);
+        btn.textContent = originalText;
+        btn.disabled = false;
       } catch (e) {
-        console.error('BrewRepo: 获取方案数据失败', e);
+        console.error('BrewRepo: 分享图生成失败', e);
+        showToast('分享图生成失败');
         btn.textContent = originalText;
         btn.disabled = false;
       }
@@ -2643,6 +2631,7 @@ function generateShareCard(brewData, options) {
     })
     .catch(function (err) {
       document.body.removeChild(container);
+      console.error('BrewRepo: generateShareCard 渲染失败', err);
       throw err;
     })
     .then(function (canvas) {
@@ -2653,6 +2642,7 @@ function generateShareCard(brewData, options) {
 
       if (isWeChat()) {
         showShareImage(canvas);
+        showToast('分享图已生成');
       } else {
         canvas.toBlob(function (blob) {
           var url = URL.createObjectURL(blob);
@@ -2664,6 +2654,9 @@ function generateShareCard(brewData, options) {
           document.body.removeChild(a);
           setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
         });
+        showToast('分享图已下载');
       }
+
+      return canvas;
     });
 }

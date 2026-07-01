@@ -507,6 +507,7 @@ function generateShareCard(brewData, options) {
 
       if (isWeChat()) {
         showShareImage(canvas);
+        showToast('分享图已生成');
       } else {
         canvas.toBlob(function (blob) {
           var url = URL.createObjectURL(blob);
@@ -518,7 +519,10 @@ function generateShareCard(brewData, options) {
           document.body.removeChild(a);
           setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
         });
+        showToast('分享图已下载');
       }
+
+      return canvas;
     });
 }
 
