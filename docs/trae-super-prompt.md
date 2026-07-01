@@ -137,4 +137,4 @@ seeds/           → 50个种子 .brew 文件
 **记住：你是在为咖啡冲煮领域定义通用语言。把这个标准做好，做薄，做稳定。其他的，生态会自己生长。**
 
 **项目文档**：复盘报告见 docs/retrospective-v1.0.md，生态位理论构建见 docs/brew-ecosystem-niche-theory.md
-**核心文档**：部署检查清单 docs/deploy-checklist.md | 品牌设计限定 docs/品牌设计限定文档.md | 复盘报告 docs/retrospective-v1.0.md | 生态位理论 docs/brew-ecosystem-niche-theory.md
+**核心文档**：部署检查清单 docs/deploy-checklist.md | 品牌设计限定 docs/BrewCode-OS 品牌与官网设计限定文档.md | 复盘报告 docs/retrospective-v1.0.md | 生态位理论 docs/brew-ecosystem-niche-theory.md

@@ -44,6 +44,7 @@
       'footer.founder': '创始人：李泊言 Bowen Lee',
       'footer.year': '2026',
       'footer.brand': 'BrewCode OS · 礼字号',
+      'nav.certified': '认证设备',
     },
     en: {
       'hero.description':
@@ -78,8 +79,8 @@
       'footer.founder': 'Founder: Bowen Lee 李泊言',
       'footer.year': '2026',
       'footer.brand': 'BrewCode OS · 礼字号',
+      'nav.certified': 'Certified',
     },
-  };
 
   /* ================================================================
    * 主题管理

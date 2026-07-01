@@ -1,0 +1,16 @@
+
+ ⛅️ wrangler 4.103.0
+────────────────────
+No Functions. Shimming...
+Your Worker has access to the following bindings:
+Binding                                                                   Resource                  Mode
+env.CF_PAGES ("1")                                                        Environment Variable      local
+env.CF_PAGES_BRANCH ("local")                                             Environment Variable      local
+env.CF_PAGES_COMMIT_SHA ("0000000000000000000000000000000000000...")      Environment Variable      local
+env.CF_PAGES_URL ("https://00000000.temp.pages.dev")                      Environment Variable      local
+
+⎔ Starting local server...
+[wrangler:info] Ready on http://127.0.0.1:8788
+Not enough memory resources are available to process this command.
+
+C:\Users\wuguz\AppData\Roaming\Tencent\Marvis\User\oAN1i2TLaWh8g0cZFh0NNd26qb-Y\workspace\conv_19eea5ba5fc_ff10c8e73df7\temp>

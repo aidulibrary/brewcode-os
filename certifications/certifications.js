@@ -350,6 +350,13 @@
     if (savedLang) {
       BrewCodeI18n.setLang(savedLang);
     }
+    function getCookie(n) {
+      var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
+      return m ? m[2] : null;
+    }
+    var savedTheme =
+      getCookie('brewcode_theme') || localStorage.getItem('brewcode_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
     bindEvents();
     loadDevices();
   }
