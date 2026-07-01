@@ -31,12 +31,14 @@
 
 .share-card-brace {
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 110px;
+  font-size: 120px;
   font-weight: 700;
   color: #e8a850;
-  line-height: 1;
+  line-height: 1.15;
   margin-right: 20px;
   flex-shrink: 0;
+  text-shadow: 0 0 40px rgba(232,168,80,0.3);
+  letter-spacing: -3px;
 }
 
 .share-card-title-group {
@@ -100,7 +102,7 @@
 .share-card-params-line-secondary {
   font-size: 15px;
   font-weight: 400;
-  color: #b8a890;
+  color: #c8bca0;
   line-height: 1.6;
 }
 
@@ -113,14 +115,14 @@
 .share-card-step {
   font-size: 14px;
   font-weight: 300;
-  color: #b8a890;
+  color: #c8bca0;
   line-height: 1.6;
 }
 
 .share-card-keynote {
   font-size: 14px;
   font-weight: 300;
-  color: #b8a890;
+  color: #c8bca0;
   margin-top: 6px;
   line-height: 1.6;
   font-style: italic;
@@ -143,7 +145,7 @@
 .share-card-source {
   font-size: 12px;
   font-weight: 300;
-  color: #b8a890;
+  color: #c8bca0;
   line-height: 1.5;
 }
 
@@ -157,7 +159,7 @@
 .share-card-url {
   font-size: 11px;
   font-weight: 300;
-  color: #b8a890;
+  color: #c8bca0;
   letter-spacing: 1px;
   line-height: 1.5;
 }
@@ -165,6 +167,6 @@
 .share-card-cc0 {
   font-size: 11px;
   font-weight: 300;
-  color: #b8a890;
+  color: #c8bca0;
   line-height: 1.5;
 }
