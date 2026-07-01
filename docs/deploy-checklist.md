@@ -11,9 +11,9 @@ AIGC:
 
 # BrewCode OS 部署检查清单
 
-> 版本：v1.0  
-> 最后更新：2026-06-22  
-> 适用版本：BrewCode OS v0.6  
+> 版本：v1.1  
+> 最后更新：2026-07-02  
+> 适用版本：BrewCode OS v1.2.1  
 > 用途：环境切换、设备更换、Git 克隆后快速恢复可运行状态，避免重复踩坑。
 
 ---
@@ -260,6 +260,32 @@ git remote set-url origin git@github.com:aidulibrary/brewcode-os.git
 **永久修复**：
 1. 进入 Cloudflare Dashboard → Pages → 项目 → 部署 → 清除缓存并重新部署
 2. 或通过 API 触发：`npx wrangler pages deployment list --project-name brewcode-os`
+
+### 4.8 微信端分享图片生成失败（createPattern canvas 0 size）
+
+**症状**：微信内置浏览器（X5 内核）中调用 `html2canvas` 生成分享图片时，报错 `createPattern: Passed-in canvas has width 0 / height 0`，导致图片生成失败。
+
+**原因**：微信 X5 内核的 Canvas 实现不支持以下 CSS 属性在 `html2canvas` 中的渲染，使用后会导致 Canvas 绘制异常：
+
+- `text-shadow` — X5 Canvas 调用 `createPattern` 时设置无效参数，导致 Canvas 尺寸计算为 0
+- `linear-gradient` — 同上，X5 对渐变背景的 Canvas 渲染存在缺陷
+- `transform: scaleX(-1)` — 翻转变换在 X5 中触发 Canvas 上下文异常
+
+**根因定位历史**（commit 链追踪）：
+- `9f7d6af`：分享功能正常可用（Blob URL + 多CDN回退，CSS 极简）
+- `eb528c4`：引入 `text-shadow` — **根因之一**
+- `c6a9f1a`：引入 `linear-gradient` + `transform:scaleX(-1)` — **根因之二、三**
+
+**修复**：将 `injectShareCardCSS()` 中的 CSS 字符串回退到 `9f7d6af` 极简基线，移除 `text-shadow` / `linear-gradient` / `transform` / `overflow:hidden`。涉及文件：
+- `packages/repo/repo.js:674-680`（CSS 字符串）
+- `packages/forge/share-card.js:529-535`（CSS 字符串，同步修复）
+
+**教训**：
+1. 任何 CSS 视觉增强（shadow/gradient/transform）必须先**在微信端验证**后再合并到 main
+2. Cloudflare Pages **别名缓存**与直链行为不一致，验证时优先使用直链 `*.brewcode-repo.pages.dev`
+3. 别名缓存需通过 `wrangler pages deploy --branch=<name>` 重新部署触发更新，无法通过 API 清除
+
+**参考 commit**：`0a11e89`（repo）、`e907179`（forge）
 
 ---
 
