@@ -37,7 +37,7 @@
   line-height: 1.15;
   margin-right: 20px;
   flex-shrink: 0;
-  text-shadow: 0 0 40px rgba(232,168,80,0.3);
+  text-shadow: 0 0 1px rgba(232,168,80,0.3);
   letter-spacing: -3px;
 }
 
@@ -120,7 +120,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  border: 1.5px solid rgba(232,168,80,0.5);
+  border: 1px solid rgba(232,168,80,0.35);
   color: #e8a850;
   font-size: 11px;
   font-weight: 600;
@@ -228,8 +228,8 @@
 
 .share-card-bottom-line {
   width: 50px;
-  height: 1.5px;
-  background: rgba(232,168,80,0.35);
+  height: 1px;
+  background: rgba(232,168,80,0.25);
   margin-top: 24px;
   margin-bottom: 16px;
 }
