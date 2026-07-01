@@ -1910,8 +1910,9 @@
         btn.textContent = originalText;
         btn.disabled = false;
       } catch (e) {
+        var msg = e && e.message ? e.message : String(e || '未知错误');
         console.error('BrewRepo: 分享图生成失败', e);
-        showToast('分享图生成失败');
+        showToast('生成失败: ' + msg);
         btn.textContent = originalText;
         btn.disabled = false;
       }
@@ -2006,8 +2007,9 @@
         btn.textContent = originalText;
         btn.disabled = false;
       } catch (e) {
+        var msg = e && e.message ? e.message : String(e || '未知错误');
         console.error('BrewRepo: 分享图生成失败', e);
-        showToast('分享图生成失败');
+        showToast('生成失败: ' + msg);
         btn.textContent = originalText;
         btn.disabled = false;
       }
