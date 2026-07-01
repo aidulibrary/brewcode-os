@@ -2077,6 +2077,9 @@
   } else {
     loadManifest();
   }
+
+  // 暴露给外部模块（generateShareCard 等在 IIFE 外部，需要访问 showToast）
+  window.showToast = showToast;
 })();
 
 /* ================================================================
