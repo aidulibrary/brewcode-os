@@ -177,6 +177,7 @@ function buildShareCardHTML(brewData, options) {
 
   html += '<div class="share-card">';
 
+  html += '<div class="share-card-logo">{&middot;}</div>';
   html += '<div class="share-card-id">' + escHTML(brewId) + '</div>';
 
   html += '<div class="share-card-header">';
@@ -237,8 +238,6 @@ function buildShareCardHTML(brewData, options) {
   html += '<div class="share-card-url">brewcode.礼字号.中国</div>';
   html += '<div class="share-card-cc0">可自由使用修改分享 · CC0</div>';
   html += '</div>';
-
-  html += '<div class="share-card-brace-right">}</div>';
   html += '</div>';
 
   return html;
@@ -339,8 +338,11 @@ function buildStepsHTML(brewData) {
   var steps = brewData.steps;
   if (!steps || !steps.length) return '';
 
+  var totalSteps = steps.length;
+  var maxShow = totalSteps > 5 ? 3 : totalSteps;
+
   var html = '';
-  for (var i = 0; i < steps.length; i++) {
+  for (var i = 0; i < maxShow; i++) {
     var s = steps[i];
     var stepText = buildStepText(s, i + 1);
     if (stepText) {
@@ -358,6 +360,11 @@ function buildStepsHTML(brewData) {
         '</div>';
     }
   }
+
+  if (totalSteps > 5) {
+    html += '<div class="share-card-step-truncated">&middot;&middot;&middot; \u5171' + totalSteps + '\u6b65</div>';
+  }
+
   return html;
 }
 
@@ -473,7 +480,7 @@ function generateShareCard(brewData, options) {
 
   var container = document.createElement('div');
   container.style.cssText =
-    'position:fixed;left:-9999px;top:0;width:640px;z-index:-1;';
+    'position:fixed;left:-9999px;top:0;width:375px;z-index:-1;';
   container.innerHTML = html;
   document.body.appendChild(container);
 
@@ -529,7 +536,7 @@ function generateShareCard(brewData, options) {
 /* 内联注入 share-card.css（CF Pages 不部署 common/ 目录） */
 function injectShareCardCSS() {
   if (document.getElementById('share-card-inline')) return;
-  var css = `.share-card{width:640px;background:#1a1a2e;color:#f0e8d8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC',sans-serif;padding:32px;box-sizing:border-box;position:relative}.share-card-id{font-size:13px;font-weight:300;color:#e8a850;letter-spacing:2px;margin-bottom:28px}.share-card-header{display:flex;align-items:center;margin-bottom:18px}.share-card-brace{font-family:Georgia,'Times New Roman',serif;font-size:110px;font-weight:700;color:#e8a850;line-height:1;margin-right:20px;flex-shrink:0}.share-card-title-group{display:flex;flex-direction:column}.share-card-name{font-size:26px;font-weight:700;color:#e8a850;line-height:1.4;margin-bottom:4px}.share-card-coffee-info{font-size:17px;font-weight:400;color:#f0e8d8;line-height:1.5}.share-card-equipment{font-size:15px;font-weight:400;color:#f0e8d8;margin-bottom:8px;line-height:1.5}.share-card-flavors{margin-bottom:20px;line-height:1.5}.share-card-separator{width:100%;height:1px;background:#e8a850;margin:16px 0;opacity:0.6}.share-card-params{display:flex;flex-direction:column;gap:4px;margin-bottom:4px}.share-card-params-line{font-size:16px;font-weight:400;color:#f0e8d8;line-height:1.6}.share-card-params-line-secondary{font-size:15px;font-weight:400;color:#b8a890;line-height:1.6}.share-card-steps{display:flex;flex-direction:column;gap:4px}.share-card-step{display:flex;align-items:baseline;gap:10px;padding:5px 0}.share-card-step-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1px solid rgba(232,168,80,0.5);color:#e8a850;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;line-height:1}.share-card-step-text{flex:1;font-size:14px;font-weight:300;color:#b8a890;line-height:1.6}.share-card-keynote{font-size:14px;font-weight:300;color:#b8a890;margin-top:6px;line-height:1.6;font-style:italic}.share-card-meta{margin-top:20px;display:flex;flex-direction:column;gap:2px}.share-card-author{font-size:12px;font-weight:300;color:#f0e8d8;line-height:1.5}.share-card-source{font-size:12px;font-weight:300;color:#b8a890;line-height:1.5}.share-card-footer{margin-top:20px;display:flex;flex-direction:column;gap:2px}.share-card-url{font-size:11px;font-weight:300;color:#b8a890;letter-spacing:1px;line-height:1.5}.share-card-cc0{font-size:11px;font-weight:300;color:#b8a890;line-height:1.5}.share-card-brace-right{position:absolute;right:32px;bottom:24px;font-family:Georgia,'Times New Roman',serif;font-size:120px;font-weight:700;color:rgba(232,168,80,0.10);line-height:1;pointer-events:none}.share-card-flavor-tag{display:inline-block;font-size:12px;font-weight:400;color:#f0e8d8;background:rgba(232,168,80,0.12);padding:3px 10px;border-radius:12px;margin:0 4px 6px 0;border:1px solid rgba(232,168,80,0.2)}.share-card-params-section{background:rgba(255,255,255,0.025);border-radius:6px;padding:14px 16px;margin:4px 0;border:1px solid rgba(255,255,255,0.04)}.share-card-bottom-line{width:50px;height:1px;background:rgba(232,168,80,0.25);margin-top:24px;margin-bottom:16px}`;
+  var css = `.share-card{width:375px;background:#1a1a2e;color:#f0e8d8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC',sans-serif;padding:28px 24px;box-sizing:border-box;position:relative}.share-card-logo{text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:36px;font-weight:400;color:#e8a850;line-height:1;margin-bottom:8px;letter-spacing:2px}.share-card-id{text-align:center;font-family:'Courier New',Courier,monospace;font-size:11px;font-weight:300;color:#e8a850;letter-spacing:1px;margin-bottom:20px}.share-card-header{display:flex;align-items:center;margin-bottom:14px}.share-card-brace{font-family:Georgia,'Times New Roman',serif;font-size:80px;font-weight:700;color:#e8a850;line-height:1;margin-right:14px;flex-shrink:0}.share-card-title-group{display:flex;flex-direction:column}.share-card-name{font-size:20px;font-weight:700;color:#e8a850;line-height:1.3;margin-bottom:3px}.share-card-coffee-info{font-size:13px;font-weight:400;color:#f0e8d8;line-height:1.4}.share-card-equipment{font-size:12px;font-weight:400;color:#f0e8d8;margin-bottom:8px;line-height:1.4}.share-card-flavors{margin-bottom:14px;line-height:1.5}.share-card-separator{width:100%;height:1px;background:#c8a882;margin:12px 0;opacity:0.5}.share-card-params{display:flex;flex-direction:column;gap:3px;margin-bottom:3px}.share-card-params-line{font-size:13px;font-weight:400;color:#f0e8d8;line-height:1.5}.share-card-params-line-secondary{font-size:12px;font-weight:400;color:#b8a890;line-height:1.5}.share-card-steps{display:flex;flex-direction:column;gap:3px}.share-card-step{display:flex;align-items:baseline;gap:8px;padding:3px 0}.share-card-step-num{flex-shrink:0;width:18px;height:18px;border-radius:50%;border:1px solid rgba(232,168,80,0.5);color:#e8a850;font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;line-height:1}.share-card-step-text{flex:1;font-size:12px;font-weight:300;color:#b8a890;line-height:1.5}.share-card-step-truncated{font-size:12px;font-weight:300;color:#b8a890;text-align:center;padding:4px 0;font-style:italic}.share-card-keynote{font-size:12px;font-weight:300;color:#b8a890;margin-top:6px;line-height:1.5;font-style:italic}.share-card-meta{margin-top:14px;display:flex;flex-direction:column;gap:2px}.share-card-author{font-size:11px;font-weight:300;color:#f0e8d8;line-height:1.4}.share-card-source{font-size:11px;font-weight:300;color:#b8a890;line-height:1.4}.share-card-footer{margin-top:14px;display:flex;flex-direction:column;gap:1px}.share-card-url{font-size:10px;font-weight:300;color:#b8a890;letter-spacing:1px;line-height:1.4}.share-card-cc0{font-size:10px;font-weight:300;color:#b8a890;line-height:1.4}.share-card-flavor-tag{display:inline-block;font-size:11px;font-weight:400;color:#f0e8d8;background:rgba(232,168,80,0.12);padding:2px 8px;border-radius:10px;margin:0 3px 5px 0;border:1px solid rgba(232,168,80,0.2)}.share-card-params-section{background:rgba(255,255,255,0.025);border-radius:4px;padding:10px 12px;margin:3px 0;border:1px solid rgba(255,255,255,0.04)}.share-card-bottom-line{width:40px;height:1px;background:rgba(232,168,80,0.25);margin-top:16px;margin-bottom:12px}`;
   var style = document.createElement('style');
   style.id = 'share-card-inline';
   style.textContent = css;
