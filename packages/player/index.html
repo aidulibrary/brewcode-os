@@ -7,7 +7,9 @@
     <meta name="description" content="BrewCode OS BrewPlayer - .brew 文件冲煮播放器" />
     <title>BrewPlayer</title>
     <link rel="stylesheet" href="player.css" />
-    <script>
+    <script src="config.js"></script>
+    <script src="i18n/index.js"></script>
+    <!--
       /*
        * BrewCode OS i18n — 通用多语言加载器
        * 零框架依赖，词条内嵌，file:// 和 HTTP 双环境兼容
@@ -788,7 +790,7 @@
           getLang: getLang,
         };
       })();
-    </script>
+    -->
     <style>
       .bc-navbar {
         display: flex;
@@ -914,7 +916,13 @@
         <a href="https://player.礼字号.中国" class="active" data-i18n="nav.player">Player</a>
         <a href="https://repo.礼字号.中国" data-i18n="nav.repo">Repo</a>
         <a href="https://forge.礼字号.中国" data-i18n="nav.forge">Forge</a>
-        <a href="https://compatible.礼字号.中国" target="_blank" rel="noopener" data-i18n="nav.certified">认证设备</a>
+        <a
+          href="https://compatible.礼字号.中国"
+          target="_blank"
+          rel="noopener"
+          data-i18n="nav.certified"
+          >认证设备</a
+        >
       </div>
       <div class="bc-actions">
         <button id="bc-theme-btn" title="切换主题">🌙</button>
@@ -1012,8 +1020,12 @@
             ></textarea>
           </div>
           <div class="load-actions">
-            <button id="btn-load" class="btn btn-primary" data-i18n="player.load">在 Player 中打开</button>
-            <button id="btn-file" class="btn btn-ghost" data-i18n="player.openFile">打开文件</button>
+            <button id="btn-load" class="btn btn-primary" data-i18n="player.load">
+              在 Player 中打开
+            </button>
+            <button id="btn-file" class="btn btn-ghost" data-i18n="player.openFile">
+              打开文件
+            </button>
             <input type="file" id="file-input" accept=".brew,.json" hidden />
           </div>
           <p id="load-error" class="error hidden"></p>

@@ -7936,6 +7936,7 @@
       })
       .catch(function (e) {
         console.error('[BrewRepo] 社区方案加载失败:', e);
+        showToast(BrewCodeI18n.t('repo.loadError') + e.message);
         communityRecipes = [];
         renderCommunityCards();
       });
@@ -8303,7 +8304,10 @@
 
     /* actions */
     $('#btn-open-player').onclick = function () {
-      const playerUrl = BrewCodeConfig.playerUrl + '?brew=' + encodeURIComponent(BrewCodeConfig.playerUrl + '/seeds/' + recipe.file);
+      const playerUrl =
+        BrewCodeConfig.playerUrl +
+        '?brew=' +
+        encodeURIComponent(BrewCodeConfig.playerUrl + '/seeds/' + recipe.file);
       window.open(playerUrl, '_blank');
     };
 
@@ -8731,6 +8735,12 @@ function escHTML(str) {
     .replace(/'/g, '&#39;');
 }
 
+/**
+ * 构建分享卡片 HTML 字符串，将方案数据渲染为可视化分享卡片
+ * @param {Object} brewData — 符合 BrewCode Schema 的方案数据对象
+ * @param {Object} [options] — 可选配置，控制是否包含品鉴笔记和来源标注
+ * @returns {string} 完整的分享卡片 HTML 字符串
+ */
 function buildShareCardHTML(brewData, options) {
   var opts = options || {};
   var includeNotes = opts.includeNotes !== false;
@@ -9034,6 +9044,12 @@ function showShareImage(canvas) {
   }
 }
 
+/**
+ * 分享图片生成入口，将 brewData 渲染为 HTML 卡片并通过 html2canvas 截图为 PNG
+ * @param {Object} brewData — 符合 BrewCode Schema 的方案数据对象
+ * @param {Object} [options] — 可选配置，包括 seedFilename、includeNotes 等
+ * @returns {Promise<HTMLCanvasElement>} 返回 canvas 对象，调用方可转为图片下载
+ */
 function generateShareCard(brewData, options) {
   var opts = options || {};
   var seedFilename = opts.seedFilename || null;

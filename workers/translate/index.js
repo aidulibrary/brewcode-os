@@ -24,6 +24,13 @@ function json(data, status) {
 }
 
 export default {
+  /**
+   * 翻译处理函数，将磨豆机刻度翻译为微米值
+   * 查询 D1 device_registry 表，返回对应设备的微米值和认证信息
+   * @param {Request} request — GET 请求，需携带 device 和 setting 查询参数
+   * @param {Object} env — Cloudflare Workers 环境变量，包含 DB 绑定
+   * @returns {Promise<Response>} JSON 格式的翻译结果
+   */
   async fetch(request, env) {
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: CORS_HEADERS });

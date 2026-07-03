@@ -89,6 +89,14 @@ function jsonResponse(data, status, extraHeaders) {
 }
 
 export default {
+  /**
+   * API 网关主路由处理函数，负责认证、速率限制和请求转发
+   * 支持 /api/diagnose、/api/generate、/api/translate 三个路由
+   * @param {Request} request — 原始 HTTP 请求对象
+   * @param {Object} env — Cloudflare Workers 环境变量，包含 DB 和 RATE_LIMIT 绑定
+   * @param {ExecutionContext} ctx — Cloudflare Workers 执行上下文
+   * @returns {Promise<Response>} JSON 格式的 HTTP 响应
+   */
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;

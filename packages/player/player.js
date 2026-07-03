@@ -137,14 +137,21 @@
     };
 
     if (r.dose) addParam(BrewCodeI18n.t('player.dose'), r.dose.value + r.dose.unit);
-    if (r.waterAmount) addParam(BrewCodeI18n.t('player.waterAmount'), r.waterAmount.value + (r.waterAmount.unit || 'ml'));
+    if (r.waterAmount)
+      addParam(
+        BrewCodeI18n.t('player.waterAmount'),
+        r.waterAmount.value + (r.waterAmount.unit || 'ml')
+      );
     if (r.ratio) addParam(BrewCodeI18n.t('player.ratio'), r.ratio);
     if (r.grindSize) {
       let gs = r.grindSize.value + (r.grindSize.unit ? ' ' + r.grindSize.unit : '');
       addParam(BrewCodeI18n.t('player.grindSize'), gs);
     }
     if (r.waterTemperature) {
-      addParam(BrewCodeI18n.t('player.waterTemp'), r.waterTemperature.value + (r.waterTemperature.unit || '°C'));
+      addParam(
+        BrewCodeI18n.t('player.waterTemp'),
+        r.waterTemperature.value + (r.waterTemperature.unit || '°C')
+      );
     }
     if (r.brewTime) {
       addParam(BrewCodeI18n.t('player.brewTime'), r.brewTime.value + (r.brewTime.unit || 's'));
@@ -171,10 +178,12 @@
     /* progress */
     const pct = (currentStep / total) * 100;
     $('#progress-fill').style.width = pct + '%';
-    $('#progress-text').textContent = BrewCodeI18n.t('player.step') + ' ' + (currentStep + 1) + ' / ' + total;
+    $('#progress-text').textContent =
+      BrewCodeI18n.t('player.step') + ' ' + (currentStep + 1) + ' / ' + total;
 
     /* header */
-    $('#header-step').textContent = BrewCodeI18n.t('player.step') + ' ' + (currentStep + 1) + '/' + total;
+    $('#header-step').textContent =
+      BrewCodeI18n.t('player.step') + ' ' + (currentStep + 1) + '/' + total;
 
     /* badge */
     $('#step-badge').textContent = actionLabel(s.action);
@@ -194,9 +203,13 @@
 
       if (s.cumulativeWater && s.cumulativeWater.value > 0) {
         $('#water-target').textContent =
-          BrewCodeI18n.t('player.cumulative') + ' ' + s.cumulativeWater.value + (s.cumulativeWater.unit || 'ml');
+          BrewCodeI18n.t('player.cumulative') +
+          ' ' +
+          s.cumulativeWater.value +
+          (s.cumulativeWater.unit || 'ml');
       } else if (s.targetWeight && s.targetWeight.value > 0) {
-        $('#water-target').textContent = BrewCodeI18n.t('player.targetWeight') + ' ' + s.targetWeight.value + 'g';
+        $('#water-target').textContent =
+          BrewCodeI18n.t('player.targetWeight') + ' ' + s.targetWeight.value + 'g';
       } else {
         $('#water-target').textContent = '';
       }
@@ -234,7 +247,11 @@
       btnTimer.classList.add('btn-ghost');
       btnTimer.classList.remove('btn-timer');
     } else if (s.duration && s.duration.value > 0) {
-      btnTimer.textContent = BrewCodeI18n.t('player.startTimer') + ' (' + formatTime(durationToSeconds(s.duration)) + ')';
+      btnTimer.textContent =
+        BrewCodeI18n.t('player.startTimer') +
+        ' (' +
+        formatTime(durationToSeconds(s.duration)) +
+        ')';
       btnTimer.classList.add('btn-timer');
       btnTimer.classList.remove('btn-ghost');
     }
@@ -300,7 +317,12 @@
     doneView.classList.remove('hidden');
 
     const totalSteps = recipe.steps.length;
-    $('#done-msg').textContent = BrewCodeI18n.t('player.doneMsg') + ' ' + totalSteps + ' ' + BrewCodeI18n.t('player.doneMsgSuffix');
+    $('#done-msg').textContent =
+      BrewCodeI18n.t('player.doneMsg') +
+      ' ' +
+      totalSteps +
+      ' ' +
+      BrewCodeI18n.t('player.doneMsgSuffix');
 
     const result = recipe.result;
     const resultDiv = $('#done-result');
@@ -323,13 +345,20 @@
       };
 
       if (result.actualBrewTime) {
-        addResult(BrewCodeI18n.t('player.actualTime'), result.actualBrewTime.value + (result.actualBrewTime.unit || 's'));
+        addResult(
+          BrewCodeI18n.t('player.actualTime'),
+          result.actualBrewTime.value + (result.actualBrewTime.unit || 's')
+        );
       }
       if (result.finalYield) {
-        addResult(BrewCodeI18n.t('player.yield'), result.finalYield.value + (result.finalYield.unit || 'g'));
+        addResult(
+          BrewCodeI18n.t('player.yield'),
+          result.finalYield.value + (result.finalYield.unit || 'g')
+        );
       }
       if (result.measuredTDS != null) addResult('TDS', result.measuredTDS + '%');
-      if (result.extractionYield != null) addResult(BrewCodeI18n.t('player.extraction'), result.extractionYield + '%');
+      if (result.extractionYield != null)
+        addResult(BrewCodeI18n.t('player.extraction'), result.extractionYield + '%');
       if (result.rating != null) addResult(BrewCodeI18n.t('player.rating'), result.rating + '/10');
     } else {
       resultDiv.classList.add('hidden');
@@ -453,9 +482,10 @@
   /* Back to Forge */
   $('#btn-back-to-forge').addEventListener('click', function () {
     if (!recipe) return;
-    var isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    var forgeBase = isLocal ? 'http://localhost:8788' : 'https://forge.礼字号.中国';
-    window.open(forgeBase + '/#brew=' + encodeURIComponent(JSON.stringify(recipe)), '_blank');
+    window.open(
+      BrewCodeConfig.forgeUrl + '/#brew=' + encodeURIComponent(JSON.stringify(recipe)),
+      '_blank'
+    );
   });
 
   /* language init */

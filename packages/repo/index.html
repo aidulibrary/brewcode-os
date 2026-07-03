@@ -3,7 +3,9 @@
   <head>
     <script>
       if (location.hostname === 'brewcode-repo.pages.dev') {
-        location.replace('https://repo.礼字号.中国' + location.pathname + location.search + location.hash);
+        location.replace(
+          'https://repo.礼字号.中国' + location.pathname + location.search + location.hash
+        );
       }
     </script>
     <meta property="og:title" content="BrewRepo — 咖啡冲煮方案库" />
@@ -17,7 +19,9 @@
     <meta name="description" content="BrewCode OS BrewRepo - .brew 冲煮方案公共仓库" />
     <title>BrewRepo</title>
     <link rel="stylesheet" href="repo.css?v=20260615" />
-    <script>
+    <script src="common/config.js"></script>
+    <script src="common/i18n/index.js"></script>
+    <!--
       /*
        * BrewCode OS i18n — 通用多语言加载器
        * 零框架依赖，词条内嵌，file:// 和 HTTP 双环境兼容
@@ -806,7 +810,7 @@
           getLang: getLang,
         };
       })();
-    </script>
+    -->
     <style>
       .bc-navbar {
         display: flex;
@@ -1116,9 +1120,7 @@
             <button id="btn-copy-json" class="btn btn-ghost" data-i18n="repo.detail.copy">
               复制 .brew 内容
             </button>
-            <button id="btn-share-card" class="btn btn-ghost" title="分享">
-              📷 分享
-            </button>
+            <button id="btn-share-card" class="btn btn-ghost" title="分享">📷 分享</button>
           </div>
         </div>
       </div>

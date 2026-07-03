@@ -173,6 +173,12 @@ async function callDeepSeek(apiKey, messages) {
 }
 
 export default {
+  /**
+   * 风味诊断处理函数，接收 .brew 方案和用户问题描述，调用 DeepSeek AI 返回参数调整建议
+   * @param {Request} request — POST 请求，body 包含 brew 和 issue 字段
+   * @param {Object} env — Cloudflare Workers 环境变量，包含 DEEPSEEK_API_KEY 密钥
+   * @returns {Promise<Response>} JSON 格式的诊断建议列表
+   */
   async fetch(request, env) {
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: CORS_HEADERS });

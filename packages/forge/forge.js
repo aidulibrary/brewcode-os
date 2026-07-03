@@ -47,7 +47,7 @@ var editorState = {
   meta: {
     name: '',
     version: '1.0.0',
-    brewCodeVersion: '0.1',
+    brewCodeVersion: '1.0',
     author: '',
     description: '',
     license: 'CC0',
@@ -354,6 +354,10 @@ function bindFormEvents() {
  * 实时校验
  * ================================================================ */
 
+/**
+ * 表单校验状态机，检查 .brew 方案中各必填字段的完整性
+ * @returns {Array<{field: string, label: string, message: string}>} 校验错误列表，空数组表示通过
+ */
 function validateState() {
   var errors = [];
   var s = editorState;
@@ -1043,6 +1047,10 @@ function bindStepEvents() {
  * .brew 文件导出
  * ================================================================ */
 
+/**
+ * 从编辑器状态构建 .brew JSON 结构，包含 meta / coffee / equipment / recipe / steps / result 六个顶层字段
+ * @returns {Object} 符合 BrewCode Schema 的完整 .brew JSON 对象
+ */
 function buildBrewJSON() {
   var out = {};
 
@@ -1337,13 +1345,18 @@ function submitToBrewRepo() {
  * JSON → State 回填
  * ================================================================ */
 
+/**
+ * 解析 .brew JSON 字符串，将数据回填到编辑器状态中，支持表单模式和代码模式切换
+ * @param {string} jsonStr — .brew 文件的 JSON 字符串
+ * @returns {void}
+ */
 function loadBrewJSON(jsonStr) {
   var data = JSON.parse(jsonStr);
 
   if (data.meta) {
     editorState.meta.name = data.meta.name || '';
     editorState.meta.version = data.meta.version || '1.0.0';
-    editorState.meta.brewCodeVersion = data.meta.brewCodeVersion || '0.1';
+    editorState.meta.brewCodeVersion = data.meta.brewCodeVersion || '1.0';
     editorState.meta.author = data.meta.author || '';
     editorState.meta.description = data.meta.description || '';
     editorState.meta.license = data.meta.license || 'CC0';
@@ -2284,12 +2297,7 @@ document.addEventListener('DOMContentLoaded', function () {
   $('#btn-open-in-player').addEventListener('click', function () {
     collectFormToState();
     var json = encodeURIComponent(JSON.stringify(buildBrewJSON()));
-    var isLocal =
-      window.location.protocol === 'file:' ||
-      window.location.hostname === 'localhost' ||
-      window.location.hostname === '127.0.0.1';
-    var playerBase = isLocal ? 'http://localhost:8789' : 'https://player.礼字号.中国';
-    window.open(playerBase + '?brew=' + json, '_blank');
+    window.open(BrewCodeConfig.playerUrl + '?brew=' + json, '_blank');
   });
   $('#btn-toggle-code').addEventListener('click', toggleCodeMode);
 
@@ -2330,6 +2338,7 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .catch(function (err) {
         console.error('BrewForge: 分享图生成失败', err);
+        showToast('分享图生成失败，请稍后重试');
         btn.textContent = originalText;
         btn.disabled = false;
       });
@@ -2355,5 +2364,27 @@ document.addEventListener('DOMContentLoaded', function () {
     } catch (e) {
       console.warn('Forge: 无法解析 URL hash 中的方案数据', e);
     }
+  }
+
+  /* ── Toast 提示 ── */
+  var toastTimer = null;
+  function showToast(msg) {
+    var toast = document.getElementById('forge-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'forge-toast';
+      toast.style.cssText =
+        'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);' +
+        'background:rgba(0,0,0,0.85);color:#fff;padding:10px 24px;' +
+        'border-radius:8px;font-size:14px;z-index:9999;' +
+        'opacity:0;transition:opacity 0.3s;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toast.style.opacity = '0';
+    }, 2000);
   }
 });
