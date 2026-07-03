@@ -4,8 +4,6 @@ const CACHE_URLS = [
   '/index.html',
   '/player.css',
   '/player.js',
-  '/seeds-manifest.json',
-  '/sample.brew',
 ];
 
 self.addEventListener('install', (event) => {
