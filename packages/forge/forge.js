@@ -2311,37 +2311,14 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   }
 
-  // 分享按钮 — 使用事件委托确保可靠性
-  document.addEventListener('click', function (e) {
-    var btn = e.target.closest('#btn-share-card');
-    if (!btn) return;
-    e.preventDefault();
+  // 底部下载按钮
+  $('#btn-download-file').addEventListener('click', exportBrewFile);
 
-    var originalText = btn.textContent;
-    btn.textContent = '生成中…';
-    btn.disabled = true;
-
+  // 底部Player打开按钮
+  $('#btn-open-in-player-bottom').addEventListener('click', function () {
     collectFormToState();
-    collectResultToState();
-    var brewData = buildBrewJSON();
-
-    if (!brewData.meta) brewData.meta = {};
-    if (!brewData.meta.brewId) {
-      brewData.meta.brewId = generateBrewId();
-      editorState.meta.brewId = brewData.meta.brewId;
-    }
-
-    generateShareCard(brewData)
-      .then(function () {
-        btn.textContent = originalText;
-        btn.disabled = false;
-      })
-      .catch(function (err) {
-        console.error('BrewForge: 分享图生成失败', err);
-        showToast('分享图生成失败，请稍后重试');
-        btn.textContent = originalText;
-        btn.disabled = false;
-      });
+    var json = encodeURIComponent(JSON.stringify(buildBrewJSON()));
+    window.open(BrewCodeConfig.playerUrl + '?brew=' + json, '_blank');
   });
 
   $('#validation-bar').addEventListener('click', function () {
