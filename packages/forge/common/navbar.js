@@ -1,7 +1,7 @@
 /*
  * BrewCode OS 统一导航栏组件
  * 零框架原生 JS，复用 BrewCodeI18n 多语言模块
- * 用法：createNavbar('home' | 'player' | 'repo' | 'forge')
+ * 用法：createNavbar('repo' | 'player' | 'forge')
  */
 
 function createNavbar(currentPage) {
@@ -30,9 +30,8 @@ function createNavbar(currentPage) {
   var t = NAV_LABELS[lang] || NAV_LABELS.zh;
 
   var NAV_ITEMS = [
-    { id: 'home', href: 'https://brewcode.礼字号.中国', label: t.home },
-    { id: 'player', href: 'https://player.礼字号.中国', label: t.player },
     { id: 'repo', href: 'https://repo.礼字号.中国', label: t.repo },
+    { id: 'player', href: 'https://player.礼字号.中国', label: t.player },
     { id: 'forge', href: 'https://forge.礼字号.中国', label: t.forge },
   ];
 
