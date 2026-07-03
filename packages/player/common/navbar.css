@@ -1,0 +1,226 @@
+/*
+ * BrewCode OS 统一导航栏样式
+ * 零框架原生 CSS
+ * 导航栏固定深色主题，不受各站点 light/dark 主题切换影响
+ * 深色配色：bg #1a1a2e / text #e0e0e8 / accent #e8a850
+ */
+
+/* ================================================================
+ * 导航栏容器 — 硬编码深色，不依赖可被覆盖的 CSS 变量
+ * ================================================================ */
+
+.bc-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 16px;
+  background: #1a1a2e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Roboto,
+    sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ================================================================
+ * Logo 区域
+ * ================================================================ */
+
+.bc-navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #e8a850;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.bc-navbar-logo svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.bc-navbar-logo:hover {
+  opacity: 0.85;
+}
+
+.bc-navbar-logo-text {
+  white-space: nowrap;
+}
+
+/* ================================================================
+ * 导航链接列表
+ * ================================================================ */
+
+.bc-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bc-navbar-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 8px;
+  color: #8888aa;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition:
+    color 0.15s,
+    background 0.15s;
+  white-space: nowrap;
+}
+
+.bc-navbar-links a:hover {
+  color: #e0e0e8;
+  background: #222244;
+}
+
+/* 当前页高亮 — 琥珀金色下划线 */
+.bc-navbar-links a.active {
+  color: #e8a850;
+  position: relative;
+}
+
+.bc-navbar-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: #e8a850;
+  border-radius: 1px;
+}
+
+/* ================================================================
+ * 汉堡菜单按钮
+ * ================================================================ */
+
+.bc-navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #e0e0e8;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  line-height: 1;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.bc-navbar-toggle:hover {
+  background: #222244;
+}
+
+/* ================================================================
+ * 主题/语言切换按钮区
+ * ================================================================ */
+
+.bc-navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.bc-navbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: transparent;
+  color: #e0e0e8;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.bc-navbar-btn:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: #222244;
+}
+
+.bc-navbar-btn:active {
+  border-color: #e8a850;
+  color: #e8a850;
+}
+
+/* ================================================================
+ * 移动端适配
+ * ================================================================ */
+
+@media (max-width: 640px) {
+  .bc-navbar-toggle {
+    display: block;
+  }
+
+  .bc-navbar-links {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: #222244;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 8px;
+    gap: 2px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+      max-height 0.25s ease,
+      opacity 0.2s ease,
+      padding 0.25s ease;
+    pointer-events: none;
+  }
+
+  .bc-navbar-links.open {
+    max-height: 240px;
+    opacity: 1;
+    padding: 8px;
+    pointer-events: auto;
+  }
+
+  .bc-navbar-links a {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+  }
+
+  .bc-navbar-links a.active::after {
+    bottom: 6px;
+  }
+}
+
+/* ================================================================
+ * 导航栏固定深色主题，不响应 prefers-color-scheme 或 .light-theme
+ * 所有颜色已在上方硬编码，此处无需覆盖
+ * ================================================================ */

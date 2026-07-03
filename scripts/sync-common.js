@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SOURCE = 'packages/common';
-const TARGETS = ['packages/forge/common', 'packages/repo/common'];
+const TARGETS = ['packages/forge/common', 'packages/repo/common', 'packages/player/common'];
 
 const ROOT = path.resolve(__dirname, '..');
 
