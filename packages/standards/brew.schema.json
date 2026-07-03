@@ -436,7 +436,7 @@
               "value": {
                 "type": "number",
                 "minimum": 0,
-                "exclusiveMinimum": true
+                "exclusiveMinimum": 0
               },
               "unit": {
                 "type": "string",

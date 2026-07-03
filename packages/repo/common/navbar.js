@@ -114,13 +114,13 @@ function createNavbar(currentPage) {
     get: function () {
       return (
         document.documentElement.getAttribute('data-theme') ||
-        localStorage.getItem('brewcode-theme') ||
+        localStorage.getItem('brewcode_theme') ||
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
       );
     },
     set: function (name) {
       document.documentElement.setAttribute('data-theme', name);
-      localStorage.setItem('brewcode-theme', name);
+      localStorage.setItem('brewcode_theme', name);
       this.updateButton(name);
     },
     toggle: function () {
@@ -138,9 +138,11 @@ function createNavbar(currentPage) {
       this.set(current);
       var btn = document.getElementById('btn-theme');
       if (btn) {
-        btn.addEventListener('click', function () { Theme.toggle(); });
+        btn.addEventListener('click', function () {
+          Theme.toggle();
+        });
       }
-    }
+    },
   };
 
   /* ================================================================
@@ -151,7 +153,7 @@ function createNavbar(currentPage) {
 
     toggle: function () {
       this.current = this.current === 'zh' ? 'en' : 'zh';
-      localStorage.setItem('brewcode-lang', this.current);
+      localStorage.setItem('brewcode_lang', this.current);
       this.updateButton();
 
       /* 重新渲染导航链接文字 */
@@ -170,7 +172,7 @@ function createNavbar(currentPage) {
       if (btn) {
         btn.textContent = this.current === 'zh' ? 'EN' : '中';
       }
-    }
+    },
   };
 
   /* 初始化主题和语言按钮 */
@@ -178,6 +180,8 @@ function createNavbar(currentPage) {
 
   var btnLang = document.getElementById('bc-btn-lang');
   if (btnLang) {
-    btnLang.addEventListener('click', function () { Lang.toggle(); });
+    btnLang.addEventListener('click', function () {
+      Lang.toggle();
+    });
   }
 }
