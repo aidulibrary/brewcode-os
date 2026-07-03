@@ -1526,7 +1526,6 @@ function toggleCodeMode() {
  * ================================================================ */
 
 var AI_API_BASE = 'https://api.礼字号.中国';
-var AI_AUTH_TOKEN = 'bk_test1234567890abcdef';
 var AI_TIMEOUT_MS = 15000;
 
 var LLM_PROVIDERS = {
@@ -1786,7 +1785,7 @@ function setAIInputError(input, message) {
 function aiFetch(path, body) {
   var userConfig = loadLLMConfig();
   var apiBase = userConfig && userConfig.apiKey ? userConfig.apiBase : AI_API_BASE;
-  var authToken = userConfig && userConfig.apiKey ? userConfig.apiKey : AI_AUTH_TOKEN;
+  var authToken = userConfig && userConfig.apiKey ? userConfig.apiKey : null;
 
   if (userConfig && userConfig.apiKey && userConfig.model) {
     body = Object.assign({}, body, { model: userConfig.model });
@@ -2295,11 +2294,17 @@ document.addEventListener('DOMContentLoaded', function () {
   $('#btn-toggle-code').addEventListener('click', toggleCodeMode);
 
   function generateBrewId() {
-    return 'BC-' + Math.floor(Math.random() * 0xffff).toString(16).toUpperCase().padStart(4, '0');
+    return (
+      'BC-' +
+      Math.floor(Math.random() * 0xffff)
+        .toString(16)
+        .toUpperCase()
+        .padStart(4, '0')
+    );
   }
 
   // 分享按钮 — 使用事件委托确保可靠性
-  document.addEventListener('click', function(e) {
+  document.addEventListener('click', function (e) {
     var btn = e.target.closest('#btn-share-card');
     if (!btn) return;
     e.preventDefault();

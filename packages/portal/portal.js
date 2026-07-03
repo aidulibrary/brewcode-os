@@ -7,9 +7,22 @@
 (function () {
   'use strict';
 
-  var isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  function getCookie(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : null; }
-  function setCookie(n, v) { document.cookie = n + '=' + v + '; path=/; max-age=31536000; SameSite=Lax' + (isLocal ? '' : '; domain=.礼字号.中国'); }
+  var isLocal =
+    window.location.protocol === 'file:' ||
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1';
+  function getCookie(n) {
+    var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
+    return m ? m[2] : null;
+  }
+  function setCookie(n, v) {
+    document.cookie =
+      n +
+      '=' +
+      v +
+      '; path=/; max-age=31536000; SameSite=Lax' +
+      (isLocal ? '' : '; domain=.礼字号.中国');
+  }
 
   /* ================================================================
    * i18n 词条（内嵌，零网络请求）
@@ -85,6 +98,7 @@
       'footer.brand': 'BrewCode OS · 礼字号',
       'nav.certified': 'Certified',
     },
+  };
 
   /* ================================================================
    * 主题管理
