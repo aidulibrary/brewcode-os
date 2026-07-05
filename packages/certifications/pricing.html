@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta
+      name="description"
+      content="BrewCode Certified 认证申请 — 为您的咖啡设备申请硬件兼容认证"
+    />
+    <title>认证申请 — BrewCode Certified</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      html,
+      body {
+        height: 100%;
+        background: #1a1a2e;
+        color: #fff8e1;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 16px;
+      }
+
+      .logo {
+        margin-top: 64px;
+        margin-bottom: 24px;
+      }
+
+      .logo svg {
+        width: 48px;
+        height: 48px;
+        display: block;
+      }
+
+      .title {
+        font-family: Georgia, 'Noto Serif SC', serif;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: #fff8e1;
+        text-align: center;
+        margin-bottom: 8px;
+        letter-spacing: 0.5px;
+      }
+
+      .subtitle {
+        font-size: 0.88rem;
+        color: #c8a882;
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .cards {
+        display: flex;
+        gap: 24px;
+        width: 100%;
+        max-width: 960px;
+        margin-bottom: 64px;
+      }
+
+      .card {
+        flex: 1;
+        min-width: 0;
+        background: #222244;
+        border-radius: 12px;
+        border: 2px solid transparent;
+        padding: 32px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .card-l1 {
+        border-color: #8bc34a;
+      }
+
+      .card-l2 {
+        border-color: #e8a850;
+      }
+
+      .card-l3 {
+        border-color: #c8a882;
+      }
+
+      .card-price {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff8e1;
+        line-height: 1.2;
+      }
+
+      .card-benefits {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+      }
+
+      .card-benefits li {
+        font-size: 0.88rem;
+        color: #c8a882;
+        line-height: 1.4;
+        padding-left: 20px;
+        position: relative;
+      }
+
+      .card-benefits li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #8bc34a;
+        font-weight: 700;
+      }
+
+      .card-btn {
+        display: block;
+        width: 100%;
+        padding: 12px 0;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        transition: opacity 0.15s;
+      }
+
+      .card-btn:active {
+        opacity: 0.8;
+      }
+
+      .btn-l1 {
+        background: #8bc34a;
+        color: #1a1a2e;
+      }
+
+      .btn-l2 {
+        background: #e8a850;
+        color: #1a1a2e;
+      }
+
+      .btn-l3 {
+        background: #c8a882;
+        color: #1a1a2e;
+      }
+
+      .card-hint {
+        font-size: 0.72rem;
+        color: #c8a882;
+        text-align: center;
+        line-height: 1.4;
+      }
+
+      .card-badge-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .badge-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei',
+          sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: #1a1a2e;
+        letter-spacing: 0.5px;
+      }
+
+      .badge-core-value {
+        font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-align: center;
+        margin-top: 6px;
+      }
+
+      .badge-l1 {
+        background: #8bc34a;
+      }
+
+      .badge-l2 {
+        background: #e8a850;
+      }
+
+      .badge-l3 {
+        background: #c8a882;
+      }
+
+      .payment-section {
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 64px;
+        text-align: center;
+      }
+
+      .payment-title {
+        font-family: Georgia, 'Noto Serif SC', serif;
+        font-size: 1.15rem;
+        font-weight: 400;
+        color: #fff8e1;
+        margin-bottom: 16px;
+      }
+
+      .payment-desc {
+        font-size: 0.875rem;
+        color: #fff8e1;
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+
+      .payment-receiver {
+        font-size: 12px;
+        color: #c8a882;
+        text-align: center;
+        margin-top: 12px;
+      }
+
+      .payment-notice {
+        font-size: 11px;
+        color: #c8a882;
+        text-align: center;
+        line-height: 1.6;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .contact-section {
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(200, 168, 130, 0.2);
+        text-align: center;
+      }
+
+      .contact-title {
+        font-family: Georgia, 'Noto Serif SC', serif;
+        font-size: 16px;
+        color: #e8a850;
+        margin-bottom: 20px;
+      }
+
+      .contact-codes {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        margin-bottom: 20px;
+      }
+
+      .contact-code-item {
+        text-align: center;
+      }
+
+      .contact-code-item img {
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto 8px;
+      }
+
+      .contact-code-label {
+        font-size: 13px;
+        color: #fff8e1;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .contact-code-desc {
+        font-size: 11px;
+        color: #c8a882;
+      }
+
+      .qr-payment {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+        border-radius: 8px;
+        display: block;
+      }
+
+      .footer {
+        width: 100%;
+        text-align: center;
+        padding: 32px 0;
+        margin-top: auto;
+        border-top: 1px solid #222244;
+        font-size: 0.78rem;
+        color: #c8a882;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 767px) {
+        .cards {
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .card {
+          padding: 24px 20px;
+        }
+
+        .logo {
+          margin-top: 40px;
+        }
+
+        .title {
+          font-size: 1.25rem;
+          margin-bottom: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="logo">
+        <img
+          src="../common/logo.svg"
+          alt="BrewCode-OS"
+          style="width: 80px; height: auto; display: block; margin: 0 auto"
+        />
+      </div>
+
+      <h1 class="title">BrewCode Certified · 认证申请</h1>
+      <p class="subtitle">获得 BC 认证</p>
+
+      <div class="cards">
+        <div class="card card-l1">
+          <div class="card-badge-wrap">
+            <div class="badge-circle badge-l1">L1</div>
+            <div class="badge-core-value" style="color: #8bc34a">Read Parameters</div>
+          </div>
+          <div class="card-price">免费</div>
+          <ul class="card-benefits">
+            <li>参数映射表审核</li>
+            <li>认证标识使用权</li>
+            <li>收录入认证设备名录</li>
+          </ul>
+          <a href="#" class="card-btn btn-l1" id="btn-l1">提交参数映射表</a>
+          <div class="card-hint">提交后 5 个工作日内完成审核</div>
+        </div>
+
+        <div class="card card-l2">
+          <div class="card-badge-wrap">
+            <div class="badge-circle badge-l2">L2</div>
+            <div class="badge-core-value" style="color: #e8a850">Execute Steps</div>
+          </div>
+          <div class="card-price">¥99/年</div>
+          <ul class="card-benefits">
+            <li>包含 L1 全部权益</li>
+            <li>固件版本验证</li>
+            <li>人工审核支持</li>
+            <li>认证设备名录优先展示</li>
+          </ul>
+          <a href="#payment-section" class="card-btn btn-l2">申请 L2 认证 · ¥99/年</a>
+          <div class="card-hint">支付后在微信群联系 李胜杰 确认开通</div>
+        </div>
+
+        <div class="card card-l3">
+          <div class="card-badge-wrap">
+            <div class="badge-circle badge-l3">L3</div>
+            <div class="badge-core-value" style="color: #c8a882">Close Data Loop</div>
+          </div>
+          <div class="card-price">¥299/年</div>
+          <ul class="card-benefits">
+            <li>包含 L2 全部权益</li>
+            <li>数据闭环验证</li>
+            <li>认证设备名录置顶推荐</li>
+            <li>新品首发推荐位</li>
+          </ul>
+          <a href="#payment-section" class="card-btn btn-l3">申请 L3 认证 · ¥299/年</a>
+          <div class="card-hint">支付后在微信群联系 李胜杰 确认开通</div>
+        </div>
+      </div>
+
+      <div class="payment-section" id="payment-section">
+        <h2 class="payment-title">支付方式</h2>
+        <p class="payment-desc">当前仅支持微信支付。请扫描下方二维码完成支付。</p>
+        <img class="qr-payment" src="qrcode-wechat-payment.png" alt="微信收款码" />
+        <p class="payment-receiver">收款方：认证计划管理人 李胜杰</p>
+      </div>
+
+      <div class="contact-section">
+        <p class="contact-title">联系与支持</p>
+        <div class="contact-codes">
+          <div class="contact-code-item">
+            <img
+              src="qrcode-wechat-personal.png"
+              alt="个人微信"
+              style="width: 120px; height: 120px"
+            />
+            <p class="contact-code-label">添加群主微信</p>
+            <p class="contact-code-desc">支付后联系群主·李泊言确认开通</p>
+          </div>
+        </div>
+        <p class="payment-notice">
+          特别提醒：BrewCode-OS当前处于知识治理组织筹备期，本服务所收认证费将转入创始人李胜杰的个人账户。支付成功后，需在微信中联系群主·李泊言确认开通。
+        </p>
+      </div>
+
+      <div class="footer">
+        brewcode.礼字号.中国<br />
+        此方案可自由使用、修改和分享 · CC0
+      </div>
+
+      <div
+        id="l1-toast"
+        style="
+          display: none;
+          text-align: center;
+          padding: 12px;
+          color: #c8a882;
+          font-size: 12px;
+          margin-top: 8px;
+        "
+      >
+        参数映射表提交流程即将上线，请先在微信群联系 李泊言 获取申请指引
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('btn-l1').addEventListener('click', function (e) {
+        e.preventDefault();
+        var toast = document.getElementById('l1-toast');
+        toast.style.display = 'block';
+        clearTimeout(this._toastTimer);
+        this._toastTimer = setTimeout(function () {
+          toast.style.display = 'none';
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>
