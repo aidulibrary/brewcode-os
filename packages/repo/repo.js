@@ -8308,7 +8308,11 @@
         BrewCodeConfig.playerUrl +
         '?brew=' +
         encodeURIComponent(BrewCodeConfig.playerUrl + '/seeds/' + recipe.file);
-      window.open(playerUrl, '_blank');
+      var a = document.createElement('a');
+      a.href = playerUrl;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.click();
     };
 
     $('#btn-copy-json').onclick = async function () {
@@ -8402,7 +8406,11 @@
 
     $('#btn-open-player').onclick = function () {
       var playerUrl = BrewCodeConfig.playerUrl + '?brew=' + encodeURIComponent(recipe.filePath);
-      window.open(playerUrl, '_blank');
+      var a = document.createElement('a');
+      a.href = playerUrl;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.click();
     };
 
     $('#btn-copy-json').onclick = async function () {
