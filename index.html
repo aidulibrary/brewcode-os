@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrewCode OS — The Universal Language for Coffee Brewing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; background: #1a1a2e; color: #fff8e1; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; }
+    .page { min-height: 100vh; max-width: 720px; margin: 0 auto; padding: 80px 24px 60px; }
+    .logo { font-size: 13px; font-weight: 500; letter-spacing: 0.5px; color: #c8a27a; margin-bottom: 48px; text-transform: uppercase; }
+    h1 { font-size: 28px; font-weight: 500; margin-bottom: 16px; }
+    .tagline { font-size: 18px; color: #c8a27a; margin-bottom: 48px; }
+    p { font-size: 15px; color: #b4b2a9; margin-bottom: 24px; max-width: 560px; }
+    .section { border-top: 0.5px solid rgba(255,248,225,0.1); padding: 32px 0; }
+    .section h2 { font-size: 16px; font-weight: 500; margin-bottom: 12px; }
+    .section p { font-size: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+    .card { border: 0.5px solid rgba(255,248,225,0.12); border-radius: 8px; padding: 20px; }
+    .card h3 { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+    .card p { font-size: 13px; margin-bottom: 0; }
+    .links { margin-top: 48px; display: flex; gap: 24px; flex-wrap: wrap; }
+    .links a { font-size: 14px; color: #c8a27a; text-decoration: none; border-bottom: 0.5px solid rgba(200,162,122,0.3); padding-bottom: 2px; }
+    .links a:hover { border-bottom-color: #c8a27a; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 0.5px solid rgba(255,248,225,0.08); font-size: 12px; color: #888780; }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="logo">BrewCode OS</div>
+
+  <h1>The Universal Language<br>for Coffee Brewing</h1>
+  <p class="tagline">One file format. Every device. Any barista.</p>
+
+  <p>BrewCode OS is an open-source project that establishes a universal digital protocol for coffee brewing. At its heart is the <code>.brew</code> file — a JSON format that describes every parameter of a brew recipe: dose, water temperature, grind size, and step-by-step pouring instructions. A single <code>.brew</code> file can be parsed, executed, and reproduced on any compatible device, anywhere in the world.</p>
+
+  <div class="section">
+    <h2>Six-Layer Architecture</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>1. Standard</h3>
+        <p>.brew JSON Schema (CC0) — the core protocol, released into the public domain</p>
+      </div>
+      <div class="card">
+        <h3>2. Tools</h3>
+        <p>BrewPlayer, BrewRepo, and BrewForge — three open-source applications for playing, browsing, and creating brew recipes</p>
+      </div>
+      <div class="card">
+        <h3>3. AI Services</h3>
+        <p>Flavor diagnosis, recipe generation, and semantic translation — edge computing via Cloudflare Workers</p>
+      </div>
+      <div class="card">
+        <h3>4. Data</h3>
+        <p>100 seed recipes covering 20 origins, 6 brew methods, and recipes signed by world champions</p>
+      </div>
+      <div class="card">
+        <h3>5. Infrastructure</h3>
+        <p>Cloudflare Pages + Workers + D1 + R2 — zero-cost global infrastructure</p>
+      </div>
+      <div class="card">
+        <h3>6. Certification</h3>
+        <p>BrewCode Compatible — an interoperability certification for third-party brewing hardware</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>BrewCode Compatible Certification</h2>
+    <p>Hardware manufacturers can certify their devices for interoperability with the .brew ecosystem. Three levels are available: L1 Ready (free, parameter reception), L2 Interactive ($99/year, step-by-step execution), and L3 Native ($299/year, full data recording). Certified devices appear in the public directory and may display the BrewCode Compatible mark on product packaging and websites.</p>
+  </div>
+
+  <div class="section">
+    <h2>Philosophy</h2>
+    <p><strong>Flavor-Parameter Isomorphism.</strong> Any describable flavor difference corresponds to a measurable parameter difference. Coffee is physics, not mysticism.</p>
+    <p><strong>Knowledge as a Public Good.</strong> Brewing knowledge belongs to everyone. The core standard is CC0, and all code is MIT — forever.</p>
+    <p><strong>Data Sovereignty.</strong> Your brewing data is yours. BrewCode OS collects nothing, owns nothing, tracks nothing.</p>
+  </div>
+
+  <div class="links">
+    <a href="https://github.com/aidulibrary/brewcode-os">GitHub Repository</a>
+    <a href="https://brewcode.礼字号.中国">Official Website</a>
+    <a href="https://player.礼字号.中国">BrewPlayer</a>
+    <a href="https://repo.礼字号.中国">BrewRepo</a>
+    <a href="https://forge.礼字号.中国">BrewForge</a>
+    <a href="https://api.礼字号.中国">API Gateway</a>
+  </div>
+
+  <footer>
+    BrewCode OS is an open-source project, not a company. Founded 2026 by Bowen Lee. Standards released under CC0 1.0. Code released under MIT.
+  </footer>
+</div>
+</body>
+</html>
