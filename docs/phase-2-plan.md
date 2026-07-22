@@ -2,7 +2,7 @@
 
 **版本：** v0.1
 **创建时间：** 2026-06-14
-**状态：** 待执行
+**状态：** ✅ 已于 2026-06-24 执行完毕并归档（种子 100 个超额完成、Player 已上线、Repo 已建）。当前路线图见根目录 [`ROADMAP.md`](../ROADMAP.md)。
 **前置条件：**
 - 标准层：`.brew` JSON Schema v0.1 已完成（`packages/standards/brew.schema.json`）
 - 工具层：BrewPlayer MVP 已完成（`packages/player/`，状态机五态，PWA 就绪）

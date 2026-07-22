@@ -1,0 +1,65 @@
+name: BrewCode OS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 2 * * *'  # 每天凌晨 2 点 UTC
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+  smoke-api:
+    runs-on: ubuntu-latest
+    needs: gitleaks
+    steps:
+      - name: Smoke — API gateway
+        run: |
+          echo "=== /diagnose 无 Key → 401 ==="
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.礼字号.中国/diagnose)
+          test "$STATUS" = "401" || { echo "FAIL: expected 401, got $STATUS"; exit 1; }
+          echo "PASS: $STATUS"
+
+          echo "=== /translate → 公共路由 ==="
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.礼字号.中国/translate)
+          test "$STATUS" = "400" || { echo "FAIL: expected 400, got $STATUS"; exit 1; }
+          echo "PASS: $STATUS"
+
+          echo "=== /nonexistent → 404 ==="
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.礼字号.中国/nonexistent)
+          test "$STATUS" = "404" || { echo "FAIL: expected 404, got $STATUS"; exit 1; }
+          echo "PASS: $STATUS"
+
+      - name: Smoke — bk_test Key 已死
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.礼字号.中国/diagnose \
+            -H "Authorization: Bearer bk_test1234567890abcdef")
+          test "$STATUS" = "401" || { echo "FAIL: test key still alive ($STATUS)"; exit 1; }
+          echo "PASS: test key dead"
+
+  smoke-pages:
+    runs-on: ubuntu-latest
+    needs: smoke-api
+    steps:
+      - name: Smoke — frontend sites
+        run: |
+          for SITE in \
+            "https://brewcode.礼字号.中国" \
+            "https://player.礼字号.中国" \
+            "https://repo.礼字号.中国" \
+            "https://forge.礼字号.中国"
+          do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$SITE")
+            test "$STATUS" = "200" || { echo "FAIL: $SITE → $STATUS"; exit 1; }
+            echo "PASS: $SITE → 200"
+          done
