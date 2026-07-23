@@ -1,0 +1,127 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "曼特宁慢萃 · 印尼 苏门答腊 曼特宁 湿刨 深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Kalita Wave 平底慢萃，专为深烘曼特宁设计。低温慢萃，三孔缓慢滴滤，充分提取曼特宁的香料和黑巧克力风味。",
+    "license": "CC0",
+    "tags": ["Kalita Wave", "深烘", "湿刨", "曼特宁", "印尼", "苏门答腊", "低温慢萃"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "印尼 苏门答腊 曼特宁 湿刨 深烘",
+    "producer": "苏门答腊合作社",
+    "origin": {
+      "country": "印尼",
+      "region": "苏门答腊",
+      "farm": "Lintong 处理站",
+      "altitude": "1200-1500m"
+    },
+    "variety": "Typica",
+    "process": "湿刨",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["黑巧克力", "香料", "雪松", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪 155 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Kalita 玻璃分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 210, "unit": "ml" },
+    "ratio": "1:14",
+    "grindSize": {
+      "value": 28,
+      "unit": "C40 click",
+      "description": "中粗研磨，粗砂糖粗细，深烘豆需要粗研磨避免过萃苦味"
+    },
+    "waterTemperature": { "value": 82, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 210, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 35, "unit": "s" },
+    "targetTDS": 1.28,
+    "targetExtraction": 19.0
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 Kalita 波浪滤纸，热水冲洗，预热滤杯和分享壶" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 28 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "82°C 热水注入 30ml，绕圈快速浸润。深烘曼特宁排气剧烈，闷蒸 35 秒",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 90ml（累计 120ml），慢速绕圈，深烘豆注水要稳",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 90, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 1cm",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 150ml（累计 210ml），中心定点慢注为主",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 90, "unit": "ml" },
+      "cumulativeWater": { "value": 210, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。Kalita 155 流速慢，目标总时间 3:00-3:30。粉壁深色为正常",
+      "duration": { "value": 105, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。黑巧克力浓郁，香料（肉桂、丁香）层次，雪松木香，焦糖甜感。深烘曼特宁的经典厚重口感"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 215, "unit": "s" },
+    "finalYield": { "value": 198, "unit": "g" },
+    "measuredTDS": 1.26,
+    "extractionYield": 18.8,
+    "rating": 8.0,
+    "aroma": { "rating": 8.5, "notes": "黑巧克力与雪松木香，香料气息浓郁" },
+    "flavor": { "rating": 8.0, "notes": "黑巧克力风味主导，肉桂丁香香料层次，雪松木香，焦糖甜感" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵悠长，黑巧克力和香料的温暖尾调" },
+    "acidity": { "rating": 6.0, "notes": "极低酸，深烘湿刨的典型特征" },
+    "body": { "rating": 9.0, "notes": "高醇厚度，厚重如奶油，曼特宁标志性口感" },
+    "balance": { "rating": 8.0, "notes": "苦甜平衡，深烘的苦与焦糖甜感和谐" },
+    "sweetness": { "rating": 7.5, "notes": "焦糖甜感，在深烘中表现良好" },
+    "cleanCup": { "rating": 7.5, "notes": "湿刨处理的香料气息，非传统意义的干净但风味独特" },
+    "overall": { "rating": 8.0, "notes": "深烘曼特宁经典方案，低温慢萃避免苦味，充分展现香料巧克力风味" },
+    "tastingNotes": ["黑巧克力", "肉桂", "丁香", "雪松", "焦糖"],
+    "improvements": "可尝试水温降至 80°C，进一步减少苦味萃取"
+  }
+}

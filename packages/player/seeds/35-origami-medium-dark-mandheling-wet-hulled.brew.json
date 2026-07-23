@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "曼特宁折纸 · 印尼 苏门答腊 曼特宁 湿刨法 中深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Origami 折纸滤杯搭配锥形滤纸，冲煮中深烘曼特宁。中深烘比深烘更多保留了曼特宁的草本层次，适合探索曼特宁不同烘焙度的风味。",
+    "license": "CC0",
+    "tags": ["Origami", "中深烘", "湿刨法", "印尼", "苏门答腊", "曼特宁", "草本"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "印尼 苏门答腊 曼特宁 湿刨法 中深烘",
+    "producer": "苏门答腊合作社",
+    "origin": { "country": "印尼", "region": "苏门答腊", "farm": "Lintong 产区", "altitude": "1200-1500m" },
+    "variety": "Typica",
+    "process": "湿刨法",
+    "roastLevel": "中深烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["黑巧克力", "草本", "焦糖", "香料"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "树脂",
+    "brewerSize": "S",
+    "filter": "V60 锥形 01 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Origami 分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 225, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 24, "unit": "C40 click", "description": "中研磨" },
+    "waterTemperature": { "value": 88, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 35, "unit": "s" },
+    "targetTDS": 1.32,
+    "targetExtraction": 19.8
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "将 V60 锥形滤纸放入 Origami S 滤杯。热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 24 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "88°C 热水注入 30ml，绕圈快速浸润。中深烘排气丰富，闷蒸 35 秒",
+      "duration": { "value": 35, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 110ml（累计 140ml），慢速绕圈",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 110, "unit": "ml" },
+      "cumulativeWater": { "value": 140, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：中心定点注水至 225ml",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 85, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 2:45-3:00",
+      "duration": { "value": 85, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。黑巧克力苦甜，草本清香丰富，焦糖甜感，香料层次。中深烘曼特宁的层次感"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 190, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.3,
+    "extractionYield": 19.5,
+    "rating": 8.0,
+    "aroma": { "rating": 8.0, "notes": "黑巧克力与草本的层次香气，中深烘风格" },
+    "flavor": { "rating": 8.0, "notes": "黑巧克力苦甜，草本丰富，焦糖甜感，香料层次" },
+    "aftertaste": { "rating": 8.5, "notes": "余韵悠长，草本回甘" },
+    "acidity": { "rating": 6.5, "notes": "低酸柔和" },
+    "body": { "rating": 8.5, "notes": "中高醇厚度，曼特宁标志性厚重" },
+    "balance": { "rating": 8.0, "notes": "苦甜均衡，草本与焦糖平衡" },
+    "sweetness": { "rating": 7.5, "notes": "焦糖甜感" },
+    "cleanCup": { "rating": 8.0, "notes": "Origami 带来的干净度" },
+    "overall": { "rating": 8.0, "notes": "Origami 中深烘曼特宁，草本层次更丰富，适合探索曼特宁的新维度" },
+    "tastingNotes": ["黑巧克力", "草本", "焦糖", "香料"],
+    "improvements": "可尝试研磨再细一格（23格），提升草本层次"
+  }
+}

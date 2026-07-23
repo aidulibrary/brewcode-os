@@ -1,0 +1,112 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "爱乐压浅烘果香 · 埃塞俄比亚 古吉 日晒 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "爱乐压反压法，专为浅烘古吉日晒设计。高温短时浸泡，保留热带水果风味，适合旅行和办公室快速出品。",
+    "license": "CC0",
+    "tags": ["爱乐压", "Aeropress", "反压法", "浅烘", "日晒", "埃塞俄比亚", "古吉", "便携"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 古吉 日晒 浅烘",
+    "producer": "古吉产区合作社",
+    "origin": { "country": "埃塞俄比亚", "region": "古吉", "farm": "Hambela 处理站", "altitude": "2000-2200m" },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["草莓", "蓝莓", "百香果", "花香"]
+  },
+  "equipment": {
+    "brewer": "爱乐压",
+    "brewerMaterial": "塑料",
+    "brewerSize": "标准",
+    "filter": "爱乐压 原装纸滤",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "玻璃杯"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 225, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 20, "unit": "C40 click", "description": "中细研磨，细砂糖粗细" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 120, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 15, "unit": "s" },
+    "targetTDS": 1.35,
+    "targetExtraction": 20.5
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将滤纸放入滤盖，热水冲洗滤纸。将爱乐压倒置（活塞在上），筒身放在电子秤上"
+    },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 20 格，倒入爱乐压筒身" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 30ml 93°C 热水，轻轻搅拌使所有粉湿润。等待 15 秒",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "注入剩余 195ml 热水至 225ml，搅拌 5 圈",
+      "waterAmount": { "value": 195, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "盖上滤盖，浸泡 60 秒。浅烘古吉需要充分浸泡释放风味",
+      "duration": { "value": 60, "unit": "s" }
+    },
+    { "order": 6, "action": "stir", "description": "取下滤盖，轻轻搅拌 3 圈使粉层沉降" },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "盖上滤盖，将杯子倒扣在滤盖上，快速翻转。缓慢匀速下压约 30 秒。听到嘶嘶声即停止",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "草莓蓝莓香气扑鼻，百香果酸质活泼，花香尾韵。爱乐压反压法带来的干净果香"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 125, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.33,
+    "extractionYield": 20.2,
+    "rating": 8.5,
+    "aroma": { "rating": 9.0, "notes": "草莓、蓝莓的强烈果香，百香果热带气息" },
+    "flavor": { "rating": 8.5, "notes": "草莓蓝莓风味丰富，百香果酸质活泼，花香收尾" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，莓果甜感回甘" },
+    "acidity": { "rating": 8.5, "notes": "百香果酸质明亮活泼，浅烘古吉特色" },
+    "body": { "rating": 7.5, "notes": "中等醇厚度，爱乐压纸滤带来的干净口感" },
+    "balance": { "rating": 8.5, "notes": "酸甜平衡好，果香与甜感和谐" },
+    "sweetness": { "rating": 9.0, "notes": "草莓蓝莓天然甜感丰富" },
+    "cleanCup": { "rating": 8.5, "notes": "干净度高，无杂味" },
+    "overall": { "rating": 8.5, "notes": "爱乐压浅烘方案，反压法保留果香，3 分钟出品，旅游办公首选" },
+    "tastingNotes": ["草莓", "蓝莓", "百香果", "花香"],
+    "improvements": "可尝试浸泡时间延长至 90 秒，提升萃取率"
+  }
+}

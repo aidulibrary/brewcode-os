@@ -1,0 +1,129 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "酒桶发酵 · 埃塞俄比亚 耶加雪菲 酒桶发酵 中深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "酒桶发酵是近年来最具话题性的特殊处理法——将咖啡生豆放入威士忌或朗姆酒桶中进行发酵，赋予咖啡独特的酒香和香草风味。埃塞耶加雪菲酒桶发酵豆在 V60 01 上采用三段注水，91°C 水温，展现威士忌、香草、黑巧克力和樱桃的复杂风味。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "酒桶发酵", "特殊处理法", "埃塞俄比亚", "中深烘", "耶加雪菲"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 耶加雪菲 酒桶发酵 中深烘",
+    "origin": { "country": "埃塞俄比亚", "region": "耶加雪菲" },
+    "variety": "Heirloom",
+    "process": "酒桶发酵",
+    "roastLevel": "中深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["威士忌", "香草", "黑巧克力", "樱桃"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "01",
+    "filter": "V60 漂白",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 225, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 21, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 91, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 150, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 40, "unit": "s" }
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "润湿漂白滤纸，预热 V60 01 陶瓷滤杯和分享壶。倒掉预热用水。" },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15g 酒桶发酵咖啡粉倒入滤杯，轻拍平整。开袋即闻到明显的威士忌酒香。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 45ml 水，91°C，从中心向外慢速绕圈。酒桶发酵豆闷蒸时酒香爆发。闷蒸 40 秒。",
+      "duration": { "value": 40, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 100ml，中水流。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 55, "unit": "ml" },
+      "cumulativeWater": { "value": 100, "unit": "ml" },
+      "targetWeight": { "value": 100, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 160ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 160, "unit": "ml" },
+      "targetWeight": { "value": 160, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 15, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 225ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 65, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "targetWeight": { "value": 225, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 2 分 30 秒。",
+      "duration": { "value": 40, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：威士忌般浓郁的酒香、香草般甜美的奶香、黑巧克力般醇厚、樱桃般的深色水果甜感。酒桶发酵处理法带来的风味辨识度极高，是特殊处理法中最具话题性的品类之一。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 152, "unit": "s" },
+    "finalYield": { "value": 195, "unit": "g" },
+    "measuredTDS": 1.35,
+    "extractionYield": 20.5,
+    "rating": 8.8,
+    "flavorProfile": {
+      "acidity": 5.5,
+      "sweetness": 8.5,
+      "bitterness": 3.5,
+      "body": 7.5,
+      "cleanCup": 7.0,
+      "aftertaste": 8.5,
+      "balance": 7.5,
+      "aroma": 9.5
+    }
+  }
+}

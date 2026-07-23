@@ -1,0 +1,14 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "json.schemas": [
+    {
+      "fileMatch": ["*.brew.json"],
+      "url": "./packages/standards/brew.schema.json"
+    }
+  ],
+  "livePreview.defaultPreviewPath": "/packages/forge/index.html",
+  "explorer.autoRevealExclude": {
+    "": true
+  }
+}

@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="description" content="BrewCode OS BrewPlayer - .brew 文件冲煮播放器" />
+    <title>BrewPlayer</title>
+    <link rel="stylesheet" href="player.css" />
+    <script src="common/config.js"></script>
+    <script>
+      /*
+       * BrewCode OS i18n — 通用多语言加载器
+       * 零框架依赖，词条内嵌，file:// 和 HTTP 双环境兼容
+       * 体积 < 2KB
+       */
+
+      var BrewCodeI18n = (function () {
+        'use strict';
+
+        var lang = 'zh';
+        var loaded = false;
+        var callbacks = [];
+
+        var DICT = {
+          zh: {
+            'hero.description':
+              'BrewCode OS 是一个开源项目，为全球咖啡冲煮建立通用数字语言。核心资产是一个名为 .brew 的 JSON 标准文件格式。',
+            'buttons.player': '打开 Player',
+            'buttons.repo': '浏览方案库',
+            'buttons.forge': '创建方案',
+            'story.title': '诞生记',
+            'tools.title': '工具矩阵',
+            'tools.player.name': 'BrewPlayer',
+            'tools.player.desc':
+              '打开 .brew 文件，获得分步冲煮引导。离线可用，手机放秤旁，扫一眼就够。',
+            'tools.repo.name': 'BrewRepo',
+            'tools.repo.desc':
+              '浏览社区共享的冲煮方案。50个种子方案覆盖20个产区、6种器具，自由筛选检索。',
+            'tools.forge.name': 'BrewForge',
+            'tools.forge.desc':
+              '可视化创建和编辑 .brew 文件。表单模式适合新手，代码模式适合极客。内置 Schema 实时校验。',
+            'data.title': '数据叙事',
+            'data.recipes': '种子方案',
+            'data.origins': '产区覆盖',
+            'data.brewers': '冲煮器具',
+            'data.champions': '世界冠军署名',
+            'community.title': '加入我们',
+            'community.desc':
+              'BrewCode OS 是一个开放项目。标准、工具、方案——全部开源，全部在 GitHub 上协作。',
+            'community.github': 'GitHub 仓库',
+            'community.whitepaper': '白皮书',
+            'community.contact': '联系方式',
+            'community.fork': 'Fork it.',
+            'footer.license': '许可证：CC0 1.0（公共领域）',
+            'footer.founder': '创始人：李泊言 Bowen Lee',
+            'footer.year': '2026',
+            'footer.brand': 'BrewCode OS · 礼字号',
+            /* Forge 词条 */
+            'nav.home': '首页',
+            'nav.player': 'Player',
+            'nav.repo': 'Repo',
+            'nav.forge': 'Forge',
+            'nav.certified': '认证设备',
+            'player.loadTitle': 'BrewPlayer',
+            'player.loadSubtitle': '载入 .brew 文件，开始冲煮',
+            'player.pasteJSON': '粘贴 JSON',
+            'player.openFile': '打开文件',
+            'player.pastePlaceholder': '在此粘贴 .brew 文件内容...',
+            'player.load': '在 Player 中打开',
+            'player.cancel': '取消',
+            'player.urlHint': '或在 URL 后添加 ?brew=文件URL 直接打开',
+            'player.back': '返回',
+            'player.coffee': '咖啡豆',
+            'player.equipment': '器具',
+            'player.params': '参数',
+            'player.startBrewing': '开始冲煮',
+            'player.pourWater': '注水',
+            'player.startTimer': '开始计时',
+            'player.pause': '暂停',
+            'player.nextStep': '下一步',
+            'player.finish': '完成',
+            'player.step': '步骤',
+            'player.cumulative': '累计',
+            'player.targetWeight': '目标秤重',
+            'player.brewComplete': '冲煮完成',
+            'player.restart': '重新开始',
+            'player.loadNew': '载入新方案',
+            'player.backToForge': '✏️ 回 Forge 调整',
+            'player.results': '结果记录',
+            'player.author': '作者：',
+            'player.unspecified': '未指定',
+            'player.dose': '粉量',
+            'player.waterAmount': '总水量',
+            'player.ratio': '粉水比',
+            'player.grindSize': '研磨度',
+            'player.waterTemp': '水温',
+            'player.brewTime': '目标时间',
+            'player.actualTime': '实际用时',
+            'player.yield': '出杯量',
+            'player.extraction': '萃取率',
+            'player.rating': '评分',
+            'player.completed': '已完成',
+            'player.doneMsg': '共完成',
+            'player.doneMsgSuffix': '个步骤。',
+            'player.parseError': '解析失败：',
+            'player.fetchError': '无法加载远程文件：',
+            'player.missingMetaName': '缺少 meta.name',
+            'player.missingRecipe': '缺少 recipe',
+            'player.missingSteps': '缺少 steps 或 steps 为空',
+            'section.recipeInfo': '方案信息',
+            'section.coffeeInfo': '咖啡豆信息',
+            'section.equipmentInfo': '器具信息',
+            'section.brewParams': '冲煮参数',
+            'section.steps': '冲煮步骤',
+            'section.result': '品鉴结果',
+            'section.resultHint': '所有字段均为可选，仅在实际冲煮后记录',
+            'section.flavorDimensions': '风味维度评分',
+            'field.方案名称': '方案名称',
+            'field.必填': '（必填）',
+            'field.可选': '（可选）',
+            'field.版本号': '版本号',
+            'field.作者': '作者',
+            'field.许可证': '许可证',
+            'field.方案描述': '方案描述',
+            'field.标签': '标签',
+            'field.来源URL': '来源 URL',
+            'field.咖啡豆名称': '咖啡豆名称',
+            'field.生产者庄园': '生产者 / 庄园',
+            'field.豆种': '豆种',
+            'field.产国': '产国',
+            'field.产区': '产区',
+            'field.庄园处理站': '庄园 / 处理站',
+            'field.海拔': '海拔',
+            'field.处理法': '处理法',
+            'field.烘焙度': '烘焙度',
+            'field.烘焙商': '烘焙商',
+            'field.烘焙日期': '烘焙日期',
+            'field.风味描述': '风味描述',
+            'field.冲煮器具': '冲煮器具',
+            'field.滤杯材质': '滤杯材质',
+            'field.滤杯规格': '滤杯规格',
+            'field.滤纸': '滤纸',
+            'field.磨豆机': '磨豆机',
+            'field.手冲壶': '手冲壶',
+            'field.电子秤': '电子秤',
+            'field.分享壶': '分享壶',
+            'field.粉量': '粉量 (g)',
+            'field.总注水量': '总注水量 (ml)',
+            'field.粉水比': '粉水比',
+            'field.水温': '水温 (°C)',
+            'field.研磨刻度': '研磨刻度',
+            'field.研磨参考系': '研磨参考系',
+            'field.研磨度描述': '研磨度描述',
+            'field.用水类型': '用水类型',
+            'field.水TDS': '水 TDS (ppm)',
+            'field.目标冲煮时间': '目标冲煮时间 (s)',
+            'field.闷蒸比例': '闷蒸水量比例',
+            'field.闷蒸时间': '闷蒸时间 (s)',
+            'field.目标TDS': '目标 TDS (%)',
+            'field.目标萃取率': '目标萃取率 (%)',
+            'field.实际冲煮时间': '实际冲煮时间',
+            'field.单位': '单位',
+            'field.最终咖啡液重': '最终咖啡液重',
+            'field.实测TDS': '实测 TDS (%)',
+            'field.萃取率': '萃取率 (%)',
+            'field.综合评分': '综合评分 (0-10)',
+            'field.干湿香评分': '干/湿香 (Aroma)',
+            'field.干湿香笔记': '干/湿香笔记',
+            'field.风味评分': '风味 (Flavor)',
+            'field.风味笔记': '风味笔记',
+            'field.余韵评分': '余韵 (Aftertaste)',
+            'field.余韵笔记': '余韵笔记',
+            'field.酸质评分': '酸质 (Acidity)',
+            'field.酸质笔记': '酸质笔记',
+            'field.醇厚度评分': '醇厚度 (Body)',
+            'field.醇厚度笔记': '醇厚度笔记',
+            'field.平衡感评分': '平衡感 (Balance)',
+            'field.平衡感笔记': '平衡感笔记',
+            'field.甜感评分': '甜感 (Sweetness)',
+            'field.甜感笔记': '甜感笔记',
+            'field.干净度评分': '干净度 (Clean Cup)',
+            'field.干净度笔记': '干净度笔记',
+            'field.总体评分': '总体 (Overall)',
+            'field.总体笔记': '总体笔记',
+            'field.品鉴风味笔记': '品鉴风味笔记',
+            'field.下次改进建议': '下次改进建议',
+            'field.操作类型': '操作类型',
+            'field.耗时': '耗时',
+            'field.注水量': '注水量',
+            'field.累计注水量': '累计注水量',
+            'field.目标重量': '目标重量',
+            'field.目标重量单位': '目标重量单位',
+            'field.注水手法': '注水手法',
+            'field.注水强度': '注水强度',
+            'field.本步水温': '本步水温 (°C)',
+            'field.步骤描述': '步骤描述',
+            'field.冲煮器具_ai': '冲煮器具',
+            'field.口味偏好': '口味偏好',
+            'button.export': '⬇ 导出 .brew',
+            'button.openInPlayer': '▶ 在 Player 中打开',
+            'button.aiDiagnose': '🔍 AI 诊断',
+            'button.aiGenerate': '🤖 AI 生成',
+            'button.code': '{} 代码',
+            'button.form': '📝 表单',
+            'button.llmConfig': '⚙️',
+            'validation.pass': '校验通过',
+            'validation.required': ' 个必填项',
+            'validation.requiredField': '必填，请输入',
+            'validation.fieldName': '方案名称',
+            'validation.fieldCoffeeName': '咖啡豆名称',
+            'validation.fieldBrewer': '冲煮器具',
+            'validation.fieldDose': '粉量',
+            'validation.fieldWater': '水量',
+            'validation.fieldTemp': '水温',
+            'validation.errDoseRange': '粉量范围 1-100g，当前值：',
+            'validation.errWaterRange': '水量范围 1-2000ml，当前值：',
+            'validation.errTempRange': '水温范围 0-100°C，当前值：',
+            'validation.codeEmpty': '代码编辑器内容为空，请先输入有效的 JSON 后再切换',
+            'validation.schemaFail': 'Schema 校验未通过，仍有 ',
+            'validation.schemaFailSuffix': ' 个错误，请修正后再切换',
+            'validation.jsonSyntaxError': 'JSON 语法错误，请修正后再切换：',
+            'validation.jsonSyntax': 'JSON 语法',
+            'action.prepare': '准备',
+            'action.rinse': '冲洗',
+            'action.grind': '研磨',
+            'action.dose': '投粉',
+            'action.bloom': '闷蒸',
+            'action.pour': '注水',
+            'action.stir': '搅拌',
+            'action.swirl': '摇晃',
+            'action.drawdown': '滴滤',
+            'action.wait': '等待',
+            'action.measure': '测量',
+            'action.taste': '品鉴',
+            'action.note': '备注',
+            'step.addStep': '+ 添加步骤',
+            'step.saveStep': '保存',
+            'step.cancel': '取消',
+            'step.editStep': '编辑步骤 #',
+            'step.addStepTitle': '添加步骤',
+            'step.noSteps': '暂无步骤，点击下方按钮添加',
+            'step.pourWater': '注水 ',
+            'step.moveUp': '上移',
+            'step.moveDown': '下移',
+            'step.edit': '编辑',
+            'step.delete': '删除',
+            'step.notSet': '— 不设置 —',
+            'step.centerPour': '中心注水',
+            'step.circlePour': '绕圈注水',
+            'step.spotPour': '定点注水',
+            'step.stirPour': '搅拌注水',
+            'step.gentleStream': '细水流',
+            'step.mediumStream': '中水流',
+            'step.heavyStream': '大水流',
+            'step.descriptionPlaceholder': '描述这一步做什么…',
+            'ai.diagnoseTitle': '🔍 AI 诊断',
+            'ai.generateTitle': '🤖 AI 生成方案',
+            'ai.submitDiagnose': '提交诊断',
+            'ai.submitGenerate': '生成方案',
+            'ai.cancel': '取消',
+            'ai.issuePlaceholder': '例如：冲出来太酸了，没有甜感…',
+            'ai.issueLabel': '描述你遇到的问题',
+            'ai.originLabel': '产地',
+            'ai.originPlaceholder': '例如：埃塞俄比亚 耶加雪菲',
+            'ai.roastLabel': '烘焙度',
+            'ai.processLabel': '处理法',
+            'ai.equipmentLabel': '冲煮器具',
+            'ai.equipmentPlaceholder': 'V60 / Kalita Wave / Origami / 爱乐压（逗号分隔）',
+            'ai.preferenceLabel': '口味偏好',
+            'ai.preferencePlaceholder': '例如：偏甜感、果酸明亮、口感醇厚…',
+            'ai.generating': '正在生成方案，请稍候…',
+            'ai.diagnosing': '正在分析方案，请稍候…',
+            'ai.analyzing': '分析中…',
+            'ai.genInProgress': '生成中…',
+            'ai.emptyResult': '未发现可优化的参数，当前方案已较为合理',
+            'ai.genSuccess': '方案已生成，请切换到表单模式查看',
+            'ai.genFail': '生成失败，未返回有效方案',
+            'ai.diagnoseSuggestions': '诊断建议',
+            'ai.currentValue': '当前值：',
+            'ai.suggestedValue': '建议值：',
+            'ai.reason': '理由：',
+            'ai.applySuggestion': '应用建议',
+            'ai.issueRequired': '请输入问题描述',
+            'ai.originRequired': '请输入产地',
+            'ai.roastRequired': '请选择烘焙度',
+            'ai.processRequired': '请选择处理法',
+            'ai.requiredFields': '请填写必填字段',
+            'ai.apiError': 'API 返回错误 ',
+            'ai.timeout': '请求超时，请检查网络连接后重试',
+            'ai.networkError': '网络连接失败，请检查网络后重试',
+            'ai.diagnoseFail': '诊断请求失败，请稍后重试',
+            'ai.generateFail': '生成请求失败，请稍后重试',
+            'llm.title': '⚙️ 连接你的大模型',
+            'llm.provider': '提供商',
+            'llm.apiKey': 'API Key',
+            'llm.apiBase': 'API Base',
+            'llm.model': '模型',
+            'llm.saveConfig': '保存配置',
+            'llm.clearConfig': '清除配置',
+            'llm.hint': '🔒 你的 Key 只保存在本地浏览器中，不会被上传。',
+            'llm.keyRequired': '请输入 API Key',
+            'llm.baseRequired': '请输入 API Base 地址',
+            'common.required': '（必填）',
+            'common.optional': '（可选）',
+            'common.seconds': '秒 (s)',
+            'common.minutes': '分 (min)',
+            'common.ml': '毫升 (ml)',
+            'common.g': '克 (g)',
+            'common.celsius': '°C',
+            'common.fahrenheit': '°F',
+            'common.close': '关闭',
+            'common.评分': '评分',
+            'common.笔记': '笔记',
+            'common.exported': '✓ 已下载',
+            'common.footerHint': '所有输入即时保存到状态中',
+            'common.forgeHeader': 'BrewForge',
+            'common.forgeSubtitle': '可视化 .brew 方案编辑器',
+            'repo.title': 'BrewRepo',
+            'repo.subtitle': '冲煮方案公共仓库',
+            'repo.loading': '加载中…',
+            'repo.loadError': '加载失败：',
+            'repo.stats.total': '共',
+            'repo.stats.recipes': '个方案',
+            'repo.stats.covers': '覆盖',
+            'repo.stats.origins': '个产区',
+            'repo.stats.brewers': '种器具',
+            'repo.filter.brewer': '器具',
+            'repo.filter.roast': '烘焙度',
+            'repo.filter.origin': '产区',
+            'repo.filter.reset': '清除筛选',
+            'repo.filter.all': '全部',
+            'repo.search': '搜索',
+            'repo.search.placeholder': '搜索方案名、产区、作者…',
+            'repo.noResults': '没有匹配的方案',
+            'repo.showing': '显示',
+            'repo.recipes': '个方案',
+            'repo.empty': '没有匹配的方案',
+            'repo.emptyHint': '试试调整筛选条件或搜索关键词',
+            'repo.card.viewDetail': '查看详情 →',
+            'repo.detail.coffee': '咖啡豆',
+            'repo.detail.params': '冲煮参数',
+            'repo.detail.notes': '风味笔记',
+            'repo.detail.openPlayer': '在 Player 中打开',
+            'repo.detail.copy': '复制 .brew 内容',
+            'repo.detail.author': '作者：',
+            'repo.detail.beans': '豆子',
+            'repo.detail.origin': '产区',
+            'repo.detail.process': '处理法',
+            'repo.detail.roast': '烘焙度',
+            'repo.detail.variety': '品种',
+            'repo.detail.brewer': '器具',
+            'repo.detail.grinder': '磨豆机',
+            'repo.detail.ratio': '粉水比',
+            'repo.detail.dose': '粉量',
+            'repo.detail.water': '水量',
+            'repo.detail.temp': '水温',
+            'repo.detail.time': '冲煮时间',
+            'repo.detail.unspecified': '未指定',
+            'repo.toast.copied': '已复制 .brew 内容到剪贴板',
+            'repo.toast.copyFailed': '复制失败：',
+            'repo.footer': 'BrewCode OS · CC0',
+            'repo.filterValue.法压壶': '法压壶',
+            'repo.filterValue.爱乐压': '爱乐压',
+            'repo.filterValue.V60': 'V60',
+            'repo.filterValue.Kalita Wave': 'Kalita Wave',
+            'repo.filterValue.Origami': 'Origami',
+            'repo.filterValue.Chemex': 'Chemex',
+            'repo.filterValue.未知': '未知',
+            'repo.filterValue.浅烘': '浅烘',
+            'repo.filterValue.中烘': '中烘',
+            'repo.filterValue.深烘': '深烘',
+            'repo.filterValue.埃塞俄比亚': '埃塞俄比亚',
+            'repo.filterValue.哥伦比亚': '哥伦比亚',
+            'repo.filterValue.巴西': '巴西',
+            'repo.filterValue.危地马拉': '危地马拉',
+            'repo.filterValue.哥斯达黎加': '哥斯达黎加',
+            'repo.filterValue.巴拿马': '巴拿马',
+            'repo.filterValue.印尼': '印尼',
+            'repo.filterValue.中国': '中国',
+          },
+          en: {
+            'hero.description':
+              'BrewCode OS is an open-source project building a universal digital language for coffee brewing. Its core asset is an open JSON file format called .brew.',
+            'buttons.player': 'Open Player',
+            'buttons.repo': 'Browse Recipes',
+            'buttons.forge': 'Create Recipe',
+            'story.title': 'Genesis',
+            'tools.title': 'Tool Matrix',
+            'tools.player.name': 'BrewPlayer',
+            'tools.player.desc':
+              'Open .brew files, get step-by-step brewing guidance. Works offline. Phone on the scale, glance and go.',
+            'tools.repo.name': 'BrewRepo',
+            'tools.repo.desc':
+              'Browse community-shared brew recipes. 50 seed recipes covering 20 origins and 6 brewers. Filter and search freely.',
+            'tools.forge.name': 'BrewForge',
+            'tools.forge.desc':
+              'Visually create and edit .brew files. Form mode for beginners, code mode for geeks. Built-in Schema real-time validation.',
+            'data.title': 'By the Numbers',
+            'data.recipes': 'Seed Recipes',
+            'data.origins': 'Origins Covered',
+            'data.brewers': 'Brewing Devices',
+            'data.champions': 'World Champion Signatures',
+            'community.title': 'Join Us',
+            'community.desc':
+              'BrewCode OS is an open project. Standards, tools, recipes—all open source, all collaborating on GitHub.',
+            'community.github': 'GitHub Repository',
+            'community.whitepaper': 'Whitepaper',
+            'community.contact': 'Contact',
+            'community.fork': 'Fork it.',
+            'footer.license': 'License: CC0 1.0 (Public Domain)',
+            'footer.founder': 'Founder: Bowen Lee 李泊言',
+            'footer.year': '2026',
+            'footer.brand': 'BrewCode OS · 礼字号',
+            /* Forge entries */
+            'nav.home': 'Home',
+            'nav.player': 'Player',
+            'nav.repo': 'Repo',
+            'nav.forge': 'Forge',
+            'nav.certified': 'Certified',
+            'player.loadTitle': 'BrewPlayer',
+            'player.loadSubtitle': 'Load a .brew file and start brewing',
+            'player.pasteJSON': 'Paste JSON',
+            'player.openFile': 'Open File',
+            'player.pastePlaceholder': 'Paste .brew file content here...',
+            'player.load': 'Open in Player',
+            'player.cancel': 'Cancel',
+            'player.urlHint': 'Or add ?brew=fileURL to the URL',
+            'player.back': 'Back',
+            'player.coffee': 'Coffee',
+            'player.equipment': 'Equipment',
+            'player.params': 'Parameters',
+            'player.startBrewing': 'Start Brewing',
+            'player.pourWater': 'Pour Water',
+            'player.startTimer': 'Start Timer',
+            'player.pause': 'Pause',
+            'player.nextStep': 'Next Step',
+            'player.finish': 'Finish',
+            'player.step': 'Step',
+            'player.cumulative': 'Cumulative',
+            'player.targetWeight': 'Target Weight',
+            'player.brewComplete': 'Brewing Complete',
+            'player.restart': 'Restart',
+            'player.loadNew': 'Load New Recipe',
+            'player.backToForge': '✏️ Back to Forge',
+            'player.results': 'Results',
+            'player.author': 'Author:',
+            'player.unspecified': 'Unspecified',
+            'player.dose': 'Dose',
+            'player.waterAmount': 'Total Water',
+            'player.ratio': 'Ratio',
+            'player.grindSize': 'Grind Size',
+            'player.waterTemp': 'Water Temp',
+            'player.brewTime': 'Target Time',
+            'player.actualTime': 'Actual Time',
+            'player.yield': 'Yield',
+            'player.extraction': 'Extraction',
+            'player.rating': 'Rating',
+            'player.completed': 'Completed',
+            'player.doneMsg': 'Completed',
+            'player.doneMsgSuffix': ' step(s).',
+            'player.parseError': 'Parse failed:',
+            'player.fetchError': 'Cannot load remote file:',
+            'player.missingMetaName': 'Missing meta.name',
+            'player.missingRecipe': 'Missing recipe',
+            'player.missingSteps': 'Missing steps or steps is empty',
+            'section.recipeInfo': 'Recipe Info',
+            'section.coffeeInfo': 'Coffee Info',
+            'section.equipmentInfo': 'Equipment',
+            'section.brewParams': 'Brew Parameters',
+            'section.steps': 'Brew Steps',
+            'section.result': 'Tasting Results',
+            'section.resultHint': 'All fields are optional. Record only after actual brewing.',
+            'section.flavorDimensions': 'Flavor Dimensions',
+            'field.方案名称': 'Recipe Name',
+            'field.必填': ' (required)',
+            'field.可选': ' (optional)',
+            'field.版本号': 'Version',
+            'field.作者': 'Author',
+            'field.许可证': 'License',
+            'field.方案描述': 'Description',
+            'field.标签': 'Tags',
+            'field.来源URL': 'Source URL',
+            'field.咖啡豆名称': 'Coffee Name',
+            'field.生产者庄园': 'Producer / Farm',
+            'field.豆种': 'Variety',
+            'field.产国': 'Country',
+            'field.产区': 'Region',
+            'field.庄园处理站': 'Farm / Station',
+            'field.海拔': 'Altitude',
+            'field.处理法': 'Process',
+            'field.烘焙度': 'Roast Level',
+            'field.烘焙商': 'Roaster',
+            'field.烘焙日期': 'Roast Date',
+            'field.风味描述': 'Flavor Notes',
+            'field.冲煮器具': 'Brewer',
+            'field.滤杯材质': 'Brewer Material',
+            'field.滤杯规格': 'Brewer Size',
+            'field.滤纸': 'Filter Paper',
+            'field.磨豆机': 'Grinder',
+            'field.手冲壶': 'Kettle',
+            'field.电子秤': 'Scale',
+            'field.分享壶': 'Server',
+            'field.粉量': 'Dose (g)',
+            'field.总注水量': 'Total Water (ml)',
+            'field.粉水比': 'Ratio',
+            'field.水温': 'Water Temp (°C)',
+            'field.研磨刻度': 'Grind Size',
+            'field.研磨参考系': 'Grind Reference',
+            'field.研磨度描述': 'Grind Description',
+            'field.用水类型': 'Water Type',
+            'field.水TDS': 'Water TDS (ppm)',
+            'field.目标冲煮时间': 'Target Brew Time (s)',
+            'field.闷蒸比例': 'Bloom Ratio',
+            'field.闷蒸时间': 'Bloom Time (s)',
+            'field.目标TDS': 'Target TDS (%)',
+            'field.目标萃取率': 'Target Extraction (%)',
+            'field.实际冲煮时间': 'Actual Brew Time',
+            'field.单位': 'Unit',
+            'field.最终咖啡液重': 'Final Yield',
+            'field.实测TDS': 'Measured TDS (%)',
+            'field.萃取率': 'Extraction (%)',
+            'field.综合评分': 'Overall Rating (0-10)',
+            'field.干湿香评分': 'Aroma',
+            'field.干湿香笔记': 'Aroma Notes',
+            'field.风味评分': 'Flavor',
+            'field.风味笔记': 'Flavor Notes',
+            'field.余韵评分': 'Aftertaste',
+            'field.余韵笔记': 'Aftertaste Notes',
+            'field.酸质评分': 'Acidity',
+            'field.酸质笔记': 'Acidity Notes',
+            'field.醇厚度评分': 'Body',
+            'field.醇厚度笔记': 'Body Notes',
+            'field.平衡感评分': 'Balance',
+            'field.平衡感笔记': 'Balance Notes',
+            'field.甜感评分': 'Sweetness',
+            'field.甜感笔记': 'Sweetness Notes',
+            'field.干净度评分': 'Clean Cup',
+            'field.干净度笔记': 'Clean Cup Notes',
+            'field.总体评分': 'Overall',
+            'field.总体笔记': 'Overall Notes',
+            'field.品鉴风味笔记': 'Tasting Notes',
+            'field.下次改进建议': 'Improvements',
+            'field.操作类型': 'Action Type',
+            'field.耗时': 'Duration',
+            'field.注水量': 'Water Amount',
+            'field.累计注水量': 'Cumulative Water',
+            'field.目标重量': 'Target Weight',
+            'field.目标重量单位': 'Target Weight Unit',
+            'field.注水手法': 'Pour Style',
+            'field.注水强度': 'Pour Intensity',
+            'field.本步水温': 'Step Temp (°C)',
+            'field.步骤描述': 'Description',
+            'field.冲煮器具_ai': 'Equipment',
+            'field.口味偏好': 'Flavor Preference',
+            'button.export': '⬇ Export .brew',
+            'button.openInPlayer': '▶ Open in Player',
+            'button.aiDiagnose': '🔍 AI Diagnose',
+            'button.aiGenerate': '🤖 AI Generate',
+            'button.code': '{} Code',
+            'button.form': '📝 Form',
+            'button.llmConfig': '⚙️',
+            'validation.pass': 'Validation Passed',
+            'validation.required': ' required field(s)',
+            'validation.requiredField': 'Required, please enter ',
+            'validation.fieldName': 'Recipe Name',
+            'validation.fieldCoffeeName': 'Coffee Name',
+            'validation.fieldBrewer': 'Brewer',
+            'validation.fieldDose': 'Dose',
+            'validation.fieldWater': 'Water Amount',
+            'validation.fieldTemp': 'Water Temp',
+            'validation.errDoseRange': 'Dose range 1-100g, current: ',
+            'validation.errWaterRange': 'Water range 1-2000ml, current: ',
+            'validation.errTempRange': 'Temp range 0-100°C, current: ',
+            'validation.codeEmpty':
+              'Code editor is empty. Please enter valid JSON before switching.',
+            'validation.schemaFail': 'Schema validation failed with ',
+            'validation.schemaFailSuffix': ' error(s). Please fix before switching.',
+            'validation.jsonSyntaxError': 'JSON syntax error. Please fix before switching: ',
+            'validation.jsonSyntax': 'JSON Syntax',
+            'action.prepare': 'Prepare',
+            'action.rinse': 'Rinse',
+            'action.grind': 'Grind',
+            'action.dose': 'Dose',
+            'action.bloom': 'Bloom',
+            'action.pour': 'Pour',
+            'action.stir': 'Stir',
+            'action.swirl': 'Swirl',
+            'action.drawdown': 'Drawdown',
+            'action.wait': 'Wait',
+            'action.measure': 'Measure',
+            'action.taste': 'Taste',
+            'action.note': 'Note',
+            'step.addStep': '+ Add Step',
+            'step.saveStep': 'Save',
+            'step.cancel': 'Cancel',
+            'step.editStep': 'Edit Step #',
+            'step.addStepTitle': 'Add Step',
+            'step.noSteps': 'No steps yet. Click the button below to add one.',
+            'step.pourWater': 'Pour ',
+            'step.moveUp': 'Move Up',
+            'step.moveDown': 'Move Down',
+            'step.edit': 'Edit',
+            'step.delete': 'Delete',
+            'step.notSet': '— Not Set —',
+            'step.centerPour': 'Center Pour',
+            'step.circlePour': 'Circle Pour',
+            'step.spotPour': 'Spot Pour',
+            'step.stirPour': 'Stir Pour',
+            'step.gentleStream': 'Gentle Stream',
+            'step.mediumStream': 'Medium Stream',
+            'step.heavyStream': 'Heavy Stream',
+            'step.descriptionPlaceholder': 'Describe what to do in this step…',
+            'ai.diagnoseTitle': '🔍 AI Diagnose',
+            'ai.generateTitle': '🤖 AI Generate Recipe',
+            'ai.submitDiagnose': 'Submit',
+            'ai.submitGenerate': 'Generate',
+            'ai.cancel': 'Cancel',
+            'ai.issuePlaceholder': 'e.g. Too sour, lacks sweetness…',
+            'ai.issueLabel': 'Describe the issue',
+            'ai.originLabel': 'Origin',
+            'ai.originPlaceholder': 'e.g. Ethiopia Yirgacheffe',
+            'ai.roastLabel': 'Roast Level',
+            'ai.processLabel': 'Process',
+            'ai.equipmentLabel': 'Equipment',
+            'ai.equipmentPlaceholder': 'V60 / Kalita Wave / Origami / Aeropress (comma separated)',
+            'ai.preferenceLabel': 'Flavor Preference',
+            'ai.preferencePlaceholder': 'e.g. Sweet, bright acidity, full body…',
+            'ai.generating': 'Generating recipe, please wait…',
+            'ai.diagnosing': 'Analyzing recipe, please wait…',
+            'ai.analyzing': 'Analyzing…',
+            'ai.genInProgress': 'Generating…',
+            'ai.emptyResult':
+              'No optimization suggestions found. The recipe appears well-balanced.',
+            'ai.genSuccess': 'Recipe generated. Switch to Form mode to review.',
+            'ai.genFail': 'Generation failed. No valid recipe returned.',
+            'ai.diagnoseSuggestions': 'Diagnosis Suggestions',
+            'ai.currentValue': 'Current: ',
+            'ai.suggestedValue': 'Suggested: ',
+            'ai.reason': 'Reason: ',
+            'ai.applySuggestion': 'Apply',
+            'ai.issueRequired': 'Please describe the issue',
+            'ai.originRequired': 'Please enter origin',
+            'ai.roastRequired': 'Please select roast level',
+            'ai.processRequired': 'Please select process',
+            'ai.requiredFields': 'Please fill in required fields',
+            'ai.apiError': 'API error ',
+            'ai.timeout': 'Request timed out. Please check your network and retry.',
+            'ai.networkError': 'Network error. Please check your connection and retry.',
+            'ai.diagnoseFail': 'Diagnosis request failed. Please try again later.',
+            'ai.generateFail': 'Generation request failed. Please try again later.',
+            'llm.title': '⚙️ Connect Your LLM',
+            'llm.provider': 'Provider',
+            'llm.apiKey': 'API Key',
+            'llm.apiBase': 'API Base',
+            'llm.model': 'Model',
+            'llm.saveConfig': 'Save',
+            'llm.clearConfig': 'Clear',
+            'llm.hint': '🔒 Your API key is stored only in your browser. Never uploaded.',
+            'llm.keyRequired': 'Please enter API Key',
+            'llm.baseRequired': 'Please enter API Base URL',
+            'common.required': ' (required)',
+            'common.optional': ' (optional)',
+            'common.seconds': 'sec (s)',
+            'common.minutes': 'min',
+            'common.ml': 'ml',
+            'common.g': 'g',
+            'common.celsius': '°C',
+            'common.fahrenheit': '°F',
+            'common.close': 'Close',
+            'common.评分': 'Rating',
+            'common.笔记': 'Notes',
+            'common.exported': '✓ Downloaded',
+            'common.footerHint': 'All changes are saved to state in real-time.',
+            'common.forgeHeader': 'BrewForge',
+            'common.forgeSubtitle': 'Visual .brew Recipe Editor',
+            'repo.title': 'BrewRepo',
+            'repo.subtitle': 'Public Recipe Repository',
+            'repo.loading': 'Loading…',
+            'repo.loadError': 'Failed to load: ',
+            'repo.stats.total': '',
+            'repo.stats.recipes': 'recipes',
+            'repo.stats.covers': 'across',
+            'repo.stats.origins': 'origins',
+            'repo.stats.brewers': 'brewers',
+            'repo.filter.brewer': 'Brewer',
+            'repo.filter.roast': 'Roast',
+            'repo.filter.origin': 'Origin',
+            'repo.filter.reset': 'Clear Filters',
+            'repo.filter.all': 'All',
+            'repo.search': 'Search',
+            'repo.search.placeholder': 'Search by name, origin, author…',
+            'repo.noResults': 'No matching recipes',
+            'repo.showing': 'Showing',
+            'repo.recipes': 'recipes',
+            'repo.empty': 'No matching recipes',
+            'repo.emptyHint': 'Try adjusting filters or search keywords',
+            'repo.card.viewDetail': 'View Details →',
+            'repo.detail.coffee': 'Coffee',
+            'repo.detail.params': 'Brew Parameters',
+            'repo.detail.notes': 'Flavor Notes',
+            'repo.detail.openPlayer': 'Open in Player',
+            'repo.detail.copy': 'Copy .brew Content',
+            'repo.detail.author': 'Author: ',
+            'repo.detail.beans': 'Beans',
+            'repo.detail.origin': 'Origin',
+            'repo.detail.process': 'Process',
+            'repo.detail.roast': 'Roast Level',
+            'repo.detail.variety': 'Variety',
+            'repo.detail.brewer': 'Brewer',
+            'repo.detail.grinder': 'Grinder',
+            'repo.detail.ratio': 'Ratio',
+            'repo.detail.dose': 'Dose',
+            'repo.detail.water': 'Water',
+            'repo.detail.temp': 'Temperature',
+            'repo.detail.time': 'Brew Time',
+            'repo.detail.unspecified': 'Unspecified',
+            'repo.toast.copied': 'Copied .brew content to clipboard',
+            'repo.toast.copyFailed': 'Copy failed: ',
+            'repo.footer': 'BrewCode OS · CC0',
+            'repo.filterValue.法压壶': 'French Press',
+            'repo.filterValue.爱乐压': 'Aeropress',
+            'repo.filterValue.V60': 'V60',
+            'repo.filterValue.Kalita Wave': 'Kalita Wave',
+            'repo.filterValue.Origami': 'Origami',
+            'repo.filterValue.Chemex': 'Chemex',
+            'repo.filterValue.未知': 'Unknown',
+            'repo.filterValue.浅烘': 'Light',
+            'repo.filterValue.中烘': 'Medium',
+            'repo.filterValue.深烘': 'Dark',
+            'repo.filterValue.埃塞俄比亚': 'Ethiopia',
+            'repo.filterValue.哥伦比亚': 'Colombia',
+            'repo.filterValue.巴西': 'Brazil',
+            'repo.filterValue.危地马拉': 'Guatemala',
+            'repo.filterValue.哥斯达黎加': 'Costa Rica',
+            'repo.filterValue.巴拿马': 'Panama',
+            'repo.filterValue.印尼': 'Indonesia',
+            'repo.filterValue.中国': 'China',
+          },
+        };
+
+        function detectLang() {
+          var q = new URLSearchParams(window.location.search).get('lang');
+          if (q === 'zh' || q === 'en') return q;
+          var nav = (navigator.language || '').toLowerCase();
+          if (nav.startsWith('zh')) return 'zh';
+          return 'en';
+        }
+
+        function load(langOverride) {
+          var target = langOverride || detectLang();
+          lang = target;
+          loaded = true;
+
+          callbacks.forEach(function (cb) {
+            cb(lang, DICT[lang] || {});
+          });
+          callbacks = [];
+        }
+
+        function setLang(langOverride) {
+          lang = langOverride || 'zh';
+          loaded = true;
+        }
+
+        function t(path) {
+          var dict = DICT[lang] || DICT.zh;
+          var val = dict[path];
+          return val !== undefined && val !== null ? val : path;
+        }
+
+        function onReady(cb) {
+          if (loaded) {
+            cb(lang, DICT[lang] || {});
+          } else {
+            callbacks.push(cb);
+          }
+        }
+
+        function getLang() {
+          return lang;
+        }
+
+        return {
+          load: load,
+          setLang: setLang,
+          t: t,
+          onReady: onReady,
+          getLang: getLang,
+        };
+      })();
+    </script>
+    <style>
+      .bc-navbar {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        height: 48px;
+        padding: 0 20px;
+        background: var(--bg, #1a1a2e);
+        color: var(--text, #e0e0e8);
+        border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+        font-size: 14px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-sizing: border-box;
+        flex-wrap: nowrap;
+      }
+      .bc-navbar .bc-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: inherit;
+        flex-shrink: 0;
+      }
+      .bc-navbar .bc-logo svg {
+        width: 22px;
+        height: 22px;
+      }
+      .bc-navbar .bc-logo span {
+        font-weight: 600;
+      }
+      .bc-navbar .bc-links {
+        display: flex;
+        gap: 8px;
+        flex: 1;
+        justify-content: flex-end;
+      }
+      .bc-navbar .bc-links a {
+        color: var(--text-dim, #8888aa);
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: var(--radius-sm, 8px);
+        transition:
+          color 0.2s,
+          background 0.2s;
+        white-space: nowrap;
+      }
+      .bc-navbar .bc-links a.active {
+        color: var(--accent, #e8a850);
+        border-bottom: 2px solid var(--accent, #e8a850);
+      }
+      .bc-navbar .bc-links a:hover {
+        color: var(--text, #e0e0e8);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .bc-navbar .bc-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .bc-navbar .bc-actions button {
+        background: none;
+        border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+        color: var(--text-dim, #8888aa);
+        padding: 4px 10px;
+        border-radius: var(--radius-sm, 8px);
+        cursor: pointer;
+        font-size: 13px;
+        white-space: nowrap;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .bc-navbar .bc-actions button:hover {
+        color: var(--text, #e0e0e8);
+        border-color: var(--accent, #e8a850);
+      }
+      .bc-navbar .bc-hamburger {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text, #e0e0e8);
+        font-size: 20px;
+        cursor: pointer;
+      }
+      @media (max-width: 640px) {
+        .bc-navbar .bc-links {
+          display: none;
+          position: absolute;
+          top: 48px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          background: var(--bg, #1a1a2e);
+          border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+          padding: 8px 0;
+          z-index: 999;
+        }
+        .bc-navbar .bc-links.open {
+          display: flex;
+        }
+        .bc-navbar .bc-hamburger {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 导航栏（v0.9 — 统一导航栏试点） -->
+    <nav class="bc-navbar" id="bc-navbar">
+      <a class="bc-logo" href="https://brewcode.礼字号.中国">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" />
+          <text x="12" y="17" text-anchor="middle" font-size="14" fill="currentColor">{}</text>
+        </svg>
+        <span>BrewCode</span>
+      </a>
+      <button class="bc-hamburger" id="bc-hamburger" aria-label="菜单">☰</button>
+      <div class="bc-links" id="bc-links">
+        <a href="https://brewcode.礼字号.中国" data-i18n="nav.home">首页</a>
+        <a href="https://player.礼字号.中国" class="active" data-i18n="nav.player">Player</a>
+        <a href="https://repo.礼字号.中国" data-i18n="nav.repo">Repo</a>
+        <a href="https://forge.礼字号.中国" data-i18n="nav.forge">Forge</a>
+        <a
+          href="https://compatible.礼字号.中国"
+          target="_blank"
+          rel="noopener"
+          data-i18n="nav.certified"
+          >认证设备</a
+        >
+      </div>
+      <div class="bc-actions">
+        <button id="bc-theme-btn" title="切换主题">🌙</button>
+        <button id="bc-lang-btn" title="切换语言">EN</button>
+      </div>
+    </nav>
+    <script>
+      (function () {
+        var isLocal =
+          window.location.protocol === 'file:' ||
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1';
+        function getCookie(n) {
+          var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
+          return m ? m[2] : null;
+        }
+        function setCookie(n, v) {
+          document.cookie =
+            n +
+            '=' +
+            v +
+            '; path=/; max-age=31536000; SameSite=Lax' +
+            (isLocal ? '' : '; domain=.礼字号.中国');
+        }
+        function getShared(n, d) {
+          return getCookie(n) || localStorage.getItem(n) || d;
+        }
+        function setShared(n, v) {
+          localStorage.setItem(n, v);
+          setCookie(n, v);
+        }
+        var theme = getShared('brewcode_theme', 'dark');
+        var lang = getShared('brewcode_lang', 'zh');
+        function applyTheme(t) {
+          document.documentElement.setAttribute('data-theme', t);
+          document.querySelector('#bc-theme-btn').textContent = t === 'dark' ? '🌙' : '☀️';
+          var isDark = t === 'dark';
+          var root = document.documentElement.style;
+          root.setProperty('--bg', isDark ? '#1a1a2e' : '#f5f0eb');
+          root.setProperty('--bg-card', isDark ? '#222244' : '#ffffff');
+          root.setProperty('--bg-card-hover', isDark ? '#2a2a50' : '#f0ece6');
+          root.setProperty('--text', isDark ? '#e0e0e8' : '#1a1a2e');
+          root.setProperty('--text-dim', isDark ? '#8888aa' : '#666680');
+          root.setProperty('--accent', isDark ? '#e8a850' : '#b87333');
+          root.setProperty('--accent-dim', isDark ? '#c08030' : '#9a5c20');
+          root.setProperty('--border', isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)');
+        }
+        function applyLang(l) {
+          document.querySelector('#bc-lang-btn').textContent = l === 'zh' ? 'EN' : '中';
+        }
+        applyTheme(theme);
+        applyLang(lang);
+        BrewCodeI18n.setLang(lang);
+        document.querySelector('#bc-theme-btn').addEventListener('click', function () {
+          theme = theme === 'dark' ? 'light' : 'dark';
+          setShared('brewcode_theme', theme);
+          applyTheme(theme);
+        });
+        document.querySelector('#bc-lang-btn').addEventListener('click', function () {
+          var newLang = BrewCodeI18n.getLang() === 'zh' ? 'en' : 'zh';
+          BrewCodeI18n.setLang(newLang);
+          setShared('brewcode_lang', newLang);
+          applyLang(newLang);
+          if (typeof window.refreshI18nTexts === 'function') {
+            window.refreshI18nTexts();
+          }
+        });
+        var hamburger = document.querySelector('#bc-hamburger');
+        var links = document.querySelector('#bc-links');
+        links.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            links.classList.remove('open');
+          });
+        });
+        hamburger.addEventListener('click', function () {
+          links.classList.toggle('open');
+        });
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('#bc-navbar')) {
+            links.classList.remove('open');
+          }
+        });
+      })();
+    </script>
+    <div id="app">
+      <div id="load-screen">
+        <div class="load-inner">
+          <h1 class="brand" data-i18n="player.loadTitle">BrewPlayer</h1>
+          <p class="sub" data-i18n="player.loadSubtitle">载入 .brew 文件，开始冲煮</p>
+          <div class="paste-area">
+            <textarea
+              id="paste-text"
+              data-i18n="player.pastePlaceholder"
+              placeholder="在此粘贴 .brew 文件内容..."
+            ></textarea>
+          </div>
+          <div class="load-actions">
+            <button id="btn-load" class="btn btn-primary" data-i18n="player.load">
+              在 Player 中打开
+            </button>
+            <button id="btn-file" class="btn btn-ghost" data-i18n="player.openFile">
+              打开文件
+            </button>
+            <input type="file" id="file-input" accept=".brew,.json" hidden />
+          </div>
+          <p id="load-error" class="error hidden"></p>
+          <p class="url-hint" data-i18n="player.urlHint">或在 URL 后添加 ?brew=文件URL 直接打开</p>
+        </div>
+      </div>
+
+      <div id="brew-screen" class="hidden">
+        <header id="brew-header">
+          <button id="btn-back" class="btn-icon" data-i18n="player.back" title="返回">←</button>
+          <div class="header-info">
+            <span id="header-name"></span>
+            <span id="header-step" class="header-step"></span>
+          </div>
+        </header>
+
+        <main id="brew-main">
+          <div id="overview" class="hidden">
+            <div class="card">
+              <h2 id="ov-name"></h2>
+              <p id="ov-author" class="meta"></p>
+              <p id="ov-desc" class="meta"></p>
+            </div>
+            <div class="card card-sm">
+              <h3 data-i18n="player.coffee">咖啡豆</h3>
+              <p id="ov-coffee"></p>
+            </div>
+            <div class="card card-sm">
+              <h3 data-i18n="player.equipment">器具</h3>
+              <p id="ov-equipment"></p>
+            </div>
+            <div class="card card-sm">
+              <h3 data-i18n="player.params">参数</h3>
+              <div id="ov-recipe" class="param-grid"></div>
+            </div>
+            <button
+              id="btn-start"
+              class="btn btn-primary btn-large"
+              data-i18n="player.startBrewing"
+            >
+              开始冲煮
+            </button>
+          </div>
+
+          <div id="step-view" class="hidden">
+            <div class="step-progress">
+              <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+              </div>
+              <span id="progress-text"></span>
+            </div>
+
+            <div class="step-card">
+              <div class="step-badge" id="step-badge"></div>
+              <p class="step-action" id="step-action"></p>
+              <p class="step-desc" id="step-desc"></p>
+
+              <div id="step-water" class="step-water hidden">
+                <span class="water-label" data-i18n="player.pourWater">注水</span>
+                <span class="water-value" id="water-value"></span>
+                <span class="water-target" id="water-target"></span>
+              </div>
+
+              <div id="step-pour-info" class="step-pour hidden">
+                <span id="pour-style"></span>
+                <span id="pour-intensity"></span>
+              </div>
+
+              <div id="timer-display" class="timer hidden">
+                <span id="timer-value">00:00</span>
+              </div>
+
+              <div class="step-controls">
+                <button id="btn-timer" class="btn btn-timer hidden" data-i18n="player.startTimer">
+                  开始计时
+                </button>
+                <button id="btn-next" class="btn btn-primary" data-i18n="player.nextStep">
+                  下一步
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="done-view" class="hidden">
+            <div class="card done-card">
+              <h2 data-i18n="player.brewComplete">冲煮完成</h2>
+              <p id="done-msg"></p>
+              <div id="done-result" class="hidden">
+                <h3 data-i18n="player.results">结果记录</h3>
+                <div id="done-result-content"></div>
+              </div>
+              <div class="done-actions">
+                <button id="btn-restart" class="btn btn-ghost" data-i18n="player.restart">
+                  重新开始
+                </button>
+                <button id="btn-new" class="btn" data-i18n="player.loadNew">载入新方案</button>
+                <button id="btn-back-to-forge" class="btn btn-ghost" data-i18n="player.backToForge">
+                  ✏️ 回 Forge 调整
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="player.js"></script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+      }
+    </script>
+  </body>
+</html>

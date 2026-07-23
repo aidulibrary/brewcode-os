@@ -1,0 +1,185 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "TC-L2-02 · BrewCode Compatible L2 Interactive 五步复杂序列执行测试",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode Certification Test Suite",
+    "description": "L2 Interactive 认证测试用例：验证设备能否解析并按顺序执行包含 5 个及以上步骤的复杂冲煮序列，支持多种动作类型。",
+    "license": "CC0",
+    "tags": ["certification", "L2", "Interactive", "step-sequence", "5-steps", "complex", "test-case"],
+    "createdAt": "2026-06-25T00:00:00Z"
+  },
+  "coffee": {
+    "name": "哥伦比亚 蕙兰 水洗",
+    "origin": {
+      "country": "哥伦比亚",
+      "region": "蕙兰",
+      "altitude": "1500-1800m"
+    },
+    "variety": "Caturra",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-14",
+    "roaster": "BrewCode 认证测试用",
+    "flavorNotes": ["焦糖", "坚果", "柑橘", "可可"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 漂白",
+    "grinder": "EK43",
+    "kettle": "Bonavita 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": {
+      "value": 15.0,
+      "unit": "g"
+    },
+    "waterAmount": {
+      "value": 250,
+      "unit": "ml"
+    },
+    "ratio": "1:16.7",
+    "grindSize": {
+      "value": 600,
+      "unit": "μm",
+      "description": "中等偏细研磨，相当于 EK43 8.5 刻度"
+    },
+    "waterTemperature": {
+      "value": 93.0,
+      "unit": "°C"
+    },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": {
+      "value": 180,
+      "unit": "s"
+    },
+    "bloomRatio": "1:2",
+    "bloomTime": {
+      "value": 30,
+      "unit": "s"
+    }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "rinse",
+      "description": "润湿滤纸，预热滤杯和分享壶。Origami 滤杯需确保滤纸完全贴合杯壁。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15.0g 咖啡粉倒入滤杯，轻轻摇晃使粉层均匀分布，无需刻意拍平。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "【步骤 1/5】注入 30ml 水闷蒸 30 秒。使用细水流从中心开始慢速绕圈，确保所有咖啡粉在 15 秒内被均匀浸润。",
+      "duration": {
+        "value": 30,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 30,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 30,
+        "unit": "ml"
+      },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "【步骤 2/5】第一次注水至 90ml。以中速绕圈注水，从中心向外扩展，保持水流稳定。",
+      "duration": {
+        "value": 20,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 60,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 90,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 90,
+        "unit": "g"
+      },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "【步骤 3/5】等待 20 秒。让水面自然下降至粉床上方约 1cm，使前段萃取充分进行。",
+      "duration": {
+        "value": 20,
+        "unit": "s"
+      }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "【步骤 4/5】第二次注水至 170ml。绕圈注水，保持粉床平整，避免冲刷出通道。",
+      "duration": {
+        "value": 25,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 80,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 170,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 170,
+        "unit": "g"
+      },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "pour",
+      "description": "【步骤 5/5】第三次注水至 250ml。采用中心注水为主，减少扰动，锁定后段萃取。",
+      "duration": {
+        "value": 25,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 80,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 250,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 250,
+        "unit": "g"
+      },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "等待滴滤完成。观察粉床表面是否平整，确认无通道效应。总冲煮时间约 180 秒。",
+      "duration": {
+        "value": 60,
+        "unit": "s"
+      }
+    }
+  ]
+}

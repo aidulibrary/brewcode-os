@@ -1,0 +1,117 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "云南孟连 · 中国 云南 孟连 日晒 中深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "中国云南孟连产区日晒豆的爱乐压方案。反压法配合中深烘，展现云南豆的红糖甜感、普洱茶般的醇厚和梅子般的酸质。这是 BrewCode OS 中国产区叙事的重要锚点。",
+    "license": "CC-BY-4.0",
+    "tags": ["爱乐压", "Aeropress", "中国", "云南", "孟连", "中深烘", "日晒"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "中国 云南 孟连 日晒 中深烘",
+    "origin": { "country": "中国", "region": "云南孟连" },
+    "variety": "Catimor",
+    "process": "日晒",
+    "roastLevel": "中深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["红糖", "普洱茶", "梅子", "巧克力"]
+  },
+  "equipment": {
+    "brewer": "爱乐压",
+    "brewerMaterial": "塑料",
+    "filter": "爱乐压 原装滤纸",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 16, "unit": "g" },
+    "waterAmount": { "value": 220, "unit": "ml" },
+    "ratio": "1:13.75",
+    "grindSize": { "value": 17, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 88, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 150, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 25, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将爱乐压滤纸放入滤盖，用热水润湿。组装爱乐压（反压法），将活塞推至 4 号标记处。"
+    },
+    { "order": 2, "action": "dose", "description": "将 16g 云南咖啡粉倒入爱乐压筒身。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 32ml 水，88°C，确保所有咖啡粉被浸润。中深烘豆闷蒸 25 秒。",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 32, "unit": "ml" },
+      "cumulativeWater": { "value": 32, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "一次性注入剩余 188ml 水至 220ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 188, "unit": "ml" },
+      "cumulativeWater": { "value": 220, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "stir",
+      "description": "用搅拌棒轻轻搅拌 3 圈，确保咖啡粉均匀悬浮。",
+      "duration": { "value": 5, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "wait",
+      "description": "盖上滤盖，浸泡 60 秒。中深烘豆需要较长时间浸泡释放甜感。",
+      "duration": { "value": 60, "unit": "s" }
+    },
+    { "order": 7, "action": "prepare", "description": "将杯子倒扣在滤盖上，快速翻转爱乐压。" },
+    {
+      "order": 8,
+      "action": "wait",
+      "description": "等待 30 秒，让咖啡粉沉降。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 9,
+      "action": "pour",
+      "description": "缓慢均匀地按压活塞，约 30 秒完成。听到嘶嘶声时停止。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：红糖般温暖的甜感、普洱茶般醇厚的茶感、梅子般微酸的回甘、巧克力般的柔和收尾。这是中国精品咖啡的代表风味，值得被世界看见。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 155, "unit": "s" },
+    "finalYield": { "value": 190, "unit": "g" },
+    "measuredTDS": 1.42,
+    "extractionYield": 21.2,
+    "rating": 8.0,
+    "flavorProfile": {
+      "acidity": 5.0,
+      "sweetness": 7.5,
+      "bitterness": 4.0,
+      "body": 7.5,
+      "cleanCup": 7.0,
+      "aftertaste": 7.5,
+      "balance": 7.5,
+      "aroma": 7.5
+    }
+  }
+}

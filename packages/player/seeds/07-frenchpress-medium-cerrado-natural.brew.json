@@ -1,0 +1,128 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "法压壶经典 · 巴西 喜拉多 日晒 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "法压壶经典方案，无纸滤的全浸泡萃取。金属滤网保留油脂，带来醇厚口感。中烘巴西喜拉多，坚果巧克力调性。",
+    "license": "CC0",
+    "tags": ["法压壶", "French Press", "全浸泡", "中烘", "日晒", "巴西", "喜拉多"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "巴西 喜拉多 日晒 中烘",
+    "producer": "喜拉多产区合作社",
+    "origin": {
+      "country": "巴西",
+      "region": "喜拉多",
+      "farm": "Fazenda Cerrado",
+      "altitude": "900-1100m"
+    },
+    "variety": "Bourbon",
+    "process": "日晒",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["坚果", "巧克力", "焦糖", "花生"]
+  },
+  "equipment": {
+    "brewer": "法压壶",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "350ml",
+    "filter": "金属滤网",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "法压壶自带"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 300, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": {
+      "value": 30,
+      "unit": "C40 click",
+      "description": "粗研磨，海盐粗细，法压壶需要粗研磨避免过萃和堵塞"
+    },
+    "waterTemperature": { "value": 92, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 540, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.25,
+    "targetExtraction": 18.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "热水预热法压壶，倒掉预热用水" },
+    { "order": 2, "action": "grind", "description": "称取 20g 咖啡豆，C40 研磨 30 格，粗研磨倒入法压壶" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 40ml 92°C 热水，轻轻搅拌使所有粉湿润。闷蒸 30 秒",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 40, "unit": "ml" },
+      "cumulativeWater": { "value": 40, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "注入剩余 260ml 热水至 300ml，轻轻搅拌 5 圈，确保所有粉均匀浸泡",
+      "waterAmount": { "value": 260, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "盖上盖子但不压下滤网。浸泡 4 分钟，让油脂和风味充分释放",
+      "duration": { "value": 240, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "stir",
+      "description": "打开盖子，用勺子轻轻搅拌，打破表面咖啡粉壳",
+      "duration": { "value": 5, "unit": "s" }
+    },
+    {
+      "order": 7,
+      "action": "wait",
+      "description": "等待 2 分钟，让悬浮的咖啡粉自然沉降",
+      "duration": { "value": 120, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "缓慢匀速压下滤网，约 30 秒压到底。不要压到底后继续用力",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 9,
+      "action": "taste",
+      "description": "倒入杯中。坚果和巧克力香气，焦糖甜感，花生尾韵。法压壶特有的醇厚口感和油脂感"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 540, "unit": "s" },
+    "finalYield": { "value": 270, "unit": "g" },
+    "measuredTDS": 1.22,
+    "extractionYield": 18.2,
+    "rating": 8.0,
+    "aroma": { "rating": 8.0, "notes": "坚果和巧克力香气，温暖舒适" },
+    "flavor": { "rating": 8.0, "notes": "坚果、巧克力风味浓郁，焦糖甜感，花生尾韵" },
+    "aftertaste": { "rating": 7.5, "notes": "余韵中等，坚果和焦糖的温暖尾调" },
+    "acidity": { "rating": 6.5, "notes": "低酸，巴西豆的典型柔和酸质" },
+    "body": { "rating": 9.0, "notes": "高醇厚度，油脂感强，法压壶标志性厚重口感" },
+    "balance": { "rating": 8.0, "notes": "甜感与醇厚感平衡，经典法压风格" },
+    "sweetness": { "rating": 8.0, "notes": "焦糖甜感突出，回甘舒适" },
+    "cleanCup": { "rating": 6.5, "notes": "有少量细粉沉淀，法压壶的特点，不影响风味" },
+    "overall": { "rating": 8.0, "notes": "法压壶经典方案，适合喜欢醇厚口感的冲煮者。简单可靠" },
+    "tastingNotes": ["坚果", "巧克力", "焦糖", "花生"],
+    "improvements": "可尝试浸泡时间延长至 5 分钟，萃取率略增，甜感更多"
+  }
+}

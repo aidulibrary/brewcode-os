@@ -1,0 +1,139 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "折纸瑰夏 · 巴拿马 瑰夏 日晒 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Origami 折纸滤杯配锥形滤纸，专为瑰夏设计。高温快萃，充分释放茉莉花和柑橘的香气层次。20 条导流槽带来清洁流速。",
+    "license": "CC0",
+    "tags": ["Origami", "瑰夏", "Geisha", "浅烘", "日晒", "巴拿马", "波奎特", "冠军豆"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "巴拿马 瑰夏 日晒 浅烘",
+    "producer": "Hacienda La Esmeralda",
+    "origin": {
+      "country": "巴拿马",
+      "region": "波奎特",
+      "farm": "Jaramillo 地块",
+      "altitude": "1600-1800m"
+    },
+    "variety": "Geisha",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["草莓", "水蜜桃", "茉莉花", "蜂蜜"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 锥形 01 漂白",
+    "grinder": "Mahlkönig EK43",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Origami 木托分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": {
+      "value": 9,
+      "unit": "EK43 刻度",
+      "description": "中细研磨，细砂糖粗细。EK43 均匀粒径充分释放瑰夏香气"
+    },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 150, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.38,
+    "targetExtraction": 21.0
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 V60 锥形滤纸放入 Origami S 滤杯。热水充分冲洗滤纸，预热爱乐压分享壶，倒掉废水"
+    },
+    {
+      "order": 2,
+      "action": "grind",
+      "description": "称取 15g 瑰夏咖啡豆，EK43 研磨 9 格。倒入滤杯，轻拍使粉层均匀平整"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 45ml，绕圈快速浸润所有粉。瑰夏日晒浅烘排气丰富，闷蒸 30 秒。此时已能闻到茉莉花香",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 120ml（累计 165ml），中速绕圈，水流稳定不断。瑰夏密度高，注水要稳",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 120, "unit": "ml" },
+      "cumulativeWater": { "value": 165, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：中心定点注水至 240ml（累计 240ml），减少扰动，突出瑰夏甜感",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "swirl", "description": "轻旋滤杯两圈，帮助粉层均匀沉降，避免通道效应" },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 2:15-2:30。Origami 流速快，瑰夏粉壁平整美观",
+      "duration": { "value": 60, "unit": "s" }
+    },
+    {
+      "order": 9,
+      "action": "taste",
+      "description": "轻晃分享壶。倒入杯中，先闻茉莉花香，再品水蜜桃甜感，草莓果酸，蜂蜜回甘。瑰夏之王"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 155, "unit": "s" },
+    "finalYield": { "value": 228, "unit": "g" },
+    "measuredTDS": 1.36,
+    "extractionYield": 20.8,
+    "rating": 9.0,
+    "aroma": { "rating": 9.5, "notes": "茉莉花香气扑鼻，水蜜桃甜香，草莓果香层次丰富" },
+    "flavor": { "rating": 9.5, "notes": "茉莉花与水蜜桃风味交织，草莓酸质明亮，蜂蜜甜感饱满" },
+    "aftertaste": { "rating": 9.0, "notes": "余韵悠长，蜂蜜回甘持续，茉莉花香萦绕" },
+    "acidity": { "rating": 9.0, "notes": "柑橘与草莓的明亮酸质，活泼优雅" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，轻盈如丝，Origami 带来的干净口感" },
+    "balance": { "rating": 9.0, "notes": "酸甜平衡极佳，花香果香甜感完美和谐" },
+    "sweetness": { "rating": 9.5, "notes": "蜂蜜甜感贯穿始终，水蜜桃的天然甜感" },
+    "cleanCup": { "rating": 9.0, "notes": "极致干净，EK43 均匀研磨的功劳" },
+    "overall": {
+      "rating": 9.0,
+      "notes": "瑰夏的巅峰表现。Origami 折纸滤杯与 EK43 研磨的组合，完美释放瑰夏的花香与甜感"
+    },
+    "tastingNotes": ["茉莉花", "水蜜桃", "草莓", "蜂蜜"],
+    "improvements": "可尝试将粉水比提高至 1:17，探索更轻盈的口感表现"
+  }
+}

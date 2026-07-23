@@ -1,0 +1,124 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "平底慢萃 · 肯尼亚 涅里 水洗",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "Kalita Wave 155 的平底三孔设计带来更均匀的萃取，配合肯尼亚水洗豆的强烈酸质，展现黑加仑、番茄般的明亮风味和饱满口感。",
+    "license": "CC-BY-4.0",
+    "tags": ["Kalita Wave", "平底滤杯", "浅烘", "水洗", "肯尼亚"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "肯尼亚 涅里 水洗",
+    "origin": { "country": "肯尼亚", "region": "涅里" },
+    "variety": "SL28",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑加仑", "番茄", "红糖", "葡萄柚"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪 155",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 23, "unit": "C40 click", "description": "中粗研磨" },
+    "waterTemperature": { "value": 94, "unit": "°C" },
+    "waterType": "调配水",
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 45, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "折叠 Kalita 波浪滤纸，放入 155 滤杯，用热水充分润湿滤纸并预热滤杯。倒掉预热用水。"
+    },
+    { "order": 2, "action": "dose", "description": "将 15g 咖啡粉倒入滤杯，轻轻拍平。Kalita 平底设计使粉床自然均匀。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 45ml 水，94°C，从中心慢速向外绕圈，确保所有咖啡粉被浸润。闷蒸 45 秒。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 120ml，中水流。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 120, "unit": "ml" },
+      "targetWeight": { "value": 120, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 25, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 180ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 180, "unit": "ml" },
+      "targetWeight": { "value": 180, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 25, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 240ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "targetWeight": { "value": 240, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成。Kalita 三孔设计流速较慢，约需 3 分钟。",
+      "duration": { "value": 50, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑加仑般的强烈果酸、番茄般的鲜味、红糖甜感、葡萄柚般清爽收尾。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 185, "unit": "s" },
+    "finalYield": { "value": 210, "unit": "g" },
+    "measuredTDS": 1.3,
+    "extractionYield": 20.5,
+    "rating": 8.5
+  }
+}

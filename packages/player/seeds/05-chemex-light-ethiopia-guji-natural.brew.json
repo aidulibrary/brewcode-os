@@ -1,0 +1,138 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "Chemex 大份优雅 · 埃塞俄比亚 古吉 日晒 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Chemex 经典大份冲煮方案，厚滤纸过滤带来极致干净的口感。浅烘古吉日晒，适合 2-3 人分享。",
+    "license": "CC0",
+    "tags": ["Chemex", "大份冲煮", "浅烘", "日晒", "埃塞俄比亚", "古吉", "分享"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 古吉 日晒 浅烘",
+    "producer": "古吉产区合作社",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "古吉",
+      "farm": "Shakiso 处理站",
+      "altitude": "1900-2100m"
+    },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["蓝莓", "草莓", "热带水果", "伯爵茶"]
+  },
+  "equipment": {
+    "brewer": "Chemex",
+    "brewerMaterial": "玻璃",
+    "brewerSize": "6 Cup",
+    "filter": "Chemex 方形漂白滤纸",
+    "grinder": "Mahlkönig EK43",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Chemex 玻璃壶身"
+  },
+  "recipe": {
+    "dose": { "value": 30, "unit": "g" },
+    "waterAmount": { "value": 480, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 10, "unit": "EK43 刻度", "description": "中粗研磨，海盐粗细，Chemex 需要较粗研磨防止堵塞" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 270, "unit": "s" },
+    "bloomRatio": "1:2.5",
+    "bloomTime": { "value": 45, "unit": "s" },
+    "targetTDS": 1.32,
+    "targetExtraction": 20.0
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "Chemex 滤纸三折，单层侧朝向壶嘴（保持排气通道）。热水充分冲洗滤纸，预热玻璃壶身，倒掉废水"
+    },
+    { "order": 2, "action": "grind", "description": "称取 30g 咖啡豆，EK43 研磨 10 格，倒入滤杯，轻拍使粉层平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 75ml，绕圈快速浸润所有粉。闷蒸 45 秒，大粉量需要更长时间排气",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 75, "unit": "ml" },
+      "cumulativeWater": { "value": 75, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 200ml（累计 275ml），慢速稳定绕圈，保持水流不断",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 200, "unit": "ml" },
+      "cumulativeWater": { "value": 275, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 2cm，Chemex 粉层厚，等待时间稍长",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 320ml（累计 395ml），中心与边缘交替",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 120, "unit": "ml" },
+      "cumulativeWater": { "value": 395, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待液面下降", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心注水至 480ml（累计 480ml），轻搅粉层顶部",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 85, "unit": "ml" },
+      "cumulativeWater": { "value": 480, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 9,
+      "action": "drawdown",
+      "description": "等待全部滴滤完成。Chemex 厚滤纸过滤慢，目标总时间 4:00-4:30",
+      "duration": { "value": 105, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "轻晃 Chemex 壶身使浓度均匀。倒入杯中，蓝莓香气，草莓甜感，伯爵茶尾韵。Chemex 特有的干净口感"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 275, "unit": "s" },
+    "finalYield": { "value": 455, "unit": "g" },
+    "measuredTDS": 1.3,
+    "extractionYield": 19.8,
+    "rating": 8.5,
+    "aroma": { "rating": 8.5, "notes": "蓝莓与草莓的甜香，伴有花茶般的优雅气息" },
+    "flavor": { "rating": 8.5, "notes": "蓝莓、草莓风味清晰，热带水果酸质，伯爵茶收尾" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵悠长，茶感回甘" },
+    "acidity": { "rating": 8.0, "notes": "热带水果酸质，明亮温和" },
+    "body": { "rating": 7.5, "notes": "中低醇厚度，Chemex 厚滤纸带来丝绸般轻盈口感" },
+    "balance": { "rating": 8.5, "notes": "酸甜平衡出色，大份量一致性佳" },
+    "sweetness": { "rating": 8.5, "notes": "草莓甜感突出，与酸质和谐" },
+    "cleanCup": { "rating": 9.0, "notes": "极致干净，Chemex 标志性清澈口感" },
+    "overall": { "rating": 8.5, "notes": "Chemex 大份冲煮的经典方案，适合与朋友分享一杯清澈优雅的古吉日晒" },
+    "tastingNotes": ["蓝莓", "草莓", "热带水果", "伯爵茶"],
+    "improvements": "可尝试研磨再粗半格，减少搅拌，进一步突出干净度"
+  }
+}

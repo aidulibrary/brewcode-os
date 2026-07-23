@@ -1,0 +1,115 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "浅烘危地马拉爱乐压 · 危地马拉 安提瓜 水洗 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "浅烘危地马拉安提瓜豆在爱乐压上的实验方案。大多数人对危地马拉的认知停留在中深烘的巧克力调性，但浅烘安提瓜水洗展现出完全不同的风味维度——柑橘、花香和绿茶般的干净度。正压法快速萃取，保留浅烘豆的细腻酸质。",
+    "license": "CC-BY-4.0",
+    "tags": ["爱乐压", "Aeropress", "浅烘", "危地马拉", "水洗", "实验方案"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "危地马拉 安提瓜 水洗 浅烘",
+    "origin": {
+      "country": "危地马拉",
+      "region": "安提瓜",
+      "farm": "贝拉维斯塔庄园",
+      "altitude": { "value": 1550, "unit": "m" }
+    },
+    "variety": "Bourbon",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["柑橘", "花香", "绿茶", "焦糖"]
+  },
+  "equipment": {
+    "brewer": "爱乐压",
+    "brewerMaterial": "塑料",
+    "filter": "爱乐压 原装滤纸",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 225, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 18, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 120, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 25, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将爱乐压滤纸放入滤盖，用热水润湿。组装爱乐压（正压法），将活塞插入筒身底部。"
+    },
+    { "order": 2, "action": "dose", "description": "将 15g 浅烘危地马拉咖啡粉倒入爱乐压筒身。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 30ml 水，93°C。浅烘豆需要高温。闷蒸 25 秒。",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "一次性注入剩余 195ml 水至 225ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 195, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "stir",
+      "description": "用搅拌棒轻轻搅拌 3 圈，确保咖啡粉均匀悬浮。",
+      "duration": { "value": 5, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "wait",
+      "description": "盖上滤盖，浸泡 30 秒。浅烘豆短时间浸泡即可，避免过度萃取。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 7,
+      "action": "pour",
+      "description": "缓慢均匀地按压活塞，约 30 秒完成。听到嘶嘶声时停止。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：柑橘般明亮的酸质、花香清新、绿茶般干净的口感、焦糖般的甜感。浅烘危地马拉颠覆了人们对这个产区的固有印象——它不只适合做深烘巧克力调性，浅烘时展现的酸质和花香同样出彩。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 118, "unit": "s" },
+    "finalYield": { "value": 195, "unit": "g" },
+    "measuredTDS": 1.25,
+    "extractionYield": 19.0,
+    "rating": 8.2,
+    "flavorProfile": {
+      "acidity": 7.5,
+      "sweetness": 7.5,
+      "bitterness": 2.0,
+      "body": 6.0,
+      "cleanCup": 8.0,
+      "aftertaste": 7.5,
+      "balance": 7.5,
+      "aroma": 8.0
+    }
+  }
+}

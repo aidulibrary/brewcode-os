@@ -1,0 +1,260 @@
+/*
+ * BrewCode Compatible 认证设备页面样式
+ * 复用 repo.css 的 CSS 变量，支持深色/浅色主题
+ */
+
+/* ══════════════════════════════════════════════════════════
+   Certification Level Badges
+   ══════════════════════════════════════════════════════════ */
+
+.cert-level-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.cert-level-badge.badge-level-l1 {
+  background: #888888;
+}
+
+.cert-level-badge.badge-level-l2 {
+  background: #b87333;
+}
+
+.cert-level-badge.badge-level-l3 {
+  background: #d4af37;
+  color: #ffffff;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Device Cards
+   ══════════════════════════════════════════════════════════ */
+
+.cert-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 18px;
+  transition:
+    background 0.15s,
+    transform 0.1s,
+    border-color 0.15s;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cert-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(232, 168, 80, 0.15);
+}
+
+.cert-card:active {
+  transform: scale(0.98);
+}
+
+.cert-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cert-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cert-device-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.cert-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.cert-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cert-meta-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cert-meta-value {
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Specs Section
+   ══════════════════════════════════════════════════════════ */
+
+.cert-specs {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cert-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cert-spec-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cert-spec-value {
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Links Section
+   ══════════════════════════════════════════════════════════ */
+
+.cert-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cert-link {
+  font-size: 0.8rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.15s;
+}
+
+.cert-link:hover {
+  opacity: 0.8;
+}
+
+.cert-id {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  letter-spacing: 0.3px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Filter Pills (extends repo.css .pill)
+   ══════════════════════════════════════════════════════════ */
+
+#filter-pills .pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--bg-card);
+  color: var(--text-dim);
+  border: 1px solid transparent;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+  font-family: inherit;
+}
+
+#filter-pills .pill:hover {
+  background: var(--bg-card-hover);
+  color: var(--text);
+}
+
+#filter-pills .pill.active {
+  background: rgba(232, 168, 80, 0.15);
+  color: var(--accent);
+  border-color: var(--accent-dim);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Responsive Layout
+   ══════════════════════════════════════════════════════════ */
+
+@media (max-width: 639px) {
+  #card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 899px) {
+  #card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  #card-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Light Theme Overrides
+   ══════════════════════════════════════════════════════════ */
+
+[data-theme='light'] {
+  .cert-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .cert-card:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+  }
+
+  .cert-links {
+    border-top-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .cert-id {
+    color: #8888aa;
+  }
+
+  #filter-pills .pill {
+    background: #f0ece6;
+    color: #666680;
+  }
+
+  #filter-pills .pill:hover {
+    background: #e8e4dc;
+    color: #333355;
+  }
+
+  #filter-pills .pill.active {
+    background: rgba(184, 115, 51, 0.12);
+    color: #b87333;
+    border-color: #b87333;
+  }
+}

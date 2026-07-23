@@ -1,0 +1,124 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "安提瓜经典 · 危地马拉 安提瓜 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "V60 经典三段式，中烘危地马拉安提瓜水洗。火山土壤赋予的独特可可和花香，三段注水控制萃取节奏。",
+    "license": "CC0",
+    "tags": ["V60", "三段注水", "中烘", "水洗", "危地马拉", "安提瓜", "中美洲经典"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "危地马拉 安提瓜 水洗 中烘",
+    "producer": "安提瓜生产者协会",
+    "origin": {
+      "country": "危地马拉",
+      "region": "安提瓜",
+      "farm": "Finca Bella Vista",
+      "altitude": "1500-1700m"
+    },
+    "variety": "Bourbon",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["可可", "花香", "柑橘", "烤杏仁"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "01",
+    "filter": "V60 漂白 01",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Hario 01 分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 225, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 23, "unit": "C40 click", "description": "中细研磨，白砂糖粗细" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "过滤水",
+    "waterTDS": 60,
+    "brewTime": { "value": 150, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.3,
+    "targetExtraction": 19.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 V60 01 滤纸，热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 23 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "90°C 热水注入 30ml，绕圈快速浸润。闷蒸 30 秒，观察粉层膨胀",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 100ml（累计 130ml），慢速绕圈，水流直径约 2cm",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 130, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层露出约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 170ml（累计 225ml），中心与边缘交替，水流稍大",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 95, "unit": "ml" },
+      "cumulativeWater": { "value": 225, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "swirl", "description": "轻旋滤杯两圈，帮助粉层均匀沉降" },
+    {
+      "order": 8,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 2:15-2:30。粉壁平整为佳",
+      "duration": { "value": 65, "unit": "s" }
+    },
+    {
+      "order": 9,
+      "action": "taste",
+      "description": "倒入杯中。可可与花香交织，柑橘酸质明亮，烤杏仁尾韵。安提瓜火山土壤的独特风味"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 155, "unit": "s" },
+    "finalYield": { "value": 212, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.2,
+    "rating": 8.2,
+    "aroma": { "rating": 8.5, "notes": "可可与花香交织，烤杏仁的温暖气息" },
+    "flavor": { "rating": 8.0, "notes": "可可风味浓郁，花香优雅，柑橘酸质明亮，烤杏仁尾韵" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，可可和烤杏仁的温暖尾调" },
+    "acidity": { "rating": 8.0, "notes": "柑橘酸质明亮，与可可风味形成有趣对比" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，圆润顺滑" },
+    "balance": { "rating": 8.5, "notes": "可可与花香的平衡出色，危地马拉经典风格" },
+    "sweetness": { "rating": 8.0, "notes": "烤杏仁的天然甜感，回甘良好" },
+    "cleanCup": { "rating": 8.0, "notes": "干净度好，水洗处理的特点明显" },
+    "overall": { "rating": 8.2, "notes": "安提瓜经典方案，三段式稳定可靠，充分展现危地马拉咖啡的可可花香" },
+    "tastingNotes": ["可可", "花香", "柑橘", "烤杏仁"],
+    "improvements": "可尝试水温提高至 92°C，释放更多花香层次"
+  }
+}

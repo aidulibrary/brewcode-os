@@ -1,0 +1,134 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "科契尔中烘 · 埃塞俄比亚 科契尔 日晒 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "科契尔（Kochere）是耶加雪菲下属的顶级微产区，海拔 1800-2200m，以花香和柑橘调性闻名。中烘科契尔日晒豆在 Kalita Wave 185 平底滤杯上展现出极佳的甜感——既保留了浅烘的花香特质，又发展出焦糖和杏桃的温暖甜感。双人份方案。",
+    "license": "CC-BY-4.0",
+    "tags": ["Kalita Wave", "科契尔", "埃塞俄比亚", "中烘", "日晒", "小众产区"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 科契尔 日晒 中烘",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "科契尔",
+      "farm": "科契尔合作社",
+      "altitude": { "value": 1950, "unit": "m" }
+    },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["焦糖", "杏桃", "花香", "柑橘"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "185",
+    "filter": "Kalita 波浪 185",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 22, "unit": "g" },
+    "waterAmount": { "value": 330, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 21, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 91, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "brewTime": { "value": 200, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 40, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "折叠 Kalita 185 波浪滤纸，用热水充分润湿并预热滤杯和分享壶。倒掉预热用水。"
+    },
+    { "order": 2, "action": "dose", "description": "将 22g 科契尔咖啡粉倒入滤杯，轻拍平整。中烘豆粉床适中。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 66ml 水，91°C，从中心向外慢速绕圈。科契尔豆闷蒸时释放花香。闷蒸 40 秒。",
+      "duration": { "value": 40, "unit": "s" },
+      "waterAmount": { "value": 66, "unit": "ml" },
+      "cumulativeWater": { "value": 66, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 165ml，中水流。",
+      "duration": { "value": 15, "unit": "s" },
+      "waterAmount": { "value": 99, "unit": "ml" },
+      "cumulativeWater": { "value": 165, "unit": "ml" },
+      "targetWeight": { "value": 165, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 30, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 250ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 85, "unit": "ml" },
+      "cumulativeWater": { "value": 250, "unit": "ml" },
+      "targetWeight": { "value": 250, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 25, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 330ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 80, "unit": "ml" },
+      "cumulativeWater": { "value": 330, "unit": "ml" },
+      "targetWeight": { "value": 330, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分 20 秒。",
+      "duration": { "value": 55, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：焦糖甜感饱满、杏桃般温暖的果甜、花香飘逸、柑橘清亮。中烘科契尔在平底滤杯上的表现——甜感突出，酸质柔和，是埃塞日晒豆中烘的成功典范。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 198, "unit": "s" },
+    "finalYield": { "value": 288, "unit": "g" },
+    "measuredTDS": 1.35,
+    "extractionYield": 20.2,
+    "rating": 8.2,
+    "flavorProfile": {
+      "acidity": 6.5,
+      "sweetness": 8.0,
+      "bitterness": 2.5,
+      "body": 7.0,
+      "cleanCup": 7.5,
+      "aftertaste": 7.5,
+      "balance": 8.0,
+      "aroma": 8.0
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "Hoffmann 深烘哲学 · 哥伦比亚 考卡 水洗 深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "James Hoffmann",
+    "description": "James Hoffmann ——2007 年世界咖啡师大赛冠军、全球最具影响力的咖啡内容创作者、《The World Atlas of Coffee》作者。他对深烘咖啡的态度是：好豆子经得起深烘，但手法必须调整——更低的水温（88°C）、更粗的研磨（C40 30 格）、更短的闷蒸（25 秒），避开深烘豆容易过萃的陷阱。这支哥伦比亚考卡水洗深烘豆在 V60 01 上采用 Hoffmann 式的克制手法，展现黑巧克力、焦糖和烤坚果的经典深烘风味，同时保留了考卡高海拔豆的干净度和甜感。这是 50 个种子文件的收官之作——从一份 Schema 开始，到一位世界冠军署名结束，BrewCode OS 的种子库完成了从 0 到 1 的叙事闭环。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "James Hoffmann", "冠军方案", "深烘", "哥伦比亚", "考卡", "收官之作"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "哥伦比亚 考卡 水洗 深烘",
+    "origin": {
+      "country": "哥伦比亚",
+      "region": "考卡",
+      "farm": "考卡山谷合作社",
+      "altitude": { "value": 1800, "unit": "m" }
+    },
+    "variety": "Castillo",
+    "process": "水洗",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑巧克力", "焦糖", "烤坚果", "可可"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "01",
+    "filter": "V60 漂白",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 195, "unit": "ml" },
+    "ratio": "1:13",
+    "grindSize": { "value": 30, "unit": "C40 click", "description": "粗研磨，Hoffmann 深烘方案" },
+    "waterTemperature": { "value": 88, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 150, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 25, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "润湿漂白滤纸，预热陶瓷 V60 01 滤杯和分享壶。Hoffmann 偏好陶瓷 V60 的保温性。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15g 考卡水洗深烘咖啡粉倒入滤杯，轻拍平整。粗研磨 + 低粉量，粉床较薄。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 30ml 水，88°C，中心定点注水。Hoffmann 对深烘的灼见：不需要绕圈——深烘豆的二氧化碳释放更剧烈，定点注水足以让闷蒸充分。闷蒸 25 秒，不宜过长。",
+      "duration": { "value": 25, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "主注水：一次性持续定点注水至 195ml，中水流。Hoffmann 的极简哲学——不分段，不绕圈，让水自然萃取。88°C 的低温避免了深烘豆的苦味过度释放。",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 165, "unit": "ml" },
+      "cumulativeWater": { "value": 195, "unit": "ml" },
+      "targetWeight": { "value": 195, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "stir",
+      "description": "用勺子沿杯壁轻刮一圈。Hoffmann 的标志性手法。",
+      "duration": { "value": 5, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "wait",
+      "description": "等待滴滤完成，粗研磨使流速较快。目标总时间约 2 分 30 秒。",
+      "duration": { "value": 90, "unit": "s" }
+    },
+    {
+      "order": 7,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑巧克力般温润醇厚、焦糖甜感绵长、烤坚果般温暖的烘焙香、可可般干净的收尾。你不用加糖，深烘的甜感就是糖。这是 Hoffmann 式深烘的魅力——用极简的手法，让深烘咖啡保持干净和甜感。50 个方案，20 个产区，4 位冠军，从这里开始，BrewCode OS 的种子已经种下。Welcome to BrewCode OS."
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 148, "unit": "s" },
+    "finalYield": { "value": 170, "unit": "g" },
+    "measuredTDS": 1.52,
+    "extractionYield": 20.8,
+    "rating": 8.8,
+    "flavorProfile": {
+      "acidity": 3.5,
+      "sweetness": 8.5,
+      "bitterness": 3.5,
+      "body": 8.0,
+      "cleanCup": 7.5,
+      "aftertaste": 8.0,
+      "balance": 8.0,
+      "aroma": 8.5
+    }
+  }
+}

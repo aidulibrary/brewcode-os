@@ -1,0 +1,459 @@
+/*
+ * BrewCode OS — 种子贡献者邀请海报
+ * 杂志风极简主义，单栏布局，无 JavaScript
+ * 适配微信内置浏览器
+ */
+
+/* ══════════════════════════════════════════════════════════
+   Reset & Base
+   ══════════════════════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: #1a1a2e;
+  color: #e0e0e8;
+  font-family:
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Noto Sans SC',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+a {
+  color: #e8a850;
+  text-decoration: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Layout Wrapper
+   ══════════════════════════════════════════════════════════ */
+
+.invite-wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 60px 28px 80px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Hero Section
+   ══════════════════════════════════════════════════════════ */
+
+.hero {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.hero-logo {
+  width: 96px;
+  height: 96px;
+  display: block;
+  margin: 0 auto 32px;
+}
+
+.hero-title {
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Serif SC', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  color: #e8a850;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Intro Section
+   ══════════════════════════════════════════════════════════ */
+
+.intro {
+  margin-bottom: 52px;
+}
+
+.intro-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #c0c0d0;
+  margin-bottom: 20px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.intro-text:last-child {
+  margin-bottom: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Steps Table
+   ══════════════════════════════════════════════════════════ */
+
+.steps {
+  margin-bottom: 52px;
+}
+
+.steps-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.steps-table thead {
+  border-bottom: 1px solid rgba(232, 168, 80, 0.3);
+}
+
+.steps-table th {
+  text-align: left;
+  padding: 10px 8px;
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8888aa;
+}
+
+.steps-table td {
+  padding: 14px 8px;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.steps-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.col-step {
+  width: 48px;
+  font-size: 0.85rem;
+  color: #e8a850;
+  font-family: Georgia, 'Inter', serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.col-icon {
+  width: 48px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.col-action {
+  font-size: 0.9rem;
+  color: #e0e0e8;
+}
+
+.col-time {
+  width: 72px;
+  text-align: right;
+  font-size: 0.8rem;
+  color: #8888aa;
+  white-space: nowrap;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CTA Buttons
+   ══════════════════════════════════════════════════════════ */
+
+.cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 56px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 100px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  min-height: 48px;
+  cursor: pointer;
+  transition: none;
+  font-family: inherit;
+  border: none;
+}
+
+.btn-primary {
+  background: #e8a850;
+  color: #1a1a2e;
+}
+
+.btn-primary:hover {
+  background: #d49840;
+}
+
+.btn-primary:active {
+  background: #c08830;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #e8a850;
+  border: 1.5px solid #e8a850;
+}
+
+.btn-secondary:hover {
+  background: rgba(232, 168, 80, 0.08);
+}
+
+.btn-secondary:active {
+  background: rgba(232, 168, 80, 0.15);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #8888aa;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.btn-ghost:hover {
+  color: #c0c0d0;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-ghost:active {
+  color: #e0e0e8;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Stats Cards
+   ══════════════════════════════════════════════════════════ */
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-bottom: 56px;
+}
+
+.stat-card {
+  flex: 1;
+  text-align: center;
+  padding: 20px 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.stat-number {
+  display: block;
+  font-family: Georgia, 'Inter', serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #e8a850;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #8888aa;
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Footer
+   ══════════════════════════════════════════════════════════ */
+
+.footer {
+  text-align: center;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-line {
+  font-size: 0.8rem;
+  color: #666680;
+  line-height: 2;
+  letter-spacing: 0.02em;
+}
+
+.footer-line a {
+  color: #8888aa;
+}
+
+.footer-line a:hover {
+  color: #e8a850;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Responsive — Mobile (WeChat in-app browser)
+   ══════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  .invite-wrapper {
+    padding: 40px 16px 60px;
+    overflow-x: hidden;
+  }
+
+  .hero-logo {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-size: 1.4rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .intro-text {
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+
+  /* Steps: horizontal scroll wrapper for narrow viewports */
+  .steps {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .steps-table {
+    font-size: 0.82rem;
+    min-width: 360px;
+  }
+
+  .steps-table th,
+  .steps-table td {
+    padding: 10px 4px;
+  }
+
+  .col-step,
+  .col-icon {
+    width: 36px;
+  }
+
+  .col-time {
+    width: 56px;
+  }
+
+  /* Stats: 2x2 flex-wrap instead of 4-column flex */
+  .stats {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .stat-card {
+    flex: 0 0 calc(50% - 4px);
+    padding: 16px 8px;
+  }
+
+  .stat-number {
+    font-size: 1.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .btn {
+    font-size: 0.88rem;
+    padding: 12px 18px;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 360px) {
+  .invite-wrapper {
+    padding: 32px 12px 48px;
+    overflow-x: hidden;
+  }
+
+  .hero-title {
+    font-size: 1.25rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .intro-text {
+    font-size: 0.84rem;
+  }
+
+  .steps {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .steps-table {
+    font-size: 0.78rem;
+    min-width: 320px;
+  }
+
+  .col-action {
+    font-size: 0.78rem;
+  }
+
+  .stats {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .stat-card {
+    flex: 0 0 calc(50% - 3px);
+  }
+
+  .stat-number {
+    font-size: 1.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Print
+   ══════════════════════════════════════════════════════════ */
+
+@media print {
+  body {
+    background: #ffffff;
+    color: #1a1a2e;
+  }
+
+  .btn-primary {
+    background: #1a1a2e;
+    color: #ffffff;
+  }
+
+  .btn-secondary {
+    color: #1a1a2e;
+    border-color: #1a1a2e;
+  }
+}

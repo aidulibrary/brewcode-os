@@ -1,0 +1,94 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "法压哥斯达黎加 · 哥斯达黎加 塔拉珠 蜜处理",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode社区",
+    "description": "蜜处理哥斯达黎加在法压壶的金属滤网下，油脂完整保留，口感极为饱满。采用 James Hoffmann 法，延长浸泡后破壳静置，出品干净度远超传统法压。",
+    "license": "CC-BY-4.0",
+    "tags": ["法压壶", "French Press", "中烘", "蜜处理", "哥斯达黎加"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "哥斯达黎加 塔拉珠 蜜处理",
+    "origin": { "country": "哥斯达黎加", "region": "塔拉珠" },
+    "variety": "Caturra",
+    "process": "蜜处理",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["焦糖", "葡萄干", "坚果", "柑橘"]
+  },
+  "equipment": {
+    "brewer": "法压壶",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "350ml",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 20, "unit": "g" },
+    "waterAmount": { "value": 300, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 30, "unit": "C40 click", "description": "粗研磨，法压壶专用" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 540, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "确认法压壶洁净无异味。用热水预热不锈钢壶身，倒掉预热用水。不锈钢壶身保温性优于玻璃，适合长时间浸泡。"
+    },
+    { "order": 2, "action": "dose", "description": "将 20g 咖啡粉倒入法压壶。粗研磨减少细粉，避免过度萃取。" },
+    {
+      "order": 3,
+      "action": "pour",
+      "description": "一次性注入 300ml 热水，90°C，确保所有咖啡粉被浸润。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 300, "unit": "ml" },
+      "cumulativeWater": { "value": 300, "unit": "ml" },
+      "pourStyle": "中心注水",
+      "pourIntensity": "大水流"
+    },
+    {
+      "order": 4,
+      "action": "wait",
+      "description": "盖上壶盖但不压下滤网，浸泡 4 分钟。蜜处理豆的甜感在长时间浸泡中充分释放。",
+      "duration": { "value": 240, "unit": "s" }
+    },
+    {
+      "order": 5,
+      "action": "stir",
+      "description": "用勺子轻轻打破表面浮壳，搅拌使咖啡粉沉降。",
+      "duration": { "value": 5, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "wait",
+      "description": "用勺子撇去表面浮沫和细粉。静置 5 分钟，让所有细粉沉降到底部。",
+      "duration": { "value": 300, "unit": "s" }
+    },
+    {
+      "order": 7,
+      "action": "prepare",
+      "description": "将滤网轻轻压至液面下方（不要压到底），缓慢倒出咖啡液。",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：焦糖甜感饱满、葡萄干般浓缩的甜感、坚果香气、柑橘般清爽收尾。法压壶的金属滤网保留了蜜处理豆的油脂和甜感，口感极为饱满圆润。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 570, "unit": "s" },
+    "finalYield": { "value": 260, "unit": "g" },
+    "measuredTDS": 1.38,
+    "extractionYield": 21.0,
+    "rating": 8.2
+  }
+}

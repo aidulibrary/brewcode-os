@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "塔拉珠平底 · 哥斯达黎加 塔拉珠 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Kalita Wave 155 冲煮哥斯达黎加塔拉珠水洗。中烘展现蜂蜜甜感和柑橘酸质，平底滤杯的均衡萃取适合塔拉珠的干净风味。",
+    "license": "CC0",
+    "tags": ["Kalita Wave", "155", "中烘", "水洗", "哥斯达黎加", "塔拉珠", "蜂蜜"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "哥斯达黎加 塔拉珠 水洗 中烘",
+    "producer": "塔拉珠合作社",
+    "origin": { "country": "哥斯达黎加", "region": "塔拉珠", "farm": "La Minita", "altitude": "1400-1700m" },
+    "variety": "Caturra",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["蜂蜜", "柑橘", "巧克力", "烤杏仁"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪 155 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Kalita 玻璃分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 25, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.3,
+    "targetExtraction": 19.8
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 Kalita 波浪 155 滤纸，热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 25 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "90°C 热水注入 30ml，绕圈浸润。闷蒸 30 秒",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 100ml（累计 130ml），慢速绕圈",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 130, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面下降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 170ml（累计 240ml），中心与边缘交替",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 110, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。目标总时间 2:45-3:00",
+      "duration": { "value": 95, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。蜂蜜甜香，柑橘酸质，巧克力微苦，烤杏仁尾韵。塔拉珠的干净优雅"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 190, "unit": "s" },
+    "finalYield": { "value": 228, "unit": "g" },
+    "measuredTDS": 1.28,
+    "extractionYield": 19.5,
+    "rating": 8.2,
+    "aroma": { "rating": 8.5, "notes": "蜂蜜甜香与烤杏仁香气，温暖舒适" },
+    "flavor": { "rating": 8.0, "notes": "蜂蜜甜感突出，柑橘酸质明亮，巧克力微苦，烤杏仁尾韵" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，蜂蜜回甘" },
+    "acidity": { "rating": 8.5, "notes": "柑橘酸质明亮，塔拉珠特色高酸" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，平底滤杯的圆润口感" },
+    "balance": { "rating": 8.5, "notes": "蜂蜜甜感与柑橘酸质平衡" },
+    "sweetness": { "rating": 9.0, "notes": "蜂蜜甜感丰富，塔拉珠招牌风味" },
+    "cleanCup": { "rating": 8.5, "notes": "干净度高，水洗处理特点" },
+    "overall": { "rating": 8.2, "notes": "Kalita 155 塔拉珠方案，蜂蜜柑橘的干净优雅，适合日常享受" },
+    "tastingNotes": ["蜂蜜", "柑橘", "巧克力", "烤杏仁"],
+    "improvements": "可尝试研磨再细一格（24格），提升甜感"
+  }
+}

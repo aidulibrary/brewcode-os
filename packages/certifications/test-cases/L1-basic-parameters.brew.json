@@ -1,0 +1,60 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "BrewCode Compatible L1 基础参数接收测试",
+    "version": "1.0.0",
+    "brewCodeVersion": "1.0",
+    "author": "BrewCode Certification Test Suite",
+    "description": "L1 Ready 认证测试用例：验证设备对 .brew 文件核心参数（粉量、水量、水温、研磨度）的接收与处理能力。",
+    "license": "CC0-1.0",
+    "tags": ["certification", "L1", "test-case"],
+    "createdAt": "2026-06-25T00:00:00.000Z"
+  },
+  "coffee": {
+    "name": "测试用豆 · 埃塞俄比亚 古吉 日晒 浅烘",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "古吉"
+    },
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "variety": "Heirloom",
+    "flavorNotes": ["茉莉花", "蜂蜜", "柠檬", "绿茶"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "树脂",
+    "brewerSize": "01",
+    "filter": "V60 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "BrewCode Smart Kettle",
+    "scale": "BrewCode Smart Scale"
+  },
+  "recipe": {
+    "dose": {
+      "value": 15.0,
+      "unit": "g"
+    },
+    "waterAmount": {
+      "value": 250,
+      "unit": "ml"
+    },
+    "ratio": "1:16.67",
+    "grindSize": {
+      "value": 600,
+      "unit": "μm"
+    },
+    "waterTemperature": {
+      "value": 93,
+      "unit": "°C"
+    },
+    "waterType": "过滤水"
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "L1 测试：确认设备成功接收核心参数。粉量 15.0g · 水量 250ml · 水温 93°C · 研磨度 600μm（C40 约 22 格）。请在设备面板上确认以上参数值是否正确显示。"
+    }
+  ]
+}

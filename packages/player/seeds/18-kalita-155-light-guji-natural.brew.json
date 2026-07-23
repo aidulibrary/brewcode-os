@@ -1,0 +1,118 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "古吉平底慢萃 · 埃塞俄比亚 古吉 日晒 浅烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "Kalita Wave 155 平底滤杯慢萃浅烘古吉日晒。三孔设计提供均衡萃取，充分释放古吉的草莓蓝莓热带水果风味。",
+    "license": "CC0",
+    "tags": ["Kalita Wave", "155", "浅烘", "日晒", "埃塞俄比亚", "古吉", "慢萃"],
+    "createdAt": "2026-06-14T00:00:00Z",
+    "source": "https://github.com/aidulibrary/brewcode-os"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 古吉 日晒 浅烘",
+    "producer": "古吉产区合作社",
+    "origin": { "country": "埃塞俄比亚", "region": "古吉", "farm": "Shakiso 处理站", "altitude": "1900-2100m" },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-07",
+    "roaster": "brewcode-os",
+    "flavorNotes": ["草莓", "蓝莓", "焦糖", "花香"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪 155 漂白",
+    "grinder": "Comandante C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl",
+    "server": "Kalita 玻璃分享壶"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 240, "unit": "ml" },
+    "ratio": "1:16",
+    "grindSize": { "value": 25, "unit": "C40 click", "description": "中细研磨，细砂糖粗细" },
+    "waterTemperature": { "value": 93, "unit": "°C" },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": { "value": 180, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 30, "unit": "s" },
+    "targetTDS": 1.35,
+    "targetExtraction": 20.5
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "放入 Kalita 波浪 155 滤纸，热水冲洗预热，倒掉废水" },
+    { "order": 2, "action": "grind", "description": "称取 15g 咖啡豆，C40 研磨 25 格，倒入滤杯，轻拍平整" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "93°C 热水注入 45ml，绕圈浸润。闷蒸 30 秒，浅烘日晒气泡丰富",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 45, "unit": "ml" },
+      "cumulativeWater": { "value": 45, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈至 100ml（累计 145ml），慢速绕圈，保持水流稳定",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 100, "unit": "ml" },
+      "cumulativeWater": { "value": 145, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待液面降至粉层上方约 1cm",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈至 170ml（累计 240ml），中心与边缘交替",
+      "duration": { "value": 20, "unit": "s" },
+      "waterAmount": { "value": 95, "unit": "ml" },
+      "cumulativeWater": { "value": 240, "unit": "ml" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 7,
+      "action": "drawdown",
+      "description": "等待滴滤完成。Kalita 三孔流速慢，目标总时间 2:45-3:00",
+      "duration": { "value": 95, "unit": "s" }
+    },
+    {
+      "order": 8,
+      "action": "taste",
+      "description": "倒入杯中。草莓蓝莓香气，热带水果风味，焦糖甜感，花香收尾。平底滤杯的均衡口感"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 185, "unit": "s" },
+    "finalYield": { "value": 228, "unit": "g" },
+    "measuredTDS": 1.33,
+    "extractionYield": 20.2,
+    "rating": 8.5,
+    "aroma": { "rating": 9.0, "notes": "草莓蓝莓的强烈果香，热带水果气息" },
+    "flavor": { "rating": 8.5, "notes": "草莓蓝莓风味丰富，热带水果酸质，焦糖甜感平衡" },
+    "aftertaste": { "rating": 8.0, "notes": "余韵中等，莓果甜感回甘" },
+    "acidity": { "rating": 8.5, "notes": "热带水果酸质活泼明亮" },
+    "body": { "rating": 8.0, "notes": "中等醇厚度，平底滤杯的圆润口感" },
+    "balance": { "rating": 8.5, "notes": "酸甜平衡出色，果香与甜感和谐" },
+    "sweetness": { "rating": 9.0, "notes": "焦糖甜感丰富，与果酸完美配合" },
+    "cleanCup": { "rating": 8.5, "notes": "干净度高，无杂味" },
+    "overall": { "rating": 8.5, "notes": "Kalita 155 浅烘古吉方案，平底慢萃充分释放热带水果风味" },
+    "tastingNotes": ["草莓", "蓝莓", "焦糖", "花香"],
+    "improvements": "可尝试研磨再细一格（24格），观察萃取率变化"
+  }
+}

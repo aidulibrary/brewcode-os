@@ -1,0 +1,129 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "深烘瑰夏实验 · 巴拿马 瑰夏 日晒 深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "深烘瑰夏是一个大胆的实验——绝大多数人不会把瑰夏烘到深烘。但深烘瑰夏展现出完全不同的风味维度：黑樱桃、焦糖布丁、朗姆酒般的醇厚。采用 1:13 低粉水比，85°C 低温，粗研磨，用 V60 01 快速萃取。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "瑰夏", "Geisha", "深烘", "日晒", "巴拿马", "实验方案"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "巴拿马 瑰夏 日晒 深烘",
+    "origin": { "country": "巴拿马", "region": "波奎特" },
+    "variety": "Geisha",
+    "process": "日晒",
+    "roastLevel": "深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["黑樱桃", "焦糖布丁", "朗姆酒", "黑巧克力"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "01",
+    "filter": "V60 漂白",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 15, "unit": "g" },
+    "waterAmount": { "value": 195, "unit": "ml" },
+    "ratio": "1:13",
+    "grindSize": { "value": 28, "unit": "C40 click", "description": "粗研磨，深烘豆专用" },
+    "waterTemperature": { "value": 85, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 120, "unit": "s" },
+    "bloomRatio": "1:2",
+    "bloomTime": { "value": 30, "unit": "s" }
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "润湿漂白滤纸，预热 V60 01 陶瓷滤杯和分享壶。倒掉预热用水。" },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15g 深烘瑰夏咖啡粉倒入滤杯，轻拍平整。深烘豆粉床蓬松，透气性好。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 30ml 水，85°C，从中心向外快速绕圈。深烘豆闷蒸 30 秒，避免过长时间释放苦味。",
+      "duration": { "value": 30, "unit": "s" },
+      "waterAmount": { "value": 30, "unit": "ml" },
+      "cumulativeWater": { "value": 30, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 90ml，中水流。深烘豆流速快，快速注水。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 60, "unit": "ml" },
+      "cumulativeWater": { "value": 90, "unit": "ml" },
+      "targetWeight": { "value": 90, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。深烘豆流速快，等待时间短。",
+      "duration": { "value": 15, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 145ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 55, "unit": "ml" },
+      "cumulativeWater": { "value": 145, "unit": "ml" },
+      "targetWeight": { "value": 145, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 15, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 195ml。1:13 的低粉水比使出品浓郁醇厚。",
+      "duration": { "value": 8, "unit": "s" },
+      "waterAmount": { "value": 50, "unit": "ml" },
+      "cumulativeWater": { "value": 195, "unit": "ml" },
+      "targetWeight": { "value": 195, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 2 分钟。深烘豆萃取窗口短，快速完成。",
+      "duration": { "value": 35, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：黑樱桃般的深色水果甜感、焦糖布丁般的焦香和奶感、朗姆酒般的发酵醇厚、黑巧克力尾韵。深烘瑰夏颠覆了瑰夏必须浅烘的认知，展现了另一种可能性。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 122, "unit": "s" },
+    "finalYield": { "value": 170, "unit": "g" },
+    "measuredTDS": 1.55,
+    "extractionYield": 21.8,
+    "rating": 8.0,
+    "flavorProfile": {
+      "acidity": 4.0,
+      "sweetness": 7.5,
+      "bitterness": 5.0,
+      "body": 8.0,
+      "cleanCup": 7.0,
+      "aftertaste": 7.5,
+      "balance": 7.0,
+      "aroma": 8.5
+    }
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "托利马中烘 · 哥伦比亚 托利马 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "哥伦比亚托利马是近年异军突起的精品产区，海拔 1500-1900m，以焦糖甜感和均衡酸质著称。中烘托利马水洗豆在 Origami 折纸滤杯上采用五段注水，展现焦糖、红苹果和可可的温暖风味。折纸滤杯的棱角设计促进水流均匀分布，带来极高的一致性和干净度。",
+    "license": "CC-BY-4.0",
+    "tags": ["Origami", "哥伦比亚", "托利马", "中烘", "水洗", "精品产区"],
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  "coffee": {
+    "name": "哥伦比亚 托利马 水洗 中烘",
+    "origin": {
+      "country": "哥伦比亚",
+      "region": "托利马",
+      "farm": "托利马合作社",
+      "altitude": { "value": 1700, "unit": "m" }
+    },
+    "variety": "Caturra",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "2026-06-08",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["焦糖", "红苹果", "可可", "柑橘"]
+  },
+  "equipment": {
+    "brewer": "Origami",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "S",
+    "filter": "V60 01 漂白",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": { "value": 18, "unit": "g" },
+    "waterAmount": { "value": 270, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 21, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 91, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 200, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 40, "unit": "s" }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "将 V60 锥形滤纸放入 Origami 折纸滤杯，用热水充分润湿并预热。倒掉预热用水。"
+    },
+    { "order": 2, "action": "dose", "description": "将 18g 托利马水洗咖啡粉倒入滤杯，轻拍平整。" },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 54ml 水，91°C，从中心向外慢速绕圈。闷蒸 40 秒。",
+      "duration": { "value": 40, "unit": "s" },
+      "waterAmount": { "value": 54, "unit": "ml" },
+      "cumulativeWater": { "value": 54, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 110ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 56, "unit": "ml" },
+      "cumulativeWater": { "value": 110, "unit": "ml" },
+      "targetWeight": { "value": 110, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 165ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 55, "unit": "ml" },
+      "cumulativeWater": { "value": 165, "unit": "ml" },
+      "targetWeight": { "value": 165, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：绕圈注水至 220ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 55, "unit": "ml" },
+      "cumulativeWater": { "value": 220, "unit": "ml" },
+      "targetWeight": { "value": 220, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 9, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 10,
+      "action": "pour",
+      "description": "第四段注水：中心定点注水至 270ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 50, "unit": "ml" },
+      "cumulativeWater": { "value": 270, "unit": "ml" },
+      "targetWeight": { "value": 270, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 11,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 3 分 20 秒。",
+      "duration": { "value": 50, "unit": "s" }
+    },
+    {
+      "order": 12,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：焦糖甜感饱满温暖、红苹果般清甜的酸质、可可般醇和的底韵、柑橘般清爽的尾韵。托利马水洗在中烘下展现了哥伦比亚咖啡经典的焦糖甜与均衡感，Origami 五段注水使风味层次更加丰富。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 198, "unit": "s" },
+    "finalYield": { "value": 235, "unit": "g" },
+    "measuredTDS": 1.3,
+    "extractionYield": 19.5,
+    "rating": 8.0,
+    "flavorProfile": {
+      "acidity": 6.0,
+      "sweetness": 8.0,
+      "bitterness": 2.5,
+      "body": 7.0,
+      "cleanCup": 8.0,
+      "aftertaste": 7.5,
+      "balance": 8.0,
+      "aroma": 7.5
+    }
+  }
+}

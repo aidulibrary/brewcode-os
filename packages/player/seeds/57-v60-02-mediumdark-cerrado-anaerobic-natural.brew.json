@@ -1,0 +1,129 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "厌氧日晒 · 巴西 喜拉多 厌氧日晒 中深烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "brewcode-os/genesis",
+    "description": "厌氧发酵日晒处理法是精品咖啡近三年的主流趋势——咖啡樱桃在厌氧环境中发酵 72-96 小时后再日晒干燥，产生浓郁的发酵甜感和热带水果风味。巴西喜拉多厌氧日晒在 V60 02 上采用三段注水，展现朗姆酒、熟成菠萝和焦糖的复合风味。",
+    "license": "CC-BY-4.0",
+    "tags": ["V60", "厌氧日晒", "特殊处理法", "巴西", "中深烘"],
+    "createdAt": "2026-06-14T00:00:00Z"
+  },
+  "coffee": {
+    "name": "巴西 喜拉多 厌氧日晒 中深烘",
+    "origin": { "country": "巴西", "region": "喜拉多" },
+    "variety": "Bourbon",
+    "process": "厌氧日晒",
+    "roastLevel": "中深烘",
+    "roastDate": "2026-06-01",
+    "roaster": "社区推荐烘焙商",
+    "flavorNotes": ["朗姆酒", "熟成菠萝", "焦糖", "可可"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "树脂",
+    "brewerSize": "02",
+    "filter": "V60 漂白",
+    "grinder": "C40",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": { "value": 18, "unit": "g" },
+    "waterAmount": { "value": 270, "unit": "ml" },
+    "ratio": "1:15",
+    "grindSize": { "value": 21, "unit": "C40 click", "description": "中细研磨" },
+    "waterTemperature": { "value": 90, "unit": "°C" },
+    "waterType": "过滤水",
+    "brewTime": { "value": 165, "unit": "s" },
+    "bloomRatio": "1:3",
+    "bloomTime": { "value": 45, "unit": "s" }
+  },
+  "steps": [
+    { "order": 1, "action": "prepare", "description": "润湿漂白滤纸，预热 V60 02 滤杯和分享壶。倒掉预热用水。" },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 18g 厌氧日晒咖啡粉倒入滤杯，轻拍平整。厌氧处理豆的粉床密度介于水洗和日晒之间。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 54ml 水，90°C，从中心向外慢速绕圈。厌氧豆闷蒸时释放出浓郁的发酵香气。闷蒸 45 秒。",
+      "duration": { "value": 45, "unit": "s" },
+      "waterAmount": { "value": 54, "unit": "ml" },
+      "cumulativeWater": { "value": 54, "unit": "ml" },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "第一段注水：绕圈注水至 135ml，中水流。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 81, "unit": "ml" },
+      "cumulativeWater": { "value": 135, "unit": "ml" },
+      "targetWeight": { "value": 135, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "wait",
+      "description": "等待水面下降至粉床上方约 1cm。",
+      "duration": { "value": 20, "unit": "s" }
+    },
+    {
+      "order": 6,
+      "action": "pour",
+      "description": "第二段注水：绕圈注水至 200ml。",
+      "duration": { "value": 12, "unit": "s" },
+      "waterAmount": { "value": 65, "unit": "ml" },
+      "cumulativeWater": { "value": 200, "unit": "ml" },
+      "targetWeight": { "value": 200, "unit": "g" },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    { "order": 7, "action": "wait", "description": "等待水面下降。", "duration": { "value": 20, "unit": "s" } },
+    {
+      "order": 8,
+      "action": "pour",
+      "description": "第三段注水：中心定点注水至 270ml。",
+      "duration": { "value": 10, "unit": "s" },
+      "waterAmount": { "value": 70, "unit": "ml" },
+      "cumulativeWater": { "value": 270, "unit": "ml" },
+      "targetWeight": { "value": 270, "unit": "g" },
+      "pourStyle": "定点注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 9,
+      "action": "wait",
+      "description": "等待滴滤完成，目标总时间约 2 分 45 秒。",
+      "duration": { "value": 45, "unit": "s" }
+    },
+    {
+      "order": 10,
+      "action": "taste",
+      "description": "倒入杯中品鉴。预期风味：朗姆酒般的发酵醇香、熟成菠萝般的热带水果甜感、焦糖甜感、可可般柔和的收尾。厌氧日晒处理法带来的风味复杂度远超传统日晒，是精品咖啡进化的方向之一。"
+    }
+  ],
+  "result": {
+    "actualBrewTime": { "value": 168, "unit": "s" },
+    "finalYield": { "value": 235, "unit": "g" },
+    "measuredTDS": 1.35,
+    "extractionYield": 20.2,
+    "rating": 8.5,
+    "flavorProfile": {
+      "acidity": 6.0,
+      "sweetness": 8.5,
+      "bitterness": 3.0,
+      "body": 7.5,
+      "cleanCup": 7.5,
+      "aftertaste": 8.0,
+      "balance": 7.5,
+      "aroma": 9.0
+    }
+  }
+}

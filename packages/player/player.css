@@ -1,0 +1,572 @@
+:root {
+  --bg: #1a1a2e;
+  --bg-card: #222244;
+  --bg-card-hover: #2a2a50;
+  --text: #e0e0e8;
+  --text-dim: #8888aa;
+  --accent: #e8a850;
+  --accent-dim: #c08030;
+  --danger: #d04040;
+  --success: #40a060;
+  --radius: 12px;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Load Screen */
+#load-screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.load-inner {
+  text-align: center;
+  max-width: 640px;
+  width: 100%;
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.sub {
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.load-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.url-hint {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  margin-top: 24px;
+}
+
+/* Paste Area */
+.paste-area {
+  margin-bottom: 16px;
+}
+
+.paste-area textarea {
+  width: 100%;
+  max-width: 600px;
+  height: 160px;
+  background: var(--bg-input, #16162a);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  border-radius: var(--radius-sm, 8px);
+  color: var(--text, #e0e0e8);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 16px;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.paste-area textarea::placeholder {
+  color: var(--text-dim, #8888aa);
+}
+
+.paste-area textarea:focus {
+  outline: none;
+  border-color: var(--border-focus, rgba(232, 168, 80, 0.4));
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--accent);
+  color: #1a1a2e;
+  transition: opacity 0.15s;
+}
+
+.btn:active {
+  opacity: 0.8;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid #333366;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #1a1a2e;
+  font-size: 1.05rem;
+  padding: 14px 32px;
+}
+
+.btn-large {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.btn-timer {
+  background: var(--success);
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 12px 28px;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  margin-top: 12px;
+}
+
+/* Brew Screen */
+#brew-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#brew-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #222244;
+}
+
+.header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+#header-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-step {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+#brew-main {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 12px;
+}
+
+.card-sm {
+  padding: 16px;
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 4px;
+}
+
+.card h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.param-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.param-grid .param-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.param-grid .param-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.param-grid .param-value {
+  font-weight: 600;
+}
+
+/* Step View */
+.step-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  background: #333366;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+
+#progress-text {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.step-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.step-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: #333366;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.step-action {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.step-desc {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.step-water {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 12px;
+  background: rgba(232, 168, 80, 0.08);
+  border-radius: 8px;
+}
+
+.water-label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.water-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.water-target {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.step-pour {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.timer {
+  margin-bottom: 20px;
+}
+
+#timer-value {
+  font-size: 3.5rem;
+  font-weight: 300;
+  font-family: var(--font-mono);
+  letter-spacing: 2px;
+  color: var(--accent);
+}
+
+.step-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Done */
+.done-card {
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.done-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: var(--success);
+}
+
+#done-msg {
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+
+#done-result {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+#done-result h3 {
+  margin-bottom: 10px;
+}
+
+#done-result-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.result-value {
+  font-weight: 600;
+}
+
+.done-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .brand {
+    font-size: 20px;
+  }
+  .step-action {
+    font-size: 1.3rem;
+  }
+  #timer-value {
+    font-size: 2.8rem;
+  }
+  .water-value {
+    font-size: 1.4rem;
+  }
+  .load-inner {
+    padding: 0 16px;
+  }
+  .paste-area textarea {
+    height: 200px;
+    max-width: 100%;
+  }
+  .load-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .load-actions .btn {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  /* Touch targets: 44x44px minimum */
+  .btn {
+    min-height: 44px;
+    padding: 12px 24px;
+  }
+
+  .btn-icon {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px;
+  }
+
+  .btn-timer {
+    min-height: 44px;
+  }
+
+  #btn-start {
+    min-height: 48px;
+  }
+
+  .step-controls .btn {
+    min-height: 44px;
+  }
+}
+
+/* ==========================================================================
+   浅色主题适配（v0.9 — 统一导航栏试点）
+   ========================================================================== */
+
+[data-theme='light'] .bc-navbar {
+  background: #f5f0eb;
+  color: #1a1a2e;
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .bc-navbar .bc-links a {
+  color: #666680;
+}
+
+[data-theme='light'] .bc-navbar .bc-links a.active {
+  color: #b87333;
+}
+
+[data-theme='light'] .bc-navbar .bc-links a:hover {
+  color: #1a1a2e;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .bc-navbar .bc-actions button {
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #666680;
+}
+
+[data-theme='light'] .bc-navbar .bc-actions button:hover {
+  color: #1a1a2e;
+  border-color: #b87333;
+}
+
+[data-theme='light'] .bc-navbar .bc-hamburger {
+  color: #1a1a2e;
+}
+
+[data-theme='light'] .paste-area textarea {
+  border-color: rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  color: #1a1a2e;
+}
+
+[data-theme='light'] .paste-area textarea:focus {
+  border-color: #b87333;
+}
+
+[data-theme='light'] .btn-ghost {
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #666680;
+}
+
+[data-theme='light'] .btn-ghost:hover {
+  color: #1a1a2e;
+  border-color: #b87333;
+}
+
+[data-theme='light'] #brew-header {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .progress-bar {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='light'] .step-badge {
+  background: #e0d8c8;
+  color: #b87333;
+}
+
+[data-theme='light'] .step-water {
+  background: rgba(184, 115, 51, 0.08);
+}

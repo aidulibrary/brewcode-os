@@ -1,0 +1,130 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "TC-L1-01 · BrewCode Compatible L1 Ready 核心参数接收测试",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode Certification Test Suite",
+    "description": "L1 Ready 认证测试用例：验证设备能否正确接收并解析四个核心冲煮参数（粉量、水量、水温、研磨度）。",
+    "license": "CC0",
+    "tags": ["certification", "L1", "Ready", "core-parameters", "test-case"],
+    "createdAt": "2026-06-25T00:00:00Z"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 耶加雪菲 水洗",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "耶加雪菲",
+      "altitude": "1800-2200m"
+    },
+    "variety": "Heirloom",
+    "process": "水洗",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-18",
+    "roaster": "BrewCode 认证测试用",
+    "flavorNotes": ["茉莉花", "柠檬", "绿茶", "蜂蜜"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "brewerMaterial": "陶瓷",
+    "brewerSize": "01",
+    "filter": "V60 漂白",
+    "grinder": "C40",
+    "kettle": "Brewista 温控壶",
+    "scale": "Acaia Pearl"
+  },
+  "recipe": {
+    "dose": {
+      "value": 15.0,
+      "unit": "g"
+    },
+    "waterAmount": {
+      "value": 250,
+      "unit": "ml"
+    },
+    "ratio": "1:16.7",
+    "grindSize": {
+      "value": 600,
+      "unit": "μm",
+      "description": "中等偏细研磨，相当于 C40 20 格"
+    },
+    "waterTemperature": {
+      "value": 93.0,
+      "unit": "°C"
+    },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": {
+      "value": 120,
+      "unit": "s"
+    },
+    "bloomRatio": "1:2",
+    "bloomTime": {
+      "value": 30,
+      "unit": "s"
+    }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "润湿滤纸，预热滤杯和分享壶。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15.0g 咖啡粉倒入滤杯，轻轻拍平粉床。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "注入 30ml 水闷蒸 30 秒。从中心开始慢速绕圈，确保所有咖啡粉被均匀浸润。",
+      "duration": {
+        "value": 30,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 30,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 30,
+        "unit": "ml"
+      },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "一次性注水至 250ml。从中心向外绕圈再回到中心，保持匀速注水。",
+      "duration": {
+        "value": 45,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 220,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 250,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 250,
+        "unit": "g"
+      },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "drawdown",
+      "description": "等待滴滤完成。总冲煮时间约 120 秒。",
+      "duration": {
+        "value": 45,
+        "unit": "s"
+      }
+    }
+  ]
+}

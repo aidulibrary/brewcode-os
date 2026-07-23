@@ -1,0 +1,153 @@
+{
+  "$schema": "https://brewcode.dev/schemas/brew.schema.json",
+  "meta": {
+    "name": "TC-L2-01 · BrewCode Compatible L2 Interactive 三步序列执行测试",
+    "version": "1.0.0",
+    "brewCodeVersion": "0.1",
+    "author": "BrewCode Certification Test Suite",
+    "description": "L2 Interactive 认证测试用例：验证设备能否解析并按顺序执行包含 3 个冲煮步骤的序列，每一步前向用户提示。",
+    "license": "CC0",
+    "tags": ["certification", "L2", "Interactive", "step-sequence", "3-steps", "test-case"],
+    "createdAt": "2026-06-25T00:00:00Z"
+  },
+  "coffee": {
+    "name": "埃塞俄比亚 古吉 日晒",
+    "origin": {
+      "country": "埃塞俄比亚",
+      "region": "古吉",
+      "altitude": "1900-2100m"
+    },
+    "variety": "Heirloom",
+    "process": "日晒",
+    "roastLevel": "浅烘",
+    "roastDate": "2026-06-16",
+    "roaster": "BrewCode 认证测试用",
+    "flavorNotes": ["蓝莓", "草莓", "红酒", "黑巧克力"]
+  },
+  "equipment": {
+    "brewer": "Kalita Wave",
+    "brewerMaterial": "不锈钢",
+    "brewerSize": "155",
+    "filter": "Kalita 波浪",
+    "grinder": "Kinu M47",
+    "kettle": "Fellow Stagg EKG",
+    "scale": "Timemore Black Mirror"
+  },
+  "recipe": {
+    "dose": {
+      "value": 15.0,
+      "unit": "g"
+    },
+    "waterAmount": {
+      "value": 250,
+      "unit": "ml"
+    },
+    "ratio": "1:16.7",
+    "grindSize": {
+      "value": 600,
+      "unit": "μm",
+      "description": "中等偏细研磨，相当于 Kinu M47 3.5 圈"
+    },
+    "waterTemperature": {
+      "value": 93.0,
+      "unit": "°C"
+    },
+    "waterType": "农夫山泉",
+    "waterTDS": 45,
+    "brewTime": {
+      "value": 150,
+      "unit": "s"
+    },
+    "bloomRatio": "1:2",
+    "bloomTime": {
+      "value": 30,
+      "unit": "s"
+    }
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "prepare",
+      "description": "润湿滤纸，预热滤杯和分享壶。倒掉预热用水。"
+    },
+    {
+      "order": 2,
+      "action": "dose",
+      "description": "将 15.0g 咖啡粉倒入滤杯，轻轻拍平粉床。"
+    },
+    {
+      "order": 3,
+      "action": "bloom",
+      "description": "【步骤 1/3】注入 30ml 水闷蒸 30 秒。从中心开始慢速绕圈，确保所有咖啡粉被均匀浸润。观察粉层膨胀和气泡释放。",
+      "duration": {
+        "value": 30,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 30,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 30,
+        "unit": "ml"
+      },
+      "pourStyle": "中心绕圈",
+      "pourIntensity": "细水流"
+    },
+    {
+      "order": 4,
+      "action": "pour",
+      "description": "【步骤 2/3】第一阶段注水至 140ml。以中等速度绕圈注水，保持水流稳定，避免冲刷粉床。",
+      "duration": {
+        "value": 30,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 110,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 140,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 140,
+        "unit": "g"
+      },
+      "pourStyle": "绕圈注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 5,
+      "action": "pour",
+      "description": "【步骤 3/3】第二阶段注水至 250ml。采用中心注水为主，减少对粉床的扰动，确保萃取均匀。",
+      "duration": {
+        "value": 30,
+        "unit": "s"
+      },
+      "waterAmount": {
+        "value": 110,
+        "unit": "ml"
+      },
+      "cumulativeWater": {
+        "value": 250,
+        "unit": "ml"
+      },
+      "targetWeight": {
+        "value": 250,
+        "unit": "g"
+      },
+      "pourStyle": "中心注水",
+      "pourIntensity": "中水流"
+    },
+    {
+      "order": 6,
+      "action": "drawdown",
+      "description": "等待滴滤完成。总冲煮时间约 150 秒。观察粉床是否平整。",
+      "duration": {
+        "value": 60,
+        "unit": "s"
+      }
+    }
+  ]
+}
