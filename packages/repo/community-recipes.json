@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "name": "Marvis 试验冲煮 · 哥伦比亚 水洗 中烘",
+    "author": "BrewCode 社区测试员",
+    "authorAvatarUrl": "",
+    "origin": "Colombia",
+    "variety": "Castillo",
+    "process": "Washed",
+    "roastLevel": "中烘",
+    "roastDate": "",
+    "brewer": "V60",
+    "grinder": "C40",
+    "ratio": "",
+    "rating": 0,
+    "description": "坚果、焦糖、可可",
+    "file": "marvis-test-colombia-washed.brew.json",
+    "filePath": "community/marvis-test-colombia-washed.brew.json",
+    "submittedAt": "2026-07-24"
+  }
+]

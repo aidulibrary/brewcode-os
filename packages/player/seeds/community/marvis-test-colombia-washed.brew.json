@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "name": "Marvis 试验冲煮 · 哥伦比亚 水洗 中烘",
+    "version": "1.0",
+    "author": "BrewCode 社区测试员",
+    "license": "CC0-1.0",
+    "submittedAt": "2026-07-24"
+  },
+  "coffee": {
+    "origin": "Colombia",
+    "variety": "Castillo",
+    "process": "Washed",
+    "roastLevel": "中烘",
+    "flavorNotes": "坚果、焦糖、可可"
+  },
+  "equipment": {
+    "brewer": "V60",
+    "grinder": "C40"
+  },
+  "recipe": {
+    "dose": 15,
+    "waterAmount": 225,
+    "ratio": "1:15",
+    "grindSize": "中细",
+    "waterTemperature": 92
+  },
+  "steps": [
+    { "action": "注水", "duration": 30, "amount": 45 },
+    { "action": "等待", "duration": 30, "amount": 0 },
+    { "action": "注水", "duration": 20, "amount": 120 },
+    { "action": "注水", "duration": 20, "amount": 60 },
+    { "action": "等待", "duration": 60, "amount": 0 }
+  ]
+}
