@@ -12,7 +12,7 @@
 
 **第二步：放入仓库**
 
-Fork 本仓库，将 `.brew` 文件放入 `seeds/community/` 目录。
+Fork 本仓库，将 `.brew` 文件放入 `packages/player/seeds/community/` 目录。
 
 **第三步：提交 PR**
 

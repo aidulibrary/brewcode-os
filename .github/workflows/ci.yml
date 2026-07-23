@@ -19,6 +19,32 @@ jobs:
         env:
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
 
+  validate-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install ajv-cli
+        run: npm install -g ajv-cli
+      - name: Validate all .brew files
+        run: |
+          SCHEMA="packages/standards/brew.schema.json"
+          COUNT=0; FAIL=0
+          for f in $(find packages/player/seeds -name "*.brew.json"); do
+            COUNT=$((COUNT+1))
+            if ajv validate -s "$SCHEMA" -d "$f" --strict=false 2>&1; then
+              echo "PASS: $f"
+            else
+              echo "FAIL: $f"
+              FAIL=$((FAIL+1))
+            fi
+          done
+          echo "Validated $COUNT files, $FAIL failures"
+          test "$FAIL" -eq 0 || { echo "Schema validation failed"; exit 1; }
+
+
   smoke-api:
     runs-on: ubuntu-latest
     needs: gitleaks
