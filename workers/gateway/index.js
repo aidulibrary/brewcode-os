@@ -12,9 +12,10 @@ const ROUTES = {
   '/diagnose': 'diagnose',
   '/generate': 'generate',
   '/translate': 'translate',
+  '/brew/submit': 'brew_submit',
 };
 
-const PUBLIC_ROUTES = ['/translate'];
+const PUBLIC_ROUTES = ['/translate', '/brew/submit'];
 
 function hashKey(apiKey) {
   let hash = 0;
@@ -76,6 +77,32 @@ async function checkRateLimit(env, apiKey, limit) {
     return { ok: true };
   } catch (e) {
     return { ok: true };
+  }
+}
+
+async function handleBrewSubmit(request, env) {
+  if (request.method !== 'POST') {
+    return jsonResponse({ error: 'POST required' }, 405);
+  }
+  let body;
+  try { body = await request.json(); } catch {
+    return jsonResponse({ error: 'Invalid JSON' }, 400);
+  }
+  const required = ['brew_id', 'origin', 'brewer', 'dose', 'waterAmount', 'stepsCount'];
+  for (const f of required) {
+    if (!body[f]) return jsonResponse({ error: 'Missing: ' + f }, 400);
+  }
+  try {
+    await env.DB.prepare(
+      `INSERT INTO brew_submissions(brew_id,origin,variety,process,roastLevel,brewer,grinder,dose,waterAmount,ratio,grindSize,waterTemperature,stepsCount,totalBrewTime,finalYield,measuredTDS)
+       VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+    ).bind(body.brew_id, body.origin, body.variety||null, body.process||null, body.roastLevel||null,
+           body.brewer, body.grinder||null, body.dose, body.waterAmount, body.ratio||null,
+           body.grindSize||null, body.waterTemperature||null, body.stepsCount,
+           body.totalBrewTime||null, body.finalYield||null, body.measuredTDS||null).run();
+    return jsonResponse({ status: 'ok' }, 201);
+  } catch(e) {
+    return jsonResponse({ error: e.message }, 500);
   }
 }
 
@@ -141,6 +168,8 @@ export default {
       case 'translate':
         targetUrl = `https://brewcode-translate.wuguzi.workers.dev${url.search}`;
         break;
+      case 'brew_submit':
+        return handleBrewSubmit(request, env);
     }
 
     try {

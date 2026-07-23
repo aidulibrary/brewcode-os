@@ -315,6 +315,9 @@
       return;
     }
     doneView.classList.remove('hidden');
+    if (submitBtn && optInCheckbox && optInCheckbox.checked) {
+      submitBtn.classList.remove('hidden');
+    }
 
     const totalSteps = recipe.steps.length;
     $('#done-msg').textContent =
@@ -487,6 +490,41 @@
       '_blank'
     );
   });
+
+  /* M4: opt-in anonymous data submission */
+  var optInCheckbox = document.getElementById('optInCheckbox');
+  var submitBtn = document.getElementById('btn-submit-data');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function () {
+      if (!recipe) return;
+      var r = recipe.result || {};
+      var c = recipe.coffee || {};
+      var e = recipe.equipment || {};
+      var p = recipe.recipe || {};
+      var payload = {
+        brew_id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36)+Math.random().toString(36).slice(2),
+        origin: c.origin||'', variety: c.variety||null, process: c.process||null,
+        roastLevel: c.roastLevel||null, brewer: e.brewer||'', grinder: e.grinder||null,
+        dose: p.dose||0, waterAmount: p.waterAmount||0, ratio: p.ratio||null,
+        grindSize: p.grindSize||null, waterTemperature: p.waterTemperature||null,
+        stepsCount: (recipe.steps||[]).length,
+        totalBrewTime: r.actualBrewTime?r.actualBrewTime.value||null:null,
+        finalYield: r.finalYield?r.finalYield.value||null:null,
+        measuredTDS: r.measuredTDS||null,
+      };
+      var orig = submitBtn.textContent;
+      submitBtn.textContent = '提交中…'; submitBtn.disabled = true;
+      fetch('https://api.礼字号.中国/api/brew/submit', {
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload),
+      }).then(function(r){return r.json()}).then(function(d){
+        submitBtn.textContent = d.status==='ok'?'已提交 ✓':'失败';
+      }).catch(function(){
+        submitBtn.textContent = '网络错误 ✗';
+      }).finally(function(){
+        setTimeout(function(){submitBtn.textContent=orig;submitBtn.disabled=false},3000);
+      });
+    });
+  }
 
   /* language init */
   var savedLang = localStorage.getItem('brewcode_lang');
