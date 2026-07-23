@@ -368,6 +368,10 @@
       "copyFailed": "Copy failed: "
     },
     "footer": "BrewCode OS · CC0",
+    "community": {
+      "title": "Community Recipes",
+      "tag": "Community"
+    },
     "filterValue": {
       "法压壶": "French Press",
       "爱乐压": "Aeropress",

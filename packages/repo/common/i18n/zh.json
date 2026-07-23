@@ -368,6 +368,10 @@
       "copyFailed": "复制失败："
     },
     "footer": "BrewCode OS · CC0",
+    "community": {
+      "title": "社区方案",
+      "tag": "社区"
+    },
     "filterValue": {
       "法压壶": "法压壶",
       "爱乐压": "爱乐压",
