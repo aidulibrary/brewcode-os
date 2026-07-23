@@ -1,7 +1,9 @@
 ---
-name: "BrewCode Compatible 认证申请 Certification Application"
-description: 提交咖啡设备 BrewCode Compatible 认证申请 Submit a certification application
+name: BrewCode Compatible 认证申请 Certification Application
+about: 提交咖啡设备 BrewCode Compatible 认证申请
+title: "[认证申请] 厂商 - 设备型号"
 labels: [certification]
+assignees: ''
 ---
 
 ## 基本信息 / Basic Information
