@@ -89,3 +89,28 @@ jobs:
             test "$STATUS" = "200" || { echo "FAIL: $SITE → $STATUS"; exit 1; }
             echo "PASS: $SITE → 200"
           done
+
+  check-recipes-updated:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check community-recipes.json is up to date
+        run: |
+          CHANGED=$(git diff --name-only origin/main...HEAD | grep 'seeds/community/.*\.brew\.json' || true)
+          if [ -z "$CHANGED" ]; then
+            echo "No community recipes changed — skipping check"
+            exit 0
+          fi
+          echo "Community recipes changed:"
+          echo "$CHANGED"
+          echo ""
+          node scripts/generate-community-recipes.js
+          if ! git diff --exit-code packages/repo/community-recipes.json; then
+            echo ""
+            echo "ERROR: community-recipes.json is out of date!"
+            echo "Run: node scripts/generate-community-recipes.js"
+            echo "Then commit the updated community-recipes.json"
+            exit 1
+          fi
+          echo "PASS: community-recipes.json is up to date"
