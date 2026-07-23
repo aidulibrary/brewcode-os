@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "name": "验证者测试 · 哥伦比亚 水洗 中烘",
+    "version": "1.0.0",
+    "brewCodeVersion": "1.0",
+    "author": "BrewCode 社区测试",
+    "license": "CC0",
+    "createdAt": "2026-07-23T09:51:31.291Z"
+  },
+  "coffee": {
+    "name": "哥伦比亚 Castillo 水洗",
+    "origin": {
+      "country": "哥伦比亚",
+      "region": "哥伦比亚"
+    },
+    "variety": "Castillo",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "flavorNotes": ["坚果、焦糖、可可"]
+  },
+  "equipment": {
+    "brewer": "V60",
+    "grinder": "C40"
+  },
+  "recipe": {
+    "dose": {
+      "value": 15,
+      "unit": "g"
+    },
+    "waterAmount": {
+      "value": 225,
+      "unit": "ml"
+    },
+    "ratio": "1:15",
+    "grindSize": {
+      "value": 22,
+      "reference": "C40 click",
+      "description": "中细"
+    },
+    "waterTemperature": {
+      "value": 92,
+      "unit": "°C"
+    },
+    "steps": [
+      {
+        "order": 1,
+        "action": "pour",
+        "duration": {
+          "value": 30,
+          "unit": "s"
+        },
+        "waterAmount": {
+          "value": 45,
+          "unit": "ml"
+        }
+      },
+      {
+        "order": 2,
+        "action": "wait",
+        "duration": {
+          "value": 30,
+          "unit": "s"
+        }
+      },
+      {
+        "order": 3,
+        "action": "pour",
+        "duration": {
+          "value": 30,
+          "unit": "s"
+        },
+        "waterAmount": {
+          "value": 120,
+          "unit": "ml"
+        },
+        "pourStyle": "circlePour",
+        "pourIntensity": "gentleStream"
+      },
+      {
+        "order": 4,
+        "action": "pour",
+        "duration": {
+          "value": 30,
+          "unit": "s"
+        },
+        "waterAmount": {
+          "value": 60,
+          "unit": "ml"
+        },
+        "pourStyle": "circlePour",
+        "pourIntensity": "mediumStream"
+      },
+      {
+        "order": 5,
+        "action": "drain",
+        "duration": {
+          "value": 30,
+          "unit": "s"
+        }
+      }
+    ]
+  }
+}

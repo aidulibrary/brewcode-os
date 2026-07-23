@@ -1,1 +1,25 @@
-[]
+[
+  {
+    "name": "验证者测试 · 哥伦比亚 水洗 中烘",
+    "author": "BrewCode 社区测试",
+    "authorAvatarUrl": "",
+    "origin": {
+      "country": "哥伦比亚",
+      "region": "哥伦比亚"
+    },
+    "variety": "Castillo",
+    "process": "水洗",
+    "roastLevel": "中烘",
+    "roastDate": "",
+    "brewer": "V60",
+    "grinder": "C40",
+    "ratio": "",
+    "rating": 0,
+    "description": [
+      "坚果、焦糖、可可"
+    ],
+    "file": "验证者测试-哥伦比亚-水洗-中烘.brew.json",
+    "filePath": "community/验证者测试-哥伦比亚-水洗-中烘.brew.json",
+    "submittedAt": "2026-07-23"
+  }
+]
