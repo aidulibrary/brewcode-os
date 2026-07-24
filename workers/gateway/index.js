@@ -14,9 +14,10 @@ const ROUTES = {
   '/translate': 'translate',
   '/brew/submit': 'brew_submit',
   '/brew/stats': 'brew_stats',
+  '/health': 'health',
 };
 
-const PUBLIC_ROUTES = ['/translate', '/brew/submit', '/brew/stats'];
+const PUBLIC_ROUTES = ['/translate', '/brew/submit', '/brew/stats', '/health'];
 
 function hashKey(apiKey) {
   let hash = 0;
@@ -194,6 +195,11 @@ export default {
         return handleBrewSubmit(request, env);
       case 'brew_stats':
         return handleBrewStats(env);
+      case 'health':
+        return jsonResponse(
+          { status: 'ok', service: 'brewcode-gateway', ts: Date.now() },
+          200
+        );
     }
 
     try {

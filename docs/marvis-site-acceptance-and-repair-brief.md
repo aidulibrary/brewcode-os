@@ -1,16 +1,18 @@
 # Marvis 任务：BrewCode OS 整站全量验收与大神级修复
 
-> 任务编号：marvis-site-acceptance-v1.0  
-> 创建时间：2026-07-24  
-> 执行者：Marvis  
-> 验收标准：[site-acceptance-and-repair-standard-v1.0.md](./site-acceptance-and-repair-standard-v1.0.md)  
-> 当前现场证据：用户截图显示线上 `brewcode.礼字号.中国` 首页仍为旧文案「诞生记」+ 旧个人叙事；白皮书按钮指向 GitHub 404 URL（`docs/BrewCode%20OS%20白皮书 · 序章.md`）。而 git HEAD 已修正为「诞生纪」与正确白皮书路径。根因：**Cloudflare Pages 未重新部署最新 main**。
+> 任务编号：marvis-site-acceptance-v1.1
+> 创建时间：2026-07-24
+> 执行者：Marvis
+> 验收标准：[site-acceptance-and-repair-standard-v1.0.md](./site-acceptance-and-repair-standard-v1.0.md)
+> 当前现场证据：用户截图显示线上 `brewcode.礼字号.中国` 首页仍为旧构建（显示「诞生记」而非 git HEAD 的「诞生纪」；白皮书按钮指向 GitHub 404）。git HEAD 已修正，根因：**Cloudflare Pages 未重新部署最新 main**。
 
 ---
 
 ## 一、任务目标
 
-以全球一线全栈工程交付标准，对 BrewCode OS 全站（前端 4 子站 + 后端 Workers + GitHub 仓库 + Cloudflare 部署）进行深度验收、定级，并修复所有 P0/P1 缺陷，最终达到 **S 级交付**。
+以全球一线全栈工程交付标准，对 BrewCode OS 全站（前端 4 子站 + 后端 Workers + GitHub 仓库 + Cloudflare 部署）进行**功能实现、体验、技术实现**的深度验收、定级，并修复所有 P0/P1 功能/体验缺陷，最终达到 **S 级交付**。
+
+**本次不执行任何文案继续修改。** 唯一与文案相关的工作是：在 P0.1 中验证首页「诞生纪」已随部署落地，不做任何其他文案调整或延伸。
 
 ---
 
@@ -27,22 +29,23 @@
 8. **GitHub 仓库** `.github/ISSUE_TEMPLATE/`、`README.md`、仓库根目录文档
 9. **Cloudflare 部署** Pages + Workers + D1 + KV 绑定
 
-### 2.2 不纳入本次（后续任务）
+### 2.2 不纳入本次
+- 任何文案继续修改（首页「诞生纪」结果落地确认除外）
+- 创始人署名、版权署名、致谢等信息的任何调整
 - 支付沙盒端到端真实扣款验证（仅做按钮加载 + plan ID 校验）
-- 多语言新增（仅做 ZH/EN 一致性）
+- 多语言新增（仅做 ZH/EN 功能一致性）
 - 大版本功能新增（如用户系统、后台管理）
 
 ---
 
 ## 三、执行约束（硬性）
 
-1. **先验收再修复**：每个问题必须有截图/cURL/控制台日志作为「现场证据」才能进入修复。
-2. **只改必要文件**：禁止附带大段重构、格式化、无关注释。
-3. **双语同步**：任何文案改动必须同时更新 `zh.json` / `en.json` / HTML 字面量 / i18n 字典。
-4. **配置即代码**：D1/KV/Workers 绑定调整必须同步到 `wrangler.toml`；禁止只改 Dashboard 不写配置。
-5. **部署即验证**：修复后必须触发线上部署并确认构建 hash 与 git HEAD 一致。
-6. **不回退基调**：所有文案必须保持「去个人叙事、去宏大叙事、知识治理」基调。
-7. **安全红线**：不提交 secrets、不暴露 D1/KV 真实内容、不收集未授权 PII。
+1. **先验收再修复**：每个功能/体验问题必须有截图、录屏、cURL 或控制台日志作为「现场证据」才能进入修复。
+2. **只改必要文件**：禁止附带大段重构、格式化、无关注释；功能修复保持最小范围。
+3. **配置即代码**：D1/KV/Workers 绑定调整必须同步到 `wrangler.toml`；禁止只改 Dashboard 不写配置。
+4. **部署即验证**：修复后必须触发线上部署并确认构建 hash 与 git HEAD 一致。
+5. **安全红线**：不提交 secrets、不暴露 D1/KV 真实内容、不收集未授权 PII。
+6. **执行授权流程**：任何对代码/配置的改动，必须按 ① 论证（现象、根因、方案、风险）→ ② 告知（说明要做什么）→ ③ 获授权/决策同步（用户确认）→ ④ 执行。歧义点不得由 Agent 自行拍板，必须升级给用户。
 
 ---
 
@@ -51,21 +54,20 @@
 ### P0 — 阻断性（必须全部闭环，否则评级 ≤ C）
 
 #### P0.1 强制重新部署 Cloudflare Pages 并验证首页同步
-- **现象**：线上仍显示「诞生记」、旧个人叙事、白皮书 404 链接。
-- **根因假设**：Pages 未自动部署或部署失败。
+- **现象**：线上仍显示旧构建：首页「诞生记」、白皮书按钮指向 GitHub 404。
+- **根因假设**：Cloudflare Pages 未自动部署或部署失败，导致线上与 git HEAD 不同步。
 - **操作**：
   1. 登录 Cloudflare Dashboard → Pages → brewcode-os → Deployments。
-  2. 找到最新 commit `02df5d0` 或点击 **Retry deployment** / **Create deployment** 手动触发。
+  2. 找到最新 main commit 或点击 **Retry deployment** / **Create deployment** 手动触发。
   3. 若 Dashboard 无重试入口，本地执行 `npx wrangler pages deploy packages/portal --project-name brewcode-os`（需确认 project name）。
   4. 部署完成后，访问 `https://brewcode.礼字号.中国`，截图确认：
-     - Hero 区标题为「诞生纪」
-     - 无「一粒种子落下来了/2026年/自由人/三台电脑」文案
-     - 白皮书按钮链接路径含 `BrewCode%20OS%20%E2%80%94%20%E8%AF%9E%E7%94%9F%E7%BA%AA`（诞生纪子目录）且**无 `.md` 后缀**
-- **验收**：线上 HTML 源码与 `git show HEAD:packages/portal/index.html` 在诞生纪/白皮书链接两处一致。
+     - 首页标题区显示为「诞生纪」
+     - 白皮书按钮点击后 GitHub URL 返回 200（非 404）
+- **验收**：线上 HTML 源码与 `git show HEAD:packages/portal/index.html` 在「诞生纪」文案与白皮书链接两处一致。
 - **交付物**：部署截图、线上源码片段、对比结论。
 
 #### P0.2 全站导航链接 404 扫描
-- **范围**：portal 顶部导航、footer、Player/Repo/Forge 子站互跳、认证设备页返回首页。
+- **范围**：portal 顶部导航、footer、Player/Repo/Forge 子站互跳、认证设备页返回首页、白皮书链接。
 - **工具**：Playwright 或自定义爬虫。
 - **验收**：所有内链 HTTP 200；外链（GitHub/PayPal）HTTP 200/302（非 404）。
 - **交付物**：链接清单 + 状态码表。
@@ -111,14 +113,6 @@
 - **验收**：无 404；PayPal plan ID 与源码一致（L2: P-2GR681421K7125543NJQY2TA；L3: P-90E47668P0711963UNJQZ2TI）。
 - **交付物**：按钮加载截图、链接地址。
 
-#### P1.4 i18n 全站一致性扫描
-- **文件**：`packages/common/i18n/zh.json`、`packages/common/i18n/en.json` 及各子站 i18n 字典。
-- **操作**：
-  1. 每页切换 ZH/EN，检查无 fallback 中文、无旧文案残留。
-  2. 重点扫描：Hero 副标题、诞生纪标题、白皮书、Player/Repo/Forge 核心按钮。
-- **验收**：EN 模式下所有 `data-i18n` 元素渲染英文。
-- **交付物**：每页 ZH/EN 对比截图或断言脚本输出。
-
 ### P2 — 优化项（纳入报告，本次尽量完成）
 
 #### P2.1 Lighthouse 性能 + 可访问性扫描
@@ -136,8 +130,9 @@
 - **验收**：控制台无红色 error；yellow warning 需列出并评估是否修复。
 - **交付物**：控制台日志截图 + 清理清单。
 
-#### P2.4 SEO / Open Graph 补全
+#### P2.4 SEO / Open Graph 技术标签补全
 - **文件**：各子站 `index.html` `<head>`。
+- **说明**：此项只检查技术标签（title、description、OG title/type/url/image）是否完整、是否正确，**不涉及任何文案内容修改**。
 - **验收**：每页有唯一 `<title>`、`<meta name="description">`、OG 四标签（title/type/url/image）。
 - **交付物**：`<head>` 审计表。
 
@@ -158,11 +153,9 @@
 ## 六、可参考文件
 
 - 验收标准：`docs/site-acceptance-and-repair-standard-v1.0.md`
-- 现场截图：用户提供的 `Clipboard_Screenshot.png`（白皮书 404）、`Clipboard_Screenshot-1.png`（首页旧文案）
+- 现场截图：用户提供的 `Clipboard_Screenshot.png`（白皮书 404）、`Clipboard_Screenshot-1.png`（首页旧构建）
 - 关键源码：
-  - `packages/portal/index.html`
-  - `packages/portal/portal.js`
-  - `packages/common/i18n/zh.json`、`packages/common/i18n/en.json`
+  - `packages/portal/index.html`（仅确认「诞生纪」结果落地）
   - `packages/repo/repo.js`
   - `packages/player/player.js`
   - `workers/gateway/index.js`
@@ -174,11 +167,10 @@
 ## 七、完成定义（Definition of Done）
 
 - [ ] P0 四项全部通过，有截图/cURL 证据。
-- [ ] P1 四项全部通过或明确记录无法闭环的原因。
+- [ ] P1 三项全部通过或明确记录无法闭环的原因。
 - [ ] P2 四项报告输出，至少完成 Lighthouse 与死链扫描。
 - [ ] `docs/marvis-site-acceptance-report.md` 已创建并提交到 `main`。
-- [ ] 线上 `brewcode.礼字号.中国` 首页显示「诞生纪」且无旧个人叙事。
-- [ ] 线上白皮书按钮点击后 200（非 404）。
+- [ ] 线上 `brewcode.礼字号.中国` 首页显示「诞生纪」且白皮书按钮 200。
 - [ ] 最终评级达到 S 或 A；若为 B 及以下，必须列出降级原因。
 
 ---
