@@ -35,7 +35,7 @@
       'buttons.player': '打开 Player',
       'buttons.repo': '浏览方案库',
       'buttons.forge': '创建方案',
-      'story.title': '诞生记',
+      'story.title': '诞生纪',
       'tools.title': '工具矩阵',
       'tools.player.name': 'BrewPlayer',
       'tools.player.desc': '打开 .brew 文件，获得分步冲煮引导。离线可用，手机放秤旁，扫一眼就够。',
