@@ -8405,7 +8405,10 @@
     $('#detail-flavors').innerHTML = flavorsHtml;
 
     $('#btn-open-player').onclick = function () {
-      var playerUrl = BrewCodeConfig.playerUrl + '?brew=' + encodeURIComponent(recipe.filePath);
+      // 社区方案无对应 .brew.json 文件，直接用内联 JSON 打开播放器
+      var brewData = communityManifestToBrewData(recipe);
+      var playerUrl =
+        BrewCodeConfig.playerUrl + '?brew=' + encodeURIComponent(JSON.stringify(brewData));
       var a = document.createElement('a');
       a.href = playerUrl;
       a.target = '_blank';
@@ -8415,9 +8418,8 @@
 
     $('#btn-copy-json').onclick = async function () {
       try {
-        var resp = await fetch(recipe.filePath);
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
-        var text = await resp.text();
+        var brewData = communityManifestToBrewData(recipe);
+        var text = JSON.stringify(brewData, null, 2);
         await navigator.clipboard.writeText(text);
         showToast(BrewCodeI18n.t('repo.toast.copied'));
       } catch (e) {
@@ -8431,9 +8433,8 @@
       btn.textContent = '生成中…';
       btn.disabled = true;
       try {
-        var resp = await fetch(recipe.filePath);
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
-        var brewData = await resp.json();
+        // 社区方案无对应 .brew.json 文件，直接由内存数据生成分享图
+        var brewData = communityManifestToBrewData(recipe);
         await generateShareCard(brewData);
         btn.textContent = originalText;
         btn.disabled = false;
@@ -8629,6 +8630,70 @@ function seedManifestToBrewData(entry) {
   };
 
   return result;
+}
+
+/**
+ * 将「社区方案」（扁平结构）转换为符合 BrewCode Schema 的 brewData。
+ * 社区数据来自 community-recipes.json，无对应 .brew.json 文件，
+ * 因此分享/复制/打开播放器均应在内存中直接转换，而非 fetch 不存在的文件。
+ * @param {Object} r — 社区方案扁平对象
+ * @returns {Object} 符合 BrewCode Schema 的 brewData
+ */
+function communityManifestToBrewData(r) {
+  r = r || {};
+
+  var flavorNotes = [];
+  if (r.description) {
+    flavorNotes = String(r.description)
+      .split(/[、,，]/)
+      .map(function (s) {
+        return s.trim();
+      })
+      .filter(Boolean);
+  }
+
+  var meta = {
+    name: r.name || '',
+    author: r.author || '',
+    source: 'https://github.com/aidulibrary/brewcode-os',
+    license: 'CC0',
+    tags: [],
+  };
+  if (r.rating != null) {
+    meta.rating = r.rating;
+  }
+
+  var coffee = {
+    name: r.name || '',
+    origin: { country: r.origin || '' },
+    process: r.process || '',
+    roastLevel: r.roastLevel || '',
+    variety: r.variety || '',
+    flavorNotes: flavorNotes,
+  };
+
+  var equipment = {
+    brewer: r.brewer || '',
+    grinder: r.grinder || '',
+  };
+
+  var recipe = {
+    dose: { value: 0, unit: 'g' },
+    waterAmount: { value: 0, unit: 'ml' },
+    ratio: r.ratio || '',
+    grindSize: { value: '', unit: '', description: '' },
+    waterTemperature: { value: 0, unit: '°C' },
+    brewTime: { value: 0, unit: 's' },
+  };
+
+  return {
+    meta: meta,
+    coffee: coffee,
+    equipment: equipment,
+    recipe: recipe,
+    steps: [],
+    result: { description: r.description || '' },
+  };
 }
 
 var SEED_IDS = {
