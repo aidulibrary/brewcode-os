@@ -273,7 +273,7 @@ d:\brewcode-os\
 │   ├── forge-validation-report.md
 │   ├── 域名体系调整记录.md
 │   ├── 第一阶段产出：创世素材与开发宣言.md
-│   └── BrewCode OS — 诞生记/         # 诞生记系列文档
+│   └── BrewCode OS — 诞生纪/         # 诞生纪系列文档
 ├── tasks/                             # 运维脚本
 │   └── portal-redirect.ps1            # PowerShell 域名重定向脚本
 └── .trae/skills/                      # TRAE IDE 技能包
