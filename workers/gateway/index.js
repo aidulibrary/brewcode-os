@@ -13,9 +13,10 @@ const ROUTES = {
   '/generate': 'generate',
   '/translate': 'translate',
   '/brew/submit': 'brew_submit',
+  '/brew/stats': 'brew_stats',
 };
 
-const PUBLIC_ROUTES = ['/translate', '/brew/submit'];
+const PUBLIC_ROUTES = ['/translate', '/brew/submit', '/brew/stats'];
 
 function hashKey(apiKey) {
   let hash = 0;
@@ -77,6 +78,27 @@ async function checkRateLimit(env, apiKey, limit) {
     return { ok: true };
   } catch (e) {
     return { ok: true };
+  }
+}
+
+async function handleBrewStats(env) {
+  try {
+    const [total, origins, brewers, roasts, temps] = await Promise.all([
+      env.DB.prepare('SELECT COUNT(*) AS c FROM brew_submissions').first(),
+      env.DB.prepare('SELECT origin, COUNT(*) AS c FROM brew_submissions GROUP BY origin ORDER BY c DESC LIMIT 10').all(),
+      env.DB.prepare('SELECT brewer, COUNT(*) AS c FROM brew_submissions GROUP BY brewer ORDER BY c DESC LIMIT 10').all(),
+      env.DB.prepare('SELECT roastLevel, COUNT(*) AS c FROM brew_submissions WHERE roastLevel IS NOT NULL GROUP BY roastLevel ORDER BY c DESC').all(),
+      env.DB.prepare('SELECT AVG(waterTemperature) AS avgTemp, MIN(waterTemperature) AS minTemp, MAX(waterTemperature) AS maxTemp FROM brew_submissions WHERE waterTemperature IS NOT NULL').first(),
+    ]);
+    return jsonResponse({
+      total: total.c,
+      origins: origins.results,
+      brewers: brewers.results,
+      roasts: roasts.results,
+      temperature: { avg: temps.avgTemp, min: temps.minTemp, max: temps.maxTemp },
+    }, 200);
+  } catch(e) {
+    return jsonResponse({ error: e.message }, 500);
   }
 }
 
@@ -170,6 +192,8 @@ export default {
         break;
       case 'brew_submit':
         return handleBrewSubmit(request, env);
+      case 'brew_stats':
+        return handleBrewStats(env);
     }
 
     try {
