@@ -2,8 +2,8 @@
   "hero": {
     "title": "咖啡冲煮的通用语言",
     "title_en": "The Universal Language for Coffee Brewing",
-    "subtitle": "一粒种子，为咖啡世界建立数字秩序",
-    "subtitle_en": "A seed that brings digital order to the world of coffee",
+    "subtitle": "An open standard that makes every brew recordable, shareable, and reproducible",
+    "subtitle_en": "An open standard that makes every brew recordable, shareable, and reproducible",
     "description": "BrewCode OS is an open-source project building a universal digital language for coffee brewing. Its core asset is an open JSON file format called .brew."
   },
   "buttons": {

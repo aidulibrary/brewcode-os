@@ -2,8 +2,8 @@
   "hero": {
     "title": "咖啡冲煮的通用语言",
     "title_en": "The Universal Language for Coffee Brewing",
-    "subtitle": "一粒种子，为咖啡世界建立数字秩序",
-    "subtitle_en": "A seed that brings digital order to the world of coffee",
+    "subtitle": "一套开放标准，让每一次冲煮都可被记录、分享与复现",
+    "subtitle_en": "An open standard that makes every brew recordable, shareable, and reproducible",
     "description": "BrewCode OS 是一个开源项目，为全球咖啡冲煮建立通用数字语言。核心资产是一个名为 .brew 的 JSON 标准文件格式。"
   },
   "buttons": {
