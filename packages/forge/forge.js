@@ -32,6 +32,10 @@ function refreshI18nTexts() {
       }
     }
   }
+  // 语言切换后，重新同步底部提交区与预览弹窗的校验图标/文字
+  if (typeof updateSubmitButtonState === 'function') {
+    updateSubmitButtonState();
+  }
 }
 window.refreshI18nTexts = refreshI18nTexts;
 
@@ -488,6 +492,8 @@ function updateSubmitButtonState() {
   if (status) {
     status.classList.toggle('valid', ok);
     status.classList.toggle('invalid', !ok);
+    var icon = status.querySelector('.sz-icon');
+    if (icon) icon.textContent = ok ? '✅' : '⚠️';
     var txt = status.querySelector('.sz-text');
     if (txt) txt.textContent = BrewCodeI18n.t(ok ? 'submit.valid' : 'submit.invalid');
   }
@@ -1567,7 +1573,10 @@ function openPreviewModal() {
       var ok = !!(bar && bar.classList.contains('valid'));
       st.classList.toggle('valid', ok);
       st.classList.toggle('invalid', !ok);
-      st.textContent = BrewCodeI18n.t(ok ? 'submit.valid' : 'submit.invalid');
+      var icon = st.querySelector('.pz-icon');
+      if (icon) icon.textContent = ok ? '✅' : '⚠️';
+      var txt = st.querySelector('.pz-text');
+      if (txt) txt.textContent = BrewCodeI18n.t(ok ? 'submit.valid' : 'submit.invalid');
     }
     var modal = document.getElementById('preview-modal');
     if (modal) modal.classList.remove('hidden');

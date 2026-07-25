@@ -1061,6 +1061,9 @@ input[type='number']::-webkit-outer-spin-button {
 
 /* 预览弹窗内的校验状态条 */
 .preview-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 10px;
@@ -1068,6 +1071,7 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: var(--radius, 10px);
   border: 1px solid transparent;
 }
+.preview-status .pz-icon { font-size: 15px; }
 .preview-status.valid {
   color: #2ecc71;
   background: rgba(46, 204, 113, 0.12);
