@@ -998,3 +998,43 @@ input[type='number']::-webkit-outer-spin-button {
   margin-top: 16px;
   text-align: center;
 }
+
+/* ================================================================
+ * 底部提交区（粘在视窗底部）：方案填写完毕后的终态发布动作
+ * ================================================================ */
+
+.submit-zone {
+  position: sticky;
+  bottom: 0;
+  z-index: 90;
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: var(--bg-card, #222244);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.submit-zone-hint {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.submit-zone-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* 校验未通过时提交按钮置灰、不可点 */
+.submit-zone .btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: var(--text-dim, #8888aa);
+  border-color: var(--text-dim, #8888aa);
+  color: #1a1a2e;
+}

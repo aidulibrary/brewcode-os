@@ -473,6 +473,16 @@ function updateValidationBar(errors) {
     }
     bar.querySelector('.val-details').innerHTML = html;
   }
+  updateSubmitButtonState();
+}
+
+/* 根据顶部校验状态控制“提交到方案库”按钮是否可点：只有校验通过（状态条为绿色）才允许提交 */
+function updateSubmitButtonState() {
+  var btn = document.getElementById('btn-submit-to-repo');
+  if (!btn) return;
+  var bar = document.getElementById('validation-bar');
+  // 状态条带 valid 类即表示校验通过；否则按钮置灰
+  btn.disabled = !(bar && bar.classList.contains('valid'));
 }
 
 /* ================================================================
@@ -2300,6 +2310,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.open(BrewCodeConfig.playerUrl + '?brew=' + json, '_blank');
   });
   $('#btn-toggle-code').addEventListener('click', toggleCodeMode);
+  $('#btn-preview-brew').addEventListener('click', toggleCodeMode);
 
   function generateBrewId() {
     return (
