@@ -66,6 +66,11 @@ jobs:
           test "$STATUS" = "404" || { echo "FAIL: expected 404, got $STATUS"; exit 1; }
           echo "PASS: $STATUS"
 
+          echo "=== /api/health → 200 (探活，第6节#4) ==="
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.礼字号.中国/api/health)
+          test "$STATUS" = "200" || { echo "FAIL: expected 200, got $STATUS"; exit 1; }
+          echo "PASS: $STATUS"
+
       - name: Smoke — bk_test Key 已死
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.礼字号.中国/diagnose \
@@ -89,6 +94,19 @@ jobs:
             test "$STATUS" = "200" || { echo "FAIL: $SITE → $STATUS"; exit 1; }
             echo "PASS: $SITE → 200"
           done
+
+      - name: Smoke — portal 关键内容一致性（防止回归到旧「诞生记」构建，第6节#4）
+        run: |
+          HTML=$(curl -s https://brewcode.礼字号.中国)
+          echo "$HTML" | grep -q "诞生纪" || { echo "FAIL: 首页缺少「诞生纪」文案，可能回退到旧构建"; exit 1; }
+          echo "PASS: 首页含「诞生纪」"
+
+      - name: Smoke — 白皮书按钮链接 200（防止 404 回归）
+        run: |
+          WHITEPAPER="https://github.com/aidulibrary/brewcode-os/blob/main/docs/BrewCode%20OS%20%E2%80%94%20%E8%AF%9E%E7%94%9F%E7%BA%AA/BrewCode%20OS%20%E7%99%BD%E7%9A%AE%E4%B9%A6%20%C2%B7%20%E5%BA%8F%E7%AB%A0"
+          STATUS=$(curl -sL -o /dev/null -w "%{http_code}" "$WHITEPAPER")
+          test "$STATUS" = "200" || { echo "FAIL: 白皮书链接 → $STATUS"; exit 1; }
+          echo "PASS: 白皮书链接 → 200"
 
   check-recipes-updated:
     runs-on: ubuntu-latest

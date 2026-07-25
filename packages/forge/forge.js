@@ -1330,7 +1330,7 @@ function submitToBrewRepo() {
   var encodedFilename = encodeURIComponent(filePath);
 
   var url =
-    'https://github.com/brewcode-os/brewcode-os/new/main' +
+    'https://github.com/aidulibrary/brewcode-os/new/main' +
     '?filename=' +
     encodedFilename +
     '&value=' +

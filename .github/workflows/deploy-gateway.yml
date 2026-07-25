@@ -1,0 +1,24 @@
+name: Deploy Gateway Worker
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'workers/gateway/**'
+      - '.github/workflows/deploy-gateway.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Deploy gateway worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          workingDirectory: workers/gateway
+          command: deploy --env production
