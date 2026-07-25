@@ -476,13 +476,21 @@ function updateValidationBar(errors) {
   updateSubmitButtonState();
 }
 
-/* 根据顶部校验状态控制“提交到方案库”按钮是否可点：只有校验通过（状态条为绿色）才允许提交 */
+/* 根据顶部校验状态控制“提交到方案库”按钮是否可点，并同步底部提交区的“通过/未通过”标示：
+   只有校验通过（状态条为绿色）才允许提交 */
 function updateSubmitButtonState() {
   var btn = document.getElementById('btn-submit-to-repo');
-  if (!btn) return;
+  var status = document.getElementById('submit-zone-status');
   var bar = document.getElementById('validation-bar');
-  // 状态条带 valid 类即表示校验通过；否则按钮置灰
-  btn.disabled = !(bar && bar.classList.contains('valid'));
+  // 状态条带 valid 类即表示校验通过；否则按钮置灰、标示转红
+  var ok = !!(bar && bar.classList.contains('valid'));
+  if (btn) btn.disabled = !ok;
+  if (status) {
+    status.classList.toggle('valid', ok);
+    status.classList.toggle('invalid', !ok);
+    var txt = status.querySelector('.sz-text');
+    if (txt) txt.textContent = BrewCodeI18n.t(ok ? 'submit.valid' : 'submit.invalid');
+  }
 }
 
 /* ================================================================
@@ -1553,6 +1561,14 @@ function openPreviewModal() {
     var jsonStr = JSON.stringify(buildBrewJSON(), null, 2);
     var pre = document.getElementById('preview-json');
     if (pre) pre.textContent = jsonStr;
+    var st = document.getElementById('preview-status');
+    if (st) {
+      var bar = document.getElementById('validation-bar');
+      var ok = !!(bar && bar.classList.contains('valid'));
+      st.classList.toggle('valid', ok);
+      st.classList.toggle('invalid', !ok);
+      st.textContent = BrewCodeI18n.t(ok ? 'submit.valid' : 'submit.invalid');
+    }
     var modal = document.getElementById('preview-modal');
     if (modal) modal.classList.remove('hidden');
   } catch (e) {
