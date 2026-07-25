@@ -945,7 +945,7 @@
         font-size: 20px;
         cursor: pointer;
       }
-      @media (max-width: 640px) {
+      @media (max-width: 860px) {
         .bc-navbar .bc-links {
           display: none;
           position: absolute;
@@ -2036,5 +2036,20 @@
 
 
     <script src="forge.js"></script>
+    <!-- 预览 .brew 文件弹窗：查看将要提交的 JSON，关闭即返回编辑，不破坏表单与提交按钮 -->
+    <div id="preview-modal" class="modal-overlay hidden">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <h3 data-i18n="submit.preview">预览 .brew 文件</h3>
+          <button id="btn-close-preview" class="btn-icon" type="button" aria-label="关闭">&times;</button>
+        </div>
+        <div class="modal-body">
+          <pre id="preview-json" class="preview-json"></pre>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-preview-back" class="btn btn-ghost" type="button" data-i18n="common.close">关闭</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

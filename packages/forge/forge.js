@@ -1544,6 +1544,27 @@ function toggleCodeMode() {
   }
 }
 
+/* 预览 .brew 文件：以弹窗展示将要提交的 JSON，不切换代码模式，
+   因此表单与底部“提交”按钮始终保留，关闭弹窗即返回编辑，无死路。 */
+function openPreviewModal() {
+  try {
+    collectFormToState();
+    collectResultToState();
+    var jsonStr = JSON.stringify(buildBrewJSON(), null, 2);
+    var pre = document.getElementById('preview-json');
+    if (pre) pre.textContent = jsonStr;
+    var modal = document.getElementById('preview-modal');
+    if (modal) modal.classList.remove('hidden');
+  } catch (e) {
+    console.error('预览生成失败：', e);
+  }
+}
+
+function closePreviewModal() {
+  var modal = document.getElementById('preview-modal');
+  if (modal) modal.classList.add('hidden');
+}
+
 /* ================================================================
  * AI 对话框 — 诊断 & 生成
  * ================================================================ */
@@ -2310,7 +2331,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.open(BrewCodeConfig.playerUrl + '?brew=' + json, '_blank');
   });
   $('#btn-toggle-code').addEventListener('click', toggleCodeMode);
-  $('#btn-preview-brew').addEventListener('click', toggleCodeMode);
+  $('#btn-preview-brew').addEventListener('click', openPreviewModal);
 
   function generateBrewId() {
     return (
@@ -2323,6 +2344,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // 底部下载按钮
+  $('#btn-close-preview').addEventListener('click', closePreviewModal);
+  $('#btn-preview-back').addEventListener('click', closePreviewModal);
+  $('#preview-modal').addEventListener('click', function (e) {
+    if (e.target === this) closePreviewModal();
+  });
   $('#btn-download-file').addEventListener('click', exportBrewFile);
 
   // 底部Player打开按钮
