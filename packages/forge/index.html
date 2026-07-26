@@ -210,7 +210,6 @@
             'field.口味偏好': '口味偏好',
             'button.export': '⬇ 导出 .brew',
             'button.submitToRepo': '📤 提交到 BrewRepo',
-            'submit.zoneHint': '填写完必填字段后，顶部状态条会显示“校验通过”，届时才能提交。',
             'submit.preview': '预览 .brew 文件',
             'button.openInPlayer': '▶ 在 Player 中打开',
             'button.aiDiagnose': '🔍 AI 诊断',
@@ -569,7 +568,6 @@
             'field.口味偏好': 'Flavor Preference',
             'button.export': '⬇ Export .brew',
             'button.submitToRepo': '📤 Submit to BrewRepo',
-            'submit.zoneHint': 'After you fill in all required fields, the status bar at the top shows "Validation Passed" — only then can you submit.',
             'submit.preview': 'Preview .brew file',
             'button.openInPlayer': '▶ Open in Player',
             'button.aiDiagnose': '🔍 AI Diagnose',
@@ -1784,11 +1782,10 @@
 
         <!-- 底部提交区：方案填写完毕后的终态发布动作，粘在视窗底部便于随时提交 -->
         <section class="submit-zone" id="submit-zone">
-          <div class="submit-zone-status invalid" id="submit-zone-status">
+          <div class="submit-zone-status" id="submit-zone-status">
             <span class="sz-icon">⚠️</span>
             <span class="sz-text" data-i18n="submit.invalid">还有必填项未通过，请先检查</span>
           </div>
-          <p class="submit-zone-hint" data-i18n="submit.zoneHint"></p>
           <div class="submit-zone-actions">
             <button id="btn-preview-brew" class="btn btn-ghost" type="button" data-i18n="submit.preview">预览 .brew 文件</button>
             <button id="btn-submit-to-repo" class="btn btn-primary" type="button" disabled data-i18n="button.submitToRepo">📤 提交到 BrewRepo</button>
