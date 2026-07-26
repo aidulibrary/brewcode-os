@@ -773,12 +773,88 @@ var BrewCodeI18n = (function () {
     },
   };
 
+  /* 读取 URL 上的 ?lang= 显式参数（分享链接场景） */
+  function urlLang() {
+    try {
+      var q = new URLSearchParams(window.location.search).get('lang');
+      if (q === 'zh' || q === 'en') return q;
+    } catch (e) {}
+    return null;
+  }
+
+  /* 读取用户手选并保存的语言（cookie 跨子站共享，localStorage 本站兜底） */
+  function readSavedLang() {
+    try {
+      var m = document.cookie.match(/(?:^|;\s*)brewcode_lang=(zh|en)/);
+      if (m) return m[1];
+    } catch (e) {}
+    try {
+      var s = localStorage.getItem('brewcode_lang');
+      if (s === 'zh' || s === 'en') return s;
+    } catch (e) {}
+    return null;
+  }
+
+  /*
+   * 默认语言判定——全站统一优先级链：
+   *   1. URL ?lang=            分享链接显式指定，最高优先
+   *   2. 用户手选保存的语言     cookie / localStorage，一旦手选永远尊重
+   *   3. 浏览器语言            zh* → 中文，其它 → 英文
+   *   4. 兜底默认              中文
+   * 第 5 层为异步渐进增强：Cloudflare 免费国家标记（loc=CN → 中文），
+   * 仅在用户从未手选语言时生效，见 autoEnhanceByCountry()。
+   */
   function detectLang() {
-    var q = new URLSearchParams(window.location.search).get('lang');
-    if (q === 'zh' || q === 'en') return q;
+    var q = urlLang();
+    if (q) return q;
+    var saved = readSavedLang();
+    if (saved) return saved;
     var nav = (navigator.language || '').toLowerCase();
-    if (nav.startsWith('zh')) return 'zh';
-    return 'en';
+    if (nav.indexOf('zh') === 0) return 'zh';
+    if (nav) return 'en';
+    return 'zh';
+  }
+
+  /*
+   * IP 国家渐进增强（不阻塞首屏、失败静默、永不覆盖用户手选）：
+   * 站点托管在 Cloudflare 上，/cdn-cgi/trace 免费返回访客国家代码（loc=CN 等），
+   * 无需任何第三方服务。若判定访客在中国大陆而当前非中文，则切换为中文。
+   */
+  function autoEnhanceByCountry() {
+    if (urlLang() || readSavedLang()) return;
+    if (typeof fetch !== 'function') return;
+    try {
+      fetch('/cdn-cgi/trace')
+        .then(function (r) {
+          return r.text();
+        })
+        .then(function (txt) {
+          var m = txt.match(/(?:^|\n)loc=([A-Z]+)/);
+          if (!m) return;
+          var want = m[1] === 'CN' ? 'zh' : null;
+          if (!want || lang === want) return;
+          if (readSavedLang()) return; /* 等待期间用户已手选，尊重 */
+          lang = want;
+          var btn = document.getElementById('bc-lang-btn');
+          if (btn) btn.textContent = lang === 'zh' ? 'EN' : '中';
+          if (typeof window.refreshI18nTexts === 'function') window.refreshI18nTexts();
+          try {
+            document.dispatchEvent(
+              new CustomEvent('brewcode:langchange', { detail: { lang: lang } })
+            );
+          } catch (e) {}
+        })
+        .catch(function () {});
+    } catch (e) {}
+  }
+
+  /* 模块加载即按优先级链判定初始语言（原为写死 'zh'） */
+  lang = detectLang();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autoEnhanceByCountry);
+  } else {
+    autoEnhanceByCountry();
   }
 
   function load(langOverride) {
