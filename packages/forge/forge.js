@@ -486,16 +486,18 @@ function updateSubmitButtonState() {
   var btn = document.getElementById('btn-submit-to-repo');
   var status = document.getElementById('submit-zone-status');
   var bar = document.getElementById('validation-bar');
-  // 状态条带 valid 类即表示校验通过；否则按钮置灰、标示转红
+  // 状态条带 valid 类即表示校验通过；校验通过时隐藏底部状态（可点的提交按钮本身就是通过信号），仅未通过时显示警告
   var ok = !!(bar && bar.classList.contains('valid'));
   if (btn) btn.disabled = !ok;
   if (status) {
     status.classList.toggle('valid', ok);
     status.classList.toggle('invalid', !ok);
-    var icon = status.querySelector('.sz-icon');
-    if (icon) icon.textContent = ok ? '✅' : '⚠️';
-    var txt = status.querySelector('.sz-text');
-    if (txt) txt.textContent = BrewCodeI18n.t(ok ? 'submit.valid' : 'submit.invalid');
+    if (!ok) {
+      var icon = status.querySelector('.sz-icon');
+      if (icon) icon.textContent = '⚠️';
+      var txt = status.querySelector('.sz-text');
+      if (txt) txt.textContent = BrewCodeI18n.t('submit.invalid');
+    }
   }
 }
 
@@ -1573,10 +1575,12 @@ function openPreviewModal() {
       var ok = !!(bar && bar.classList.contains('valid'));
       st.classList.toggle('valid', ok);
       st.classList.toggle('invalid', !ok);
-      var icon = st.querySelector('.pz-icon');
-      if (icon) icon.textContent = ok ? '✅' : '⚠️';
-      var txt = st.querySelector('.pz-text');
-      if (txt) txt.textContent = BrewCodeI18n.t(ok ? 'submit.valid' : 'submit.invalid');
+      if (!ok) {
+        var icon = st.querySelector('.pz-icon');
+        if (icon) icon.textContent = '⚠️';
+        var txt = st.querySelector('.pz-text');
+        if (txt) txt.textContent = BrewCodeI18n.t('submit.invalid');
+      }
     }
     var modal = document.getElementById('preview-modal');
     if (modal) modal.classList.remove('hidden');
