@@ -173,7 +173,9 @@
           setCookie(n, v);
         }
         var theme = getShared('brewcode_theme', 'dark');
-        var lang = getShared('brewcode_lang', 'zh');
+        var lang =
+          getShared('brewcode_lang', '') ||
+          (window.BrewCodeI18n ? BrewCodeI18n.getLang() : 'zh');
         function applyTheme(t) {
           document.documentElement.setAttribute('data-theme', t);
           document.querySelector('#bc-theme-btn').textContent = t === 'dark' ? '🌙' : '☀️';

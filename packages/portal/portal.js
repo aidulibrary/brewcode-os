@@ -162,14 +162,52 @@
     current: 'zh',
 
     get: function () {
+      /* 全站统一优先级链：URL > 用户手选(cookie/localStorage) > 浏览器语言 > 默认中文 */
       var q = new URLSearchParams(window.location.search).get('lang');
       if (q === 'zh' || q === 'en') return q;
+      var saved = this.getSaved();
+      if (saved) return saved;
+      var nav = (navigator.language || '').toLowerCase();
+      if (nav.indexOf('zh') === 0) return 'zh';
+      if (nav) return 'en';
+      return 'zh';
+    },
+
+    /* 仅返回用户显式指定/手选过的语言（URL/cookie/localStorage），否则 null */
+    getSaved: function () {
       var cookie = getCookie('brewcode_lang');
       if (cookie === 'zh' || cookie === 'en') return cookie;
       var stored = localStorage.getItem('brewcode_lang');
       if (stored === 'zh' || stored === 'en') return stored;
-      var nav = (navigator.language || '').toLowerCase();
-      return nav.startsWith('zh') ? 'zh' : 'en';
+      return null;
+    },
+
+    /*
+     * IP 国家渐进增强：Cloudflare 免费自带访客国家标记（/cdn-cgi/trace 的 loc 字段）。
+     * 仅当用户从未手选语言时生效；判定在中国大陆而当前非中文 → 切中文。
+     * 不阻塞首屏、失败静默、永不覆盖用户手选。
+     */
+    enhanceByCountry: function (onChange) {
+      var q = new URLSearchParams(window.location.search).get('lang');
+      if (q === 'zh' || q === 'en') return;
+      if (this.getSaved()) return;
+      if (typeof fetch !== 'function') return;
+      var self = this;
+      try {
+        fetch('/cdn-cgi/trace')
+          .then(function (r) {
+            return r.text();
+          })
+          .then(function (txt) {
+            var m = txt.match(/(?:^|\n)loc=([A-Z]+)/);
+            if (!m || m[1] !== 'CN') return;
+            if (self.current === 'zh' || self.getSaved()) return;
+            self.current = 'zh';
+            self.updateButton('zh');
+            if (typeof onChange === 'function') onChange('zh');
+          })
+          .catch(function () {});
+      } catch (e) {}
     },
 
     set: function (lang) {
@@ -221,6 +259,11 @@
     Lang.current = initialLang;
     Lang.updateButton(initialLang);
     renderI18n(initialLang);
+
+    /* 异步 IP 国家校正（只影响首次访问且未手选语言的访客） */
+    Lang.enhanceByCountry(function (l) {
+      renderI18n(l);
+    });
 
     var btn = document.getElementById('btn-lang');
     if (btn) {
