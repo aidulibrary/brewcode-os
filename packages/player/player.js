@@ -497,6 +497,11 @@
   if (submitBtn) {
     submitBtn.addEventListener('click', function () {
       if (!recipe) return;
+      if (!optInCheckbox || !optInCheckbox.checked) {
+        submitBtn.textContent = '请先勾选「贡献匿名数据」';
+        setTimeout(function () { submitBtn.textContent = '贡献匿名数据'; }, 2500);
+        return;
+      }
       var r = recipe.result || {};
       var c = recipe.coffee || {};
       var e = recipe.equipment || {};
