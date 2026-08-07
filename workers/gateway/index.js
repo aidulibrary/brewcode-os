@@ -1,3 +1,4 @@
+// M2 verify: CF_API_TOKEN CI test
 const AUTH_HEADER = 'Authorization';
 const BEARER_PREFIX = 'Bearer bk_';
 
